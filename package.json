@@ -1,0 +1,42 @@
+{
+  "name": "alinex-fs",
+  "version": "0.0.0",
+  "description": "",
+  "copyright": "Alexander Schilling 2014",
+  "private": false,
+  "keywords": "",
+  "homepage": "http://alinex.github.io/node-fs/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alinex/node-fs"
+  },
+  "bugs": "https://github.com/alinex/node-fs/issues",
+  "author": {
+    "name": "Alexander Schilling",
+    "email": "info@alinex.de",
+    "web": "http://alinex.de"
+  },
+  "contributors": [],
+  "license": "Apache-2.0",
+  "main": "./lib/index.js",
+  "scripts": {
+    "prepublish": "node_modules/.bin/coffee -c -m -o lib src",
+    "test": "node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c"
+  },
+  "directories": {
+    "lib": "./lib"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "coffee-script": ">=1.7.0",
+    "mocha": "1.x",
+    "chai": "1.x",
+    "istanbul": "0.2.x",
+    "coveralls": "2.x"
+  },
+  "optionalDependencies": {},
+  "engines": {
+    "node": ">=0.10"
+  },
+  "os": []
+}
