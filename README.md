@@ -1,15 +1,20 @@
 Package: alinex-fs
 =================================================
 
-[![Build Status] (https://travis-ci.org/alinex/node-fs.svg?branch=master)](https://travis-ci.org/alinex/node-fs) 
+[![Build Status] (https://travis-ci.org/alinex/node-fs.svg?branch=master)](https://travis-ci.org/alinex/node-fs)
 [![Coverage Status] (https://coveralls.io/repos/alinex/node-fs/badge.png?branch=master)](https://coveralls.io/r/alinex/node-fs?branch=master)
 [![Dependency Status] (https://gemnasium.com/alinex/node-fs.png)](https://gemnasium.com/alinex/node-fs)
 
-Description comes here...
+Like some other packages this module adds some functions to the nodes fs package.
+It's design as a drop-in replacement.
 
 
 Install
 -------------------------------------------------
+
+The easiest way is to let npm add the module directly:
+
+    > npm install alinex-fs --save
 
 [![NPM](https://nodei.co/npm/alinex-fs.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-fs/)
 

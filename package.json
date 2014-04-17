@@ -1,7 +1,7 @@
 {
   "name": "alinex-fs",
   "version": "0.0.0",
-  "description": "",
+  "description": "Extension of nodes filesystem tools.",
   "copyright": "Alexander Schilling 2014",
   "private": false,
   "keywords": "",
@@ -20,19 +20,22 @@
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "scripts": {
-    "prepublish": "node_modules/.bin/coffee -c -m -o lib src",
+    "prepublish": "node_modules/.bin/alinex-make compile",
     "test": "node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c"
   },
   "directories": {
     "lib": "./lib"
   },
-  "dependencies": {},
+  "dependencies": {
+    "alinex-error": "~0.2.1"
+  },
   "devDependencies": {
     "coffee-script": ">=1.7.0",
     "mocha": "1.x",
     "chai": "1.x",
     "istanbul": "0.2.x",
-    "coveralls": "2.x"
+    "coveralls": "2.x",
+    "alinex-make": "0.2.x"
   },
   "optionalDependencies": {},
   "engines": {

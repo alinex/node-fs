@@ -2,7 +2,6 @@
 .settings
 .DS_Store
 *.sublime-*
-bin/develop
 coverage
 data
 doc
