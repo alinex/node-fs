@@ -4,7 +4,7 @@
   "description": "Extension of nodes filesystem tools.",
   "copyright": "Alexander Schilling 2014",
   "private": false,
-  "keywords": "",
+  "keywords": [],
   "homepage": "http://alinex.github.io/node-fs/",
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "prepublish": "node_modules/.bin/alinex-make compile",
-    "test": "node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c"
+    "test": "node_modules/.bin/alinex-make test"
   },
   "directories": {
     "lib": "./lib"
@@ -30,12 +30,8 @@
     "alinex-error": "~0.2.1"
   },
   "devDependencies": {
-    "coffee-script": ">=1.7.0",
-    "mocha": "1.x",
-    "chai": "1.x",
-    "istanbul": "0.2.x",
-    "coveralls": "2.x",
-    "alinex-make": "0.2.x"
+    "alinex-make": "0.2.x",
+    "chai": "1.x"
   },
   "optionalDependencies": {},
   "engines": {

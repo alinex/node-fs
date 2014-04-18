@@ -4,7 +4,7 @@ require('alinex-error').install()
 
 describe "Recursive mkdirs", ->
 
-  fs = require '../lib/index.js'
+  fs = require '../../lib/index.js'
 
   it "should do nothing if dir exists", ->
     fs.mkdirs 'test', (err, made) ->
