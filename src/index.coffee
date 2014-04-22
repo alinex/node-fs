@@ -25,7 +25,7 @@ path = require 'path'
 #
 # The additional parameter `made` contains the first directory to be created
 # and is only used internally.
-mkdirs = module.exports.mkdirs = (dir, mode, cb, made) ->
+mkdirs = module.exports.mkdirs = (dir, mode, cb) ->
   # get parameter and default values
   if typeof mode is 'function' or not mode
     cb = mode
@@ -35,15 +35,18 @@ mkdirs = module.exports.mkdirs = (dir, mode, cb, made) ->
   dir = path.resolve dir
   # try to create directory
   fs.mkdir dir, mode, (err) ->
+    # return on success
     return cb? null, made ? dir unless err
     # parent directory missing
     if err.code is 'ENOENT'
-      mkdirs path.dirname dir, mode, (err, made) ->
+      mkdirs path.dirname(dir), mode, (err, made) ->
         return cb? err, made if err
-        return mkdirs dir, mode, cb, made
-    # directory already exists
+        # try again if parent was successful created
+        mkdirs dir, mode, cb
     else if err.code is 'EEXIST'
+      # directory already exists
       return cb? null, made
-    # other error let's fail the action
-    cb? err, made
+    else
+      # other error let's fail the action
+      cb? err, made
 

@@ -40,7 +40,7 @@ describe "Recursive mkdirs", ->
     expect(fs.existsSync('test/temp'), 'precheck').to.be.false
     fs.mkdirs 'test/temp/with/multiple/dirs', (err, made) ->
       expect(err, 'error').to.be.null
-      expect(made, 'made dir').to.be.null
+      expect(made, 'made dir').to.not.be.null
       expect(fs.existsSync('test/temp'), 'postcheck').to.be.true
       expect(fs.existsSync('test/temp/with'), 'postcheck').to.be.true
       expect(fs.existsSync('test/temp/with/multiple'), 'postcheck').to.be.true
