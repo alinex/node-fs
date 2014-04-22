@@ -19,6 +19,29 @@ The easiest way is to let npm add the module directly:
 [![NPM](https://nodei.co/npm/alinex-fs.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-fs/)
 
 
+Usage
+-------------------------------------------------
+
+To use this enhanced filesystem library change your require line from:
+
+    var fs = require('fs');
+
+to the following:
+
+    var fs = require('alinex-fs');
+
+After this you may use the [standard functions](http://nodejs.org/api/fs.html) 
+and the following extended functions
+
+* [mkdirs](#mkdirs) and [mkdirsSync](#mkdirssync)
+  to make directories like needed (including parent ones)
+
+### mkdirs
+
+
+### mkdirsSync
+
+
 License
 -------------------------------------------------
 
