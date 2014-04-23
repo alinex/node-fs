@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "", thisFile = "home/alex/a3/node-fs/README.md", defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+  <script src="fileSearch.js"></script>
+  <script src="goToLine.js"></script>
+  <link rel="stylesheet" href="fileSearch.css" />
+  <link rel="stylesheet" href="goToLine.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#package%3A%20alinex-fs">Package: alinex-fs</a>
+      </div>
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+      <div class="heading h3">
+        <a href="#mkdirs">mkdirs</a>
+      </div>
+      <div class="heading h3">
+        <a href="#mkdirssync">mkdirsSync</a>
+      </div>
+      <div class="heading h3">
+        <a href="#remove">remove</a>
+      </div>
+      <div class="heading h3">
+        <a href="#removesync">removeSync</a>
+      </div>
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="docs markdown">
+<div class="pilwrap" id="package%3A%20alinex-fs">
+  <h1>
+    <a href="#package%3A%20alinex-fs" name="package%3A%20alinex-fs" class="pilcrow">&#182;</a>
+    Package: alinex-fs
+  </h1>
+</div>
+
+
+<p><a href="https://travis-ci.org/alinex/node-fs"><img src="https://travis-ci.org/alinex/node-fs.svg?branch=master" alt="Build Status" title="" /></a>
+<a href="https://coveralls.io/r/alinex/node-fs?branch=master"><img src="https://coveralls.io/repos/alinex/node-fs/badge.png?branch=master" alt="Coverage Status" title="" /></a>
+<a href="https://gemnasium.com/alinex/node-fs"><img src="https://gemnasium.com/alinex/node-fs.png" alt="Dependency Status" title="" /></a></p>
+
+<p>Like some other packages this module adds some functions to the nodes fs package.
+It's design as a drop-in replacement.</p>
+
+
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow">&#182;</a>
+    Install
+  </h2>
+</div>
+
+
+<p>The easiest way is to let npm add the module directly:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">fs</span> <span class="o">--</span><span class="nx">save</span>
+</code></pre></div>
+
+
+
+<p><a href="https://nodei.co/npm/alinex-fs/"><img src="https://nodei.co/npm/alinex-fs.png?downloads=true&amp;stars=true" alt="NPM" title="" /></a></p>
+
+
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
+    Usage
+  </h2>
+</div>
+
+
+<p>To use this enhanced filesystem library change your require line from:</p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+
+
+<p>to the following:</p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+
+
+<p>After this you may use the <a href="http://nodejs.org/api/fs.html">standard functions</a> 
+and the following extended functions:</p>
+
+<ul>
+<li><a href="#mkdirs">mkdirs</a> and <a href="#mkdirssync">mkdirsSync</a>
+to make directories like needed (including parent ones)</li>
+<li><a href="#remove">remove</a> and <a href="#removesync">removeSync</a>
+to remove a file entry with all it's children, if existing</li>
+</ul>
+
+<p>Like you see all the extended functions use the same naming convention as the 
+node core, making the use nearly natural.</p>
+
+<p>But you can still use the native Node.js methods, also.</p>
+
+
+<div class="pilwrap" id="mkdirs">
+  <h3>
+    <a href="#mkdirs" name="mkdirs" class="pilcrow">&#182;</a>
+    mkdirs
+  </h3>
+</div>
+
+
+<p>This method is used to create directories recursively if they don't exist.
+That means if the parent directory didn't exist it will also be created, if 
+possible.</p>
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>directory</code>
+Directory to create if not existing.</li>
+<li><code>mode</code> (optional)
+Mode setting defaults to process's file mode creation mask.</li>
+<li><code>callback(err, made)</code>
+The callback will be called just if an error occurred. It returns the first
+directory that had to be created, if any.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirs</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">made</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">made</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory starting from &#39;&quot;</span><span class="o">+</span><span class="nx">made</span><span class="o">+</span><span class="s2">&quot;&#39; was created.&quot;</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory now exists!&quot;</span><span class="p">)</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="mkdirssync">
+  <h3>
+    <a href="#mkdirssync" name="mkdirssync" class="pilcrow">&#182;</a>
+    mkdirsSync
+  </h3>
+</div>
+
+
+<p>This will do the same as <code>mkdirs</code> but in an synchronous version.</p>
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>directory</code>
+Directory to create if not existing.</li>
+<li><code>mode</code> (optional)
+Mode setting defaults to process's file mode creation mask.</li>
+</ul>
+
+<p><strong>Return:</strong></p>
+
+<ul>
+<li><code>made</code>
+Returns the directory that had to be created, if any.</li>
+</ul>
+
+<p><strong>Throw:</strong></p>
+
+<ul>
+<li><code>Error</code>
+If anything out of order happened.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
+<span class="k">try</span> <span class="p">{</span>
+  <span class="nx">made</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirsSync</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">made</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory starting from &#39;&quot;</span><span class="o">+</span><span class="nx">made</span><span class="o">+</span><span class="s2">&quot;&#39; was created.&quot;</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory now exists!&quot;</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="remove">
+  <h3>
+    <a href="#remove" name="remove" class="pilcrow">&#182;</a>
+    remove
+  </h3>
+</div>
+
+
+<p>This method will remove the given <code>path</code> entry and if it is a directory it
+will also remove any containing data.</p>
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>path</code>
+File or directory to be removed.</li>
+<li><code>callback(err, removed)</code>
+The callback will be called just if an error occurred. It returns the
+file entry which was removed, if any.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">removed</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">removed</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory &#39;&quot;</span><span class="o">+</span><span class="nx">removed</span><span class="o">+</span><span class="s2">&quot;&#39; was removed with all it&#39;s contents.&quot;</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory no longer exists!&quot;</span><span class="p">)</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="removesync">
+  <h3>
+    <a href="#removesync" name="removesync" class="pilcrow">&#182;</a>
+    removeSync
+  </h3>
+</div>
+
+
+<p>This will do the same as <code>remove</code> but in an synchronous version.</p>
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>path</code>
+File or directory to create if not existing.</li>
+</ul>
+
+<p><strong>Return:</strong></p>
+
+<ul>
+<li><code>removed</code>
+Returns the file entry which was removed.</li>
+</ul>
+
+<p><strong>Throw:</strong></p>
+
+<ul>
+<li><code>Error</code>
+If anything out of order happened.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
+<span class="k">try</span> <span class="p">{</span>
+  <span class="nx">made</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">removeSync</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">made</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory &#39;&quot;</span><span class="o">+</span><span class="nx">made</span><span class="o">+</span><span class="s2">&quot;&#39; was removed with all it&#39;s contents.&quot;</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory no longer exists!&quot;</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow">&#182;</a>
+    License
+  </h2>
+</div>
+
+
+<p>Copyright 2014 Alexander Schilling</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+
+<blockquote>
+  <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+</blockquote>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p></div>
+  </div>
+</body>
+</html>
