@@ -21,36 +21,36 @@ async = require 'async'
 # * `callback(err, removed)`
 #   The callback will be called just if an error occurred. It returns the
 #   file entry which was removed, if any.
-remove = module.exports.remove = (file, cb) ->
+remove = module.exports.remove = (file, cb = ->) ->
   # get parameter and default values
   file = path.resolve file
   fs.unlink file, (err) ->
     # correctly removed
-    return cb? null, file unless err
+    return cb null, file unless err
     # already removed
-    return cb? null if err.code is 'ENOENT'
+    return cb null if err.code is 'ENOENT'
     # some other problem, give up (EPERM on MacOSX)
-    return cb? err unless err.code is 'EISDIR' or 'EPERM'
+    return cb err unless err.code is 'EISDIR' or 'EPERM'
     # it's a directory
     dir = file
     # try to remove directory
     fs.rmdir dir, (err) ->
       # correctly removed
-      return cb? null, dir unless err
+      return cb null, dir unless err
       # some other problem, give up
-      return cb? err unless err.code is 'ENOTEMPTY'
+      return cb err unless err.code is 'ENOTEMPTY'
       # directory not empty
       fs.readdir dir, (err, files) ->
-        return cb? err if err
+        return cb err if err
         # remove all entries in directory
         async.each files, (file, cb) ->
           remove path.join(dir, file), cb
         , (err) ->
-          return cb? err if err
+          return cb err if err
           # try to remove upper directory again
           fs.rmdir dir, (err) ->
-            return cb? err if err
-            cb? null, dir
+            return cb err if err
+            cb null, dir
 
 
 # Remove path recursively (Synchronous)

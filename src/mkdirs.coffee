@@ -22,7 +22,7 @@ path = require 'path'
 # * `callback(err, made)`
 #   The callback will be called just if an error occurred. It returns the first
 #   directory that had to be created, if any.
-mkdirs = module.exports.mkdirs = (dir, mode, cb) ->
+mkdirs = module.exports.mkdirs = (dir, mode, cb = -> ) ->
   # get parameter and default values
   if typeof mode is 'function' or not mode
     cb = mode
@@ -32,20 +32,20 @@ mkdirs = module.exports.mkdirs = (dir, mode, cb) ->
   # try to create directory
   fs.mkdir dir, mode, (err) ->
     # return on success
-    return cb? null, dir ? dir unless err
+    return cb null, dir ? dir unless err
     if err.code is 'ENOENT'
       # parent directory missing
       mkdirs path.dirname(dir), mode, (err, made) ->
-        return cb? err, made if err
+        return cb err, made if err
         # try again if parent was successful created
         fs.mkdir dir, mode, (err) ->
-          cb? err, made
+          cb err, made
     else if err.code is 'EEXIST'
       # directory already exists
-      return cb?()
+      return cb()
     else
       # other error let's fail the action
-      cb? err
+      cb err
 
 
 # Make dirs recursively (Synchronous)
