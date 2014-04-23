@@ -4,7 +4,10 @@
   "description": "Extension of nodes filesystem tools.",
   "copyright": "Alexander Schilling 2014",
   "private": false,
-  "keywords": ["file", "filesystem"],
+  "keywords": [
+    "file",
+    "filesystem"
+  ],
   "homepage": "http://alinex.github.io/node-fs/",
   "repository": {
     "type": "git",
@@ -27,7 +30,8 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-error": "~0.2.1"
+    "alinex-error": "0.x",
+    "async": "0.x"
   },
   "devDependencies": {
     "alinex-make": "0.2.x",

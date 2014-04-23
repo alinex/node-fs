@@ -15,6 +15,11 @@ describe "Recursive mkdirs", ->
       return cb() unless exists
       exec 'rm -r test/temp', cb
 
+  afterEach (cb) ->
+    fs.exists 'test/temp', (exists) ->
+      return cb() unless exists
+      exec 'rm -r test/temp', cb
+
   describe "asynchronous", ->
 
     it "should do nothing if dir exists", (cb) ->
