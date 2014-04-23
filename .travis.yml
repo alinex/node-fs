@@ -3,4 +3,4 @@ node_js:
    - "0.11"
    - "0.10"
 after_success:
-   - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=haQKkRgwLHbwX1dp8ltFXFTPO48c5EEWo node_modules/.bin/alinex-make test -c --coverall
+   - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=bOsNVcF2rXYY25lOxz8TqnyWCOSRqfdGD node_modules/.bin/alinex-make test -c --coverall
