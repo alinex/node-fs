@@ -29,8 +29,8 @@ remove = module.exports.remove = (file, cb) ->
     return cb? null, file unless err
     # already removed
     return cb? null if err.code is 'ENOENT'
-    # some other problem, give up
-    return cb? err unless err.code is 'EISDIR'
+    # some other problem, give up (EPERM on MacOSX)
+    return cb? err unless err.code is 'EISDIR' or 'EPERM'
     # it's a directory
     dir = file
     # try to remove directory
@@ -81,8 +81,8 @@ removeSync = module.exports.removeSync = (file) ->
   catch err
     # already removed
     return null if err.code is 'ENOENT'
-    # some other problem
-    throw err unless err.code is 'EISDIR'
+    # some other problem (EPERM on MacOSX)
+    throw err unless err.code is 'EISDIR' or 'EPERM'
     # it's a directory
     dir = file
     try
