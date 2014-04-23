@@ -20,3 +20,12 @@ fs.mkdirsSync = mkdirs.mkdirsSync
 remove = require './remove'
 fs.remove = remove.remove
 fs.removeSync = remove.removeSync
+
+# ### Copy file or directory
+copy = require './copy'
+fs.copy = copy.copy
+#fs.copySync = copy.copySync
+
+# meta
+# find
+# npmBin
