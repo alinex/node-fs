@@ -6,7 +6,9 @@ Package: alinex-fs
 [![Dependency Status] (https://gemnasium.com/alinex/node-fs.png)](https://gemnasium.com/alinex/node-fs)
 
 Like some other packages this module adds some functions to the nodes fs package.
-It's design as a drop-in replacement.
+It's design as a drop-in replacement. It uses also
+[graceful-fs](https://github.com/isaacs/node-graceful-fs)
+to normalize behavior across different platforms and environments, and to make filesystem access more resilient to errors.
 
 
 Install
@@ -30,7 +32,7 @@ to the following:
 
     var fs = require('alinex-fs');
 
-After this you may use the [standard functions](http://nodejs.org/api/fs.html) 
+After this you may use the [standard functions](http://nodejs.org/api/fs.html)
 and the following extended functions:
 
 * [mkdirs](#mkdirs) and [mkdirsSync](#mkdirssync)
@@ -38,7 +40,7 @@ and the following extended functions:
 * [remove](#remove) and [removeSync](#removesync)
   to remove a file entry with all it's children, if existing
 
-Like you see all the extended functions use the same naming convention as the 
+Like you see all the extended functions use the same naming convention as the
 node core, making the use nearly natural.
 
 But you can still use the native Node.js methods, also.
@@ -47,7 +49,7 @@ But you can still use the native Node.js methods, also.
 ### mkdirs
 
 This method is used to create directories recursively if they don't exist.
-That means if the parent directory didn't exist it will also be created, if 
+That means if the parent directory didn't exist it will also be created, if
 possible.
 
 __Arguments:__

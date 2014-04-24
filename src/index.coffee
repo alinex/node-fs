@@ -5,7 +5,7 @@
 # -------------------------------------------------
 
 # include base modules
-fs = module.exports = require 'fs'
+fs = module.exports = require 'graceful-fs'
 path = require 'path'
 
 # Add extended functionality
