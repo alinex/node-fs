@@ -10,6 +10,9 @@ It's design as a drop-in replacement. It uses also
 [graceful-fs](https://github.com/isaacs/node-graceful-fs)
 to normalize behavior across different platforms and environments, and to make filesystem access more resilient to errors.
 
+It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
+following the code standards defined there.
+
 
 Install
 -------------------------------------------------

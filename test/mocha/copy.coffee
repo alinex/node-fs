@@ -6,7 +6,7 @@ describe "Recursive copy", ->
 
   fs = require '../../lib/index.js'
 
-  describe "asynchronous", ->
+  describe.skip "asynchronous", ->
 
     it "should fail if source don't exist", (cb) ->
     it "should copy single file", (cb) ->

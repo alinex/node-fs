@@ -21,9 +21,14 @@ remove = require './remove'
 fs.remove = remove.remove
 fs.removeSync = remove.removeSync
 
+# ### Find files
+find = require './find'
+fs.find = find.find
+#fs.findSync = find.findSync
+
 # ### Copy file or directory
-copy = require './copy'
-fs.copy = copy.copy
+#copy = require './copy'
+#fs.copy = copy.copy
 #fs.copySync = copy.copySync
 
 # meta

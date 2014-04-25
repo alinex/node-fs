@@ -53,16 +53,16 @@ copy = module.exports.copy = (source, target, cb = -> ) ->
           , cb
 
 copyFile = (source, stats, target, cb) ->
-    # open streams
-    rs = fs.createReadStream source
-    ws = fs.createWriteStream target
-      mode: stats.mode
-    # copy data
-    ws.on 'error', done
-    ws.on 'close', -> done()
-    rs.pipe ws
-    # send callback only once
-    done = (err) ->
-      cb err unless cbCalled
-      cbCalled = true
+  # open streams
+  rs = fs.createReadStream source
+  ws = fs.createWriteStream target
+    mode: stats.mode
+  # copy data
+  ws.on 'error', done
+  ws.on 'close', -> done()
+  rs.pipe ws
+  # send callback only once
+  done = (err) ->
+    cb err unless cbCalled
+    cbCalled = true
 
