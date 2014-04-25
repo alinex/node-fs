@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-fs/README.md", defaultSidebar = true;
+    var relativeDir = "", thisFile = "Users/alex/a3/node-fs/README.md", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -49,7 +49,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><div class="docs markdown">
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-fs" title="Form me on GitHub"></a><div class="docs markdown">
 <div class="pilwrap" id="package%3A%20alinex-fs">
   <h1>
     <a href="#package%3A%20alinex-fs" name="package%3A%20alinex-fs" class="pilcrow">&#182;</a>
@@ -63,7 +63,9 @@
 <a href="https://gemnasium.com/alinex/node-fs"><img src="https://gemnasium.com/alinex/node-fs.png" alt="Dependency Status" title="" /></a></p>
 
 <p>Like some other packages this module adds some functions to the nodes fs package.
-It's design as a drop-in replacement.</p>
+It's design as a drop-in replacement. It uses also
+<a href="https://github.com/isaacs/node-graceful-fs">graceful-fs</a>
+to normalize behavior across different platforms and environments, and to make filesystem access more resilient to errors.</p>
 
 
 <div class="pilwrap" id="install">
@@ -109,7 +111,7 @@ It's design as a drop-in replacement.</p>
 
 
 
-<p>After this you may use the <a href="http://nodejs.org/api/fs.html">standard functions</a> 
+<p>After this you may use the <a href="http://nodejs.org/api/fs.html">standard functions</a>
 and the following extended functions:</p>
 
 <ul>
@@ -119,7 +121,7 @@ to make directories like needed (including parent ones)</li>
 to remove a file entry with all it's children, if existing</li>
 </ul>
 
-<p>Like you see all the extended functions use the same naming convention as the 
+<p>Like you see all the extended functions use the same naming convention as the
 node core, making the use nearly natural.</p>
 
 <p>But you can still use the native Node.js methods, also.</p>
@@ -134,7 +136,7 @@ node core, making the use nearly natural.</p>
 
 
 <p>This method is used to create directories recursively if they don't exist.
-That means if the parent directory didn't exist it will also be created, if 
+That means if the parent directory didn't exist it will also be created, if
 possible.</p>
 
 <p><strong>Arguments:</strong></p>

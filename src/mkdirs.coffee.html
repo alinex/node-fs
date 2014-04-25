@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-fs/src/mkdirs.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/alex/a3/node-fs/src/mkdirs.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -37,7 +37,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><div class="background highlight"></div>
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-fs" title="Form me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -110,7 +110,7 @@ directory that had to be created, if any.</li>
 </ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">mkdirs = module.exports.mkdirs = </span><span class="nf">(dir, mode, cb) -&gt;</span>
+<span class="nv">mkdirs = module.exports.mkdirs = </span><span class="nf">(dir, mode, cb = -&gt; ) -&gt;</span>
 
 </pre></div>
         </td>
@@ -153,7 +153,7 @@ directory that had to be created, if any.</li>
 <p>return on success</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">dir</span> <span class="o">?</span> <span class="nx">dir</span> <span class="k">unless</span> <span class="nx">err</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">dir</span> <span class="o">?</span> <span class="nx">dir</span> <span class="k">unless</span> <span class="nx">err</span>
     <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;ENOENT&#39;</span>
 
 </pre></div>
@@ -168,7 +168,7 @@ directory that had to be created, if any.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nx">mkdirs</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">dir</span><span class="p">),</span> <span class="nx">mode</span><span class="p">,</span> <span class="nf">(err, made) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">made</span> <span class="k">if</span> <span class="nx">err</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">made</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
         </td>
@@ -182,7 +182,7 @@ directory that had to be created, if any.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
         <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdir</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">mode</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-          <span class="nx">cb</span><span class="o">?</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">made</span>
+          <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">made</span>
     <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;EEXIST&#39;</span>
 
 </pre></div>
@@ -196,7 +196,7 @@ directory that had to be created, if any.</li>
 <p>directory already exists</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span><span class="p">()</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
     <span class="k">else</span>
 
 </pre></div>
@@ -210,7 +210,7 @@ directory that had to be created, if any.</li>
 <p>other error let's fail the action</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">cb</span><span class="o">?</span> <span class="nx">err</span>
+      <span class="nx">cb</span> <span class="nx">err</span>
 
 
 

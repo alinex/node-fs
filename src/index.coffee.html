@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-fs/src/index.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/alex/a3/node-fs/src/index.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -37,10 +37,13 @@
       <div class="heading h3">
         <a href="#remove%20of%20entry%20with%20subentries">Remove of entry with subentries</a>
       </div>
+      <div class="heading h3">
+        <a href="#copy%20file%20or%20directory">Copy file or directory</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><div class="background highlight"></div>
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-fs" title="Form me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -80,7 +83,7 @@
 <p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">fs = module.exports = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
+<span class="nv">fs = module.exports = </span><span class="nx">require</span> <span class="s">&#39;graceful-fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 
 
@@ -136,6 +139,51 @@
 <span class="nv">remove = </span><span class="nx">require</span> <span class="s">&#39;./remove&#39;</span>
 <span class="nv">fs.remove = </span><span class="nx">remove</span><span class="p">.</span><span class="nx">remove</span>
 <span class="nv">fs.removeSync = </span><span class="nx">remove</span><span class="p">.</span><span class="nx">removeSync</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="copy%20file%20or%20directory">
+  <h3>
+    <a href="#copy%20file%20or%20directory" name="copy%20file%20or%20directory" class="pilcrow">&#182;</a>
+    Copy file or directory
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">copy = </span><span class="nx">require</span> <span class="s">&#39;./copy&#39;</span>
+<span class="nv">fs.copy = </span><span class="nx">copy</span><span class="p">.</span><span class="nx">copy</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>fs.copySync = copy.copySync</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>meta
+find
+npmBin</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 </pre></div>
         </td>
       </tr>

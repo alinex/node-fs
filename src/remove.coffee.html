@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-fs/src/remove.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/alex/a3/node-fs/src/remove.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -37,7 +37,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><div class="background highlight"></div>
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-fs" title="Form me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -109,7 +109,7 @@ file entry which was removed, if any.</li>
 </ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">remove = module.exports.remove = </span><span class="nf">(file, cb) -&gt;</span>
+<span class="nv">remove = module.exports.remove = </span><span class="nf">(file, cb = -&gt;) -&gt;</span>
 
 </pre></div>
         </td>
@@ -136,7 +136,7 @@ file entry which was removed, if any.</li>
 <p>correctly removed</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">file</span> <span class="k">unless</span> <span class="nx">err</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">file</span> <span class="k">unless</span> <span class="nx">err</span>
 
 </pre></div>
         </td>
@@ -149,7 +149,7 @@ file entry which was removed, if any.</li>
 <p>already removed</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span> <span class="kc">null</span> <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;ENOENT&#39;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span> <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;ENOENT&#39;</span>
 
 </pre></div>
         </td>
@@ -159,10 +159,10 @@ file entry which was removed, if any.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
 </div>
-<p>some other problem, give up</p>
+<p>some other problem, give up (EPERM on MacOSX)</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span> <span class="nx">err</span> <span class="k">unless</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;EISDIR&#39;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">unless</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;EISDIR&#39;</span> <span class="o">or</span> <span class="s">&#39;EPERM&#39;</span>
 
 </pre></div>
         </td>
@@ -201,7 +201,7 @@ file entry which was removed, if any.</li>
 <p>correctly removed</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">dir</span> <span class="k">unless</span> <span class="nx">err</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">dir</span> <span class="k">unless</span> <span class="nx">err</span>
 
 </pre></div>
         </td>
@@ -214,7 +214,7 @@ file entry which was removed, if any.</li>
 <p>some other problem, give up</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span> <span class="nx">err</span> <span class="k">unless</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;ENOTEMPTY&#39;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">unless</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;ENOTEMPTY&#39;</span>
 
 </pre></div>
         </td>
@@ -228,7 +228,7 @@ file entry which was removed, if any.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span> <span class="nx">dir</span><span class="p">,</span> <span class="nf">(err, files) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
         </td>
@@ -244,7 +244,7 @@ file entry which was removed, if any.</li>
         <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">files</span><span class="p">,</span> <span class="nf">(file, cb) -&gt;</span>
           <span class="nx">remove</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">cb</span>
         <span class="p">,</span> <span class="nf">(err) -&gt;</span>
-          <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
         </td>
@@ -258,8 +258,8 @@ file entry which was removed, if any.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
           <span class="nx">fs</span><span class="p">.</span><span class="nx">rmdir</span> <span class="nx">dir</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-            <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-            <span class="nx">cb</span><span class="o">?</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">dir</span>
+            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+            <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">dir</span>
 
 
 
@@ -352,10 +352,10 @@ If anything out of order happened.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
 </div>
-<p>some other problem</p>
+<p>some other problem (EPERM on MacOSX)</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">throw</span> <span class="nx">err</span> <span class="k">unless</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;EISDIR&#39;</span>
+    <span class="k">throw</span> <span class="nx">err</span> <span class="k">unless</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;EISDIR&#39;</span> <span class="o">or</span> <span class="s">&#39;EPERM&#39;</span>
 
 </pre></div>
         </td>
