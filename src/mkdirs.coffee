@@ -22,7 +22,7 @@ path = require 'path'
 # * `callback(err, made)`
 #   The callback will be called just if an error occurred. It returns the first
 #   directory that had to be created, if any.
-mkdirs = module.exports.mkdirs = (dir, mode, cb = -> ) ->
+mkdirs = module.exports.async = (dir, mode, cb = -> ) ->
   # get parameter and default values
   if typeof mode is 'function' or not mode
     cb = mode
@@ -69,7 +69,7 @@ mkdirs = module.exports.mkdirs = (dir, mode, cb = -> ) ->
 #
 # * `Error`
 #   If anything out of order happened.
-mkdirsSync = module.exports.mkdirsSync = (dir, mode) ->
+mkdirsSync = module.exports.sync = (dir, mode) ->
   # get parameter and default values
   if typeof mode is 'function' or not mode
     cb = mode

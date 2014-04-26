@@ -13,27 +13,28 @@ path = require 'path'
 
 # ### Making directories with parents
 mkdirs = require './mkdirs'
-fs.mkdirs = mkdirs.mkdirs
-fs.mkdirsSync = mkdirs.mkdirsSync
+fs.mkdirs = mkdirs.async
+fs.mkdirsSync = mkdirs.sync
 
 # ### Remove of entry with subentries
 remove = require './remove'
-fs.remove = remove.remove
-fs.removeSync = remove.removeSync
+fs.remove = remove.async
+fs.removeSync = remove.sync
 
 # ### Find files
 find = require './find'
-fs.find = find.find
-#fs.findSync = find.findSync
+fs.find = find.async
+#fs.findSync = find.sync
 
 # ### Meta data
-meta = require './meta'
-fs.lstat = meta.lstat
+lstat = require './lstat'
+fs.lstatOrig = fs.lstat
+fs.lstat = lstat.async
 
 # ### Copy file or directory
 #copy = require './copy'
-#fs.copy = copy.copy
-#fs.copySync = copy.copySync
+#fs.copy = copy.async
+#fs.copySync = copy.sync
 
 # meta
 # find

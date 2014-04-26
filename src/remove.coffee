@@ -21,7 +21,7 @@ async = require 'async'
 # * `callback(err, removed)`
 #   The callback will be called just if an error occurred. It returns the
 #   file entry which was removed, if any.
-remove = module.exports.remove = (file, cb = ->) ->
+remove = module.exports.async = (file, cb = ->) ->
   # get parameter and default values
   file = path.resolve file
   fs.unlink file, (err) ->
@@ -71,7 +71,7 @@ remove = module.exports.remove = (file, cb = ->) ->
 #
 # * `Error`
 #   If anything out of order happened.
-removeSync = module.exports.removeSync = (file) ->
+removeSync = module.exports.sync = (file) ->
   # get parameter and default values
   file = path.resolve file
   try

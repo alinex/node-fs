@@ -24,7 +24,7 @@ mkdirs = require './mkdirs'
 #   File or directory to copy to.
 # * `callback(err)`
 #   The callback will be called just if an error occurred.
-copy = module.exports.copy = (source, target, cb = -> ) ->
+copy = module.exports.async = (source, target, cb = -> ) ->
   fs.lstat source, (err, stats) ->
     return cb err if err
     if stats.isFile()

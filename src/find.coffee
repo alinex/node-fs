@@ -9,9 +9,6 @@ fs = require 'fs'
 path = require 'path'
 async = require 'async'
 
-# include other extended commands
-mkdirs = require './mkdirs'
-
 # Find files
 # -------------------------------------------------
 # This method will list all files and directories in the given directory.
@@ -20,10 +17,17 @@ mkdirs = require './mkdirs'
 #
 # * `source`
 #   Path to be searched.
+# * `options`
+#   Specification of files to find.
 # * `callback(err, list)`
 #   The callback will be called just if an error occurred. The list of found
 #   entries will be given.
-find = module.exports.find = (source, options, cb = -> ) ->
+#
+# The following options are available:
+# - dereference: bool - follow symbolic links
+# - mindepth: integer - levels of directories below the source
+# - maxdepth: integer - levels of directories below the source
+find = module.exports.async = (source, options, cb = -> ) ->
   if typeof options is 'function' or not options
     cb = options ? ->
     options = {}
@@ -37,7 +41,7 @@ find = module.exports.find = (source, options, cb = -> ) ->
       return cb err if err
       # collect files from each subentry
       async.map files, (file, cb) ->
-        find path.join(source, file), cb
+        find path.join(source, file), options, cb
       , (err, results) ->
         return cb err if err
         list = list.concat result for result in results

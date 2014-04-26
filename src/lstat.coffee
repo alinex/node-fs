@@ -9,9 +9,6 @@ fs = require 'fs'
 path = require 'path'
 async = require 'async'
 
-# include other extended commands
-mkdirs = require './mkdirs'
-
 # Find files
 # -------------------------------------------------
 # This method will list all files and directories in the given directory.
@@ -39,9 +36,9 @@ mkdirs = require './mkdirs'
 #     ctime: Sat Apr 26 2014 21:38:24 GMT+0200 (CEST)   // creation time (Date)
 #     ftype: 'file'       // string identifies the type of file
 #     // file, directory, link, blockDevice, characterDevice, fifo, socket or other
-lstat = module.exports.lstat = (file, cb = -> ) ->
+lstat = module.exports.async = (file, cb = -> ) ->
   # check source entry
-  fs.lstat file, (err, stats) ->
+  fs.lstatOrig file, (err, stats) ->
     return cb err if err
     stats.ftype = switch
       when stats.isFile() then 'file'
@@ -52,6 +49,10 @@ lstat = module.exports.lstat = (file, cb = -> ) ->
       when stats.isFIFO() then 'fifo'
       when stats.isSocket() then 'socket'
       else 'other'
-    console.log stats
     cb null, stats
 
+# cache data with lru cache
+# clear cache method
+# -> for one file
+# -> for all
+# -> sync

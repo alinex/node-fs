@@ -26,6 +26,6 @@ describe "Get meta data", ->
   describe "asynchronous", ->
 
     it "should give lstat info", (cb) ->
-      fs.meta 'test/temp/file1', (err, result) ->
+      fs.lstat 'test/temp/file1', (err, result) ->
         expect(Object.keys result, 'result list').to.has.length 14
         cb()
