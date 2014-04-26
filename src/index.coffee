@@ -26,6 +26,10 @@ find = require './find'
 fs.find = find.find
 #fs.findSync = find.findSync
 
+# ### Meta data
+meta = require './meta'
+fs.lstat = meta.lstat
+
 # ### Copy file or directory
 #copy = require './copy'
 #fs.copy = copy.copy

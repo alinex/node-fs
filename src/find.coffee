@@ -23,7 +23,10 @@ mkdirs = require './mkdirs'
 # * `callback(err, list)`
 #   The callback will be called just if an error occurred. The list of found
 #   entries will be given.
-find = module.exports.find = (source, cb = -> ) ->
+find = module.exports.find = (source, options, cb = -> ) ->
+  if typeof options is 'function' or not options
+    cb = options ? ->
+    options = {}
   list = [source]
   # check source entry
   fs.lstat source, (err, stats) ->
