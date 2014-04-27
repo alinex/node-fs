@@ -52,6 +52,9 @@ lstat = module.exports.async = (file, cb = -> ) ->
     cb null, stats
 
 # cache data with lru cache
+# -> cache object
+# -> set maxnum
+# -> no cache if max reached
 # clear cache method
 # -> for one file
 # -> for all

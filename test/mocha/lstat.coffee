@@ -27,5 +27,6 @@ describe "Get meta data", ->
 
     it "should give lstat info", (cb) ->
       fs.lstat 'test/temp/file1', (err, result) ->
+        expect(err, 'error').to.not.exist
         expect(Object.keys result, 'result list').to.has.length 14
         cb()

@@ -37,4 +37,6 @@ async = require 'async'
 # - minsize: integer - file size in bytes
 # - maxsize: integer - file size in bytes
 module.exports.async = (file, options, cb = -> ) ->
-  cb null, true
+  fs.lstat file, (err, stats) ->
+    return cb err if err
+    cb null, true
