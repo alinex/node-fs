@@ -38,6 +38,7 @@ copy = module.exports.async = (source, target, options, cb = -> ) ->
         return cb err if err
         # copy the file
         copyFile source, stats, target, cb
+
     else if stats.isSymbolicLink()
       # create directory if neccessary
       mkdirs.async path.dirname(target), (err) ->
@@ -59,10 +60,18 @@ copy = module.exports.async = (source, target, options, cb = -> ) ->
           , cb
 
 copyFile = (source, stats, target, cb) ->
-  # send callback only once
+  # finalize only once
   done = (err) ->
-    cb err unless cbCalled
+    unless cbCalled
+      return cb err if err
+      # fix file permissions and times
+      fs.utimes target, stats.atime, stats.mtime, (err) ->
+        fs.chown target, stats.uid, stats.gid, (err) ->
+          fs.chmod target, stats.mode, (err) ->
+            return cb()
     cbCalled = true
+
+  # check if copy is possible
   fs.exists target, (err, exists) ->
     return cb err if err
     if exists
@@ -119,4 +128,7 @@ copyFileSync = (source, stats, target) ->
     throw new Error "Target file already exists."
   # copy file
   fs.writeFileSync target, fs.readFileSync source
-
+  # copy permissions and times
+  fs.utimesSync target, stats.atime, stats.mtime
+  fs.chownSync target, stats.uid, stats.gid
+  fs.chmodSync target, stats.mode
