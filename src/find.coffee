@@ -24,6 +24,7 @@ async = require 'async'
 #   entries will be given.
 #
 # The following options are available:
+#
 # - dereference: bool - follow symbolic links
 # - mindepth: integer - levels of directories below the source
 # - maxdepth: integer - levels of directories below the source
@@ -46,3 +47,35 @@ find = module.exports.async = (source, options, cb = -> ) ->
         return cb err if err
         list = list.concat result for result in results
         cb null, list
+
+# Find files (Synchronous)
+# -------------------------------------------------
+# This method will list all files and directories in the given directory.
+#
+# __Arguments:__
+#
+# * `source`
+#   Path to be searched.
+# * `options`
+#   Specification of files to find.
+#
+# __Return:__
+#
+# * `list`
+#   Returns the list of found entries
+#.
+# __Throw:__
+#
+# * `Error`
+#   If anything out of order happened.
+findSync = module.exports.sync = (source, options = {}) ->
+  list = [source]
+  # check source entry
+  stats = fs.lstatSync source
+  return list unless stats.isDirectory()
+  # source is directory
+  files = fs.readdirSync source
+  # collect files from each subentry
+  for file in files
+    list = list.concat findSync path.join(source, file), options
+  return list

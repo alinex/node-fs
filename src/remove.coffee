@@ -18,10 +18,15 @@ async = require 'async'
 #
 # * `path`
 #   File or directory to be removed.
+# * `options`
+#   Specification of files to find.
 # * `callback(err, removed)`
 #   The callback will be called just if an error occurred. It returns the
 #   file entry which was removed, if any.
-remove = module.exports.async = (file, cb = ->) ->
+remove = module.exports.async = (file, options, cb = -> ) ->
+  if typeof options is 'function' or not options
+    cb = options ? ->
+    options = {}
   # get parameter and default values
   file = path.resolve file
   fs.unlink file, (err) ->
@@ -61,6 +66,8 @@ remove = module.exports.async = (file, cb = ->) ->
 #
 # * `path`
 #   File or directory to create if not existing.
+# * `options`
+#   Specification of files to find.
 #
 # __Return:__
 #
@@ -71,7 +78,7 @@ remove = module.exports.async = (file, cb = ->) ->
 #
 # * `Error`
 #   If anything out of order happened.
-removeSync = module.exports.sync = (file) ->
+removeSync = module.exports.sync = (file, options = {}) ->
   # get parameter and default values
   file = path.resolve file
   try

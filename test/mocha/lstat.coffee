@@ -6,7 +6,7 @@ expect = chai.expect
 # mocha error output.
 #require('alinex-error').install()
 
-describe "Get meta data", ->
+describe.skip "Get meta data", ->
 
   fs = require '../../lib/index.js'
 

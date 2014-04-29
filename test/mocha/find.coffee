@@ -25,6 +25,12 @@ describe "Find", ->
 
   describe "asynchronous", ->
 
+    it "throw error for non-existent dir", (cb) ->
+      fs.find 'test/temp/dir999', (err, list) ->
+        expect(err, 'error').to.exist
+        expect(list, 'result list').to.not.exist
+        cb()
+
     it "lists single file", (cb) ->
       fs.find 'test/temp/file1', (err, list) ->
         expect(err, 'error').to.not.exist
@@ -51,4 +57,30 @@ describe "Find", ->
         expect(err, 'error').to.not.exist
         expect(list, 'result list').to.has.length 7
         cb()
+
+  describe "synchronous", ->
+
+    it "throw error for non-existent dir", ->
+      expect ->
+        fs.findSync 'test/temp/dir999'
+      .to.throw.error
+
+    it "lists single file", ->
+      list = fs.findSync 'test/temp/file1'
+      expect(list, 'result list').to.has.length 1
+      expect(list[0], 'result list').to.equal 'test/temp/file1'
+
+    it "lists single directory", ->
+      list = fs.findSync 'test/temp/dir2'
+      expect(list, 'result list').to.has.length 1
+      expect(list[0], 'result list').to.equal 'test/temp/dir2'
+
+    it "lists softlinked directory as entry", ->
+      list = fs.findSync 'test/temp/dir3'
+      expect(list, 'result list').to.has.length 1
+      expect(list[0], 'result list').to.equal 'test/temp/dir3'
+
+    it "lists multiple files", ->
+      list = fs.findSync 'test/temp'
+      expect(list, 'result list').to.has.length 7
 
