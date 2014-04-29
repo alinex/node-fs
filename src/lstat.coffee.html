@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>lstat.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "Users/alex/a3/node-fs/src/lstat.coffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <script src="../fileSearch.js"></script>
+  <script src="../goToLine.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+  <link rel="stylesheet" href="../goToLine.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#extension%20of%20nodes%20fs%20utils">Extension of nodes fs utils</a>
+      </div>
+      <div class="heading h2">
+        <a href="#node%20modules">Node Modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#find%20files">Find files</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-fs" title="Form me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="extension%20of%20nodes%20fs%20utils">
+  <h1>
+    <a href="#extension%20of%20nodes%20fs%20utils" name="extension%20of%20nodes%20fs%20utils" class="pilcrow">&#182;</a>
+    Extension of nodes fs utils
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="node%20modules">
+  <h2>
+    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
+    Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>include base modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
+<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="find%20files">
+  <h2>
+    <a href="#find%20files" name="find%20files" class="pilcrow">&#182;</a>
+    Find files
+  </h2>
+</div>
+
+
+<p>This method will list all files and directories in the given directory.</p>
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>file</code>
+Path to be searched.</li>
+<li><code>callback(err, result</code>
+The callback will be called just if an error occurred. The result will
+contain all file information:</li>
+</ul>
+
+
+<div class="highlight"><pre><code><span class="nx">dev</span><span class="o">:</span> <span class="mi">16777222</span>       <span class="c1">// device on which file resides</span>
+<span class="nx">rdev</span><span class="o">:</span> <span class="mi">0</span>             <span class="c1">// integer of device type (platform dependent)</span>
+<span class="nx">ino</span><span class="o">:</span> <span class="mi">3199990</span>        <span class="c1">// inode number of file</span>
+<span class="nx">nlink</span><span class="o">:</span> <span class="mi">1</span>            <span class="c1">// number of hard links to file</span>
+<span class="nx">mode</span><span class="o">:</span> <span class="mi">33188</span>         <span class="c1">// permission bits of stat (platform dependent)</span>
+<span class="nx">uid</span><span class="o">:</span> <span class="mi">503</span>            <span class="c1">// owner id</span>
+<span class="nx">gid</span><span class="o">:</span> <span class="mi">2014</span>           <span class="c1">// group owner id</span>
+<span class="nx">size</span><span class="o">:</span> <span class="mi">0</span>             <span class="c1">// size in bytes</span>
+<span class="nx">blocks</span><span class="o">:</span> <span class="mi">0</span>           <span class="c1">// number of allocated blocks</span>
+<span class="nx">blksize</span><span class="o">:</span> <span class="mi">4096</span>       <span class="c1">// native file system’s block size</span>
+<span class="nx">atime</span><span class="o">:</span> <span class="nx">Sat</span> <span class="nx">Apr</span> <span class="mi">26</span> <span class="mi">2014</span> <span class="mi">21</span><span class="o">:</span><span class="mi">38</span><span class="o">:</span><span class="mi">24</span> <span class="nx">GMT</span><span class="o">+</span><span class="mi">0200</span> <span class="p">(</span><span class="nx">CEST</span><span class="p">)</span>   <span class="c1">// access time (Date)</span>
+<span class="nx">mtime</span><span class="o">:</span> <span class="nx">Sat</span> <span class="nx">Apr</span> <span class="mi">26</span> <span class="mi">2014</span> <span class="mi">21</span><span class="o">:</span><span class="mi">38</span><span class="o">:</span><span class="mi">24</span> <span class="nx">GMT</span><span class="o">+</span><span class="mi">0200</span> <span class="p">(</span><span class="nx">CEST</span><span class="p">)</span>   <span class="c1">// modification time (Date)</span>
+<span class="nx">ctime</span><span class="o">:</span> <span class="nx">Sat</span> <span class="nx">Apr</span> <span class="mi">26</span> <span class="mi">2014</span> <span class="mi">21</span><span class="o">:</span><span class="mi">38</span><span class="o">:</span><span class="mi">24</span> <span class="nx">GMT</span><span class="o">+</span><span class="mi">0200</span> <span class="p">(</span><span class="nx">CEST</span><span class="p">)</span>   <span class="c1">// creation time (Date)</span>
+<span class="nx">ftype</span><span class="o">:</span> <span class="s1">&#39;file&#39;</span>       <span class="c1">// string identifies the type of file</span>
+<span class="c1">// file, directory, link, blockDevice, characterDevice, fifo, socket or other</span>
+</code></pre></div>
+
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">lstat = module.exports.async = </span><span class="nf">(file, cb = -&gt; ) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>check source entry</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatOrig</span> <span class="nx">file</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nv">stats.ftype = </span><span class="k">switch</span>
+      <span class="k">when</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span> <span class="k">then</span> <span class="s">&#39;file&#39;</span>
+      <span class="k">when</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span> <span class="k">then</span> <span class="s">&#39;directory&#39;</span>
+      <span class="k">when</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span> <span class="k">then</span> <span class="s">&#39;link&#39;</span>
+      <span class="k">when</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isBlockDevice</span><span class="p">()</span> <span class="k">then</span> <span class="s">&#39;blockDevice&#39;</span>
+      <span class="k">when</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isCharacterDevice</span><span class="p">()</span> <span class="k">then</span> <span class="s">&#39;characterDevice&#39;</span>
+      <span class="k">when</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFIFO</span><span class="p">()</span> <span class="k">then</span> <span class="s">&#39;fifo&#39;</span>
+      <span class="k">when</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSocket</span><span class="p">()</span> <span class="k">then</span> <span class="s">&#39;socket&#39;</span>
+      <span class="k">else</span> <span class="s">&#39;other&#39;</span>
+    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">stats</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>cache data with lru cache
+-> cache object
+-> set maxnum
+-> no cache if max reached
+clear cache method
+-> for one file
+-> for all
+-> sync</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
