@@ -51,7 +51,7 @@ copy = module.exports.async = (source, target, options, cb = -> ) ->
       fs.readdir source, (err, files) ->
         return cb err if err
         # copy directory
-        mkdirs.mkdirs target, stats.mode, (err) ->
+        mkdirs.async target, stats.mode, (err) ->
           return cb err if err
           # copy all files in directory
           async.each files, (file, cb) ->
@@ -63,12 +63,60 @@ copyFile = (source, stats, target, cb) ->
   done = (err) ->
     cb err unless cbCalled
     cbCalled = true
-  # open streams
-  rs = fs.createReadStream source
-  ws = fs.createWriteStream target,
-    mode: stats.mode
-  # copy data
-  ws.on 'error', done
-  ws.on 'close', done
-  rs.pipe ws
+  fs.exists target, (err, exists) ->
+    return cb err if err
+    if exists
+      return new Error "Target file already exists."
+    # open streams
+    rs = fs.createReadStream source
+    ws = fs.createWriteStream target,
+      mode: stats.mode
+    # copy data
+    ws.on 'error', done
+    ws.on 'close', done
+    rs.pipe ws
+
+# Copy file or directory (Synchronous)
+# -------------------------------------------------
+# This method will copy a single file or complete directory like `cp -r`.
+#
+# __Arguments:__
+#
+# * `source`
+#   File or directory to be copied.
+# * `target`
+#   File or directory to copy to.
+# * `options`
+#   Specification of files to find.
+#
+# __Throw:__
+#
+# * `Error`
+#   If anything out of order happened.
+copySync = module.exports.sync = (source, target, options = {} ) ->
+  stats = fs.lstatSync source
+  if stats.isFile()
+    # create directory if neccessary
+    mkdirs.sync path.dirname(target)
+    # copy the file
+    copyFileSync source, stats, target
+  else if stats.isSymbolicLink()
+    # create directory if neccessary
+    mkdirs.sync path.dirname(target)
+    resolvedPath = fs.readlinkSync source
+    # make the symlink
+    fs.symlinkSync resolvedPath, target
+  else
+    # source is directory
+    # copy directory
+    mkdirs.sync target, stats.mode
+    # copy all files in directory
+    for file in fs.readdirSync source
+      copySync path.join(source, file), path.join(target, file)
+
+copyFileSync = (source, stats, target) ->
+  if fs.existsSync target
+    throw new Error "Target file already exists."
+  # copy file
+  fs.writeFileSync target, fs.readFileSync source
 
