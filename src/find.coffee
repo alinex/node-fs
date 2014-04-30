@@ -9,6 +9,8 @@ fs = require 'fs'
 path = require 'path'
 async = require 'async'
 
+filter = require './filter'
+
 # Find files
 # -------------------------------------------------
 # This method will list all files and directories in the given directory.
@@ -32,21 +34,24 @@ find = module.exports.async = (source, options, cb = -> ) ->
   if typeof options is 'function' or not options
     cb = options ? ->
     options = {}
-  list = [source]
-  # check source entry
-  fs.lstat source, (err, stats) ->
-    return cb err if err
-    return cb null, list unless stats.isDirectory()
-    # source is directory
-    fs.readdir source, (err, files) ->
+  list = []
+  # Check the current file through filter options
+  filter.async source, options, (ok) ->
+    list.push source if ok
+    # check source entry
+    fs.lstat source, (err, stats) ->
       return cb err if err
-      # collect files from each subentry
-      async.map files, (file, cb) ->
-        find path.join(source, file), options, cb
-      , (err, results) ->
+      return cb null, list unless stats.isDirectory()
+      # source is directory
+      fs.readdir source, (err, files) ->
         return cb err if err
-        list = list.concat result for result in results
-        cb null, list
+        # collect files from each subentry
+        async.map files, (file, cb) ->
+          find path.join(source, file), options, cb
+        , (err, results) ->
+          return cb err if err
+          list = list.concat result for result in results
+          cb null, list
 
 # Find files (Synchronous)
 # -------------------------------------------------

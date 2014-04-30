@@ -6,7 +6,7 @@ expect = chai.expect
 # mocha error output.
 #require('alinex-error').install()
 
-describe "Recursive remove", ->
+describe "Remove", ->
 
   fs = require '../../lib/index.js'
 

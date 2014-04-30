@@ -8,7 +8,7 @@ expect = chai.expect
 
 describe "Find", ->
 
-  fs = require '../../lib/index.js'
+  fs = require '../../src/index'
 
   beforeEach (cb) ->
     exec 'mkdir -p test/temp/dir1', ->
@@ -56,6 +56,14 @@ describe "Find", ->
       fs.find 'test/temp', (err, list) ->
         expect(err, 'error').to.not.exist
         expect(list, 'result list').to.has.length 7
+        cb()
+
+    it.only "matching files", (cb) ->
+      fs.find 'test/temp',
+        include: '*1'
+      , (err, list) ->
+        expect(err, 'error').to.not.exist
+        expect(list, 'result list').to.has.length 3
         cb()
 
   describe "synchronous", ->
