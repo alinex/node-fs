@@ -24,23 +24,23 @@ minimatch = require 'minimatch'
 #   The callback will be called with a boolean value showing if file is accepted.
 #
 # The following options are available:
-# minmatch
-# - include:
-# - exclude:
-# lstat
-# - ftype: string - type of entry like in lstat
-# - atime: integer - accessed within last x seconds
-# - mtime: integer - modified within last x seconds
-# - ctime: integer - created within last x seconds
-# - uid: integer - only files from this user
-# - gid: integer - only files from this group
-# - minsize: integer - file size in bytes
-# - maxsize: integer - file size in bytes
+#
+# - minmatch based
+#   - `include` pattern
+#   - `exclude` pattern
+# - lstat based
+#   - `ftype` string - type of entry like in lstat
+#   - `atime` integer - accessed within last x seconds
+#   - `mtime` integer - modified within last x seconds
+#   - `ctime` integer - created within last x seconds
+#   - `uid` integer - only files from this user
+#   - `gid` integer - only files from this group
+#   - `minsize` integer - file size in bytes
+#   - `maxsize` integer - file size in bytes
 module.exports.async = (file, options = {}, cb = -> ) ->
 
   async.parallel [
-    (cb) -> skipInclude file, options, cb
-    (cb) -> skipExclude file, options, cb
+    (cb) -> skipMinimatch file, options, cb
   ], (skip) ->
     cb not skip
 
@@ -50,20 +50,17 @@ module.exports.async = (file, options = {}, cb = -> ) ->
 # an specific test and therefore should not be included. If test is passed
 # successfully it will return nothing.
 
-skipInclude = (file, options, cb) ->
-  return cb() unless options.include
-  skip = not minimatch file, options.include,
-    matchBase: true
+skipMinimatch = (file, options, cb) ->
+  return cb() unless options.include or options.exclude
+  skip = false
+  if options.include
+    skip = not minimatch file, options.include,
+      matchBase: true
+  if options.exclude
+    skip = minimatch file, options.exclude,
+      matchBase: true
   console.log "test #{file} include:#{skip}"
   cb skip
-
-skipExclude = (file, options, cb) ->
-  return cb() unless options.exclude
-  skip = minimatch file, options.exclude,
-    matchBase: true
-  console.log "test #{file} exclude:#{skip}"
-  cb()
-
 
 
 

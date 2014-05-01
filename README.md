@@ -159,6 +159,100 @@ __Example:__
     }
 
 
+Filter
+-------------------------------------------------
+
+The filter is used to select some of the files based on specific settings.
+The filter is given as options array which may have some of the following
+specification settings.
+Additionally some methods may have special options for filtering.
+
+### File/path matching
+
+This is based on glob expressions like used in unix systems.
+
+The following option entries are used:
+
+- `include` - to specify a inclusion pattern
+- `exclude` - to specify an exclusion pattern
+
+All files are matched which are in the include pattern and not in the exclude
+pattern.
+
+The patter may contain:
+
+- A `?` (not between brackets) matches any single character.
+- A `*` (not between brackets) matches any string, including the empty string.
+- [...]: Matches any one of the enclosed characters.
+
+  A pair of characters separated by a hyphen denotes a range expression; any character that sorts between
+              those two characters, inclusive, using the current locale's collating sequence and character set, is matched.  If the first character following  the
+              [  is  a  !   or  a ^ then any character not enclosed is matched.  The sorting order of characters in range expressions is determined by the current
+              locale and the value of the LC_COLLATE shell variable, if set.  A - may be matched by including it as the first or last character in the set.   A  ]
+              may be matched by including it as the first character in the set.
+
+              Within  [  and  ],  character  classes can be specified using the syntax [:class:], where class is one of the following classes defined in the POSIX
+              standard:
+              alnum alpha ascii blank cntrl digit graph lower print punct space upper word xdigit
+              A character class matches any character belonging to that class.  The word character class matches letters, digits, and the character _.
+
+              Within [ and ], an equivalence class can be specified using the syntax [=c=], which matches all  characters  with  the  same  collation  weight  (as
+              defined by the current locale) as the character c.
+
+              Within [ and ], the syntax [.symbol.] matches the collating symbol symbol.
+
+
+Character classes
+       An  expression  '[...]' where the first character after the leading '['
+       is not an '!' matches a single character, namely any of the  characters
+       enclosed  by  the brackets.  The string enclosed by the brackets cannot
+       be empty; therefore ']' can be allowed between the  brackets,  provided
+       that  it is the first character. (Thus, '[][!]' matches the three char-
+       acters '[', ']' and '!'.)
+
+  Ranges
+       There is one special convention: two characters separated by '-' denote
+       a    range.    (Thus,   '[A-Fa-f0-9]'   is   equivalent   to   '[ABCDE-
+       Fabcdef0123456789]'.)  One may include '-' in its  literal  meaning  by
+       making  it  the  first  or last character between the brackets.  (Thus,
+       '[]-]' matches just the two characters ']' and '-', and '[--0]' matches
+       the three characters '-', '.', '0', since '/' cannot be matched.)
+
+  Complementation
+       An expression '[!...]' matches a single character, namely any character
+       that is not matched by the expression obtained by  removing  the  first
+       '!'  from it.  (Thus, '[!]a-]' matches any single character except ']',
+       'a' and '-'.)
+
+       One can remove the special meaning of '?', '*'  and  '['  by  preceding
+       them  by a backslash, or, in case this is part of a shell command line,
+       enclosing them in quotes.  Between brackets these characters stand  for
+       themselves.   Thus,  '[[?*\]' matches the four characters '[', '?', '*'
+       and '\'.
+
+Globbing is applied on each of the components of a pathname separately.
+       A '/' in a pathname cannot be matched by a '?' or '*' wildcard, or by a
+       range like '[.-0]'. A range cannot contain an explicit  '/'  character;
+       this would lead to a syntax error.
+
+       If  a  filename  starts  with  a  '.',  this  character must be matched
+       explicitly.  (Thus, 'rm *' will not remove .profile, and 'tar c *' will
+       not archive all your files; 'tar c .' is better.)
+
+Extended globbing as described by the bash man page:
+
+- ?(list): Matches zero or one occurrence of the given patterns.
+- *(list): Matches zero or more occurrences of the given patterns.
+- +(list): Matches one or more occurrences of the given patterns.
+- @(list): Matches one of the given patterns.
+- !(list): Matches anything except one of the given patterns.
+
+
+- Brace Expansion
+- Extended glob matching
+- "Globstar" ** matching
+
+
 License
 -------------------------------------------------
 
