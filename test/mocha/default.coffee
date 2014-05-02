@@ -3,7 +3,7 @@ expect = chai.expect
 
 describe "Nodes default methods:", ->
 
-  fs = require '../../lib/index.js'
+  fs = require '../../src/index.js'
 
   describe "exists", ->
     it "should return true for existing file", ->

@@ -8,7 +8,7 @@ expect = chai.expect
 
 describe.skip "Get meta data", ->
 
-  fs = require '../../lib/index.js'
+  fs = require '../../src/index.js'
 
   beforeEach (cb) ->
     exec 'mkdir -p test/temp/dir1', ->

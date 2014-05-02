@@ -8,7 +8,7 @@ expect = chai.expect
 
 describe "Remove", ->
 
-  fs = require '../../lib/index.js'
+  fs = require '../../src/index.js'
 
   beforeEach (cb) ->
     exec 'mkdir -p test/temp/dir1', ->

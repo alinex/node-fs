@@ -6,7 +6,7 @@ expect = chai.expect
 # mocha error output.
 #require('alinex-error').install()
 
-describe "Find", ->
+describe "Filter paths", ->
 
   fs = require '../../src/index'
 
@@ -25,40 +25,7 @@ describe "Find", ->
 
   describe "asynchronous", ->
 
-    it "throw error for non-existent dir", (cb) ->
-      fs.find 'test/temp/dir999', (err, list) ->
-        expect(err, 'error').to.exist
-        expect(list, 'result list').to.not.exist
-        cb()
-
-    it "lists single file", (cb) ->
-      fs.find 'test/temp/file1', (err, list) ->
-        expect(err, 'error').to.not.exist
-        expect(list, 'result list').to.has.length 1
-        expect(list[0], 'result list').to.equal 'test/temp/file1'
-        cb()
-
-    it "lists single directory", (cb) ->
-      fs.find 'test/temp/dir2', (err, list) ->
-        expect(err, 'error').to.not.exist
-        expect(list, 'result list').to.has.length 1
-        expect(list[0], 'result list').to.equal 'test/temp/dir2'
-        cb()
-
-    it "lists softlinked directory as entry", (cb) ->
-      fs.find 'test/temp/dir3', (err, list) ->
-        expect(err, 'error').to.not.exist
-        expect(list, 'result list').to.has.length 1
-        expect(list[0], 'result list').to.equal 'test/temp/dir3'
-        cb()
-
-    it "lists multiple files", (cb) ->
-      fs.find 'test/temp', (err, list) ->
-        expect(err, 'error').to.not.exist
-        expect(list, 'result list').to.has.length 7
-        cb()
-
-    it "matching files only", (cb) ->
+    it.only "matching file using include pattern", (cb) ->
       fs.find 'test/temp',
         include: '*1'
       , (err, list) ->
@@ -66,7 +33,10 @@ describe "Find", ->
         expect(list, 'result list').to.has.length 3
         cb()
 
-  describe "synchronous", ->
+
+
+
+  describe.skip "synchronous", ->
 
     it "throw error for non-existent dir", ->
       expect ->
@@ -91,9 +61,4 @@ describe "Find", ->
     it "lists multiple files", ->
       list = fs.findSync 'test/temp'
       expect(list, 'result list').to.has.length 7
-
-    it "matching files only", ->
-      list = fs.findSync 'test/temp',
-        include: '*1'
-      expect(list, 'result list').to.has.length 3
 

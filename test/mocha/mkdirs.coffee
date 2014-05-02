@@ -8,7 +8,7 @@ expect = chai.expect
 
 describe "Recursive mkdirs", ->
 
-  fs = require '../../lib/index.js'
+  fs = require '../../src/index.js'
 
   beforeEach (cb) ->
     fs.exists 'test/temp', (exists) ->
