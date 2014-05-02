@@ -25,7 +25,7 @@ describe "Filter paths", ->
 
   describe "asynchronous", ->
 
-    it.only "matching file using include pattern", (cb) ->
+    it "matching file using include pattern", (cb) ->
       fs.find 'test/temp',
         include: '*1'
       , (err, list) ->
@@ -33,6 +33,13 @@ describe "Filter paths", ->
         expect(list, 'result list').to.has.length 3
         cb()
 
+    it "matching file using exclude pattern", (cb) ->
+      fs.find 'test/temp',
+        exclude: '*1'
+      , (err, list) ->
+        expect(err, 'error').to.not.exist
+        expect(list, 'result list').to.has.length 4
+        cb()
 
 
 
