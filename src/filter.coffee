@@ -12,14 +12,14 @@ minimatch = require 'minimatch'
 
 # Find files
 # -------------------------------------------------
-# This method will list all files and directories in the given directory.
+# This method will check a given file/path against some filter options.
 #
 # __Arguments:__
 #
 # * `file`
 #   File to check against filter
 # * `options`
-#   Specification of files to find.
+#   Specification of files to success.
 # * `callback(success)`
 #   The callback will be called with a boolean value showing if file is accepted.
 #
@@ -38,11 +38,32 @@ minimatch = require 'minimatch'
 #   - `minsize` integer - file size in bytes
 #   - `maxsize` integer - file size in bytes
 module.exports.async = (file, options = {}, cb = -> ) ->
-
   async.parallel [
     (cb) -> skipMinimatch file, options, cb
   ], (skip) ->
     cb not skip
+
+# Find files (synchronous)
+# -------------------------------------------------
+# This method will check a given file/path against some filter options.
+#
+# __Arguments:__
+#
+# * `file`
+#   File to check against filter
+# * `options`
+#   Specification of files to success.
+#
+# __Return:__
+#
+# * `success`
+#   The callback will be called with a boolean value showing if file is accepted.
+#
+# The options are the same as in the asynchronous method.
+module.exports.sync = (file, options = {}) ->
+  return false if skipMinimatchSync file, options
+  true
+
 
 # Skip Methods
 # -------------------------------------------------
@@ -61,13 +82,25 @@ skipMinimatch = (file, options, cb) ->
     if options.exclude
       skip = minimatch file, options.exclude,
         matchBase: true
-        # console.log "test #{file} +#{options.include} -#{options.exclude} skip=#{skip}"
+    # console.log "test #{file} +#{options.include} -#{options.exclude} skip=#{skip}"
     cb skip
 
+skipMinimatchSync = (file, options) ->
+  return false unless options.include or options.exclude
+  try
+    stats = fs.lstat file
+  file += '/' if stats?.isDirectory()
+  skip = false
+  if options.include
+    skip = not minimatch file, options.include,
+      matchBase: true
+  if options.exclude
+    skip = minimatch file, options.exclude,
+      matchBase: true
+  # console.log "test #{file} +#{options.include} -#{options.exclude} skip=#{skip}"
+  skip
 
 
 
 
-module.exports.sync = (file, options = {}) ->
-  return true
 

@@ -33,7 +33,7 @@ describe "Pattern matching filter", ->
       expect(result, util.inspect options).to.deep.equal list
       cb()
 
-  describe.only "asynchronous", ->
+  describe "asynchronous", ->
 
     it "should match start using asterix", (cb) ->
       async.series [

@@ -92,7 +92,7 @@ describe "Find", ->
       list = fs.findSync 'test/temp'
       expect(list, 'result list').to.has.length 7
 
-    it.skip "matching files only", ->
+    it "matching files only", ->
       list = fs.findSync 'test/temp',
         include: '*1'
       expect(list, 'result list').to.has.length 3

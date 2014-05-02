@@ -74,7 +74,9 @@ find = module.exports.async = (source, options, cb = -> ) ->
 # * `Error`
 #   If anything out of order happened.
 findSync = module.exports.sync = (source, options = {}) ->
-  list = [source]
+  list = []
+  # Check the current file through filter options
+  list.push source if filter.sync source, options
   # check source entry
   stats = fs.lstatSync source
   return list unless stats.isDirectory()
