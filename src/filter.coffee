@@ -52,15 +52,17 @@ module.exports.async = (file, options = {}, cb = -> ) ->
 
 skipMinimatch = (file, options, cb) ->
   return cb() unless options.include or options.exclude
-  skip = false
-  if options.include
-    skip = not minimatch file, options.include,
-      matchBase: true
-  if options.exclude
-    skip = minimatch file, options.exclude,
-      matchBase: true
-  console.log "test #{file} include:#{skip}"
-  cb skip
+  fs.lstat file, (err, stats) ->
+    file += '/' if not err and stats.isDirectory()
+    skip = false
+    if options.include
+      skip = not minimatch file, options.include,
+        matchBase: true
+    if options.exclude
+      skip = minimatch file, options.exclude,
+        matchBase: true
+        # console.log "test #{file} +#{options.include} -#{options.exclude} skip=#{skip}"
+    cb skip
 
 
 
