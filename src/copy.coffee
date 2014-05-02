@@ -9,8 +9,9 @@ fs = require 'fs'
 path = require 'path'
 async = require 'async'
 
-# include other extended commands
+# include other extended commands and helper
 mkdirs = require './mkdirs'
+filter = require './filter'
 
 # Copy file or directory
 # -------------------------------------------------
@@ -32,32 +33,81 @@ copy = module.exports.async = (source, target, options, cb = -> ) ->
     options = {}
   fs.lstat source, (err, stats) ->
     return cb err if err
-    if stats.isFile()
-      # create directory if neccessary
-      mkdirs.async path.dirname(target), (err) ->
-        return cb err if err
-        # copy the file
-        copyFile source, stats, target, cb
+    # Check the current file through filter options
+    filter.async source, options, (ok) ->
+      if stats.isFile()
+        return cb() unless ok
+        # create directory if neccessary
+        mkdirs.async path.dirname(target), (err) ->
+          return cb err if err
+          # copy the file
+          copyFile source, stats, target, cb
+      else if stats.isSymbolicLink()
+        return cb() unless ok
+        # create directory if neccessary
+        mkdirs.async path.dirname(target), (err) ->
+          return cb err if err
+          fs.readlink source, (err, resolvedPath) ->
+            return cb err if err
+            # make the symlink
+            fs.symlink resolvedPath, target, cb
+      else
+        # source is directory
+        fs.readdir source, (err, files) ->
+          return cb err if err
+          unless ok
+            # copy all files in directory
+            return async.each files, (file, cb) ->
+              copy path.join(source, file), path.join(target, file), cb
+            , cb
+          # copy directory
+          mkdirs.async target, stats.mode, (err) ->
+            return cb err if err
+            # copy all files in directory
+            async.each files, (file, cb) ->
+              copy path.join(source, file), path.join(target, file), cb
+            , cb
 
-    else if stats.isSymbolicLink()
-      # create directory if neccessary
-      mkdirs.async path.dirname(target), (err) ->
-        return cb err if err
-        fs.readlink source, (err, resolvedPath) ->
-          return cb err if err
-          # make the symlink
-          fs.symlink resolvedPath, target, cb
-    else
-      # source is directory
-      fs.readdir source, (err, files) ->
-        return cb err if err
-        # copy directory
-        mkdirs.async target, stats.mode, (err) ->
-          return cb err if err
-          # copy all files in directory
-          async.each files, (file, cb) ->
-            copy path.join(source, file), path.join(target, file), cb
-          , cb
+# Copy file or directory (Synchronous)
+# -------------------------------------------------
+# This method will copy a single file or complete directory like `cp -r`.
+#
+# __Arguments:__
+#
+# * `source`
+#   File or directory to be copied.
+# * `target`
+#   File or directory to copy to.
+# * `options`
+#   Specification of files to find.
+#
+# __Throw:__
+#
+# * `Error`
+#   If anything out of order happened.
+copySync = module.exports.sync = (source, target, options = {} ) ->
+  stats = fs.lstatSync source
+  ok = filter.sync source, options
+  if stats.isFile()
+    return unless ok
+    # create directory if neccessary
+    mkdirs.sync path.dirname(target)
+    # copy the file
+    copyFileSync source, stats, target
+  else if stats.isSymbolicLink()
+    return unless ok
+    # create directory if neccessary
+    mkdirs.sync path.dirname(target)
+    resolvedPath = fs.readlinkSync source
+    # make the symlink
+    fs.symlinkSync resolvedPath, target
+  else
+    # source is directory
+    # copy directory
+    mkdirs.sync target, stats.mode if ok
+    # copy all files in directory
+    for file in fs.readdirSync source
+      copySync path.join(source, file), path.join(target, file)
 
 copyFile = (source, stats, target, cb) ->
   # finalize only once
@@ -84,44 +134,6 @@ copyFile = (source, stats, target, cb) ->
     ws.on 'error', done
     ws.on 'close', done
     rs.pipe ws
-
-# Copy file or directory (Synchronous)
-# -------------------------------------------------
-# This method will copy a single file or complete directory like `cp -r`.
-#
-# __Arguments:__
-#
-# * `source`
-#   File or directory to be copied.
-# * `target`
-#   File or directory to copy to.
-# * `options`
-#   Specification of files to find.
-#
-# __Throw:__
-#
-# * `Error`
-#   If anything out of order happened.
-copySync = module.exports.sync = (source, target, options = {} ) ->
-  stats = fs.lstatSync source
-  if stats.isFile()
-    # create directory if neccessary
-    mkdirs.sync path.dirname(target)
-    # copy the file
-    copyFileSync source, stats, target
-  else if stats.isSymbolicLink()
-    # create directory if neccessary
-    mkdirs.sync path.dirname(target)
-    resolvedPath = fs.readlinkSync source
-    # make the symlink
-    fs.symlinkSync resolvedPath, target
-  else
-    # source is directory
-    # copy directory
-    mkdirs.sync target, stats.mode
-    # copy all files in directory
-    for file in fs.readdirSync source
-      copySync path.join(source, file), path.join(target, file)
 
 copyFileSync = (source, stats, target) ->
   if fs.existsSync target

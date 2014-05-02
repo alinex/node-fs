@@ -9,6 +9,9 @@ fs = require 'fs'
 path = require 'path'
 async = require 'async'
 
+# internal helper methods
+filter = require './filter'
+
 # Remove path recursively
 # -------------------------------------------------
 # This method will remove the given `path` entry and if it is a directory it
@@ -28,34 +31,47 @@ remove = module.exports.async = (file, options, cb = -> ) ->
     cb = options ? ->
     options = {}
   # get parameter and default values
-  file = path.resolve file
-  fs.unlink file, (err) ->
-    # correctly removed
-    return cb null, file unless err
-    # already removed
-    return cb null if err.code is 'ENOENT'
-    # some other problem, give up (EPERM on MacOSX)
-    return cb err unless err.code is 'EISDIR' or 'EPERM'
-    # it's a directory
-    dir = file
-    # try to remove directory
-    fs.rmdir dir, (err) ->
-      # correctly removed
-      return cb null, dir unless err
-      # some other problem, give up
-      return cb err unless err.code is 'ENOTEMPTY'
-      # directory not empty
-      fs.readdir dir, (err, files) ->
+  filter.async file, options, (ok) ->
+    unless ok
+      fs.lstat file, (err, stats) ->
         return cb err if err
-        # remove all entries in directory
-        async.each files, (file, cb) ->
-          remove path.join(dir, file), cb
-        , (err) ->
-          return cb err if err
-          # try to remove upper directory again
-          fs.rmdir dir, (err) ->
+        if stats.isDirectory()
+          # if  directory: check sub entries
+          dir = file
+          fs.readdir dir, (err, files) ->
             return cb err if err
-            cb null, dir
+            # remove all entries in directory
+            async.each files, (file, cb) ->
+              remove path.join(dir, file), options, cb
+            , cb
+    # try to remove
+    fs.unlink file, (err) ->
+      # correctly removed
+      return cb null, file unless err
+      # already removed
+      return cb null if err.code is 'ENOENT'
+      # some other problem, give up (EPERM on MacOSX)
+      return cb err unless err.code is 'EISDIR' or 'EPERM'
+      # it's a directory
+      dir = file
+      # try to remove directory
+      fs.rmdir dir, (err) ->
+        # correctly removed
+        return cb null, dir unless err
+        # some other problem, give up
+        return cb err unless err.code is 'ENOTEMPTY'
+        # directory not empty
+        fs.readdir dir, (err, files) ->
+          return cb err if err
+          # remove all entries in directory
+          async.each files, (file, cb) ->
+            remove path.join(dir, file), cb
+          , (err) ->
+            return cb err if err
+            # try to remove upper directory again
+            fs.rmdir dir, (err) ->
+              return cb err if err
+              cb null, dir
 
 
 # Remove path recursively (Synchronous)
@@ -81,6 +97,17 @@ remove = module.exports.async = (file, options, cb = -> ) ->
 removeSync = module.exports.sync = (file, options = {}) ->
   # get parameter and default values
   file = path.resolve file
+  # get parameter and default values
+  ok = filter.sync file, options
+  unless ok
+    stats = fs.lstatSync file
+    if stats.isDirectory()
+      # if  directory: check sub entries
+      dir = file
+      for file in fs.readdirSync dir
+        removeSync path.join(dir, file), options
+      return
+  # try to remove
   try
     fs.unlinkSync file
     # correctly removed

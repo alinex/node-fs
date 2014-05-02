@@ -42,7 +42,7 @@ describe "Remove", ->
       expect(fs.existsSync('test/temp/dir2'), 'precheck').to.be.true
       fs.remove 'test/temp/dir2', (err, removed) ->
         expect(err, 'error').to.be.null
-        expect(removed, 'removed path').to.have.string "/node-fs/test/temp/dir2"
+        expect(removed, 'removed path').to.have.string "test/temp/dir2"
         expect(fs.existsSync('test/temp/dir2'), 'postcheck').to.be.false
         cb()
 
@@ -50,7 +50,7 @@ describe "Remove", ->
       expect(fs.existsSync('test/temp/dir1'), 'precheck').to.be.true
       fs.remove 'test/temp/dir1', (err, removed) ->
         expect(err, 'error').to.be.null
-        expect(removed, 'removed path').to.have.string "/node-fs/test/temp/dir1"
+        expect(removed, 'removed path').to.have.string "test/temp/dir1"
         expect(fs.existsSync('test/temp/dir1'), 'postcheck').to.be.false
         cb()
 
