@@ -179,37 +179,26 @@ The following option entries are used:
 All files are matched which are in the include pattern and not in the exclude
 pattern.
 
+To use one of the special characters `*`, `?` or `[` you have to preceed it with an
+backslash.
+
 The patter may contain:
 
 - `?` (not between brackets) matches any single character.
 - `*` (not between brackets) matches any string, including the empty string.
 - `**` (not between brackets) matches any string and also includes the path separator.
 
-Brace Expansion:
+Character groups:
 
 - `[ade]` or `[a-z]` Matches any one of the enclosed characters ranges can be given using a hyphen.
 - `[!ade]` or `[!a-z]` negates the search and matches any character not enclosed.
 - `[^ade]` or `[^a-z]` negates the search and matches any character not enclosed.
-- `[:class:]` specifies a special character class
-  - alnum 
-  - alpha 
-  - ascii 
-  - blank 
-  - cntrl 
-  - digit 
-  - graph 
-  - lower 
-  - print 
-  - punct 
-  - space 
-  - upper 
-  - word - matches letters, digits, and the character `_`
-  - xdigit
-- `[=c=]` matches all characters with the same collation weight as the character.
-- `[.symbol.]` matches the collating symbol symbol.
 
-To use one of the special characters `*`, `?` or `[` you have to preceed it with an 
-backslash.
+Brace Expansion:
+
+- `{a,b}` will be expanded to `a` or `b`
+- `{a,b{c,d}}` stacked to match `a`, `bc` or `bd`
+- `{1..3}` will be expanded to `1` or `2` or `3`
 
 Extended globbing is also possible:
 
@@ -217,7 +206,6 @@ Extended globbing is also possible:
 - *(list): Matches zero or more occurrences of the given patterns.
 - +(list): Matches one or more occurrences of the given patterns.
 - @(list): Matches one of the given patterns.
-- !(list): Matches anything except one of the given patterns.
 
 
 License
