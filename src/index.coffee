@@ -13,15 +13,15 @@ memoizee = require 'memoizee'
 # -------------------------------------------------
 
 # ### lstat with cached results
-fs.nodeLstat = fs.lstat
-fs.lstat = fs.nodeLstat
+nodeLstat = fs.lstat
+fs.xlstat = memoizee nodeLstat,
   async: true
   maxAge: 1000 # expiration time in milliseconds
   max: 1000 # limit number of elements
 
 # ### lstat with cached results (synchronous)
-fs.nodeLstatSync = fs.lstatSync
-fs.lstatSync = fs.nodeLstatSync
+nodeLstatSync = fs.lstatSync
+fs.xlstatSync = memoizee nodeLstatSync,
   maxAge: 1000 # expiration time in milliseconds
   max: 1000 # limit number of elements
 
