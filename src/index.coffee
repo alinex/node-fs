@@ -7,6 +7,23 @@
 # include base modules
 fs = module.exports = require 'graceful-fs'
 path = require 'path'
+memoizee = require 'memoizee'
+
+# Optimize original methods
+# -------------------------------------------------
+
+# ### lstat with cached results
+fs.nodeLstat = fs.lstat
+fs.lstat = fs.nodeLstat
+  async: true
+  maxAge: 1000 # expiration time in milliseconds
+  max: 1000 # limit number of elements
+
+# ### lstat with cached results (synchronous)
+fs.nodeLstatSync = fs.lstatSync
+fs.lstatSync = fs.nodeLstatSync
+  maxAge: 1000 # expiration time in milliseconds
+  max: 1000 # limit number of elements
 
 # Add extended functionality
 # -------------------------------------------------
@@ -31,10 +48,6 @@ remove = require './remove'
 fs.remove = remove.async
 fs.removeSync = remove.sync
 
-# ### Meta data
-#lstat = require './lstat'
-#fs.lstatOrig = fs.lstat
-#fs.lstat = lstat.async
 
 # meta
 # find

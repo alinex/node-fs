@@ -33,7 +33,8 @@
     "alinex-error": "0.x",
     "async": "0.x",
     "graceful-fs": "2.x",
-    "minimatch": "0.2.x"
+    "minimatch": "0.2.x",
+    "memoizee": "0.3.x"
   },
   "devDependencies": {
     "alinex-make": "0.2.x",
