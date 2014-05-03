@@ -86,7 +86,7 @@ findSync = module.exports.sync = (source, options = {}, depth = 0) ->
   # Check the current file through filter options
   min = not options.mindepth or options.mindepth <= depth
   max = not options.mmaxdepth or options.maxdepth >= depth
-  list.push source if filter.sync source, options and min and max
+  list.push source if filter.sync(source, options) and min and max
   # check source entry
   stats = fs.lstatSync source
   return list unless stats.isDirectory()

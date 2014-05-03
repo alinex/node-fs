@@ -35,23 +35,23 @@ describe "Recursive copy", ->
     it "should copy single link", (cb) ->
       fs.copy 'test/temp/dir3', 'test/temp/dir4', (err) ->
         expect(err, 'error').to.not.exist
-        expect(fs.existsSync 'test/temp/dir4', 'softlink').to.exist
+        expect(fs.existsSync 'test/temp/dir4', 'new softlink').to.exist
         stats = fs.lstatSync 'test/temp/dir4'
-        expect(stats.isSymbolicLink(), 'softlink').to.be.true
+        expect(stats.isSymbolicLink(), 'new softlink').to.be.true
         cb()
 
     it "should copy empty dir", (cb) ->
       fs.copy 'test/temp/dir2', 'test/temp/dir4', (err) ->
         expect(err, 'error').to.not.exist
-        expect(fs.existsSync 'test/temp/dir4', 'dir').to.exist
-        expect(fs.readdirSync 'test/temp/dir4').to.has.length 0
+        expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
+        expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.has.length 0
         cb()
 
     it "should copy deep dir", (cb) ->
       fs.copy 'test/temp/dir1', 'test/temp/dir4', (err) ->
         expect(err, 'error').to.not.exist
-        expect(fs.existsSync 'test/temp/dir4', 'dir').to.exist
-        expect(fs.readdirSync 'test/temp/dir4').to.has.length 1
+        expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
+        expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.has.length 1
         cb()
 
     it "should fail on copy dir into file", (cb) ->
@@ -69,6 +69,15 @@ describe "Recursive copy", ->
         expect(err, 'error').to.exist
         cb()
 
+    it "should copy dir with filter", (cb) ->
+      fs.copy 'test/temp/dir1', 'test/temp/dir4',
+        include: '*1'
+      , (err) ->
+        expect(err, 'error').to.not.exist
+        expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
+        expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.has.length 1
+        cb()
+
   describe "synchronous", ->
 
     it "should fail if source don't exist", ->
@@ -82,19 +91,19 @@ describe "Recursive copy", ->
 
     it "should copy single link", ->
       fs.copySync 'test/temp/dir3', 'test/temp/dir4'
-      expect(fs.existsSync 'test/temp/dir4', 'softlink').to.exist
+      expect(fs.existsSync 'test/temp/dir4', 'new softlink').to.exist
       stats = fs.lstatSync 'test/temp/dir4'
-      expect(stats.isSymbolicLink(), 'softlink').to.be.true
+      expect(stats.isSymbolicLink(), 'new softlink').to.be.true
 
     it "should copy empty dir", ->
       fs.copySync 'test/temp/dir2', 'test/temp/dir4'
-      expect(fs.existsSync 'test/temp/dir4', 'dir').to.exist
-      expect(fs.readdirSync 'test/temp/dir4').to.has.length 0
+      expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
+      expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.has.length 0
 
     it "should copy deep dir", ->
       fs.copySync 'test/temp/dir1', 'test/temp/dir4'
-      expect(fs.existsSync 'test/temp/dir4', 'dir').to.exist
-      expect(fs.readdirSync 'test/temp/dir4').to.has.length 1
+      expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
+      expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.has.length 1
 
     it "should fail on copy dir into file", ->
       expect ->
@@ -110,4 +119,10 @@ describe "Recursive copy", ->
       expect ->
         fs.copySync 'test/temp/file1', 'test/temp/file2'
       .to.throw Error
+
+    it "should copy dir with filter", ->
+      fs.copySync 'test/temp/dir1', 'test/temp/dir4',
+        include: '*1'
+      expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
+      expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.has.length 1
 
