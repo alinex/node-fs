@@ -40,13 +40,23 @@ and the following extended functions:
 
 * [mkdirs](#mkdirs) and [mkdirsSync](#mkdirssync)
   to make directories like needed (including parent ones)
+* [find](#find) and [findSync](#findsync)
+  to get a list of files or directories
+* [copy](#copy) and [copySync](#copysync)
+  to deep copy directories with files
 * [remove](#remove) and [removeSync](#removesync)
   to remove a file entry with all it's children, if existing
+
+The methods `find`, `copy` and `remove` supports multiple options to filter the
+files they work on.
 
 Like you see all the extended functions use the same naming convention as the
 node core, making the use nearly natural.
 
-But you can still use the native Node.js methods, also.
+But you can still use the native Node.js methods, also. Some of the native
+methods are slightly changed:
+
+* `lstat` and `lstatSync` will now use a short caching for performance reasons
 
 
 ### mkdirs
@@ -71,7 +81,7 @@ __Example:__
     fs.mkdirs('/tmp/some/directory', function(err, made) {
       if (err) return console.error(err);
       if (made) console.log("Directory starting from '"+made+"' was created.");
-      console.log("Directory now exists!")
+      console.log("Directory now exists!");
     });
 
 ### mkdirsSync
@@ -101,10 +111,112 @@ __Example:__
     try {
       made = fs.mkdirsSync('/tmp/some/directory');
       if (made) console.log("Directory starting from '"+made+"' was created.");
-      console.log("Directory now exists!")
+      console.log("Directory now exists!");
     } catch (err) {
       return console.error(err);
     }
+
+### find
+
+List files within directory matching specific options.
+
+__Arguments:__
+
+* `source`
+  Path to be searched.
+* `options`
+  Specification of files to find (see [filter](#flter) options).
+* `callback(err, list)`
+  The callback will be called just if an error occurred. The list of found
+  entries will be given.
+
+__Example:__
+
+    var fs = require('alinex-fs');
+    fs.find('/tmp/some/directory', { include: '*.jpg' }, function(err, list) {
+      if (err) return console.error(err);
+      console.log("Found " + list.length + " images.");
+      // do something with list
+    });
+
+### findSync
+
+List files within directory matching specific options in a synchronous version.
+
+__Arguments:__
+
+* `source`
+  Path to be searched.
+* `options`
+  Specification of files to find
+
+__Return:__
+
+* `list`
+  Returns the list of found entries (see [filter](#flter) options).
+
+__Throw:__
+
+* `Error`
+  If anything out of order happened.
+
+__Example:__
+
+    var fs = require('alinex-fs');
+    try {
+      list = fs.findSync('/tmp/some/directory');
+      console.log("Found " + list.length + " images.");
+      // do something with list
+    } catch (err) {
+      return console.error(err);
+    }
+
+### copy
+
+Copy complete directories in a recursive way.
+
+__Arguments:__
+
+* `source`
+  File or directory to be copied.
+* `target`
+  File or directory to copy to.
+* `options`
+  Specification of files to find (see [filter](#flter) options).
+* `callback(err)`
+  The callback will be called just if an error occurred.
+
+__Example:__
+
+    var fs = require('alinex-fs');
+    fs.copy('/tmp/some/directory', function(err) {
+      if (err) return console.error(err);
+      console.log("Directory copied!");
+    });
+
+### copySync
+
+Copy complete directories in a recursive way (synchronous).
+
+__Arguments:__
+
+* `source`
+  File or directory to be copied.
+* `target`
+  File or directory to copy to.
+* `options`
+  Specification of files to find (see [filter](#flter) options).
+
+__Throw:__
+
+* `Error`
+  If anything out of order happened.
+
+__Example:__
+
+    var fs = require('alinex-fs');
+    fs.copySync('/tmp/some/directory');
+    console.log("Directory copied!");
 
 ### remove
 
@@ -115,6 +227,8 @@ __Arguments:__
 
 * `path`
   File or directory to be removed.
+* `options`
+  Specification of files to remove (see [filter](#flter) options).
 * `callback(err, removed)`
   The callback will be called just if an error occurred. It returns the
   file entry which was removed, if any.
@@ -125,7 +239,7 @@ __Example:__
     fs.remove('/tmp/some/directory', function(err, removed) {
       if (err) return console.error(err);
       if (removed) console.log("Directory '"+removed+"' was removed with all it's contents.");
-      console.log("Directory no longer exists!")
+      console.log("Directory no longer exists!");
     });
 
 ### removeSync
@@ -136,6 +250,8 @@ __Arguments:__
 
 * `path`
   File or directory to create if not existing.
+* `options`
+  Specification of files to remove (see [filter](#flter) options).
 
 __Return:__
 
@@ -153,7 +269,7 @@ __Example:__
     try {
       made = fs.removeSync('/tmp/some/directory');
       if (made) console.log("Directory '"+made+"' was removed with all it's contents.");
-      console.log("Directory no longer exists!")
+      console.log("Directory no longer exists!");
     } catch (err) {
       return console.error(err);
     }
@@ -166,6 +282,7 @@ The filter is used to select some of the files based on specific settings.
 The filter is given as options array which may have some of the following
 specification settings.
 Additionally some methods may have special options for filtering.
+
 
 ### File/path matching
 
@@ -206,6 +323,15 @@ Extended globbing is also possible:
 - *(list): Matches zero or more occurrences of the given patterns.
 - +(list): Matches one or more occurrences of the given patterns.
 - @(list): Matches one of the given patterns.
+
+
+### Search depth
+
+The search depth specifies in which level of subdirectories the filter will match.
+1 means everything in the given directory, 2 one level deeper.
+
+- `mindepth` minimal depth to match
+- `maxdepth` maximal depth to match
 
 
 License

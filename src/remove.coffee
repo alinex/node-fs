@@ -33,17 +33,17 @@ remove = module.exports.async = (file, options, cb = -> ) ->
   # get parameter and default values
   filter.async file, options, (ok) ->
     unless ok
-      fs.lstat file, (err, stats) ->
+      return fs.lstat file, (err, stats) ->
         return cb err if err
-        if stats.isDirectory()
-          # if  directory: check sub entries
-          dir = file
-          fs.readdir dir, (err, files) ->
-            return cb err if err
-            # remove all entries in directory
-            async.each files, (file, cb) ->
-              remove path.join(dir, file), options, cb
-            , cb
+        return cb() unless stats.isDirectory()
+        # if  directory: check sub entries
+        dir = file
+        fs.readdir dir, (err, files) ->
+          return cb err if err
+          # remove all entries in directory
+          async.each files, (file, cb) ->
+            remove path.join(dir, file), options, cb
+          , cb
     # try to remove
     fs.unlink file, (err) ->
       # correctly removed

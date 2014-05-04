@@ -24,7 +24,7 @@ describe "Remove", ->
 
   describe "asynchronous", ->
 
-    it "should do nothing if file not exist", (cb) ->
+    it "should do nothing if file does not exist", (cb) ->
       fs.remove 'test/temp/file-do-not-exist', (err, removed) ->
         expect(err, 'error').to.not.exist
         expect(removed, 'removed path').to.not.exist
@@ -64,6 +64,16 @@ describe "Remove", ->
         expect(removed, 'removed path').to.not.exist
         cb()
 
+    it "should remove only pattern matches", (cb) ->
+      expect(fs.existsSync('test/temp/dir1'), 'precheck').to.be.true
+      fs.remove 'test/temp/dir1',
+        include: '*11'
+      ,(err, removed) ->
+        expect(err, 'error').to.not.exist
+        expect(fs.existsSync('test/temp/dir1'), 'unmatched dir').to.be.true
+        expect(fs.existsSync('test/temp/dir1/file11'), 'removed file').to.be.false
+        cb()
+
   describe "synchronous", ->
 
     it "should do nothing if file not exist", ->
@@ -95,3 +105,11 @@ describe "Remove", ->
       expect ->
         removed = fs.removeSync file
       .to.throw Error
+
+    it "should remove only pattern matches", ->
+      expect(fs.existsSync('test/temp/dir1'), 'precheck').to.be.true
+      fs.removeSync 'test/temp/dir1',
+        include: '*11'
+      expect(fs.existsSync('test/temp/dir1'), 'unmatched dir').to.be.true
+      expect(fs.existsSync('test/temp/dir1/file11'), 'removed file').to.be.false
+

@@ -18,6 +18,8 @@ minimatch = require 'minimatch'
 #
 # * `file`
 #   File to check against filter
+# * `depth`
+#   Search depth as integer (internal parameter).
 # * `options`
 #   Specification of files to success.
 # * `callback(success)`
@@ -37,8 +39,9 @@ minimatch = require 'minimatch'
 #   - `gid` integer - only files from this group
 #   - `minsize` integer - file size in bytes
 #   - `maxsize` integer - file size in bytes
-module.exports.async = (file, options = {}, cb = -> ) ->
+module.exports.async = (file, depth, options = {}, cb = -> ) ->
   async.parallel [
+    (cb) -> skipDepth depth, options, cb
     (cb) -> skipMinimatch file, options, cb
   ], (skip) ->
     cb not skip
@@ -51,6 +54,8 @@ module.exports.async = (file, options = {}, cb = -> ) ->
 #
 # * `file`
 #   File to check against filter
+# * `depth`
+#   Search depth as integer (internal parameter).
 # * `options`
 #   Specification of files to success.
 #
@@ -60,7 +65,8 @@ module.exports.async = (file, options = {}, cb = -> ) ->
 #   The callback will be called with a boolean value showing if file is accepted.
 #
 # The options are the same as in the asynchronous method.
-module.exports.sync = (file, options = {}) ->
+module.exports.sync = (file, depth, options = {}) ->
+  return false if skipDepthSync depth, options
   return false if skipMinimatchSync file, options
   true
 
@@ -100,7 +106,11 @@ skipMinimatchSync = (file, options) ->
   # console.log "test #{file} +#{options.include} -#{options.exclude} skip=#{skip}"
   skip
 
+skipDepth = (depth, options, cb) ->
+  skip = (options.mindepth? > depth) or (options.mmaxdepth? < depth)
+  cb skip
 
-
+skipDepthSync = (depth, options) ->
+  skip = (options.mindepth? > depth) or (options.mmaxdepth? < depth)
 
 

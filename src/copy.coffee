@@ -27,14 +27,19 @@ filter = require './filter'
 #   Specification of files to find.
 # * `callback(err)`
 #   The callback will be called just if an error occurred.
-copy = module.exports.async = (source, target, options, cb = -> ) ->
+# * `depth`
+#   Search depth as integer (internal parameter).
+copy = module.exports.async = (source, target, options, cb, depth = 0) ->
+  unless cb?
+    cb = ->
   if typeof options is 'function' or not options
     cb = options ? ->
     options = {}
   fs.lstat source, (err, stats) ->
     return cb err if err
     # Check the current file through filter options
-    filter.async source, options, (ok) ->
+    filter.async source, depth, options, (ok) ->
+      list.push source if ok
       if stats.isFile()
         return cb() unless ok
         # create directory if neccessary
@@ -53,19 +58,20 @@ copy = module.exports.async = (source, target, options, cb = -> ) ->
             fs.symlink resolvedPath, target, cb
       else
         # source is directory
+        depth++
         fs.readdir source, (err, files) ->
           return cb err if err
           unless ok
             # copy all files in directory
             return async.each files, (file, cb) ->
-              copy path.join(source, file), path.join(target, file), cb
+              copy path.join(source, file), path.join(target, file), cb, depth
             , cb
           # copy directory
           mkdirs.async target, stats.mode, (err) ->
             return cb err if err
             # copy all files in directory
             async.each files, (file, cb) ->
-              copy path.join(source, file), path.join(target, file), cb
+              copy path.join(source, file), path.join(target, file), cb, depth
             , cb
 
 # Copy file or directory (Synchronous)
@@ -80,14 +86,16 @@ copy = module.exports.async = (source, target, options, cb = -> ) ->
 #   File or directory to copy to.
 # * `options`
 #   Specification of files to find.
+# * `depth`
+#   Search depth as integer (internal parameter).
 #
 # __Throw:__
 #
 # * `Error`
 #   If anything out of order happened.
-copySync = module.exports.sync = (source, target, options = {} ) ->
+copySync = module.exports.sync = (source, target, options = {}, depth = 0) ->
   stats = fs.lstatSync source
-  ok = filter.sync source, options
+  ok = filter.sync source, depth, options
   if stats.isFile()
     return unless ok
     # create directory if neccessary
@@ -103,11 +111,12 @@ copySync = module.exports.sync = (source, target, options = {} ) ->
     fs.symlinkSync resolvedPath, target
   else
     # source is directory
+    depth++
     # copy directory
     mkdirs.sync target, stats.mode if ok
     # copy all files in directory
     for file in fs.readdirSync source
-      copySync path.join(source, file), path.join(target, file)
+      copySync path.join(source, file), path.join(target, file), options, depth
 
 copyFile = (source, stats, target, cb) ->
   # finalize only once

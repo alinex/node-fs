@@ -40,20 +40,19 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
     options = {}
   list = []
   # Check the current file through filter options
-  filter.async source, options, (ok) ->
-    min = not options.mindepth or options.mindepth <= depth
-    max = not options.mmaxdepth or options.maxdepth >= depth
-    list.push source if ok and min and max
+  filter.async source, depth, options, (ok) ->
+    list.push source if ok
     # check source entry
     fs.lstat source, (err, stats) ->
       return cb err if err
       return cb null, list unless stats.isDirectory()
       # source is directory
+      depth++
       fs.readdir source, (err, files) ->
         return cb err if err
         # collect files from each subentry
         async.map files, (file, cb) ->
-          find path.join(source, file), options, cb, (depth+1)
+          find path.join(source, file), options, cb, depth
         , (err, results) ->
           return cb err if err
           list = list.concat result for result in results
@@ -76,7 +75,7 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
 #
 # * `list`
 #   Returns the list of found entries
-#.
+#
 # __Throw:__
 #
 # * `Error`
@@ -84,15 +83,14 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
 findSync = module.exports.sync = (source, options = {}, depth = 0) ->
   list = []
   # Check the current file through filter options
-  min = not options.mindepth or options.mindepth <= depth
-  max = not options.mmaxdepth or options.maxdepth >= depth
-  list.push source if filter.sync(source, options) and min and max
+  list.push source if filter.sync source, depth, options
   # check source entry
   stats = fs.lstatSync source
   return list unless stats.isDirectory()
   # source is directory
+  depth++
   files = fs.readdirSync source
   # collect files from each subentry
   for file in files
-    list = list.concat findSync path.join(source, file), options, (depth+1)
+    list = list.concat findSync path.join(source, file), options, depth
   return list
