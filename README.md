@@ -56,6 +56,7 @@ node core, making the use nearly natural.
 But you can still use the native Node.js methods, also. Some of the native
 methods are slightly changed:
 
+* `stat` and `statSync` will now use a short caching for performance reasons
 * `lstat` and `lstatSync` will now use a short caching for performance reasons
 
 
@@ -332,6 +333,14 @@ The search depth specifies in which level of subdirectories the filter will matc
 
 - `mindepth` minimal depth to match
 - `maxdepth` maximal depth to match
+
+
+### Dereferencing
+
+Normally the methods will not go into symbolic links. They will see the symbolic
+link as itself. Using the option `dereference: true` this behavior will change
+and they will follow the symbolic link and check the path it refers to. This
+means that they will also go into referenced directories.
 
 
 License

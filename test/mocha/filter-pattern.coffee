@@ -33,6 +33,13 @@ describe "Pattern matching filter", ->
       expect(result, util.inspect options).to.deep.equal list
       cb()
 
+  checkSync = (options, list) ->
+    result = []
+    for file in files
+      result.push file if filter.sync file, 0, options
+#    console.log "check pattern", options, "with result: #{result}"
+    expect(result, util.inspect options).to.deep.equal list
+
   describe "asynchronous", ->
 
     it "should match start using asterix", (cb) ->
@@ -88,3 +95,43 @@ describe "Pattern matching filter", ->
         (cb) -> check { include: 'z\\?' }, ['z?'], cb
         (cb) -> check { include: 'z\\[' }, ['z['], cb
       ], cb
+
+  describe "synchronous", ->
+
+    it "should match start using asterix", ->
+      checkSync { include: 'a*' }, ['a', 'abc', 'abd', 'abe']
+      checkSync { include: 'c*' }, ['c', 'ca', 'cb', 'bdir/cfile']
+      checkSync { include: 'X*' }, []
+
+    it "should match start using questionmark", ->
+      checkSync { include: 'a?c' }, ['abc']
+      checkSync { include: '?' }, ['a', 'b', 'c', 'd']
+
+    it "should match directories only", ->
+      checkSync { include: 'b*/' }, ['bdir/']
+
+    it "should match all", ->
+      checkSync { include: '*' }, files
+      checkSync { include: '**' }, files
+
+    it "should match character groups", ->
+      checkSync { include: '[a-c]b*' }, ['abc', 'abd', 'abe', 'bb', 'cb']
+      checkSync { include: '[a-y]*[^c]' }, ['abd', 'abe', 'bb', 'bcd', 'ca', 'cb', 'dd', 'de', 'bdir/', 'bdir/cfile']
+      checkSync { include: 'a*[^c]' }, ['abd', 'abe']
+      checkSync { include: 'z[][-]' }, ['z[', 'z]', 'z-']
+      checkSync { include: '[^a-cz]*' }, ['d', 'dd', 'de']
+
+    it "should allow brace expansion", ->
+      checkSync { include: 'ab{c,d}' }, ['abc', 'abd']
+      checkSync { include: 'z{1..3}z' }, ['z1z', 'z2z']
+
+    it "should allow extended globbing", ->
+      checkSync { include: 'b?(b)' }, ['b', 'bb']
+      checkSync { include: '*(b)' }, ['b', 'bb']
+      checkSync { include: '+(b)' }, ['b', 'bb']
+      checkSync { include: '@(ab*|bc*)' }, ['abc', 'abd', 'abe', 'bcd']
+
+    it "should match with special chars", ->
+      checkSync { include: 'z\\*' }, ['z*']
+      checkSync { include: 'z\\?' }, ['z?']
+      checkSync { include: 'z\\[' }, ['z[']

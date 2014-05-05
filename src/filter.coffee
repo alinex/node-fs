@@ -94,7 +94,7 @@ skipMinimatch = (file, options, cb) ->
 skipMinimatchSync = (file, options) ->
   return false unless options.include or options.exclude
   try
-    stats = fs.lstat file
+    stats = fs.lstatSync file
   file += '/' if stats?.isDirectory()
   skip = false
   if options.include
@@ -107,10 +107,12 @@ skipMinimatchSync = (file, options) ->
   skip
 
 skipDepth = (depth, options, cb) ->
-  skip = (options.mindepth? > depth) or (options.mmaxdepth? < depth)
-  cb skip
+  cb skipDepthSync depth, options
 
 skipDepthSync = (depth, options) ->
-  skip = (options.mindepth? > depth) or (options.mmaxdepth? < depth)
+  skip = (options.mindepth? and options.mindepth > depth) or
+    (options.maxdepth? and options.maxdepth < depth)
+#  console.log depth, options, skip
+  skip
 
 

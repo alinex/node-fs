@@ -26,12 +26,6 @@ filter = require './filter'
 #   entries will be given.
 # * `depth`
 #   Search depth as integer (internal parameter).
-#
-# The following options are available:
-#
-# - dereference: bool - follow symbolic links
-# - mindepth: integer - levels of directories below the source
-# - maxdepth: integer - levels of directories below the source
 find = module.exports.async = (source, options, cb , depth = 0 ) ->
   unless cb?
     cb = ->
@@ -43,7 +37,8 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
   filter.async source, depth, options, (ok) ->
     list.push source if ok
     # check source entry
-    fs.lstat source, (err, stats) ->
+    stat = if options.dereference? then fs.stat else fs.lstat
+    stat source, (err, stats) ->
       return cb err if err
       return cb null, list unless stats.isDirectory()
       # source is directory
@@ -85,7 +80,8 @@ findSync = module.exports.sync = (source, options = {}, depth = 0) ->
   # Check the current file through filter options
   list.push source if filter.sync source, depth, options
   # check source entry
-  stats = fs.lstatSync source
+  stat = if options.dereference? then fs.statSync else fs.lstatSync
+  stats = stat source
   return list unless stats.isDirectory()
   # source is directory
   depth++

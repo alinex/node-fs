@@ -100,7 +100,8 @@ removeSync = module.exports.sync = (file, options = {}) ->
   # get parameter and default values
   ok = filter.sync file, options
   unless ok
-    stats = fs.lstatSync file
+    stat = if options.dereference? then fs.statSync else fs.lstatSync
+    stats = stat file
     if stats.isDirectory()
       # if  directory: check sub entries
       dir = file

@@ -35,11 +35,11 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
   if typeof options is 'function' or not options
     cb = options ? ->
     options = {}
-  fs.lstat source, (err, stats) ->
+  stat = if options.dereference? then fs.stat else fs.lstat
+  stat source, (err, stats) ->
     return cb err if err
     # Check the current file through filter options
     filter.async source, depth, options, (ok) ->
-      list.push source if ok
       if stats.isFile()
         return cb() unless ok
         # create directory if neccessary
@@ -64,14 +64,14 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
           unless ok
             # copy all files in directory
             return async.each files, (file, cb) ->
-              copy path.join(source, file), path.join(target, file), cb, depth
+              copy path.join(source, file), path.join(target, file), options, cb, depth
             , cb
           # copy directory
           mkdirs.async target, stats.mode, (err) ->
             return cb err if err
             # copy all files in directory
             async.each files, (file, cb) ->
-              copy path.join(source, file), path.join(target, file), cb, depth
+              copy path.join(source, file), path.join(target, file), options, cb, depth
             , cb
 
 # Copy file or directory (Synchronous)
@@ -94,7 +94,8 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
 # * `Error`
 #   If anything out of order happened.
 copySync = module.exports.sync = (source, target, options = {}, depth = 0) ->
-  stats = fs.lstatSync source
+  stat = if options.dereference? then fs.statSync else fs.lstatSync
+  stats = stat source
   ok = filter.sync source, depth, options
   if stats.isFile()
     return unless ok

@@ -19,7 +19,7 @@ describe "Recursive copy", ->
       return cb() unless exists
       exec 'rm -r test/temp', cb
 
-  describe "asynchronous", ->
+  describe.only "asynchronous", ->
 
     it "should fail if source don't exist", (cb) ->
       fs.copy 'test/temp/dir999', 'test/temp/dir10', (err) ->
@@ -51,7 +51,7 @@ describe "Recursive copy", ->
       fs.copy 'test/temp/dir1', 'test/temp/dir4', (err) ->
         expect(err, 'error').to.not.exist
         expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
-        expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.has.length 1
+        expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
         cb()
 
     it "should fail on copy dir into file", (cb) ->
@@ -75,8 +75,25 @@ describe "Recursive copy", ->
       , (err) ->
         expect(err, 'error').to.not.exist
         expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
-        expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.has.length 1
+        expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
         cb()
+
+    it "should copy deep dir", (cb) ->
+      fs.copy 'test/temp/dir1', 'test/temp/dir4',
+        mindepth: 1
+        maxdepth: 1
+      , (err) ->
+        expect(err, 'error').to.not.exist
+        expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
+        expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
+        fs.copy 'test/temp/dir1', 'test/temp/dir5',
+          mindepth: 0
+          maxdepth: 0
+        , (err) ->
+          expect(err, 'error').to.not.exist
+          expect(fs.existsSync 'test/temp/dir5', 'new dir').to.exist
+          expect(fs.readdirSync 'test/temp/dir5', 'new dir').to.deep.equal []
+          cb()
 
   describe "synchronous", ->
 
@@ -103,7 +120,7 @@ describe "Recursive copy", ->
     it "should copy deep dir", ->
       fs.copySync 'test/temp/dir1', 'test/temp/dir4'
       expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
-      expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.has.length 1
+      expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
 
     it "should fail on copy dir into file", ->
       expect ->
@@ -124,5 +141,5 @@ describe "Recursive copy", ->
       fs.copySync 'test/temp/dir1', 'test/temp/dir4',
         include: '*1'
       expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
-      expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.has.length 1
+      expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
 

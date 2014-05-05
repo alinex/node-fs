@@ -34,28 +34,33 @@ describe "Find", ->
     it "lists single file", (cb) ->
       fs.find 'test/temp/file1', (err, list) ->
         expect(err, 'error').to.not.exist
-        expect(list, 'result list').to.has.length 1
-        expect(list[0], 'result list').to.equal 'test/temp/file1'
+        expect(list, 'result list').to.deep.equal ['test/temp/file1']
         cb()
 
     it "lists single directory", (cb) ->
       fs.find 'test/temp/dir2', (err, list) ->
         expect(err, 'error').to.not.exist
-        expect(list, 'result list').to.has.length 1
-        expect(list[0], 'result list').to.equal 'test/temp/dir2'
+        expect(list, 'result list').to.deep.equal ['test/temp/dir2']
         cb()
 
     it "lists softlinked directory as entry", (cb) ->
       fs.find 'test/temp/dir3', (err, list) ->
         expect(err, 'error').to.not.exist
-        expect(list, 'result list').to.has.length 1
-        expect(list[0], 'result list').to.equal 'test/temp/dir3'
+        expect(list, 'result list').to.deep.equal['test/temp/dir3']
         cb()
 
     it "lists multiple files", (cb) ->
       fs.find 'test/temp', (err, list) ->
         expect(err, 'error').to.not.exist
-        expect(list, 'result list').to.has.length 7
+        expect(list, 'result list').to.deep.equal [
+          'test/temp'
+          'test/temp/dir1'
+          'test/temp/dir1/file11'
+          'test/temp/dir2'
+          'test/temp/dir3'
+          'test/temp/file1'
+          'test/temp/file2'
+        ]
         cb()
 
     it "matching files only", (cb) ->
@@ -63,7 +68,43 @@ describe "Find", ->
         include: '*1'
       , (err, list) ->
         expect(err, 'error').to.not.exist
-        expect(list, 'result list').to.has.length 3
+        expect(list, 'result list').to.deep.equal [
+          'test/temp/dir1'
+          'test/temp/dir1/file11'
+          'test/temp/file1'
+        ]
+        cb()
+
+    it "matching specific levels", (cb) ->
+      fs.find 'test/temp',
+        mindepth: 1
+        maxdepth: 1
+      , (err, list) ->
+        expect(err, 'error').to.not.exist
+        expect(list, 'result list').to.deep.equal [
+          'test/temp/dir1'
+          'test/temp/dir2'
+          'test/temp/dir3'
+          'test/temp/file1'
+          'test/temp/file2'
+        ]
+        cb()
+
+    it "lists dereferenced files", (cb) ->
+      fs.find 'test/temp',
+        dereference: true
+      , (err, list) ->
+        expect(err, 'error').to.not.exist
+        expect(list, 'result list').to.deep.equal [
+          'test/temp'
+          'test/temp/dir1'
+          'test/temp/dir1/file11'
+          'test/temp/dir2'
+          'test/temp/dir3'
+          'test/temp/dir3/file11'
+          'test/temp/file1'
+          'test/temp/file2'
+        ]
         cb()
 
   describe "synchronous", ->
@@ -75,25 +116,60 @@ describe "Find", ->
 
     it "lists single file", ->
       list = fs.findSync 'test/temp/file1'
-      expect(list, 'result list').to.has.length 1
-      expect(list[0], 'result list').to.equal 'test/temp/file1'
+      expect(list, 'result list').to.deep.equal ['test/temp/file1']
 
     it "lists single directory", ->
       list = fs.findSync 'test/temp/dir2'
-      expect(list, 'result list').to.has.length 1
-      expect(list[0], 'result list').to.equal 'test/temp/dir2'
+      expect(list, 'result list').to.deep.equal ['test/temp/dir2']
 
     it "lists softlinked directory as entry", ->
       list = fs.findSync 'test/temp/dir3'
-      expect(list, 'result list').to.has.length 1
-      expect(list[0], 'result list').to.equal 'test/temp/dir3'
+      expect(list, 'result list').to.deep.equal ['test/temp/dir3']
 
     it "lists multiple files", ->
       list = fs.findSync 'test/temp'
-      expect(list, 'result list').to.has.length 7
+      expect(list, 'result list').to.deep.equal [
+        'test/temp'
+        'test/temp/dir1'
+        'test/temp/dir1/file11'
+        'test/temp/dir2'
+        'test/temp/dir3'
+        'test/temp/file1'
+        'test/temp/file2'
+      ]
 
     it "matching files only", ->
       list = fs.findSync 'test/temp',
         include: '*1'
-      expect(list, 'result list').to.has.length 3
+      expect(list, 'result list').to.deep.equal [
+        'test/temp/dir1'
+        'test/temp/dir1/file11'
+        'test/temp/file1'
+      ]
+
+    it "matching specific levels", ->
+      list = fs.findSync 'test/temp',
+        mindepth: 1
+        maxdepth: 1
+      expect(list, 'result list').to.deep.equal [
+        'test/temp/dir1'
+        'test/temp/dir2'
+        'test/temp/dir3'
+        'test/temp/file1'
+        'test/temp/file2'
+      ]
+
+    it "lists dereferenced files", ->
+      list = fs.findSync 'test/temp',
+        dereference: true
+      expect(list, 'result list').to.deep.equal [
+        'test/temp'
+        'test/temp/dir1'
+        'test/temp/dir1/file11'
+        'test/temp/dir2'
+        'test/temp/dir3'
+        'test/temp/dir3/file11'
+        'test/temp/file1'
+        'test/temp/file2'
+      ]
 
