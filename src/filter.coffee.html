@@ -31,6 +31,12 @@
       <div class="heading h2">
         <a href="#find%20files">Find files</a>
       </div>
+      <div class="heading h2">
+        <a href="#find%20files%20(synchronous)">Find files (synchronous)</a>
+      </div>
+      <div class="heading h2">
+        <a href="#skip%20methods">Skip Methods</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -77,6 +83,7 @@
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+<span class="nv">minimatch = </span><span class="nx">require</span> <span class="s">&#39;minimatch&#39;</span>
 
 
 </pre></div>
@@ -92,39 +99,179 @@
 </div>
 
 
-<p>This method will list all files and directories in the given directory.</p>
+<p>This method will check a given file/path against some filter options.</p>
 
 <p><strong>Arguments:</strong></p>
 
 <ul>
 <li><code>file</code>
 File to check against filter</li>
+<li><code>depth</code>
+Search depth as integer (internal parameter).</li>
 <li><code>options</code>
-Specification of files to find.</li>
-<li><code>callback(err, list)</code>
-The callback will be called just if an error occurred. The list of found
-entries will be given.</li>
+Specification of files to success.</li>
+<li><code>callback(success)</code>
+The callback will be called with a boolean value showing if file is accepted.</li>
 </ul>
 
-<p>The following options are available:
-minmatch
-- include:
-- exclude:
-lstat
-- ftype: string - type of entry like in lstat
-- atime: integer - accessed within last x seconds
-- mtime: integer - modified within last x seconds
-- ctime: integer - created within last x seconds
-- uid: integer - only files from this user
-- gid: integer - only files from this group
-- minsize: integer - file size in bytes
-- maxsize: integer - file size in bytes</p>
+<p>The following options are available:</p>
+
+<ul>
+<li>minmatch based
+<ul><li><code>include</code> pattern</li>
+<li><code>exclude</code> pattern</li></ul></li>
+<li>lstat based
+<ul><li><code>ftype</code> string - type of entry like in lstat</li>
+<li><code>atime</code> integer - accessed within last x seconds</li>
+<li><code>mtime</code> integer - modified within last x seconds</li>
+<li><code>ctime</code> integer - created within last x seconds</li>
+<li><code>uid</code> integer - only files from this user</li>
+<li><code>gid</code> integer - only files from this group</li>
+<li><code>minsize</code> integer - file size in bytes</li>
+<li><code>maxsize</code> integer - file size in bytes</li></ul></li>
+</ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports.async = </span><span class="nf">(file, options, cb = -&gt; ) -&gt;</span>
+<span class="nv">module.exports.async = </span><span class="nf">(file, depth, options = {}, cb = -&gt; ) -&gt;</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">skipDepth</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">skipMinimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+  <span class="p">],</span> <span class="nf">(skip) -&gt;</span>
+    <span class="nx">cb</span> <span class="o">not</span> <span class="nx">skip</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="find%20files%20(synchronous)">
+  <h2>
+    <a href="#find%20files%20(synchronous)" name="find%20files%20(synchronous)" class="pilcrow">&#182;</a>
+    Find files (synchronous)
+  </h2>
+</div>
+
+
+<p>This method will check a given file/path against some filter options.</p>
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>file</code>
+File to check against filter</li>
+<li><code>depth</code>
+Search depth as integer (internal parameter).</li>
+<li><code>options</code>
+Specification of files to success.</li>
+</ul>
+
+<p><strong>Return:</strong></p>
+
+<ul>
+<li><code>success</code>
+The callback will be called with a boolean value showing if file is accepted.</li>
+</ul>
+
+<p>The options are the same as in the asynchronous method.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">module.exports.sync = </span><span class="nf">(file, depth, options = {}) -&gt;</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipDepthSync</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipMinimatchSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="kc">true</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="skip%20methods">
+  <h2>
+    <a href="#skip%20methods" name="skip%20methods" class="pilcrow">&#182;</a>
+    Skip Methods
+  </h2>
+</div>
+
+
+<p>The following methods will throw an boolean true as error if the file failed
+an specific test and therefore should not be included. If test is passed
+successfully it will return nothing.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">skipMinimatch = </span><span class="nf">(file, options, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span> <span class="nx">file</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">true</span>
+    <span class="nx">file</span> <span class="o">+=</span> <span class="s">&#39;/&#39;</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">err</span> <span class="o">and</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
+    <span class="nv">skip = </span><span class="kc">false</span>
+    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span>
+      <span class="nv">skip = </span><span class="o">not</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span><span class="p">,</span>
+        <span class="nv">matchBase: </span><span class="kc">true</span>
+    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
+      <span class="nv">skip = </span><span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span><span class="p">,</span>
+        <span class="nv">matchBase: </span><span class="kc">true</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>console.log "test #{file} +#{options.include} -#{options.exclude} skip=#{skip}"</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">cb</span> <span class="nx">skip</span>
+
+<span class="nv">skipMinimatchSync = </span><span class="nf">(file, options) -&gt;</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
+  <span class="k">try</span>
+    <span class="nv">stats = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span> <span class="nx">file</span>
+  <span class="nx">file</span> <span class="o">+=</span> <span class="s">&#39;/&#39;</span> <span class="k">if</span> <span class="nx">stats</span><span class="o">?</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
+  <span class="nv">skip = </span><span class="kc">false</span>
+  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span>
+    <span class="nv">skip = </span><span class="o">not</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span><span class="p">,</span>
+      <span class="nv">matchBase: </span><span class="kc">true</span>
+  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
+    <span class="nv">skip = </span><span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span><span class="p">,</span>
+      <span class="nv">matchBase: </span><span class="kc">true</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>console.log "test #{file} +#{options.include} -#{options.exclude} skip=#{skip}"</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">skip</span>
+
+<span class="nv">skipDepth = </span><span class="nf">(depth, options, cb) -&gt;</span>
+  <span class="nx">cb</span> <span class="nx">skipDepthSync</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
+
+<span class="nv">skipDepthSync = </span><span class="nf">(depth, options) -&gt;</span>
+  <span class="nv">skip = </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">mindepth</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">mindepth</span> <span class="o">&gt;</span> <span class="nx">depth</span><span class="p">)</span> <span class="o">or</span>
+    <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxdepth</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxdepth</span> <span class="o">&lt;</span> <span class="nx">depth</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>console.log depth, options, skip</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">skip</span>
 </pre></div>
         </td>
       </tr>

@@ -29,6 +29,21 @@
         <a href="#node%20modules">Node Modules</a>
       </div>
       <div class="heading h2">
+        <a href="#optimize%20original%20methods">Optimize original methods</a>
+      </div>
+      <div class="heading h3">
+        <a href="#stat%20with%20cached%20results">stat with cached results</a>
+      </div>
+      <div class="heading h3">
+        <a href="#statsync%20with%20cached%20results%20(synchronous)">statSync with cached results (synchronous)</a>
+      </div>
+      <div class="heading h3">
+        <a href="#lstat%20with%20cached%20results">lstat with cached results</a>
+      </div>
+      <div class="heading h3">
+        <a href="#lstatsync%20with%20cached%20results%20(synchronous)">lstatSync with cached results (synchronous)</a>
+      </div>
+      <div class="heading h2">
         <a href="#add%20extended%20functionality">Add extended functionality</a>
       </div>
       <div class="heading h3">
@@ -42,9 +57,6 @@
       </div>
       <div class="heading h3">
         <a href="#remove%20of%20entry%20with%20subentries">Remove of entry with subentries</a>
-      </div>
-      <div class="heading h3">
-        <a href="#meta%20data">Meta data</a>
       </div>
     </div>
   </div>
@@ -91,6 +103,105 @@
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">fs = module.exports = </span><span class="nx">require</span> <span class="s">&#39;graceful-fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">memoizee = </span><span class="nx">require</span> <span class="s">&#39;memoizee&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="optimize%20original%20methods">
+  <h2>
+    <a href="#optimize%20original%20methods" name="optimize%20original%20methods" class="pilcrow">&#182;</a>
+    Optimize original methods
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="stat%20with%20cached%20results">
+  <h3>
+    <a href="#stat%20with%20cached%20results" name="stat%20with%20cached%20results" class="pilcrow">&#182;</a>
+    stat with cached results
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">nodeStat = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span>
+<span class="nv">fs.stat = </span><span class="nx">memoizee</span> <span class="nx">nodeStat</span><span class="p">,</span>
+  <span class="nv">async: </span><span class="kc">true</span>
+  <span class="nv">maxAge: </span><span class="mi">1000</span> <span class="c1"># expiration time in milliseconds</span>
+  <span class="nv">max: </span><span class="mi">1000</span> <span class="c1"># limit number of elements</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="statsync%20with%20cached%20results%20(synchronous)">
+  <h3>
+    <a href="#statsync%20with%20cached%20results%20(synchronous)" name="statsync%20with%20cached%20results%20(synchronous)" class="pilcrow">&#182;</a>
+    statSync with cached results (synchronous)
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">nodeStatSync = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span>
+<span class="nv">fs.statSync = </span><span class="nx">memoizee</span> <span class="nx">nodeStatSync</span><span class="p">,</span>
+  <span class="nv">maxAge: </span><span class="mi">1000</span> <span class="c1"># expiration time in milliseconds</span>
+  <span class="nv">max: </span><span class="mi">1000</span> <span class="c1"># limit number of elements</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="lstat%20with%20cached%20results">
+  <h3>
+    <a href="#lstat%20with%20cached%20results" name="lstat%20with%20cached%20results" class="pilcrow">&#182;</a>
+    lstat with cached results
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">nodeLstat = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span>
+<span class="nv">fs.lstat = </span><span class="nx">memoizee</span> <span class="nx">nodeLstat</span><span class="p">,</span>
+  <span class="nv">async: </span><span class="kc">true</span>
+  <span class="nv">maxAge: </span><span class="mi">1000</span> <span class="c1"># expiration time in milliseconds</span>
+  <span class="nv">max: </span><span class="mi">1000</span> <span class="c1"># limit number of elements</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="lstatsync%20with%20cached%20results%20(synchronous)">
+  <h3>
+    <a href="#lstatsync%20with%20cached%20results%20(synchronous)" name="lstatsync%20with%20cached%20results%20(synchronous)" class="pilcrow">&#182;</a>
+    lstatSync with cached results (synchronous)
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">nodeLstatSync = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
+<span class="nv">fs.lstatSync = </span><span class="nx">memoizee</span> <span class="nx">nodeLstatSync</span><span class="p">,</span>
+  <span class="nv">maxAge: </span><span class="mi">1000</span> <span class="c1"># expiration time in milliseconds</span>
+  <span class="nv">max: </span><span class="mi">1000</span> <span class="c1"># limit number of elements</span>
 
 
 </pre></div>
@@ -185,25 +296,6 @@
 <span class="nv">fs.removeSync = </span><span class="nx">remove</span><span class="p">.</span><span class="nx">sync</span>
 
 
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="meta%20data">
-  <h3>
-    <a href="#meta%20data" name="meta%20data" class="pilcrow">&#182;</a>
-    Meta data
-  </h3>
-</div>
-
-
-<p>lstat = require './lstat'
-fs.lstatOrig = fs.lstat
-fs.lstat = lstat.async</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
 
 </pre></div>
         </td>
@@ -211,7 +303,7 @@ fs.lstat = lstat.async</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>meta
 find

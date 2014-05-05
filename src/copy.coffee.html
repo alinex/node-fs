@@ -90,10 +90,11 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
-<p>include other extended commands</p>
+<p>include other extended commands and helper</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">mkdirs = </span><span class="nx">require</span> <span class="s">&#39;./mkdirs&#39;</span>
+<span class="nv">filter = </span><span class="nx">require</span> <span class="s">&#39;./filter&#39;</span>
 
 
 </pre></div>
@@ -122,16 +123,20 @@ File or directory to copy to.</li>
 Specification of files to find.</li>
 <li><code>callback(err)</code>
 The callback will be called just if an error occurred.</li>
+<li><code>depth</code>
+Search depth as integer (internal parameter).</li>
 </ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">copy = module.exports.async = </span><span class="nf">(source, target, options, cb = -&gt; ) -&gt;</span>
+<span class="nv">copy = module.exports.async = </span><span class="nf">(source, target, options, cb, depth = 0) -&gt;</span>
+  <span class="k">unless</span> <span class="nx">cb</span><span class="o">?</span>
+    <span class="nv">cb = </span><span class="nf">-&gt;</span>
   <span class="k">if</span> <span class="k">typeof</span> <span class="nx">options</span> <span class="o">is</span> <span class="s">&#39;function&#39;</span> <span class="o">or</span> <span class="o">not</span> <span class="nx">options</span>
     <span class="nv">cb = </span><span class="nx">options</span> <span class="o">?</span> <span class="nf">-&gt;</span>
     <span class="nv">options = </span><span class="p">{}</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
+  <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span>
+  <span class="nx">stat</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span>
 
 </pre></div>
         </td>
@@ -141,11 +146,12 @@ The callback will be called just if an error occurred.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
 </div>
-<p>create directory if neccessary</p>
+<p>Check the current file through filter options</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">async</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">target</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">filter</span><span class="p">.</span><span class="nx">async</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(ok) -&gt;</span>
+      <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">ok</span>
 
 </pre></div>
         </td>
@@ -155,12 +161,11 @@ The callback will be called just if an error occurred.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
 </div>
-<p>copy the file</p>
+<p>create directory if neccessary</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-        <span class="nx">copyFile</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">cb</span>
-
-    <span class="k">else</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
+        <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">async</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">target</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
         </td>
@@ -170,13 +175,12 @@ The callback will be called just if an error occurred.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
 </div>
-<p>create directory if neccessary</p>
+<p>copy the file</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">async</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">target</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">fs</span><span class="p">.</span><span class="nx">readlink</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, resolvedPath) -&gt;</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+          <span class="nx">copyFile</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">cb</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">ok</span>
 
 </pre></div>
         </td>
@@ -186,11 +190,13 @@ The callback will be called just if an error occurred.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
 </div>
-<p>make the symlink</p>
+<p>create directory if neccessary</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">fs</span><span class="p">.</span><span class="nx">symlink</span> <span class="nx">resolvedPath</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="k">else</span>
+        <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">async</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">target</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+          <span class="nx">fs</span><span class="p">.</span><span class="nx">readlink</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, resolvedPath) -&gt;</span>
+            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
         </td>
@@ -200,11 +206,11 @@ The callback will be called just if an error occurred.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
 </div>
-<p>source is directory</p>
+<p>make the symlink</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, files) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+            <span class="nx">fs</span><span class="p">.</span><span class="nx">symlink</span> <span class="nx">resolvedPath</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">cb</span>
+      <span class="k">else</span>
 
 </pre></div>
         </td>
@@ -214,11 +220,13 @@ The callback will be called just if an error occurred.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
-<p>copy directory</p>
+<p>source is directory</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-        <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">async</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+        <span class="nx">depth</span><span class="o">++</span>
+        <span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, files) -&gt;</span>
           <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+          <span class="k">unless</span> <span class="nx">ok</span>
 
 </pre></div>
         </td>
@@ -231,11 +239,9 @@ The callback will be called just if an error occurred.</li>
 <p>copy all files in directory</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">files</span><span class="p">,</span> <span class="nf">(file, cb) -&gt;</span>
-            <span class="nx">copy</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">cb</span>
-          <span class="p">,</span> <span class="nx">cb</span>
-
-<span class="nv">copyFile = </span><span class="nf">(source, stats, target, cb) -&gt;</span>
+            <span class="k">return</span> <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">files</span><span class="p">,</span> <span class="nf">(file, cb) -&gt;</span>
+              <span class="nx">copy</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span><span class="p">,</span> <span class="nx">depth</span>
+            <span class="p">,</span> <span class="nx">cb</span>
 
 </pre></div>
         </td>
@@ -245,12 +251,11 @@ The callback will be called just if an error occurred.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
-<p>finalize only once</p>
+<p>copy directory</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">done = </span><span class="nf">(err) -&gt;</span>
-    <span class="k">unless</span> <span class="nx">cbCalled</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+          <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">async</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
         </td>
@@ -260,61 +265,12 @@ The callback will be called just if an error occurred.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
-<p>fix file permissions and times</p>
+<p>copy all files in directory</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">fs</span><span class="p">.</span><span class="nx">utimes</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">atime</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mtime</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-        <span class="nx">fs</span><span class="p">.</span><span class="nx">chown</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">gid</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-          <span class="nx">fs</span><span class="p">.</span><span class="nx">chmod</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-            <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-    <span class="nv">cbCalled = </span><span class="kc">true</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
-</div>
-<p>check if copy is possible</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span> <span class="nx">target</span><span class="p">,</span> <span class="nf">(err, exists) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="k">if</span> <span class="nx">exists</span>
-      <span class="k">return</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Target file already exists.&quot;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
-</div>
-<p>open streams</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">rs = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span> <span class="nx">source</span>
-    <span class="nv">ws = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span> <span class="nx">target</span><span class="p">,</span>
-      <span class="nv">mode: </span><span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
-</div>
-<p>copy data</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">ws</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">done</span>
-    <span class="nx">ws</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;close&#39;</span><span class="p">,</span> <span class="nx">done</span>
-    <span class="nx">rs</span><span class="p">.</span><span class="nx">pipe</span> <span class="nx">ws</span>
+            <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">files</span><span class="p">,</span> <span class="nf">(file, cb) -&gt;</span>
+              <span class="nx">copy</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span><span class="p">,</span> <span class="nx">depth</span>
+            <span class="p">,</span> <span class="nx">cb</span>
 
 
 </pre></div>
@@ -341,6 +297,8 @@ File or directory to be copied.</li>
 File or directory to copy to.</li>
 <li><code>options</code>
 Specification of files to find.</li>
+<li><code>depth</code>
+Search depth as integer (internal parameter).</li>
 </ul>
 
 <p><strong>Throw:</strong></p>
@@ -351,9 +309,12 @@ If anything out of order happened.</li>
 </ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">copySync = module.exports.sync = </span><span class="nf">(source, target, options = {} ) -&gt;</span>
-  <span class="nv">stats = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span> <span class="nx">source</span>
+<span class="nv">copySync = module.exports.sync = </span><span class="nf">(source, target, options = {}, depth = 0) -&gt;</span>
+  <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
+  <span class="nv">stats = </span><span class="nx">stat</span> <span class="nx">source</span>
+  <span class="nv">ok = </span><span class="nx">filter</span><span class="p">.</span><span class="nx">sync</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
   <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span>
+    <span class="k">return</span> <span class="k">unless</span> <span class="nx">ok</span>
 
 </pre></div>
         </td>
@@ -361,7 +322,7 @@ If anything out of order happened.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>create directory if neccessary</p>
         </td>
@@ -374,13 +335,14 @@ If anything out of order happened.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>copy the file</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">copyFileSync</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">target</span>
   <span class="k">else</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
+    <span class="k">return</span> <span class="k">unless</span> <span class="nx">ok</span>
 
 </pre></div>
         </td>
@@ -388,7 +350,7 @@ If anything out of order happened.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>create directory if neccessary</p>
         </td>
@@ -402,7 +364,7 @@ If anything out of order happened.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>make the symlink</p>
         </td>
@@ -416,13 +378,56 @@ If anything out of order happened.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
 </div>
-<p>source is directory
-copy directory</p>
+<p>source is directory</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">sync</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span>
+    <span class="nx">depth</span><span class="o">++</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+</div>
+<p>copy directory</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">sync</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span> <span class="k">if</span> <span class="nx">ok</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+</div>
+<p>copy all files in directory</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">for</span> <span class="nx">file</span> <span class="k">in</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span> <span class="nx">source</span>
+      <span class="nx">copySync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">depth</span>
+
+<span class="nv">copyFile = </span><span class="nf">(source, stats, target, cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+</div>
+<p>finalize only once</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">done = </span><span class="nf">(err) -&gt;</span>
+    <span class="k">unless</span> <span class="nx">cbCalled</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
         </td>
@@ -432,11 +437,61 @@ copy directory</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
 </div>
-<p>copy all files in directory</p>
+<p>fix file permissions and times</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">for</span> <span class="nx">file</span> <span class="k">in</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span> <span class="nx">source</span>
-      <span class="nx">copySync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">file</span><span class="p">)</span>
+      <span class="nx">fs</span><span class="p">.</span><span class="nx">utimes</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">atime</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mtime</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+        <span class="nx">fs</span><span class="p">.</span><span class="nx">chown</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">gid</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+          <span class="nx">fs</span><span class="p">.</span><span class="nx">chmod</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+            <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+    <span class="nv">cbCalled = </span><span class="kc">true</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+</div>
+<p>check if copy is possible</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span> <span class="nx">target</span><span class="p">,</span> <span class="nf">(err, exists) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="k">if</span> <span class="nx">exists</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Target file already exists.&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+</div>
+<p>open streams</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">rs = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span> <span class="nx">source</span>
+    <span class="nv">ws = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span> <span class="nx">target</span><span class="p">,</span>
+      <span class="nv">mode: </span><span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+</div>
+<p>copy data</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">ws</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">done</span>
+    <span class="nx">ws</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;close&#39;</span><span class="p">,</span> <span class="nx">done</span>
+    <span class="nx">rs</span><span class="p">.</span><span class="nx">pipe</span> <span class="nx">ws</span>
 
 <span class="nv">copyFileSync = </span><span class="nf">(source, stats, target) -&gt;</span>
   <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">target</span>
@@ -448,7 +503,7 @@ copy directory</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
 </div>
 <p>copy file</p>
         </td>
@@ -461,7 +516,7 @@ copy directory</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
 </div>
 <p>copy permissions and times</p>
         </td>
