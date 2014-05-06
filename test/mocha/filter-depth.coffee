@@ -9,7 +9,7 @@ util = require 'util'
 
 describe "Filter file structure depth", ->
 
-  filter = require '../../src/filter'
+  filter = require '../../lib/filter'
 
   # Tests based on
   # -------------------------------------------------------

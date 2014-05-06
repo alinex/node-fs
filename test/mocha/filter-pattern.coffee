@@ -9,7 +9,7 @@ util = require 'util'
 
 describe "Pattern matching filter", ->
 
-  filter = require '../../src/filter'
+  filter = require '../../lib/filter'
 
   # Tests based on
   # -------------------------------------------------------

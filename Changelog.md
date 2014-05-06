@@ -9,8 +9,6 @@ Version 0.0.3 (2014-05-06)
 - Fixed code and completed tests for find, copy and remove methods.
 - Added more tests to filter and find methods.
 - Start reworking filter to support depth.
-- Fixed bug in findSync with filter.
-- Fixed bug in lstat calls.
 - Add caching to fs.lstat methods, remove own implementation.
 - Add min and max depth checks to find.
 - Added filter methods to remove and copy commands.
@@ -18,8 +16,6 @@ Version 0.0.3 (2014-05-06)
 - Completed async pattern flter tests.
 - Extended pattern matches.
 - Fixed bug in mocha tests on calling the source coffee.
-- Added tests for the internal filter method.
-- Added some readme for the filter methods.
 - Added basic filter methods to find.
 
 Version 0.0.2 (2014-04-29)

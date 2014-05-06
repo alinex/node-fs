@@ -8,7 +8,7 @@ expect = chai.expect
 
 describe "Find", ->
 
-  fs = require '../../src/index'
+  fs = require '../../lib/index'
 
   beforeEach (cb) ->
     exec 'mkdir -p test/temp/dir1', ->

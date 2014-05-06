@@ -4,7 +4,7 @@ expect = chai.expect
 
 describe "Recursive copy", ->
 
-  fs = require '../../src/index'
+  fs = require '../../lib/index'
 
   beforeEach (cb) ->
     exec 'mkdir -p test/temp/dir1', ->
