@@ -35,6 +35,7 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
   if typeof options is 'function' or not options
     cb = options ? ->
     options = {}
+  # check file entry
   stat = if options.dereference? then fs.stat else fs.lstat
   stat source, (err, stats) ->
     return cb err if err
@@ -42,14 +43,14 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
     filter.async source, depth, options, (ok) ->
       if stats.isFile()
         return cb() unless ok
-        # create directory if neccessary
+        # create directory if necessary
         mkdirs.async path.dirname(target), (err) ->
           return cb err if err
           # copy the file
           copyFile source, stats, target, cb
       else if stats.isSymbolicLink()
         return cb() unless ok
-        # create directory if neccessary
+        # create directory if necessary
         mkdirs.async path.dirname(target), (err) ->
           return cb err if err
           fs.readlink source, (err, resolvedPath) ->
@@ -61,18 +62,14 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
         depth++
         fs.readdir source, (err, files) ->
           return cb err if err
-          unless ok
-            # copy all files in directory
-            return async.each files, (file, cb) ->
-              copy path.join(source, file), path.join(target, file), options, cb, depth
-            , cb
-          # copy directory
-          mkdirs.async target, stats.mode, (err) ->
+          # copy all files in directory
+          async.each files, (file, cb) ->
+            copy path.join(source, file), path.join(target, file), options, cb, depth
+          , (err) ->
             return cb err if err
-            # copy all files in directory
-            async.each files, (file, cb) ->
-              copy path.join(source, file), path.join(target, file), options, cb, depth
-            , cb
+            return cb() unless ok
+            # make directory if not done
+            mkdirs.async target, stats.mode, cb
 
 # Copy file or directory (Synchronous)
 # -------------------------------------------------

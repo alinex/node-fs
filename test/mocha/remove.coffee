@@ -15,7 +15,8 @@ describe "Remove", ->
       exec 'mkdir -p test/temp/dir2', ->
         exec 'touch test/temp/file1', ->
           exec 'touch test/temp/file2', ->
-            exec 'touch test/temp/dir1/file11', cb
+            exec 'touch test/temp/dir1/file11', ->
+              exec 'ln -s dir1 test/temp/dir3', cb
 
   afterEach (cb) ->
     fs.exists 'test/temp', (exists) ->
@@ -35,7 +36,7 @@ describe "Remove", ->
       fs.remove 'test/temp/file1', (err, removed) ->
         expect(err, 'error').to.not.exist
         expect(removed, 'removed path').to.have.string 'test/temp/file1'
-        expect(fs.existsSync('test/temp/file1'), 'postcheck').to.be.false
+        expect(fs.existsSync('test/temp/file1', 'oldfile'), 'postcheck').to.be.false
         cb()
 
     it "should remove an empty directory", (cb) ->
@@ -71,6 +72,26 @@ describe "Remove", ->
       ,(err, removed) ->
         expect(err, 'error').to.not.exist
         expect(fs.existsSync('test/temp/dir1'), 'unmatched dir').to.be.true
+        expect(fs.existsSync('test/temp/dir1/file11'), 'removed file').to.be.false
+        cb()
+
+    it "should remove only specific level", (cb) ->
+      expect(fs.existsSync('test/temp/dir1'), 'precheck').to.be.true
+      fs.remove 'test/temp/dir1',
+        mindepth: '1'
+      ,(err, removed) ->
+        expect(err, 'error').to.not.exist
+        expect(fs.existsSync('test/temp/dir1'), 'dir').to.be.true
+        expect(fs.existsSync('test/temp/dir1/file11'), 'removed file').to.be.false
+        cb()
+
+    it "should remove with dereferencing", (cb) ->
+      expect(fs.existsSync('test/temp/dir3'), 'precheck').to.be.true
+      fs.remove 'test/temp/dir3',
+        dereference: true
+      ,(err, removed) ->
+        expect(err, 'error').to.not.exist
+        expect(fs.existsSync('test/temp/dir3'), 'link').to.be.false
         expect(fs.existsSync('test/temp/dir1/file11'), 'removed file').to.be.false
         cb()
 
@@ -111,5 +132,19 @@ describe "Remove", ->
       fs.removeSync 'test/temp/dir1',
         include: '*11'
       expect(fs.existsSync('test/temp/dir1'), 'unmatched dir').to.be.true
+      expect(fs.existsSync('test/temp/dir1/file11'), 'removed file').to.be.false
+
+    it "should remove only specific level", ->
+      expect(fs.existsSync('test/temp/dir1'), 'precheck').to.be.true
+      fs.removeSync 'test/temp/dir1',
+        mindepth: '1'
+      expect(fs.existsSync('test/temp/dir1'), 'dir').to.be.true
+      expect(fs.existsSync('test/temp/dir1/file11'), 'removed file').to.be.false
+
+    it "should remove with dereferencing", ->
+      expect(fs.existsSync('test/temp/dir3'), 'precheck').to.be.true
+      fs.removeSync 'test/temp/dir3',
+        dereference: true
+      expect(fs.existsSync('test/temp/dir3'), 'link').to.be.false
       expect(fs.existsSync('test/temp/dir1/file11'), 'removed file').to.be.false
 

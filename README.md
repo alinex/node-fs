@@ -325,6 +325,10 @@ Extended globbing is also possible:
 - +(list): Matches one or more occurrences of the given patterns.
 - @(list): Matches one of the given patterns.
 
+Directory matching:
+
+All directories will be tested with an added slash.
+
 
 ### Search depth
 

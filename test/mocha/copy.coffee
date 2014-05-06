@@ -19,7 +19,7 @@ describe "Recursive copy", ->
       return cb() unless exists
       exec 'rm -r test/temp', cb
 
-  describe.only "asynchronous", ->
+  describe "asynchronous", ->
 
     it "should fail if source don't exist", (cb) ->
       fs.copy 'test/temp/dir999', 'test/temp/dir10', (err) ->
@@ -95,6 +95,15 @@ describe "Recursive copy", ->
           expect(fs.readdirSync 'test/temp/dir5', 'new dir').to.deep.equal []
           cb()
 
+    it "should copy with dereferencing", (cb) ->
+      fs.copy 'test/temp/dir3', 'test/temp/dir4',
+        dereference: true
+      , (err) ->
+        expect(err, 'error').to.not.exist
+        expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
+        expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
+        cb()
+
   describe "synchronous", ->
 
     it "should fail if source don't exist", ->
@@ -140,6 +149,12 @@ describe "Recursive copy", ->
     it "should copy dir with filter", ->
       fs.copySync 'test/temp/dir1', 'test/temp/dir4',
         include: '*1'
+      expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
+      expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
+
+    it "should copy with dereferencing", ->
+      fs.copySync 'test/temp/dir3', 'test/temp/dir4',
+        dereference: true
       expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
       expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
 
