@@ -8,8 +8,8 @@
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
-minimatch = require 'minimatch'
 {execFile} = require 'child_process'
+moment = require 'moment'
 
 # Find files
 # -------------------------------------------------
@@ -25,27 +25,14 @@ minimatch = require 'minimatch'
 #   Specification of files to success.
 # * `callback(success)`
 #   The callback will be called with a boolean value showing if file is accepted.
-#
-# The following options are available:
-#
-# - minmatch based
-#   - `include` pattern
-#   - `exclude` pattern
-# - lstat based
-#   - `ftype` string - type of entry like in lstat
-#   - `atime` integer - accessed within last x seconds
-#   - `mtime` integer - modified within last x seconds
-#   - `ctime` integer - created within last x seconds
-#   - `uid` integer - only files from this user
-#   - `gid` integer - only files from this group
-#   - `minsize` integer - file size in bytes
-#   - `maxsize` integer - file size in bytes
 module.exports.async = (file, depth, options = {}, cb = -> ) ->
   async.parallel [
     (cb) -> skipDepth depth, options, cb
-    (cb) -> skipMinimatch file, options, cb
+    (cb) -> skipPath file, options, cb
     (cb) -> skipType file, options, cb
     (cb) -> skipSize file, options, cb
+    (cb) -> skipTime file, options, cb
+    (cb) -> skipFunction file, options, cb
   ], (skip) ->
     cb not skip
 
@@ -71,46 +58,42 @@ module.exports.async = (file, depth, options = {}, cb = -> ) ->
 module.exports.sync = (file, depth, options = {}) ->
   return false if skipTypeSync file, options
   return false if skipDepthSync depth, options
-  return false if skipMinimatchSync file, options
+  return false if skipPathSync file, options
   return false if skipSizeSync file, options
+  return false if skipTimeSync file, options
+  return false if skipFunctionSync file, options
   true
 
 
 # Skip Methods
 # -------------------------------------------------
-# The following methods will throw an boolean true as error if the file failed
-# an specific test and therefore should not be included. If test is passed
+# The following methods will throw/return an boolean true as error if the file
+# failed an specific test and therefore should not be included. If test is passed
 # successfully it will return nothing.
 
-skipMinimatch = (file, options, cb) ->
-  return cb() unless options.include or options.exclude
-  fs.lstat file, (err, stats) ->
-    file += '/' if not err and stats.isDirectory()
-    skip = false
-    if options.include
-      skip = not minimatch file, options.include,
-        matchBase: true
-    if options.exclude
-      skip = minimatch file, options.exclude,
-        matchBase: true
-    # console.log "test #{file} +#{options.include} -#{options.exclude} skip=#{skip}"
-    cb skip
+# ### Test the path
+# This is done using Minimatch or RegExp
+skipPath = (file, options, cb) ->
+  cb skipPathSync file, options
 
-skipMinimatchSync = (file, options) ->
+skipPathSync = (file, options) ->
   return false unless options.include or options.exclude
-  try
-    stats = fs.lstatSync file
-  file += '/' if stats?.isDirectory()
-  skip = false
   if options.include
-    skip = not minimatch file, options.include,
-      matchBase: true
+    if options.include instanceof RegExp
+      return true unless file.match options.include
+    else
+      minimatch = require 'minimatch'
+      return true unless minimatch file, options.include, { matchBase: true }
   if options.exclude
-    skip = minimatch file, options.exclude,
-      matchBase: true
-  # console.log "test #{file} +#{options.include} -#{options.exclude} skip=#{skip}"
-  skip
+    if options.exclude instanceof RegExp
+      return true if file.match options.exclude
+    else
+      return true if minimatch file, options.exclude, { matchBase: true }
+  return false
 
+# ### Test the filedepth
+# The depth calculation has to be done in the traversing method this will only
+# check the value against the options.
 skipDepth = (depth, options, cb) ->
   cb skipDepthSync depth, options
 
@@ -224,11 +207,48 @@ skipOwnerSync = (file, options) ->
   stats = stat file
   return (options.user? and options.user is not stats.uid) or
     (options.group? and options.group is not stats.gid)
+  skip
 
-###
-  mode: 33188,
-  nlink: 1,
-  atime: Mon, 10 Oct 2011 23:24:11 GMT,
-  mtime: Mon, 10 Oct 2011 23:24:11 GMT,
-  ctime: Mon, 10 Oct 2011 23:24:11 GMT }
-###
+# ### User provided test
+# Here a function can be given which will be invoked and should return true
+# if file can be used or false.
+skipFunction = (file, options, cb) ->
+  return cb() unless options.test or typeof options.test is not 'function'
+  options.test file, options, (ok) ->
+    cb not ok
+
+skipFunctionSync = (file, options) ->
+  return false unless options.test or typeof options.test is not 'function'
+  return not options.test file, options
+
+# ### Check file times
+# All timestamps maybe checked with before and after to select the files.
+#
+# This may be enhanced later using date.js for human readable date specifications.
+timeCheck = (stats, options) ->
+  for type in ['accessed', 'modified', 'created']
+    for dir in ['After', 'Before']
+      continue unless options[type+dir]
+      # try to read as specific date
+      ref = moment options[type+dir]
+      console.log type, dir, ref
+      unless ref.isValid()
+        # try to read as duration
+        ref = moment().subtract options[type+dir]
+        unless ref.isValid()
+          throw new Error "Given value '#{options[type+dir]}' in option #{type+dir} is invalid."
+      value = moment stats[type.charAt(0) + type.slice(1) + 'time']
+      return true if dir is 'Before' and value.isBefore ref
+      return true if dir is 'After' and value.isAfter ref
+  return false
+
+skipTime = (file, options, cb) ->
+  stat = if options.dereference? then fs.stat else fs.lstat
+  stat source, (err, stats) ->
+    return cb err if err
+    cb not timeCheck stats, options
+
+skipTimeSync = (file, options) ->
+  stat = if options.dereference? then fs.statSync else fs.lstatSync
+  stats = stat file
+  return not timeCheck stats, options
