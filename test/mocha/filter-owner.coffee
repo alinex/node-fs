@@ -9,7 +9,7 @@ fs = require 'fs'
 # mocha error output.
 #require('alinex-error').install()
 
-describe "Time filter", ->
+describe "Filter by owner", ->
 
   filter = require '../../lib/filter'
 
@@ -53,16 +53,43 @@ describe "Time filter", ->
 
   describe "asynchronous", ->
 
-    it "should be called", (cb) ->
-      check
-        test: (file, options, cb) ->
-          cb ~file.indexOf 'ab'
-      , ['abc', 'abd', 'abe'], cb
+    it "should find by uid", (cb) ->
+      async.series [
+        (cb) ->
+          check
+            user: process.uid
+          , files, cb
+      ], cb
+
+    it "should find by username", (cb) ->
+      async.series [
+        (cb) ->
+          check
+            user: process.env.USER
+          , files, cb
+      ], cb
+
+    it "should find by gid", (cb) ->
+      async.series [
+        (cb) ->
+          check
+            group: process.gid
+          , files, cb
+      ], cb
 
   describe "synchronous", ->
 
-    it "should be called", ->
+    it "should find by uid", ->
       checkSync
-        test: (file, options) ->
-          return ~file.indexOf 'ab'
-      , ['abc', 'abd', 'abe']
+        user: process.uid
+      , files
+
+    it "should find by username", ->
+      checkSync
+        user: process.env.USER
+      , files
+
+    it "should find by gid", ->
+      checkSync
+        group: process.gid
+      , files
