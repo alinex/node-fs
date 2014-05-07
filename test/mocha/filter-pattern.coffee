@@ -96,6 +96,25 @@ describe "Pattern matching filter", ->
         (cb) -> check { include: 'z\\[' }, ['z['], cb
       ], cb
 
+    it "should match using excludes", (cb) ->
+      async.series [
+        (cb) -> check { exclude: '[bcdz]*' }, ['a', 'abc', 'abd', 'abe'], cb
+      ], cb
+
+    it "should match using includes and excludes", (cb) ->
+      async.series [
+        (cb) -> check { include: 'a*', exclude: '*c' }, ['a', 'abd', 'abe'], cb
+      ], cb
+
+    it "should match start using regexp", (cb) ->
+      async.series [
+        (cb) -> check { include: /^a/ }, ['a', 'abc', 'abd', 'abe'], cb
+        (cb) -> check { include: /^c/ }, ['c', 'ca', 'cb'], cb
+        (cb) -> check { include: /^X/ }, [], cb
+        (cb) -> check { exclude: /^[bcdz]/ }, ['a', 'abc', 'abd', 'abe'], cb
+        (cb) -> check { include: /^a/, exclude: /c$/ }, ['a', 'abd', 'abe'], cb
+      ], cb
+
   describe "synchronous", ->
 
     it "should match start using asterix", ->
@@ -135,3 +154,17 @@ describe "Pattern matching filter", ->
       checkSync { include: 'z\\*' }, ['z*']
       checkSync { include: 'z\\?' }, ['z?']
       checkSync { include: 'z\\[' }, ['z[']
+
+    it "should match using excludes", ->
+      checkSync { exclude: '[bcdz]*' }, ['a', 'abc', 'abd', 'abe']
+
+    it "should match using includes and excludes", ->
+      checkSync { include: 'a*', exclude: '*c' }, ['a', 'abd', 'abe']
+
+    it "should match start using regexp", ->
+      checkSync { include: /^a/ }, ['a', 'abc', 'abd', 'abe']
+      checkSync { include: /^c/ }, ['c', 'ca', 'cb']
+      checkSync { include: /^X/ }, []
+      checkSync { exclude: /^[bcdz]/ }, ['a', 'abc', 'abd', 'abe']
+      checkSync { include: /^a/, exclude: /c$/ }, ['a', 'abd', 'abe']
+

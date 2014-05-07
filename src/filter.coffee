@@ -42,7 +42,7 @@ minimatch = require 'minimatch'
 module.exports.async = (file, depth, options = {}, cb = -> ) ->
   async.parallel [
     (cb) -> skipDepth depth, options, cb
-    (cb) -> skipMinimatch file, options, cb
+    (cb) -> skipPath file, options, cb
   ], (skip) ->
     cb not skip
 
@@ -67,7 +67,7 @@ module.exports.async = (file, depth, options = {}, cb = -> ) ->
 # The options are the same as in the asynchronous method.
 module.exports.sync = (file, depth, options = {}) ->
   return false if skipDepthSync depth, options
-  return false if skipMinimatchSync file, options
+  return false if skipPathSync file, options
   true
 
 
@@ -77,34 +77,22 @@ module.exports.sync = (file, depth, options = {}) ->
 # an specific test and therefore should not be included. If test is passed
 # successfully it will return nothing.
 
-skipMinimatch = (file, options, cb) ->
-  return cb() unless options.include or options.exclude
-  fs.lstat file, (err, stats) ->
-    file += '/' if not err and stats.isDirectory()
-    skip = false
-    if options.include
-      skip = not minimatch file, options.include,
-        matchBase: true
-    if options.exclude
-      skip = minimatch file, options.exclude,
-        matchBase: true
-    # console.log "test #{file} +#{options.include} -#{options.exclude} skip=#{skip}"
-    cb skip
+skipPath = (file, options, cb) ->
+  cb skipPathSync file, options
 
-skipMinimatchSync = (file, options) ->
+skipPathSync = (file, options) ->
   return false unless options.include or options.exclude
-  try
-    stats = fs.lstatSync file
-  file += '/' if stats?.isDirectory()
-  skip = false
   if options.include
-    skip = not minimatch file, options.include,
-      matchBase: true
+    if options.include instanceof RegExp
+      return true unless file.match options.include
+    else
+      return true unless minimatch file, options.include, { matchBase: true }
   if options.exclude
-    skip = minimatch file, options.exclude,
-      matchBase: true
-  # console.log "test #{file} +#{options.include} -#{options.exclude} skip=#{skip}"
-  skip
+    if options.exclude instanceof RegExp
+      return true if file.match options.exclude
+    else
+      return true if minimatch file, options.exclude, { matchBase: true }
+  return false
 
 skipDepth = (depth, options, cb) ->
   cb skipDepthSync depth, options

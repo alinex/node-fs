@@ -295,7 +295,8 @@ The following option entries are used:
 - `exclude` - to specify an exclusion pattern
 
 All files are matched which are in the include pattern and not in the exclude
-pattern.
+pattern. The pattern may be a regular expression or a glob pattern string with
+the following specification:
 
 To use one of the special characters `*`, `?` or `[` you have to preceed it with an
 backslash.
@@ -324,11 +325,6 @@ Extended globbing is also possible:
 - *(list): Matches zero or more occurrences of the given patterns.
 - +(list): Matches one or more occurrences of the given patterns.
 - @(list): Matches one of the given patterns.
-
-Directory matching:
-
-All directories will be tested with an added slash.
-
 
 ### Search depth
 
