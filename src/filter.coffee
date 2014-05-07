@@ -8,7 +8,7 @@
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
-minimatch = require 'minimatch'
+moment = require 'moment'
 
 # Find files
 # -------------------------------------------------
@@ -24,25 +24,12 @@ minimatch = require 'minimatch'
 #   Specification of files to success.
 # * `callback(success)`
 #   The callback will be called with a boolean value showing if file is accepted.
-#
-# The following options are available:
-#
-# - minmatch based
-#   - `include` pattern
-#   - `exclude` pattern
-# - lstat based
-#   - `ftype` string - type of entry like in lstat
-#   - `atime` integer - accessed within last x seconds
-#   - `mtime` integer - modified within last x seconds
-#   - `ctime` integer - created within last x seconds
-#   - `uid` integer - only files from this user
-#   - `gid` integer - only files from this group
-#   - `minsize` integer - file size in bytes
-#   - `maxsize` integer - file size in bytes
 module.exports.async = (file, depth, options = {}, cb = -> ) ->
   async.parallel [
     (cb) -> skipDepth depth, options, cb
     (cb) -> skipPath file, options, cb
+    (cb) -> skipTime file, options, cb
+    (cb) -> skipFunction file, options, cb
   ], (skip) ->
     cb not skip
 
@@ -68,15 +55,19 @@ module.exports.async = (file, depth, options = {}, cb = -> ) ->
 module.exports.sync = (file, depth, options = {}) ->
   return false if skipDepthSync depth, options
   return false if skipPathSync file, options
+  return false if skipTimeSync file, options
+  return false if skipFunctionSync file, options
   true
 
 
 # Skip Methods
 # -------------------------------------------------
-# The following methods will throw an boolean true as error if the file failed
-# an specific test and therefore should not be included. If test is passed
+# The following methods will throw/return an boolean true as error if the file 
+# failed an specific test and therefore should not be included. If test is passed
 # successfully it will return nothing.
 
+# ### Test the path
+# This is done using Minimatch or RegExp
 skipPath = (file, options, cb) ->
   cb skipPathSync file, options
 
@@ -86,6 +77,7 @@ skipPathSync = (file, options) ->
     if options.include instanceof RegExp
       return true unless file.match options.include
     else
+      minimatch = require 'minimatch'
       return true unless minimatch file, options.include, { matchBase: true }
   if options.exclude
     if options.exclude instanceof RegExp
@@ -94,13 +86,57 @@ skipPathSync = (file, options) ->
       return true if minimatch file, options.exclude, { matchBase: true }
   return false
 
+# ### Test the filedepth
+# The depth calculation has to be done in the traversing method this will only
+# check the value against the options.
 skipDepth = (depth, options, cb) ->
   cb skipDepthSync depth, options
 
 skipDepthSync = (depth, options) ->
   skip = (options.mindepth? and options.mindepth > depth) or
     (options.maxdepth? and options.maxdepth < depth)
-#  console.log depth, options, skip
   skip
 
+# ### User provided test
+# Here a function can be given which will be invoked and should return true
+# if file can be used or false.
+skipFunction = (file, options, cb) ->
+  return cb() unless options.test or typeof options.test is not 'function'
+  options.test file, options, (ok) ->
+    cb not ok
 
+skipFunctionSync = (file, options) ->
+  return false unless options.test or typeof options.test is not 'function'
+  return not options.test file, options
+
+# ### Check file times
+# All timestamps maybe checked with before and after to select the files.
+#
+# This may be enhanced later using date.js for human readable date specifications.
+timeCheck = (stats, options) ->
+  for type in ['accessed', 'modified', 'created']
+    for dir in ['After', 'Before']
+      continue unless options[type+dir]
+      # try to read as specific date
+      ref = moment options[type+dir]
+      console.log type, dir, ref
+      unless ref.isValid()
+        # try to read as duration
+        ref = moment().subtract options[type+dir]
+        unless ref.isValid()
+          throw new Error "Given value '#{options[type+dir]}' in option #{type+dir} is invalid."
+      value = moment stats[type.charAt(0) + type.slice(1) + 'time']
+      return true if dir is 'Before' and value.isBefore ref
+      return true if dir is 'After' and value.isAfter ref
+  return false
+
+skipTime = (file, options, cb) ->
+  stat = if options.dereference? then fs.stat else fs.lstat
+  stat source, (err, stats) ->
+    return cb err if err
+    cb not timeCheck stats, options
+
+skipTimeSync = (file, options) ->
+  stat = if options.dereference? then fs.statSync else fs.lstatSync
+  stats = stat file
+  return not timeCheck stats, options

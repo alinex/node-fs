@@ -11,10 +11,6 @@ describe "Filter file structure depth", ->
 
   filter = require '../../lib/filter'
 
-  # Tests based on
-  # -------------------------------------------------------
-  # http://www.bashcookbook.com/bashinfo/source/bash-1.14.7/tests/glob-test
-
   files = [
     'a', 'b', 'c', 'd', 'dir1'
     'dir1/abc', 'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'

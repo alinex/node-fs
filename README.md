@@ -284,18 +284,37 @@ The filter is given as options array which may have some of the following
 specification settings.
 Additionally some methods may have special options for filtering.
 
+- `include` to specify a inclusion pattern
+- `exclude` to specify an exclusion pattern
+- `dereference` set to true to follow symbolic links
+- `mindepth` minimal depth to match
+- `maxdepth` maximal depth to match
+- `test` own function to use
+
+- `minsize` minimal filesize
+- `maxsize` maximal filesize
+- `user` owner name or id
+- `group` owner group name or id
+
+- `accessedAfter` 
+- `accessedBefore`
+- `modifiedAfter` 
+- `modifiedBefore`
+- `createdAfter` 
+- `createdBefore`
+
+If you use multiple options all of them have to match the file to be valid.
+See the details below.
+
 
 ### File/path matching
 
-This is based on glob expressions like used in unix systems.
+This is based on glob expressions like used in unix systems. You may use these
+as the `include` or `exclude` pattern while the `exclude` pattern has the higher
+priority. All files are matched which are in the include pattern and not in the 
+exclude pattern. 
 
-The following option entries are used:
-
-- `include` - to specify a inclusion pattern
-- `exclude` - to specify an exclusion pattern
-
-All files are matched which are in the include pattern and not in the exclude
-pattern. The pattern may be a regular expression or a glob pattern string with
+The pattern may be a regular expression or a glob pattern string with
 the following specification:
 
 To use one of the special characters `*`, `?` or `[` you have to preceed it with an
@@ -341,6 +360,51 @@ Normally the methods will not go into symbolic links. They will see the symbolic
 link as itself. Using the option `dereference: true` this behavior will change
 and they will follow the symbolic link and check the path it refers to. This
 means that they will also go into referenced directories.
+
+
+### Time specification
+
+It is also possible to select files based on their `creation`, last `modified`
+or last `accessed` time. 
+
+Specify the `Before` and `After` time as:
+
+- Unix timestamp
+- ISO-8601 date formats
+- some local formats (based on platform support for Date.parse())
+- time difference from now (human readable)
+
+Examples are:
+
+- ``
+- ``
+- ``
+- ``
+
+### User defined function
+
+With the `test` parameter you may add an user defined function which will be
+called to check each file. It will get the file path and options array so you
+may also add some configuration therefore in additional option values.
+
+Asynchrony call:
+
+    fs.find('.', {
+      test: function(file, options, cb) {
+        cb(~file.indexOf('ab'));
+      }
+    }, function(err, list) {
+      console.log("Found " + list.length + " matches.");
+    });
+
+Or use synchrony calls:
+
+    var list = fs.findSync('test/temp', {
+      test: function(fil, options) {
+        return ~file.indexOf('ab');
+      }
+    });
+    console.log("Found " + list.length + " matches.");
 
 
 License
