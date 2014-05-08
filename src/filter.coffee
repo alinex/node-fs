@@ -61,8 +61,8 @@ module.exports.sync = (file, depth, options = {}) ->
   return false if skipDepthSync depth, options
   return false if skipPathSync file, options
   return false if skipSizeSync file, options
-#  return false if skipTimeSync file, options
-#  return false if skipOwnerSync file, options
+  return false if skipTimeSync file, options
+  return false if skipOwnerSync file, options
   return false if skipFunctionSync file, options
   true
 
@@ -258,9 +258,9 @@ timeCheck = (stats, options) ->
       unless ref
         throw new Error "Given value '#{options[type+dir]}' in option #{type+dir} is invalid."
       value = stats[type.charAt(0) + 'time'].getTime()/1000
-      console.log type, dir, options[type+dir], value, ref
-      return true if dir is 'Before' and value < ref
-      return true if dir is 'After' and value > ref
+#      console.log type, dir, options[type+dir], value, ref
+      return false if dir is 'Before' and value >= ref
+      return false if dir is 'After' and value <= ref
   return true
 
 skipTime = (file, options, cb) ->
@@ -274,7 +274,7 @@ skipTime = (file, options, cb) ->
     return cb err if err
 #    console.log file, stats
     skip = not timeCheck stats, options
-    console.log file, skip
+#    console.log file, skip
     cb skip
 
 skipTimeSync = (file, options) ->

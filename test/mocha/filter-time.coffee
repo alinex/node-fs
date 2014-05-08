@@ -31,12 +31,12 @@ describe "Time filter", ->
             exec 'touch test/temp/dir1/file11', ->
               exec 'ln -s dir1 test/temp/dir3', ->
                 day1 = moment().subtract('day', 1).unix()
-                day3 = moment().subtract('days', 3).unix()                
-                day5 = moment().subtract('days', 5).unix()                
+                day3 = moment().subtract('days', 3).unix()
+                day5 = moment().subtract('days', 5).unix()
                 fs.utimesSync 'test/temp/file1', day1, day5
                 fs.utimesSync 'test/temp/file2', day1, day3
                 fs.utimesSync 'test/temp/dir1/file11', day3, day3
-                setTimeout cb, 100
+                setTimeout cb, 400
 
   afterEach (cb) ->
     fs.exists 'test/temp', (exists) ->
@@ -58,9 +58,9 @@ describe "Time filter", ->
 #    console.log "check pattern", options, "with result: #{result}"
     expect(result, util.inspect options).to.deep.equal list
 
-  describe.only "asynchronous", ->
+  describe "asynchronous", ->
 
-    it "should find modified after", (cb) ->      
+    it "should find modified after", (cb) ->
       async.series [
         (cb) -> check
           modifiedAfter: moment().subtract('days', 6).unix()
@@ -83,7 +83,7 @@ describe "Time filter", ->
         ], cb
       ], cb
 
-    it "should find modified before", (cb) ->      
+    it "should find modified before", (cb) ->
       async.series [
         (cb) -> check
           modifiedBefore: moment().add('hour',1).unix()
@@ -107,7 +107,7 @@ describe "Time filter", ->
         , [], cb
       ], cb
 
-    it "should find accessed after", (cb) ->      
+    it "should find accessed after", (cb) ->
       async.series [
         (cb) -> check
           accessedAfter: moment().subtract('days', 6).unix()
@@ -130,7 +130,7 @@ describe "Time filter", ->
         ], cb
       ], cb
 
-    it "should find accessed before", (cb) ->      
+    it "should find accessed before", (cb) ->
       async.series [
         (cb) -> check
           accessedBefore: moment().add('hour',1).unix()
@@ -147,7 +147,7 @@ describe "Time filter", ->
 
   describe "synchronous", ->
 
-    it "should find modified after", ->      
+    it "should find modified after", ->
       checkSync
         modifiedAfter: moment().subtract('days', 6).unix()
       , files
@@ -168,7 +168,7 @@ describe "Time filter", ->
         'test/temp/dir2', 'test/temp/dir3'
       ]
 
-    it "should find modified before", ->      
+    it "should find modified before", ->
       checkSync
         modifiedBefore: moment().add('hour',1).unix()
       , files
@@ -190,7 +190,7 @@ describe "Time filter", ->
         modifiedBefore: '6 days ago'
       , []
 
-    it "should find accessed after", ->      
+    it "should find accessed after", ->
       checkSync
         accessedAfter: moment().subtract('days', 6).unix()
       , files
@@ -211,7 +211,7 @@ describe "Time filter", ->
         'test/temp/dir2', 'test/temp/dir3'
       ]
 
-    it "should find accessed before", ->      
+    it "should find accessed before", ->
       checkSync
         accessedBefore: moment().add('hour',1).unix()
       , files
