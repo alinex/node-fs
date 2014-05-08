@@ -276,6 +276,53 @@ __Example:__
     }
 
 
+### npmbin
+
+Find the defined binary in node_modules directories. It will search in the current
+and upper package directories.
+
+__Arguments:__
+
+* `bin`
+  name of the binary to search for
+* `dir`
+  Module directory to start search from.
+* `callback(err, cmd)`
+  The callback will be called just if an error occurred or after finished.
+  The command path to be called.
+
+__Example:__
+
+    var fs = require('alinex-fs');
+    fs.npmbin('coffee', function(err, cmd) {
+      console.log("Coffee command found at:"+cmd);
+    });
+
+
+### npmbinSync
+
+Find the defined binary in node_modules directories. It will search in the current
+and upper package directories.
+
+__Arguments:__
+
+* `bin`
+  name of the binary to search for
+* `dir`
+  Module directory to start search from.
+
+__Return:__
+
+* `cmd`
+  the command path to be called.
+
+__Example:__
+
+    var fs = require('alinex-fs');
+    cmd = fs.npmbin('coffee');
+    console.log("Coffee command found at:"+cmd);
+
+
 Filter
 -------------------------------------------------
 
@@ -295,11 +342,11 @@ Additionally some methods may have special options for filtering.
 - `user` owner name or id
 - `group` owner group name or id
 
-- `accessedAfter` 
+- `accessedAfter`
 - `accessedBefore`
-- `modifiedAfter` 
+- `modifiedAfter`
 - `modifiedBefore`
-- `createdAfter` 
+- `createdAfter`
 - `createdBefore`
 
 If you use multiple options all of them have to match the file to be valid.
@@ -310,8 +357,8 @@ See the details below.
 
 This is based on glob expressions like used in unix systems. You may use these
 as the `include` or `exclude` pattern while the `exclude` pattern has the higher
-priority. All files are matched which are in the include pattern and not in the 
-exclude pattern. 
+priority. All files are matched which are in the include pattern and not in the
+exclude pattern.
 
 The pattern may be a regular expression or a glob pattern string with
 the following specification:
@@ -372,7 +419,7 @@ size of the matching files in bytes:
 
 ### Owner and Group
 
-You may also specify files based on the user which owns the files or the group 
+You may also specify files based on the user which owns the files or the group
 of the files.
 
 Both may be specified as id (uid or gid) or using the alias name.
@@ -381,7 +428,7 @@ Both may be specified as id (uid or gid) or using the alias name.
 ### Time specification
 
 It is also possible to select files based on their `creation`, last `modified`
-or last `accessed` time. 
+or last `accessed` time.
 
 Specify the `Before` and `After` time as:
 
