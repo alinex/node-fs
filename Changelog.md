@@ -4,6 +4,20 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.0 (2014-05-08)
+-------------------------------------------------
+- Adding the npmbin utility to search for binaries in node_modules.
+- Add debug calls to copy and remove.
+- Finished tests.
+- Don't use POSIX because not properly supported on Mac.
+- More tests but not working stable.
+- Finishing owner filter and adding more tests.
+- Merged changes of different filter additions.
+- Added time filter.
+- Added RegExp matching to include/exclude patterns.
+- Extend filters with type and size filter.
+- Changed tests to work on lib folder.
+
 Version 0.0.3 (2014-05-06)
 -------------------------------------------------
 - Fixed code and completed tests for find, copy and remove methods.
