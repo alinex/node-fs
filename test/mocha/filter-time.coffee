@@ -12,7 +12,7 @@ moment = require 'moment'
 
 describe "Time filter", ->
 
-  filter = require '../../src/filter'
+  filter = require '../../lib/filter'
 
   files = [
     'test/temp/file1'
