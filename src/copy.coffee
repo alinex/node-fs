@@ -8,6 +8,7 @@
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
+debug = require('debug')('fs:copy')
 
 # include other extended commands and helper
 mkdirs = require './mkdirs'
@@ -47,12 +48,14 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
         mkdirs.async path.dirname(target), (err) ->
           return cb err if err
           # copy the file
+          debug "copying file #{source} to #{target}"
           copyFile source, stats, target, cb
       else if stats.isSymbolicLink()
         return cb() unless ok
         # create directory if necessary
         mkdirs.async path.dirname(target), (err) ->
           return cb err if err
+          debug "copying link #{source} to #{target}"
           fs.readlink source, (err, resolvedPath) ->
             return cb err if err
             # make the symlink
@@ -63,6 +66,7 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
         fs.readdir source, (err, files) ->
           return cb err if err
           # copy all files in directory
+          debug "copying directory #{source} to #{target}"
           async.each files, (file, cb) ->
             copy path.join(source, file), path.join(target, file), options, cb, depth
           , (err) ->

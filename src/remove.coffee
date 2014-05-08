@@ -8,6 +8,7 @@
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
+debug = require('debug')('fs:remove')
 
 # internal helper methods
 filter = require './filter'
@@ -48,12 +49,14 @@ remove = module.exports.async = (file, options, cb, depth = 0) ->
       if stats.isFile()
         return cb() unless ok
         # remove file
+        debug "removing file #{file}"
         fs.unlink file, (err) ->
           return cb err if err
           cb null, file
       else if stats.isSymbolicLink()
         return cb() unless ok
         # remove symbolic link
+        debug "removing link #{file}"
         fs.unlink file, (err) ->
           return cb err if err
           cb null, file
@@ -62,6 +65,7 @@ remove = module.exports.async = (file, options, cb, depth = 0) ->
         dir = file
         depth++
         # if this dir should be removed, use no filtering for the containing parts
+        debug "removing directory #{dir}"
         options = {} if ok
         fs.readdir file, (err, files) ->
           return cb err if err

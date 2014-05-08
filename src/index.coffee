@@ -61,7 +61,8 @@ remove = require './remove'
 fs.remove = remove.async
 fs.removeSync = remove.sync
 
+# ### Find bin in npm packages
+npmbin = require './npmbin'
+fs.npmbin = npmbin.async
+fs.npmbinSync = npmbin.sync
 
-# meta
-# find
-# npmBin
