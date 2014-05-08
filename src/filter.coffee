@@ -9,7 +9,6 @@ fs = require 'fs'
 path = require 'path'
 async = require 'async'
 {execFile} = require 'child_process'
-posix = require 'posix'
 chrono = require 'chrono-node'
 
 # Find files
@@ -213,18 +212,20 @@ groupToGidSync = (group) ->
 
 skipOwner = (file, options, cb) ->
   return cb() unless options.user or options.group
-  {uid} = posix.getpwnam options.user if options.user
-  {gid} = posix.getgrnam options.group if options.group
-  stat = if options.dereference? then fs.stat else fs.lstat
-  stat file, (err, stats) ->
+  userToUid options.user, (err, uid) ->
     return cb err if err
-#    console.log file, uid, gid, stats.uid, stats.gid
-    cb (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
+    groupToGid options.group, (err, gid) ->
+      return cb err if err
+      stat = if options.dereference? then fs.stat else fs.lstat
+      stat file, (err, stats) ->
+        return cb err if err
+    #    console.log file, uid, gid, stats.uid, stats.gid
+        cb (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
 
 skipOwnerSync = (file, options) ->
   return false unless options.user or options.group
-  {uid} = posix.getpwnam options.user if options.user
-  {gid} = posix.getgrnam options.group if options.group
+  uid = userToUidSync options.user
+  gid = groupToGidSync options.group
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   stats = stat file
 #  console.log file, uid, gid, stats.uid, stats.gid
