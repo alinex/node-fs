@@ -80,6 +80,7 @@
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;fs:remove&#39;</span><span class="p">)</span>
 
 
 </pre></div>
@@ -191,6 +192,7 @@ matched everything within will be deleted.</p>
 <p>remove file</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">debug</span> <span class="s">&quot;removing file </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
         <span class="nx">fs</span><span class="p">.</span><span class="nx">unlink</span> <span class="nx">file</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
           <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
           <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">file</span>
@@ -208,6 +210,7 @@ matched everything within will be deleted.</p>
 <p>remove symbolic link</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">debug</span> <span class="s">&quot;removing link </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
         <span class="nx">fs</span><span class="p">.</span><span class="nx">unlink</span> <span class="nx">file</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
           <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
           <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">file</span>
@@ -238,6 +241,7 @@ matched everything within will be deleted.</p>
 <p>if this dir should be removed, use no filtering for the containing parts</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">debug</span> <span class="s">&quot;removing directory </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span>
         <span class="nv">options = </span><span class="p">{}</span> <span class="k">if</span> <span class="nx">ok</span>
         <span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span> <span class="nx">file</span><span class="p">,</span> <span class="nf">(err, files) -&gt;</span>
           <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>

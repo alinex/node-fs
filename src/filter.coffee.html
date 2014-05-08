@@ -37,6 +37,27 @@
       <div class="heading h2">
         <a href="#skip%20methods">Skip Methods</a>
       </div>
+      <div class="heading h3">
+        <a href="#test%20the%20path">Test the path</a>
+      </div>
+      <div class="heading h3">
+        <a href="#test%20the%20file%20depth">Test the file depth</a>
+      </div>
+      <div class="heading h3">
+        <a href="#test%20the%20file%20type">Test the file type</a>
+      </div>
+      <div class="heading h3">
+        <a href="#test%20for%20filesize">Test for filesize</a>
+      </div>
+      <div class="heading h3">
+        <a href="#check%20the%20owwner%20and%20group">Check the owwner and group</a>
+      </div>
+      <div class="heading h3">
+        <a href="#user%20provided%20test">User provided test</a>
+      </div>
+      <div class="heading h3">
+        <a href="#check%20file%20times">Check file times</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -83,7 +104,8 @@
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
-<span class="nv">minimatch = </span><span class="nx">require</span> <span class="s">&#39;minimatch&#39;</span>
+<span class="p">{</span><span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
+<span class="nv">chrono = </span><span class="nx">require</span> <span class="s">&#39;chrono-node&#39;</span>
 
 
 </pre></div>
@@ -113,29 +135,17 @@ Specification of files to success.</li>
 <li><code>callback(success)</code>
 The callback will be called with a boolean value showing if file is accepted.</li>
 </ul>
-
-<p>The following options are available:</p>
-
-<ul>
-<li>minmatch based
-<ul><li><code>include</code> pattern</li>
-<li><code>exclude</code> pattern</li></ul></li>
-<li>lstat based
-<ul><li><code>ftype</code> string - type of entry like in lstat</li>
-<li><code>atime</code> integer - accessed within last x seconds</li>
-<li><code>mtime</code> integer - modified within last x seconds</li>
-<li><code>ctime</code> integer - created within last x seconds</li>
-<li><code>uid</code> integer - only files from this user</li>
-<li><code>gid</code> integer - only files from this group</li>
-<li><code>minsize</code> integer - file size in bytes</li>
-<li><code>maxsize</code> integer - file size in bytes</li></ul></li>
-</ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">module.exports.async = </span><span class="nf">(file, depth, options = {}, cb = -&gt; ) -&gt;</span>
   <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
     <span class="nf">(cb) -&gt;</span> <span class="nx">skipDepth</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="nf">(cb) -&gt;</span> <span class="nx">skipMinimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">skipPath</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">skipType</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">skipSize</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">skipTime</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">skipOwner</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">skipFunction</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
   <span class="p">],</span> <span class="nf">(skip) -&gt;</span>
     <span class="nx">cb</span> <span class="o">not</span> <span class="nx">skip</span>
 
@@ -177,8 +187,13 @@ The callback will be called with a boolean value showing if file is accepted.</l
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">module.exports.sync = </span><span class="nf">(file, depth, options = {}) -&gt;</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipTypeSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
   <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipDepthSync</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipMinimatchSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipPathSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipSizeSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipTimeSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipOwnerSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipFunctionSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
   <span class="kc">true</span>
 
 
@@ -196,69 +211,230 @@ The callback will be called with a boolean value showing if file is accepted.</l
 </div>
 
 
-<p>The following methods will throw an boolean true as error if the file failed
-an specific test and therefore should not be included. If test is passed
+<p>The following methods will throw/return an boolean true as error if the file
+failed an specific test and therefore should not be included. If test is passed
 successfully it will return nothing.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 
-<span class="nv">skipMinimatch = </span><span class="nf">(file, options, cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span> <span class="nx">file</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
-    <span class="nx">file</span> <span class="o">+=</span> <span class="s">&#39;/&#39;</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">err</span> <span class="o">and</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
-    <span class="nv">skip = </span><span class="kc">false</span>
-    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span>
-      <span class="nv">skip = </span><span class="o">not</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span><span class="p">,</span>
-        <span class="nv">matchBase: </span><span class="kc">true</span>
-    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
-      <span class="nv">skip = </span><span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span><span class="p">,</span>
-        <span class="nv">matchBase: </span><span class="kc">true</span>
 
 </pre></div>
         </td>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+<div class="pilwrap" id="test%20the%20path">
+  <h3>
+    <a href="#test%20the%20path" name="test%20the%20path" class="pilcrow">&#182;</a>
+    Test the path
+  </h3>
 </div>
-<p>console.log "test #{file} +#{options.include} -#{options.exclude} skip=#{skip}"</p>
+
+
+<p>This is done using Minimatch or RegExp</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">cb</span> <span class="nx">skip</span>
+<span class="nv">skipPath = </span><span class="nf">(file, options, cb) -&gt;</span>
+  <span class="nx">cb</span> <span class="nx">skipPathSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
 
-<span class="nv">skipMinimatchSync = </span><span class="nf">(file, options) -&gt;</span>
+<span class="nv">skipPathSync = </span><span class="nf">(file, options) -&gt;</span>
   <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
-  <span class="k">try</span>
-    <span class="nv">stats = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span> <span class="nx">file</span>
-  <span class="nx">file</span> <span class="o">+=</span> <span class="s">&#39;/&#39;</span> <span class="k">if</span> <span class="nx">stats</span><span class="o">?</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
-  <span class="nv">skip = </span><span class="kc">false</span>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span>
-    <span class="nv">skip = </span><span class="o">not</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span><span class="p">,</span>
-      <span class="nv">matchBase: </span><span class="kc">true</span>
+    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span> <span class="k">instanceof</span> <span class="nb">RegExp</span>
+      <span class="k">return</span> <span class="kc">true</span> <span class="k">unless</span> <span class="nx">file</span><span class="p">.</span><span class="nx">match</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span>
+    <span class="k">else</span>
+      <span class="nv">minimatch = </span><span class="nx">require</span> <span class="s">&#39;minimatch&#39;</span>
+      <span class="k">return</span> <span class="kc">true</span> <span class="k">unless</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span><span class="p">,</span> <span class="p">{</span> <span class="nv">matchBase: </span><span class="kc">true</span> <span class="p">}</span>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
-    <span class="nv">skip = </span><span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span><span class="p">,</span>
-      <span class="nv">matchBase: </span><span class="kc">true</span>
+    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span> <span class="k">instanceof</span> <span class="nb">RegExp</span>
+      <span class="k">return</span> <span class="kc">true</span> <span class="k">if</span> <span class="nx">file</span><span class="p">.</span><span class="nx">match</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
+    <span class="k">else</span>
+      <span class="nv">minimatch = </span><span class="nx">require</span> <span class="s">&#39;minimatch&#39;</span>
+      <span class="k">return</span> <span class="kc">true</span> <span class="k">if</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span><span class="p">,</span> <span class="p">{</span> <span class="nv">matchBase: </span><span class="kc">true</span> <span class="p">}</span>
+  <span class="k">return</span> <span class="kc">false</span>
+
 
 </pre></div>
         </td>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+<div class="pilwrap" id="test%20the%20file%20depth">
+  <h3>
+    <a href="#test%20the%20file%20depth" name="test%20the%20file%20depth" class="pilcrow">&#182;</a>
+    Test the file depth
+  </h3>
 </div>
-<p>console.log "test #{file} +#{options.include} -#{options.exclude} skip=#{skip}"</p>
+
+
+<p>The depth calculation has to be done in the traversing method this will only
+check the value against the options.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">skip</span>
-
 <span class="nv">skipDepth = </span><span class="nf">(depth, options, cb) -&gt;</span>
   <span class="nx">cb</span> <span class="nx">skipDepthSync</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
 
 <span class="nv">skipDepthSync = </span><span class="nf">(depth, options) -&gt;</span>
-  <span class="nv">skip = </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">mindepth</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">mindepth</span> <span class="o">&gt;</span> <span class="nx">depth</span><span class="p">)</span> <span class="o">or</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">mindepth</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">mindepth</span> <span class="o">&gt;</span> <span class="nx">depth</span><span class="p">)</span> <span class="o">or</span>
     <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxdepth</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxdepth</span> <span class="o">&lt;</span> <span class="nx">depth</span><span class="p">)</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="test%20the%20file%20type">
+  <h3>
+    <a href="#test%20the%20file%20type" name="test%20the%20file%20type" class="pilcrow">&#182;</a>
+    Test the file type
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">skipType = </span><span class="nf">(file, options, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">type</span>
+  <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span>
+  <span class="nx">stat</span> <span class="nx">file</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="k">switch</span> <span class="nx">options</span><span class="p">.</span><span class="nx">type</span>
+      <span class="k">when</span> <span class="s">&#39;file&#39;</span><span class="p">,</span> <span class="s">&#39;f&#39;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span>
+      <span class="k">when</span> <span class="s">&#39;directory&#39;</span><span class="p">,</span> <span class="s">&#39;dir&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
+      <span class="k">when</span> <span class="s">&#39;link&#39;</span><span class="p">,</span> <span class="s">&#39;l&#39;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
+      <span class="k">when</span> <span class="s">&#39;fifo&#39;</span><span class="p">,</span> <span class="s">&#39;pipe&#39;</span><span class="p">,</span> <span class="s">&#39;p&#39;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFIFO</span><span class="p">()</span>
+      <span class="k">when</span> <span class="s">&#39;socket&#39;</span><span class="p">,</span> <span class="s">&#39;s&#39;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSocket</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="kc">true</span>
+
+<span class="nv">skipTypeSync = </span><span class="nf">(file, options) -&gt;</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">type</span>
+  <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
+  <span class="nv">stats = </span><span class="nx">stat</span> <span class="nx">file</span>
+  <span class="k">switch</span> <span class="nx">options</span><span class="p">.</span><span class="nx">type</span>
+    <span class="k">when</span> <span class="s">&#39;file&#39;</span><span class="p">,</span> <span class="s">&#39;f&#39;</span>
+      <span class="k">return</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span>
+    <span class="k">when</span> <span class="s">&#39;directory&#39;</span><span class="p">,</span> <span class="s">&#39;dir&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span>
+      <span class="k">return</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
+    <span class="k">when</span> <span class="s">&#39;link&#39;</span><span class="p">,</span> <span class="s">&#39;l&#39;</span>
+      <span class="k">return</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
+    <span class="k">when</span> <span class="s">&#39;fifo&#39;</span><span class="p">,</span> <span class="s">&#39;pipe&#39;</span><span class="p">,</span> <span class="s">&#39;p&#39;</span>
+      <span class="k">return</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFIFO</span><span class="p">()</span>
+    <span class="k">when</span> <span class="s">&#39;socket&#39;</span><span class="p">,</span> <span class="s">&#39;s&#39;</span>
+      <span class="k">return</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSocket</span><span class="p">()</span>
+  <span class="k">return</span> <span class="kc">true</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="test%20for%20filesize">
+  <h3>
+    <a href="#test%20for%20filesize" name="test%20for%20filesize" class="pilcrow">&#182;</a>
+    Test for filesize
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">sizeHumanToInt = </span><span class="nf">(text) -&gt;</span>
+  <span class="k">if</span> <span class="k">typeof</span> <span class="nx">text</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span> <span class="o">and</span> <span class="nv">match = </span><span class="nx">text</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/^(\d*\.?\d*)\s*([kKmMgGtTpP])$/</span>
+    <span class="k">return</span> <span class="k">switch</span> <span class="nx">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+      <span class="k">when</span> <span class="s">&#39;k&#39;</span><span class="p">,</span> <span class="s">&#39;K&#39;</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>
+      <span class="k">when</span> <span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="s">&#39;M&#39;</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span>
+      <span class="k">when</span> <span class="s">&#39;g&#39;</span><span class="p">,</span> <span class="s">&#39;G&#39;</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">3</span>
+      <span class="k">when</span> <span class="s">&#39;T&#39;</span><span class="p">,</span> <span class="s">&#39;T&#39;</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">4</span>
+      <span class="k">when</span> <span class="s">&#39;P&#39;</span><span class="p">,</span> <span class="s">&#39;P&#39;</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">5</span>
+  <span class="nx">text</span>
+
+<span class="nv">skipSize = </span><span class="nf">(file, options, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span>
+  <span class="nv">options.minsize = </span><span class="nx">sizeHumanToInt</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span>
+  <span class="nv">options.maxsize = </span><span class="nx">sizeHumanToInt</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span>
+  <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span>
+  <span class="nx">stat</span> <span class="nx">file</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nv">skip = </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="o">&gt;</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span> <span class="o">or</span>
+      <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span> <span class="o">&lt;</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span>
+    <span class="nx">cb</span> <span class="nx">skip</span>
+
+<span class="nv">skipSizeSync = </span><span class="nf">(file, options) -&gt;</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span>
+  <span class="nv">options.minsize = </span><span class="nx">sizeHumanToInt</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span>
+  <span class="nv">options.maxsize = </span><span class="nx">sizeHumanToInt</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span>
+  <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
+  <span class="nv">stats = </span><span class="nx">stat</span> <span class="nx">file</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="o">&gt;</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span> <span class="o">or</span>
+    <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span> <span class="o">&lt;</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="check%20the%20owwner%20and%20group">
+  <h3>
+    <a href="#check%20the%20owwner%20and%20group" name="check%20the%20owwner%20and%20group" class="pilcrow">&#182;</a>
+    Check the owwner and group
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">userToUid = </span><span class="nf">(user, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">user</span> <span class="k">unless</span> <span class="nx">user</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">isNaN</span> <span class="nx">user</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span> <span class="s">&#39;/etc/passwd&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span> <span class="p">},</span> <span class="nf">(err, data) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
+      <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/:/</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="nx">user</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span> <span class="s">&#39;/Users/&#39;</span><span class="o">+</span><span class="nx">user</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">user</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span>
+
+<span class="nv">userToUidSync = </span><span class="nf">(user) -&gt;</span>
+  <span class="k">return</span> <span class="nx">user</span> <span class="k">unless</span> <span class="nx">user</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">isNaN</span> <span class="nx">user</span>
+  <span class="nv">data = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="s">&#39;/etc/passwd&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span> <span class="p">}</span>
+  <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
+    <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/:/</span>
+    <span class="k">return</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="nx">user</span>
+  <span class="k">try</span>
+    <span class="nv">stats = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="s">&#39;/Users/&#39;</span><span class="o">+</span><span class="nx">user</span>
+  <span class="k">return</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span>
+
+<span class="nv">groupToGid = </span><span class="nf">(group, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">group</span> <span class="k">unless</span> <span class="nx">group</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">isNaN</span> <span class="nx">group</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span> <span class="s">&#39;/etc/group&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span> <span class="p">},</span> <span class="nf">(err, data) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
+      <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/:/</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="nx">group</span>
+    <span class="nx">cb</span><span class="p">()</span>
+
+<span class="nv">groupToGidSync = </span><span class="nf">(group) -&gt;</span>
+  <span class="k">return</span> <span class="nx">group</span> <span class="k">unless</span> <span class="nx">group</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">isNaN</span> <span class="nx">group</span>
+  <span class="nv">data = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="s">&#39;/etc/group&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span> <span class="p">}</span>
+  <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
+    <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/:/</span>
+    <span class="k">return</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="nx">group</span>
+  <span class="k">return</span> <span class="nx">group</span>
+
+<span class="nv">skipOwner = </span><span class="nf">(file, options, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">user</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">group</span>
+  <span class="nx">userToUid</span> <span class="nx">options</span><span class="p">.</span><span class="nx">user</span><span class="p">,</span> <span class="nf">(err, uid) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">groupToGid</span> <span class="nx">options</span><span class="p">.</span><span class="nx">group</span><span class="p">,</span> <span class="nf">(err, gid) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span>
+      <span class="nx">stat</span> <span class="nx">file</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
         </td>
@@ -266,12 +442,166 @@ successfully it will return nothing.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
-<p>console.log depth, options, skip</p>
+<p>console.log file, uid, gid, stats.uid, stats.gid</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">skip</span>
+        <span class="nx">cb</span> <span class="p">(</span><span class="nx">uid</span> <span class="o">and</span> <span class="nx">uid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span><span class="p">)</span> <span class="o">or</span> <span class="p">(</span><span class="nx">gid</span> <span class="o">and</span> <span class="nx">gid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">gid</span><span class="p">)</span>
+
+<span class="nv">skipOwnerSync = </span><span class="nf">(file, options) -&gt;</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">user</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">group</span>
+  <span class="nv">uid = </span><span class="nx">userToUidSync</span> <span class="nx">options</span><span class="p">.</span><span class="nx">user</span>
+  <span class="nv">gid = </span><span class="nx">groupToGidSync</span> <span class="nx">options</span><span class="p">.</span><span class="nx">group</span>
+  <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
+  <span class="nv">stats = </span><span class="nx">stat</span> <span class="nx">file</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+</div>
+<p>console.log file, uid, gid, stats.uid, stats.gid</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">uid</span> <span class="o">and</span> <span class="nx">uid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span><span class="p">)</span> <span class="o">or</span> <span class="p">(</span><span class="nx">gid</span> <span class="o">and</span> <span class="nx">gid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">gid</span><span class="p">)</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="user%20provided%20test">
+  <h3>
+    <a href="#user%20provided%20test" name="user%20provided%20test" class="pilcrow">&#182;</a>
+    User provided test
+  </h3>
+</div>
+
+
+<p>Here a function can be given which will be invoked and should return true
+if file can be used or false.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">skipFunction = </span><span class="nf">(file, options, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="o">or</span> <span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="o">is</span> <span class="o">not</span> <span class="s">&#39;function&#39;</span>
+  <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(ok) -&gt;</span>
+    <span class="nx">cb</span> <span class="o">not</span> <span class="nx">ok</span>
+
+<span class="nv">skipFunctionSync = </span><span class="nf">(file, options) -&gt;</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="o">or</span> <span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="o">is</span> <span class="o">not</span> <span class="s">&#39;function&#39;</span>
+  <span class="k">return</span> <span class="o">not</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="check%20file%20times">
+  <h3>
+    <a href="#check%20file%20times" name="check%20file%20times" class="pilcrow">&#182;</a>
+    Check file times
+  </h3>
+</div>
+
+
+<p>All timestamps maybe checked with before and after to select the files.</p>
+
+<p>This may be enhanced later using date.js for human readable date specifications.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">timeCheck = </span><span class="nf">(stats, options) -&gt;</span>
+  <span class="k">for</span> <span class="nx">type</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;accessed&#39;</span><span class="p">,</span> <span class="s">&#39;modified&#39;</span><span class="p">,</span> <span class="s">&#39;created&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="nx">dir</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;After&#39;</span><span class="p">,</span> <span class="s">&#39;Before&#39;</span><span class="p">]</span>
+      <span class="k">continue</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">[</span><span class="nx">type</span><span class="o">+</span><span class="nx">dir</span><span class="p">]</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+</div>
+<p>try to read as specific date</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">ref = </span><span class="nx">options</span><span class="p">[</span><span class="nx">type</span><span class="o">+</span><span class="nx">dir</span><span class="p">]</span>
+      <span class="nv">ref = </span><span class="nx">chrono</span><span class="p">.</span><span class="nx">parseDate</span><span class="p">(</span><span class="nx">ref</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">getTime</span><span class="p">()</span><span class="o">/</span><span class="mi">1000</span> <span class="k">if</span> <span class="k">typeof</span> <span class="nx">ref</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
+      <span class="k">unless</span> <span class="nx">ref</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Given value &#39;</span><span class="si">#{</span><span class="nx">options</span><span class="p">[</span><span class="nx">type</span><span class="o">+</span><span class="nx">dir</span><span class="p">]</span><span class="si">}</span><span class="s">&#39; in option </span><span class="si">#{</span><span class="nx">type</span><span class="o">+</span><span class="nx">dir</span><span class="si">}</span><span class="s"> is invalid.&quot;</span>
+      <span class="nv">value = </span><span class="nx">stats</span><span class="p">[</span><span class="nx">type</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;time&#39;</span><span class="p">].</span><span class="nx">getTime</span><span class="p">()</span><span class="o">/</span><span class="mi">1000</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+</div>
+
+<div class="highlight"><pre><code> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">[</span><span class="nx">type</span><span class="o">+</span><span class="nx">dir</span><span class="p">],</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">ref</span>
+</code></pre></div>
+
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">dir</span> <span class="o">is</span> <span class="s">&#39;Before&#39;</span> <span class="o">and</span> <span class="nx">value</span> <span class="o">&gt;=</span> <span class="nx">ref</span>
+      <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">dir</span> <span class="o">is</span> <span class="s">&#39;After&#39;</span> <span class="o">and</span> <span class="nx">value</span> <span class="o">&lt;=</span> <span class="nx">ref</span>
+  <span class="k">return</span> <span class="kc">true</span>
+
+<span class="nv">skipTime = </span><span class="nf">(file, options, cb) -&gt;</span>
+  <span class="nv">used = </span><span class="kc">false</span>
+  <span class="k">for</span> <span class="nx">type</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;accessed&#39;</span><span class="p">,</span> <span class="s">&#39;modified&#39;</span><span class="p">,</span> <span class="s">&#39;created&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="nx">dir</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;After&#39;</span><span class="p">,</span> <span class="s">&#39;Before&#39;</span><span class="p">]</span>
+      <span class="nv">used = </span><span class="kc">true</span> <span class="k">if</span> <span class="nx">options</span><span class="p">[</span><span class="nx">type</span><span class="o">+</span><span class="nx">dir</span><span class="p">]</span>
+  <span class="k">return</span> <span class="nx">cb</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">used</span>
+  <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span>
+  <span class="nx">stat</span> <span class="nx">file</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<p>console.log file, stats</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">skip = </span><span class="o">not</span> <span class="nx">timeCheck</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">options</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>console.log file, skip</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">cb</span> <span class="nx">skip</span>
+
+<span class="nv">skipTimeSync = </span><span class="nf">(file, options) -&gt;</span>
+  <span class="nv">used = </span><span class="kc">false</span>
+  <span class="k">for</span> <span class="nx">type</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;accessed&#39;</span><span class="p">,</span> <span class="s">&#39;modified&#39;</span><span class="p">,</span> <span class="s">&#39;created&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="nx">dir</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;After&#39;</span><span class="p">,</span> <span class="s">&#39;Before&#39;</span><span class="p">]</span>
+      <span class="nv">used = </span><span class="kc">true</span> <span class="k">if</span> <span class="nx">options</span><span class="p">[</span><span class="nx">type</span><span class="o">+</span><span class="nx">dir</span><span class="p">]</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">used</span>
+  <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
+  <span class="nv">stats = </span><span class="nx">stat</span> <span class="nx">file</span>
+  <span class="k">return</span> <span class="o">not</span> <span class="nx">timeCheck</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">options</span>
 </pre></div>
         </td>
       </tr>

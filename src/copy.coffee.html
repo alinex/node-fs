@@ -80,6 +80,7 @@
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;fs:copy&#39;</span><span class="p">)</span>
 
 
 </pre></div>
@@ -190,6 +191,7 @@ Search depth as integer (internal parameter).</li>
 <p>copy the file</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">debug</span> <span class="s">&quot;copying file </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s"> to </span><span class="si">#{</span><span class="nx">target</span><span class="si">}</span><span class="s">&quot;</span>
           <span class="nx">copyFile</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">cb</span>
       <span class="k">else</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
         <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">ok</span>
@@ -207,6 +209,7 @@ Search depth as integer (internal parameter).</li>
         <td class="code highlight"><div class="highlight"><pre>
         <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">async</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">target</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
           <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+          <span class="nx">debug</span> <span class="s">&quot;copying link </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s"> to </span><span class="si">#{</span><span class="nx">target</span><span class="si">}</span><span class="s">&quot;</span>
           <span class="nx">fs</span><span class="p">.</span><span class="nx">readlink</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, resolvedPath) -&gt;</span>
             <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
@@ -250,6 +253,7 @@ Search depth as integer (internal parameter).</li>
 <p>copy all files in directory</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">debug</span> <span class="s">&quot;copying directory </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s"> to </span><span class="si">#{</span><span class="nx">target</span><span class="si">}</span><span class="s">&quot;</span>
           <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">files</span><span class="p">,</span> <span class="nf">(file, cb) -&gt;</span>
             <span class="nx">copy</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span><span class="p">,</span> <span class="nx">depth</span>
           <span class="p">,</span> <span class="nf">(err) -&gt;</span>

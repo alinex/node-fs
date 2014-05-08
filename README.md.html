@@ -55,6 +55,12 @@
       <div class="heading h3">
         <a href="#removesync">removeSync</a>
       </div>
+      <div class="heading h3">
+        <a href="#npmbin">npmbin</a>
+      </div>
+      <div class="heading h3">
+        <a href="#npmbinsync">npmbinSync</a>
+      </div>
       <div class="heading h2">
         <a href="#filter">Filter</a>
       </div>
@@ -66,6 +72,18 @@
       </div>
       <div class="heading h3">
         <a href="#dereferencing">Dereferencing</a>
+      </div>
+      <div class="heading h3">
+        <a href="#file%20size">File size</a>
+      </div>
+      <div class="heading h3">
+        <a href="#owner%20and%20group">Owner and Group</a>
+      </div>
+      <div class="heading h3">
+        <a href="#time%20specification">Time specification</a>
+      </div>
+      <div class="heading h3">
+        <a href="#user%20defined%20function">User defined function</a>
       </div>
       <div class="heading h2">
         <a href="#license">License</a>
@@ -500,6 +518,79 @@ If anything out of order happened.</li>
 
 
 
+<div class="pilwrap" id="npmbin">
+  <h3>
+    <a href="#npmbin" name="npmbin" class="pilcrow">&#182;</a>
+    npmbin
+  </h3>
+</div>
+
+
+<p>Find the defined binary in node_modules directories. It will search in the current
+and upper package directories.</p>
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>bin</code>
+name of the binary to search for</li>
+<li><code>dir</code>
+Module directory to start search from.</li>
+<li><code>callback(err, cmd)</code>
+The callback will be called just if an error occurred or after finished.
+The command path to be called.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span><span class="p">(</span><span class="s1">&#39;coffee&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">cmd</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Coffee command found at:&quot;</span><span class="o">+</span><span class="nx">cmd</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="npmbinsync">
+  <h3>
+    <a href="#npmbinsync" name="npmbinsync" class="pilcrow">&#182;</a>
+    npmbinSync
+  </h3>
+</div>
+
+
+<p>Find the defined binary in node_modules directories. It will search in the current
+and upper package directories.</p>
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>bin</code>
+name of the binary to search for</li>
+<li><code>dir</code>
+Module directory to start search from.</li>
+</ul>
+
+<p><strong>Return:</strong></p>
+
+<ul>
+<li><code>cmd</code>
+the command path to be called.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
+<span class="nx">cmd</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span><span class="p">(</span><span class="s1">&#39;coffee&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Coffee command found at:&quot;</span><span class="o">+</span><span class="nx">cmd</span><span class="p">);</span>
+</code></pre></div>
+
+
+
+
 <div class="pilwrap" id="filter">
   <h2>
     <a href="#filter" name="filter" class="pilcrow">&#182;</a>
@@ -513,6 +604,28 @@ The filter is given as options array which may have some of the following
 specification settings.
 Additionally some methods may have special options for filtering.</p>
 
+<ul>
+<li><code>include</code> to specify a inclusion pattern</li>
+<li><code>exclude</code> to specify an exclusion pattern</li>
+<li><code>dereference</code> set to true to follow symbolic links</li>
+<li><code>mindepth</code> minimal depth to match</li>
+<li><code>maxdepth</code> maximal depth to match</li>
+<li><code>test</code> own function to use</li>
+<li><code>minsize</code> minimal filesize</li>
+<li><code>maxsize</code> maximal filesize</li>
+<li><code>user</code> owner name or id</li>
+<li><p><code>group</code> owner group name or id</p></li>
+<li><p><code>accessedAfter</code></p></li>
+<li><code>accessedBefore</code></li>
+<li><code>modifiedAfter</code></li>
+<li><code>modifiedBefore</code></li>
+<li><code>createdAfter</code></li>
+<li><code>createdBefore</code></li>
+</ul>
+
+<p>If you use multiple options all of them have to match the file to be valid.
+See the details below.</p>
+
 
 <div class="pilwrap" id="file%2Fpath%20matching">
   <h3>
@@ -522,17 +635,13 @@ Additionally some methods may have special options for filtering.</p>
 </div>
 
 
-<p>This is based on glob expressions like used in unix systems.</p>
+<p>This is based on glob expressions like used in unix systems. You may use these
+as the <code>include</code> or <code>exclude</code> pattern while the <code>exclude</code> pattern has the higher
+priority. All files are matched which are in the include pattern and not in the
+exclude pattern.</p>
 
-<p>The following option entries are used:</p>
-
-<ul>
-<li><code>include</code> - to specify a inclusion pattern</li>
-<li><code>exclude</code> - to specify an exclusion pattern</li>
-</ul>
-
-<p>All files are matched which are in the include pattern and not in the exclude
-pattern.</p>
+<p>The pattern may be a regular expression or a glob pattern string with
+the following specification:</p>
 
 <p>To use one of the special characters <code>*</code>, <code>?</code> or <code>[</code> you have to preceed it with an
 backslash.</p>
@@ -570,10 +679,6 @@ backslash.</p>
 <li>@(list): Matches one of the given patterns.</li>
 </ul>
 
-<p>Directory matching:</p>
-
-<p>All directories will be tested with an added slash.</p>
-
 
 <div class="pilwrap" id="search%20depth">
   <h3>
@@ -604,6 +709,111 @@ backslash.</p>
 link as itself. Using the option <code>dereference: true</code> this behavior will change
 and they will follow the symbolic link and check the path it refers to. This
 means that they will also go into referenced directories.</p>
+
+
+<div class="pilwrap" id="file%20size">
+  <h3>
+    <a href="#file%20size" name="file%20size" class="pilcrow">&#182;</a>
+    File size
+  </h3>
+</div>
+
+
+<p>With the <code>minsize</code> and  <code>maxsize</code> options it is possible to specify the exact
+size of the matching files in bytes:</p>
+
+<ul>
+<li>use an integer value as number of bytes</li>
+<li>use a string like <code>1M</code> or <code>100k</code></li>
+</ul>
+
+
+<div class="pilwrap" id="owner%20and%20group">
+  <h3>
+    <a href="#owner%20and%20group" name="owner%20and%20group" class="pilcrow">&#182;</a>
+    Owner and Group
+  </h3>
+</div>
+
+
+<p>You may also specify files based on the user which owns the files or the group
+of the files.</p>
+
+<p>Both may be specified as id (uid or gid) or using the alias name.</p>
+
+
+<div class="pilwrap" id="time%20specification">
+  <h3>
+    <a href="#time%20specification" name="time%20specification" class="pilcrow">&#182;</a>
+    Time specification
+  </h3>
+</div>
+
+
+<p>It is also possible to select files based on their <code>creation</code>, last <code>modified</code>
+or last <code>accessed</code> time.</p>
+
+<p>Specify the <code>Before</code> and <code>After</code> time as:</p>
+
+<ul>
+<li>Unix timestamp</li>
+<li>ISO-8601 date formats</li>
+<li>some local formats (based on platform support for Date.parse())</li>
+<li>time difference from now (human readable)</li>
+</ul>
+
+<p>Examples are:</p>
+
+<ul>
+<li><code>yesterday</code>, <code>2 days ago</code>, <code>last Monday</code> to specify a day from now</li>
+<li><code>yesterday 15:00</code>, <code>yesterday at 15:00</code> to also specify the time</li>
+<li><code>1 March</code>, <code>1st March</code> specifies a date in this year</li>
+<li><code>1 March 2014</code>, <code>1st March 2014</code>, '03/01/13<code>,</code>01.03.2014` all specifiying the 1st of march</li>
+<li><code>9:00</code>, <code>9:00 GMT+0900</code> to specify a time today or in combination with a date</li>
+<li><code>last night</code>, <code>00:00</code></li>
+</ul>
+
+<p>If only a day is given it will use 12:00 as the time.</p>
+
+
+<div class="pilwrap" id="user%20defined%20function">
+  <h3>
+    <a href="#user%20defined%20function" name="user%20defined%20function" class="pilcrow">&#182;</a>
+    User defined function
+  </h3>
+</div>
+
+
+<p>With the <code>test</code> parameter you may add an user defined function which will be
+called to check each file. It will get the file path and options array so you
+may also add some configuration therefore in additional option values.</p>
+
+<p>Asynchrony call:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">fs</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">test</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">cb</span><span class="p">(</span><span class="o">~</span><span class="nx">file</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;ab&#39;</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">list</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s2">&quot; matches.&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+
+<p>Or use synchrony calls:</p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">list</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">findSync</span><span class="p">(</span><span class="s1">&#39;test/temp&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">test</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fil</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">~</span><span class="nx">file</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;ab&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s2">&quot; matches.&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="license">

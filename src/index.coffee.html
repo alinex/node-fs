@@ -58,6 +58,9 @@
       <div class="heading h3">
         <a href="#remove%20of%20entry%20with%20subentries">Remove of entry with subentries</a>
       </div>
+      <div class="heading h3">
+        <a href="#find%20bin%20in%20npm%20packages">Find bin in npm packages</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -296,20 +299,23 @@
 <span class="nv">fs.removeSync = </span><span class="nx">remove</span><span class="p">.</span><span class="nx">sync</span>
 
 
-
 </pre></div>
         </td>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+<div class="pilwrap" id="find%20bin%20in%20npm%20packages">
+  <h3>
+    <a href="#find%20bin%20in%20npm%20packages" name="find%20bin%20in%20npm%20packages" class="pilcrow">&#182;</a>
+    Find bin in npm packages
+  </h3>
 </div>
-<p>meta
-find
-npmBin</p>
+
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">npmbin = </span><span class="nx">require</span> <span class="s">&#39;./npmbin&#39;</span>
+<span class="nv">fs.npmbin = </span><span class="nx">npmbin</span><span class="p">.</span><span class="nx">async</span>
+<span class="nv">fs.npmbinSync = </span><span class="nx">npmbin</span><span class="p">.</span><span class="nx">sync</span>
 </pre></div>
         </td>
       </tr>
