@@ -28,7 +28,8 @@ describe "Filter on file size", ->
         fs.writeFile 'test/temp/file1', '0123456789', ->
           fs.writeFile 'test/temp/file2', '01234567890123456789', ->
             fs.writeFile 'test/temp/dir1/file11', '0123456789', ->
-              exec 'ln -s dir1 test/temp/dir3', cb
+              exec 'ln -s dir1 test/temp/dir3', 
+                setTimeout cb, 100
 
   afterEach (cb) ->
     fs.exists 'test/temp', (exists) ->

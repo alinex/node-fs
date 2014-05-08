@@ -35,11 +35,13 @@
     "graceful-fs": "2.x",
     "minimatch": "0.2.x",
     "memoizee": "0.3.x",
-    "moment": "2.x"
+    "posix": "1.x",
+    "chrono-node": "0.1.x"
   },
   "devDependencies": {
     "alinex-make": "0.2.x",
-    "chai": "1.x"
+    "chai": "1.x",
+    "moment": "2.x"
   },
   "optionalDependencies": {},
   "engines": {

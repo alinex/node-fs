@@ -290,7 +290,6 @@ Additionally some methods may have special options for filtering.
 - `mindepth` minimal depth to match
 - `maxdepth` maximal depth to match
 - `test` own function to use
-
 - `minsize` minimal filesize
 - `maxsize` maximal filesize
 - `user` owner name or id
@@ -362,6 +361,23 @@ and they will follow the symbolic link and check the path it refers to. This
 means that they will also go into referenced directories.
 
 
+### File size
+
+With the `minsize` and  `maxsize` options it is possible to specify the exact
+size of the matching files in bytes:
+
+- use an integer value as number of bytes
+- use a string like `1M` or `100k`
+
+
+### Owner and Group
+
+You may also specify files based on the user which owns the files or the group 
+of the files.
+
+Both may be specified as id (uid or gid) or using the alias name.
+
+
 ### Time specification
 
 It is also possible to select files based on their `creation`, last `modified`
@@ -376,10 +392,15 @@ Specify the `Before` and `After` time as:
 
 Examples are:
 
-- ``
-- ``
-- ``
-- ``
+- `yesterday`, `2 days ago`, `last Monday` to specify a day from now
+- `yesterday 15:00`, `yesterday at 15:00` to also specify the time
+- `1 March`, `1st March` specifies a date in this year
+- `1 March 2014`, `1st March 2014`, '03/01/13`, `01.03.2014` all specifiying the 1st of march
+- `9:00`, `9:00 GMT+0900` to specify a time today or in combination with a date
+- `last night`, `00:00`
+
+If only a day is given it will use 12:00 as the time.
+
 
 ### User defined function
 

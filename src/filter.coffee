@@ -9,7 +9,8 @@ fs = require 'fs'
 path = require 'path'
 async = require 'async'
 {execFile} = require 'child_process'
-moment = require 'moment'
+posix = require 'posix'
+chrono = require 'chrono-node'
 
 # Find files
 # -------------------------------------------------
@@ -31,7 +32,7 @@ module.exports.async = (file, depth, options = {}, cb = -> ) ->
     (cb) -> skipPath file, options, cb
     (cb) -> skipType file, options, cb
     (cb) -> skipSize file, options, cb
-#    (cb) -> skipTime file, options, cb
+    (cb) -> skipTime file, options, cb
     (cb) -> skipOwner file, options, cb
     (cb) -> skipFunction file, options, cb
   ], (skip) ->
@@ -212,20 +213,18 @@ groupToGidSync = (group) ->
 
 skipOwner = (file, options, cb) ->
   return cb() unless options.user or options.group
-  userToUid options.user, (err, uid) ->
+  {uid} = posix.getpwnam options.user if options.user
+  {gid} = posix.getgrnam options.group if options.group
+  stat = if options.dereference? then fs.stat else fs.lstat
+  stat file, (err, stats) ->
     return cb err if err
-    groupToGid options.group, (err, gid) ->
-      return cb err if err
-      stat = if options.dereference? then fs.stat else fs.lstat
-      stat file, (err, stats) ->
-        return cb err if err
-#        console.log file, uid, gid, stats.uid, stats.gid
-        cb (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
+#    console.log file, uid, gid, stats.uid, stats.gid
+    cb (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
 
 skipOwnerSync = (file, options) ->
   return false unless options.user or options.group
-  uid = userToUidSync options.user
-  gid = groupToGidSync options.group
+  {uid} = posix.getpwnam options.user if options.user
+  {gid} = posix.getgrnam options.group if options.group
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   stats = stat file
 #  console.log file, uid, gid, stats.uid, stats.gid
@@ -253,25 +252,36 @@ timeCheck = (stats, options) ->
     for dir in ['After', 'Before']
       continue unless options[type+dir]
       # try to read as specific date
-      ref = moment options[type+dir]
-      console.log type, dir, ref
-      unless ref.isValid()
-        # try to read as duration
-        ref = moment().subtract options[type+dir]
-        unless ref.isValid()
-          throw new Error "Given value '#{options[type+dir]}' in option #{type+dir} is invalid."
-      value = moment stats[type.charAt(0) + type.slice(1) + 'time']
-      return true if dir is 'Before' and value.isBefore ref
-      return true if dir is 'After' and value.isAfter ref
-  return false
+      ref = options[type+dir]
+      ref = chrono.parseDate(ref)?.getTime()/1000 if typeof ref is 'string'
+      unless ref
+        throw new Error "Given value '#{options[type+dir]}' in option #{type+dir} is invalid."
+      value = stats[type.charAt(0) + 'time'].getTime()/1000
+      console.log type, dir, options[type+dir], value, ref
+      return true if dir is 'Before' and value < ref
+      return true if dir is 'After' and value > ref
+  return true
 
 skipTime = (file, options, cb) ->
+  used = false
+  for type in ['accessed', 'modified', 'created']
+    for dir in ['After', 'Before']
+      used = true if options[type+dir]
+  return cb false unless used
   stat = if options.dereference? then fs.stat else fs.lstat
-  stat source, (err, stats) ->
+  stat file, (err, stats) ->
     return cb err if err
-    cb not timeCheck stats, options
+#    console.log file, stats
+    skip = not timeCheck stats, options
+    console.log file, skip
+    cb skip
 
 skipTimeSync = (file, options) ->
+  used = false
+  for type in ['accessed', 'modified', 'created']
+    for dir in ['After', 'Before']
+      used = true if options[type+dir]
+  return false unless used
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   stats = stat file
   return not timeCheck stats, options
