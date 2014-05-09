@@ -104,6 +104,26 @@ describe "Recursive copy", ->
         expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
         cb()
 
+    it "should fail on copy to existing file", (cb) ->
+      fs.copy 'test/temp/file1', 'test/temp/file2', (err) ->
+        expect(err, 'error').to.exist
+        cb()
+
+    it "should overwrite existing file", (cb) ->
+      fs.copy 'test/temp/file1', 'test/temp/file2',
+        overwrite: true
+      , (err) ->
+        expect(err, 'error').to.not.exist
+        cb()
+
+    it "should ignore existing file", (cb) ->
+      fs.copy 'test/temp/file1', 'test/temp/file2',
+        ignore: true
+      , (err) ->
+        expect(err, 'error').to.not.exist        
+        cb()
+
+
   describe "synchronous", ->
 
     it "should fail if source don't exist", ->
@@ -158,3 +178,15 @@ describe "Recursive copy", ->
       expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
       expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
 
+    it "should fail on copy to existing file", ->
+      expect ->
+        fs.copySync 'test/temp/file1', 'test/temp/file2'
+      .to.throw Error
+
+    it "should overwrite existing file", ->
+      fs.copySync 'test/temp/file1', 'test/temp/file2',
+        overwrite: true
+
+    it "should ignore existing file", ->
+      fs.copySync 'test/temp/file1', 'test/temp/file2',
+        ignore: true

@@ -49,7 +49,12 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
           return cb err if err
           # copy the file
           debug "copying file #{source} to #{target}"
-          copyFile source, stats, target, cb
+          fs.exists target, (exists) ->
+            if exists and not (options.overwrite or options.ignore)
+              return cb new Error "Target file already exists."
+            if not exists or options.overwrite
+              return copyFile source, stats, target, cb
+            cb()
       else if stats.isSymbolicLink()
         return cb() unless ok
         # create directory if necessary
@@ -103,7 +108,11 @@ copySync = module.exports.sync = (source, target, options = {}, depth = 0) ->
     # create directory if neccessary
     mkdirs.sync path.dirname(target)
     # copy the file
-    copyFileSync source, stats, target
+    exists = fs.existsSync target
+    if exists and not (options.overwrite or options.ignore)
+      throw new Error "Target file already exists."
+    if not exists or options.overwrite
+      return copyFileSync source, stats, target
   else if stats.isSymbolicLink()
     return unless ok
     # create directory if neccessary
@@ -131,24 +140,16 @@ copyFile = (source, stats, target, cb) ->
           fs.chmod target, stats.mode, (err) ->
             return cb()
     cbCalled = true
-
-  # check if copy is possible
-  fs.exists target, (err, exists) ->
-    return cb err if err
-    if exists
-      return new Error "Target file already exists."
-    # open streams
-    rs = fs.createReadStream source
-    ws = fs.createWriteStream target,
-      mode: stats.mode
-    # copy data
-    ws.on 'error', done
-    ws.on 'close', done
-    rs.pipe ws
+  # open streams
+  rs = fs.createReadStream source
+  ws = fs.createWriteStream target,
+    mode: stats.mode
+  # copy data
+  ws.on 'error', done
+  ws.on 'close', done
+  rs.pipe ws
 
 copyFileSync = (source, stats, target) ->
-  if fs.existsSync target
-    throw new Error "Target file already exists."
   # copy file
   fs.writeFileSync target, fs.readFileSync source
   # copy permissions and times

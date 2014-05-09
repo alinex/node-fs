@@ -187,6 +187,15 @@ __Arguments:__
 * `callback(err)`
   The callback will be called just if an error occurred.
 
+__Additional Options:__
+
+* `overwrite`
+  if set to `true` it will not fail if destination file already exists and 
+  overwrite it
+* `ignore`
+  if set to `true` it will not fail if destination file already exists, skip 
+  this and go on with the next file
+
 __Example:__
 
     var fs = require('alinex-fs');

@@ -36,7 +36,7 @@ describe "Time filter", ->
                 fs.utimesSync 'test/temp/file1', day1, day5
                 fs.utimesSync 'test/temp/file2', day1, day3
                 fs.utimesSync 'test/temp/dir1/file11', day3, day3
-                setTimeout cb, 400
+                setTimeout cb, 500
 
   afterEach (cb) ->
     fs.exists 'test/temp', (exists) ->
