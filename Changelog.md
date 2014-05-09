@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.1 (2014-05-09)
+-------------------------------------------------
+- Added ignore and overwrite options to copy method.
+- Fixed changelog.
+- Change test to lib folder for coverage.
+
 Version 0.1.0 (2014-05-08)
 -------------------------------------------------
 - Adding the npmbin utility to search for binaries in node_modules.
