@@ -10,9 +10,7 @@ Version 0.1.0 (2014-05-08)
 - Add debug calls to copy and remove.
 - Finished tests.
 - Don't use POSIX because not properly supported on Mac.
-- More tests but not working stable.
 - Finishing owner filter and adding more tests.
-- Merged changes of different filter additions.
 - Added time filter.
 - Added RegExp matching to include/exclude patterns.
 - Extend filters with type and size filter.
