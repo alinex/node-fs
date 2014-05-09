@@ -64,6 +64,11 @@ remove = require './remove'
 afs.remove = remove.async
 afs.removeSync = remove.sync
 
+# ### Move file or directory
+move = require './move'
+afs.move = move.async
+afs.moveSync = move.sync
+
 # ### Find bin in npm packages
 npmbin = require './npmbin'
 afs.npmbin = npmbin.async

@@ -85,6 +85,7 @@ __Example:__
       console.log("Directory now exists!");
     });
 
+
 ### mkdirsSync
 
 This will do the same as `mkdirs` but in an synchronous version.
@@ -117,6 +118,7 @@ __Example:__
       return console.error(err);
     }
 
+
 ### find
 
 List files within directory matching specific options.
@@ -139,6 +141,7 @@ __Example:__
       console.log("Found " + list.length + " images.");
       // do something with list
     });
+
 
 ### findSync
 
@@ -172,6 +175,7 @@ __Example:__
       return console.error(err);
     }
 
+
 ### copy
 
 Copy complete directories in a recursive way.
@@ -190,10 +194,10 @@ __Arguments:__
 __Additional Options:__
 
 * `overwrite`
-  if set to `true` it will not fail if destination file already exists and 
+  if set to `true` it will not fail if destination file already exists and
   overwrite it
 * `ignore`
-  if set to `true` it will not fail if destination file already exists, skip 
+  if set to `true` it will not fail if destination file already exists, skip
   this and go on with the next file
 
 __Example:__
@@ -203,6 +207,16 @@ __Example:__
       if (err) return console.error(err);
       console.log("Directory copied!");
     });
+
+Or to copy all js files and overwrite existing:
+
+    var fs = require('alinex-fs');
+    fs.copy('/tmp/some/directory', { includes: '*.js', overwrite: true },
+    function(err) {
+      if (err) return console.error(err);
+      console.log("Directory copied!");
+    });
+
 
 ### copySync
 
@@ -228,6 +242,7 @@ __Example:__
     fs.copySync('/tmp/some/directory');
     console.log("Directory copied!");
 
+
 ### remove
 
 This method will remove the given `path` entry and if it is a directory it
@@ -251,6 +266,7 @@ __Example:__
       if (removed) console.log("Directory '"+removed+"' was removed with all it's contents.");
       console.log("Directory no longer exists!");
     });
+
 
 ### removeSync
 
