@@ -38,10 +38,10 @@ remove = require './remove'
 #   overwrite it
 # * `clean`
 #   if set to `true` it will clean old files from target.
-module.exports.async = (source, target, options, cb = ->) ->
+module.exports.async = (source, target, options = {}, cb = ->) ->
   if typeof options is 'function' or not options
     cb = options ? ->
-    options = null
+    options = {}
   debug "Move filepath #{source} to #{target}."
   # collect methods to run
   async.series [
@@ -51,7 +51,7 @@ module.exports.async = (source, target, options, cb = ->) ->
       remove.async target, cb
     # create parent directories
     (cb) ->
-      mkdirs.async path.basedir(target), cb
+      mkdirs.async path.dirname(target), cb
     # try to rename file
     (cb) ->
       return cb() if options
@@ -97,13 +97,13 @@ copyRemove = (source, target, options, cb) ->
 #
 # * `Error`
 #   If anything out of order happened.
-module.exports.sync = (source, target, options) ->
+module.exports.sync = (source, target, options = {}) ->
   debug "Move filepath #{source} to #{target}."
   # remove old target first
   if options.clean
     remove.sync target
   # create parent directories
-  mkdirs.sync path.basedir target
+  mkdirs.sync path.dirname target
   # try to rename file
   unless options
     try

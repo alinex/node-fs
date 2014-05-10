@@ -29,13 +29,13 @@ describe "Recursive copy", ->
     it "should copy single file", (cb) ->
       fs.copy 'test/temp/file1', 'test/temp/file10', (err) ->
         expect(err, 'error').to.not.exist
-        expect(fs.existsSync 'test/temp/file10', 'real file').to.exist
+        expect(fs.existsSync('test/temp/file10'), 'real file').to.be.true
         cb()
 
     it "should copy single link", (cb) ->
       fs.copy 'test/temp/dir3', 'test/temp/dir4', (err) ->
         expect(err, 'error').to.not.exist
-        expect(fs.existsSync 'test/temp/dir4', 'new softlink').to.exist
+        expect(fs.existsSync('test/temp/dir4'), 'new softlink').to.be.true
         stats = fs.lstatSync 'test/temp/dir4'
         expect(stats.isSymbolicLink(), 'new softlink').to.be.true
         cb()
@@ -43,15 +43,15 @@ describe "Recursive copy", ->
     it "should copy empty dir", (cb) ->
       fs.copy 'test/temp/dir2', 'test/temp/dir4', (err) ->
         expect(err, 'error').to.not.exist
-        expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
-        expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.has.length 0
+        expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
+        expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.has.length 0
         cb()
 
     it "should copy deep dir", (cb) ->
       fs.copy 'test/temp/dir1', 'test/temp/dir4', (err) ->
         expect(err, 'error').to.not.exist
-        expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
-        expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
+        expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
+        expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.deep.equal ['file11']
         cb()
 
     it "should fail on copy dir into file", (cb) ->
@@ -74,8 +74,8 @@ describe "Recursive copy", ->
         include: '*1'
       , (err) ->
         expect(err, 'error').to.not.exist
-        expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
-        expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
+        expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
+        expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.deep.equal ['file11']
         cb()
 
     it "should copy deep dir", (cb) ->
@@ -84,15 +84,15 @@ describe "Recursive copy", ->
         maxdepth: 1
       , (err) ->
         expect(err, 'error').to.not.exist
-        expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
-        expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
+        expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
+        expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.deep.equal ['file11']
         fs.copy 'test/temp/dir1', 'test/temp/dir5',
           mindepth: 0
           maxdepth: 0
         , (err) ->
           expect(err, 'error').to.not.exist
-          expect(fs.existsSync 'test/temp/dir5', 'new dir').to.exist
-          expect(fs.readdirSync 'test/temp/dir5', 'new dir').to.deep.equal []
+          expect(fs.existsSync('test/temp/dir5'), 'new dir').to.be.true
+          expect(fs.readdirSync('test/temp/dir5'), 'new dir').to.deep.equal []
           cb()
 
     it "should copy with dereferencing", (cb) ->
@@ -100,8 +100,8 @@ describe "Recursive copy", ->
         dereference: true
       , (err) ->
         expect(err, 'error').to.not.exist
-        expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
-        expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
+        expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
+        expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.deep.equal ['file11']
         cb()
 
     it "should fail on copy to existing file", (cb) ->
@@ -120,7 +120,7 @@ describe "Recursive copy", ->
       fs.copy 'test/temp/file1', 'test/temp/file2',
         ignore: true
       , (err) ->
-        expect(err, 'error').to.not.exist        
+        expect(err, 'error').to.not.exist
         cb()
 
 
@@ -133,23 +133,23 @@ describe "Recursive copy", ->
 
     it "should copy single file", ->
       fs.copySync 'test/temp/file1', 'test/temp/file10'
-      expect(fs.existsSync 'test/temp/file10', 'real file').to.exist
+      expect(fs.existsSync('test/temp/file10'), 'real file').to.be.true
 
     it "should copy single link", ->
       fs.copySync 'test/temp/dir3', 'test/temp/dir4'
-      expect(fs.existsSync 'test/temp/dir4', 'new softlink').to.exist
+      expect(fs.existsSync('test/temp/dir4'), 'new softlink').to.be.true
       stats = fs.lstatSync 'test/temp/dir4'
       expect(stats.isSymbolicLink(), 'new softlink').to.be.true
 
     it "should copy empty dir", ->
       fs.copySync 'test/temp/dir2', 'test/temp/dir4'
-      expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
-      expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.has.length 0
+      expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
+      expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.has.length 0
 
     it "should copy deep dir", ->
       fs.copySync 'test/temp/dir1', 'test/temp/dir4'
-      expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
-      expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
+      expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
+      expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.deep.equal ['file11']
 
     it "should fail on copy dir into file", ->
       expect ->
@@ -169,14 +169,26 @@ describe "Recursive copy", ->
     it "should copy dir with filter", ->
       fs.copySync 'test/temp/dir1', 'test/temp/dir4',
         include: '*1'
-      expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
-      expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
+      expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
+      expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.deep.equal ['file11']
+
+    it "should copy deep dir", ->
+      fs.copySync 'test/temp/dir1', 'test/temp/dir4',
+        mindepth: 1
+        maxdepth: 1
+      expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
+      expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.deep.equal ['file11']
+      fs.copySync 'test/temp/dir1', 'test/temp/dir5',
+        mindepth: 0
+        maxdepth: 0
+      expect(fs.existsSync('test/temp/dir5'), 'new dir').to.be.true
+      expect(fs.readdirSync('test/temp/dir5'), 'new dir').to.deep.equal []
 
     it "should copy with dereferencing", ->
       fs.copySync 'test/temp/dir3', 'test/temp/dir4',
         dereference: true
-      expect(fs.existsSync 'test/temp/dir4', 'new dir').to.exist
-      expect(fs.readdirSync 'test/temp/dir4', 'new dir').to.deep.equal ['file11']
+      expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
+      expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.deep.equal ['file11']
 
     it "should fail on copy to existing file", ->
       expect ->
