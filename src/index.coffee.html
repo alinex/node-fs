@@ -29,6 +29,9 @@
         <a href="#node%20modules">Node Modules</a>
       </div>
       <div class="heading h2">
+        <a href="#clone%20original%20fs">Clone original fs</a>
+      </div>
+      <div class="heading h2">
         <a href="#optimize%20original%20methods">Optimize original methods</a>
       </div>
       <div class="heading h3">
@@ -57,6 +60,9 @@
       </div>
       <div class="heading h3">
         <a href="#remove%20of%20entry%20with%20subentries">Remove of entry with subentries</a>
+      </div>
+      <div class="heading h3">
+        <a href="#move%20file%20or%20directory">Move file or directory</a>
       </div>
       <div class="heading h3">
         <a href="#find%20bin%20in%20npm%20packages">Find bin in npm packages</a>
@@ -104,9 +110,29 @@
 <p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">fs = module.exports = </span><span class="nx">require</span> <span class="s">&#39;graceful-fs&#39;</span>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;graceful-fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">memoizee = </span><span class="nx">require</span> <span class="s">&#39;memoizee&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="clone%20original%20fs">
+  <h2>
+    <a href="#clone%20original%20fs" name="clone%20original%20fs" class="pilcrow">&#182;</a>
+    Clone original fs
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">afs = module.exports = </span><span class="p">{}</span>
+<span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">fs</span>
+  <span class="nx">afs</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span>
+
 
 
 </pre></div>
@@ -139,8 +165,7 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">nodeStat = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span>
-<span class="nv">fs.stat = </span><span class="nx">memoizee</span> <span class="nx">nodeStat</span><span class="p">,</span>
+<span class="nv">afs.stat = </span><span class="nx">memoizee</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span><span class="p">,</span>
   <span class="nv">async: </span><span class="kc">true</span>
   <span class="nv">maxAge: </span><span class="mi">1000</span> <span class="c1"># expiration time in milliseconds</span>
   <span class="nv">max: </span><span class="mi">1000</span> <span class="c1"># limit number of elements</span>
@@ -160,8 +185,7 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">nodeStatSync = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span>
-<span class="nv">fs.statSync = </span><span class="nx">memoizee</span> <span class="nx">nodeStatSync</span><span class="p">,</span>
+<span class="nv">afs.statSync = </span><span class="nx">memoizee</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span><span class="p">,</span>
   <span class="nv">maxAge: </span><span class="mi">1000</span> <span class="c1"># expiration time in milliseconds</span>
   <span class="nv">max: </span><span class="mi">1000</span> <span class="c1"># limit number of elements</span>
 
@@ -180,8 +204,7 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">nodeLstat = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span>
-<span class="nv">fs.lstat = </span><span class="nx">memoizee</span> <span class="nx">nodeLstat</span><span class="p">,</span>
+<span class="nv">afs.lstat = </span><span class="nx">memoizee</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span><span class="p">,</span>
   <span class="nv">async: </span><span class="kc">true</span>
   <span class="nv">maxAge: </span><span class="mi">1000</span> <span class="c1"># expiration time in milliseconds</span>
   <span class="nv">max: </span><span class="mi">1000</span> <span class="c1"># limit number of elements</span>
@@ -201,8 +224,7 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">nodeLstatSync = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
-<span class="nv">fs.lstatSync = </span><span class="nx">memoizee</span> <span class="nx">nodeLstatSync</span><span class="p">,</span>
+<span class="nv">afs.lstatSync = </span><span class="nx">memoizee</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span><span class="p">,</span>
   <span class="nv">maxAge: </span><span class="mi">1000</span> <span class="c1"># expiration time in milliseconds</span>
   <span class="nv">max: </span><span class="mi">1000</span> <span class="c1"># limit number of elements</span>
 
@@ -238,8 +260,8 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">mkdirs = </span><span class="nx">require</span> <span class="s">&#39;./mkdirs&#39;</span>
-<span class="nv">fs.mkdirs = </span><span class="nx">mkdirs</span><span class="p">.</span><span class="nx">async</span>
-<span class="nv">fs.mkdirsSync = </span><span class="nx">mkdirs</span><span class="p">.</span><span class="nx">sync</span>
+<span class="nv">afs.mkdirs = </span><span class="nx">mkdirs</span><span class="p">.</span><span class="nx">async</span>
+<span class="nv">afs.mkdirsSync = </span><span class="nx">mkdirs</span><span class="p">.</span><span class="nx">sync</span>
 
 
 </pre></div>
@@ -257,8 +279,8 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">find = </span><span class="nx">require</span> <span class="s">&#39;./find&#39;</span>
-<span class="nv">fs.find = </span><span class="nx">find</span><span class="p">.</span><span class="nx">async</span>
-<span class="nv">fs.findSync = </span><span class="nx">find</span><span class="p">.</span><span class="nx">sync</span>
+<span class="nv">afs.find = </span><span class="nx">find</span><span class="p">.</span><span class="nx">async</span>
+<span class="nv">afs.findSync = </span><span class="nx">find</span><span class="p">.</span><span class="nx">sync</span>
 
 
 </pre></div>
@@ -276,8 +298,8 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">copy = </span><span class="nx">require</span> <span class="s">&#39;./copy&#39;</span>
-<span class="nv">fs.copy = </span><span class="nx">copy</span><span class="p">.</span><span class="nx">async</span>
-<span class="nv">fs.copySync = </span><span class="nx">copy</span><span class="p">.</span><span class="nx">sync</span>
+<span class="nv">afs.copy = </span><span class="nx">copy</span><span class="p">.</span><span class="nx">async</span>
+<span class="nv">afs.copySync = </span><span class="nx">copy</span><span class="p">.</span><span class="nx">sync</span>
 
 
 </pre></div>
@@ -295,8 +317,27 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">remove = </span><span class="nx">require</span> <span class="s">&#39;./remove&#39;</span>
-<span class="nv">fs.remove = </span><span class="nx">remove</span><span class="p">.</span><span class="nx">async</span>
-<span class="nv">fs.removeSync = </span><span class="nx">remove</span><span class="p">.</span><span class="nx">sync</span>
+<span class="nv">afs.remove = </span><span class="nx">remove</span><span class="p">.</span><span class="nx">async</span>
+<span class="nv">afs.removeSync = </span><span class="nx">remove</span><span class="p">.</span><span class="nx">sync</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="move%20file%20or%20directory">
+  <h3>
+    <a href="#move%20file%20or%20directory" name="move%20file%20or%20directory" class="pilcrow">&#182;</a>
+    Move file or directory
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">move = </span><span class="nx">require</span> <span class="s">&#39;./move&#39;</span>
+<span class="nv">afs.move = </span><span class="nx">move</span><span class="p">.</span><span class="nx">async</span>
+<span class="nv">afs.moveSync = </span><span class="nx">move</span><span class="p">.</span><span class="nx">sync</span>
 
 
 </pre></div>
@@ -314,8 +355,8 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">npmbin = </span><span class="nx">require</span> <span class="s">&#39;./npmbin&#39;</span>
-<span class="nv">fs.npmbin = </span><span class="nx">npmbin</span><span class="p">.</span><span class="nx">async</span>
-<span class="nv">fs.npmbinSync = </span><span class="nx">npmbin</span><span class="p">.</span><span class="nx">sync</span>
+<span class="nv">afs.npmbin = </span><span class="nx">npmbin</span><span class="p">.</span><span class="nx">async</span>
+<span class="nv">afs.npmbinSync = </span><span class="nx">npmbin</span><span class="p">.</span><span class="nx">sync</span>
 </pre></div>
         </td>
       </tr>

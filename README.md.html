@@ -50,6 +50,12 @@
         <a href="#copysync">copySync</a>
       </div>
       <div class="heading h3">
+        <a href="#move">move</a>
+      </div>
+      <div class="heading h3">
+        <a href="#movesync">moveSync</a>
+      </div>
+      <div class="heading h3">
         <a href="#remove">remove</a>
       </div>
       <div class="heading h3">
@@ -108,6 +114,9 @@
 It's design as a drop-in replacement. It uses also
 <a href="https://github.com/isaacs/node-graceful-fs">graceful-fs</a>
 to normalize behavior across different platforms and environments, and to make filesystem access more resilient to errors.</p>
+
+<p>This package combines features found in a lot of other packages together without
+including too much. Most methods are very customizable using options.</p>
 
 <p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex">Alinex Universe</a>
 following the code standards defined there.</p>
@@ -380,11 +389,37 @@ Specification of files to find (see <a href="#flter">filter</a> options).</li>
 The callback will be called just if an error occurred.</li>
 </ul>
 
+<p><strong>Additional Options:</strong></p>
+
+<ul>
+<li><code>overwrite</code>
+if set to <code>true</code> it will not fail if destination file already exists and
+overwrite it</li>
+<li><code>ignore</code>
+if set to <code>true</code> it will not fail if destination file already exists, skip
+this and go on with the next file</li>
+</ul>
+
 <p><strong>Example:</strong></p>
 
 
 <div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="nx">fs</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="s1">&#39;/new/destination&#39;</span><span class="p">,</span>
+<span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory copied!&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+
+<p>Or to copy all js files and overwrite existing:</p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="s1">&#39;/new/destination&#39;</span><span class="p">,</span>
+<span class="p">{</span> <span class="nx">includes</span><span class="o">:</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="nx">overwrite</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span>
+<span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory copied!&quot;</span><span class="p">);</span>
 <span class="p">});</span>
@@ -414,6 +449,17 @@ File or directory to copy to.</li>
 Specification of files to find (see <a href="#flter">filter</a> options).</li>
 </ul>
 
+<p><strong>Additional Options:</strong></p>
+
+<ul>
+<li><code>overwrite</code>
+if set to <code>true</code> it will not fail if destination file already exists and
+overwrite it</li>
+<li><code>ignore</code>
+if set to <code>true</code> it will not fail if destination file already exists, skip
+this and go on with the next file</li>
+</ul>
+
 <p><strong>Throw:</strong></p>
 
 <ul>
@@ -425,11 +471,112 @@ If anything out of order happened.</li>
 
 
 <div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="nx">fs</span><span class="p">.</span><span class="nx">copySync</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">);</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">copySync</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="s1">&#39;/new/destination&#39;</span><span class="p">);</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory copied!&quot;</span><span class="p">);</span>
 </code></pre></div>
 
 
+
+
+<div class="pilwrap" id="move">
+  <h3>
+    <a href="#move" name="move" class="pilcrow">&#182;</a>
+    move
+  </h3>
+</div>
+
+
+<p>This method will move a single file or complete directory like <code>mv</code>.</p>
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>source</code>
+File or directory to be copied.</li>
+<li><code>target</code>
+File or directory to copy to.</li>
+<li><code>options</code>
+Specification of files to find (see <a href="#flter">filter</a> options).</li>
+<li><code>callback(err)</code>
+The callback will be called just if an error occurred.</li>
+</ul>
+
+<p><strong>Additional Options:</strong></p>
+
+<ul>
+<li><code>overwrite</code>
+if set to <code>true</code> it will not fail if destination file already exists and
+overwrite it</li>
+<li><code>clean</code>
+if set to <code>true</code> it will clean old files from target.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="s1">&#39;/new/destination&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory copied!&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+
+<p>You may also use options to specify which files within the source directory to
+move.</p>
+
+
+<div class="pilwrap" id="movesync">
+  <h3>
+    <a href="#movesync" name="movesync" class="pilcrow">&#182;</a>
+    moveSync
+  </h3>
+</div>
+
+
+<p>This method will move a single file or complete directory like <code>mv</code>.</p>
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>source</code>
+File or directory to be copied.</li>
+<li><code>target</code>
+File or directory to copy to.</li>
+<li><code>options</code>
+Specification of files to find (see <a href="#flter">filter</a> options).</li>
+</ul>
+
+<p><strong>Additional Options:</strong></p>
+
+<ul>
+<li><code>overwrite</code>
+if set to <code>true</code> it will not fail if destination file already exists and
+overwrite it</li>
+<li><code>clean</code>
+if set to <code>true</code> it will clean old files from target.</li>
+</ul>
+
+<p><strong>Throw:</strong></p>
+
+<ul>
+<li><code>Error</code>
+If anything out of order happened.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">moveSync</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="s1">&#39;/new/destination&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory moved!&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+
+
+<p>You may also use options to specify which files within the source directory to
+move.</p>
 
 
 <div class="pilwrap" id="remove">

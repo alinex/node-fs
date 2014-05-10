@@ -127,6 +127,17 @@ The callback will be called just if an error occurred.</li>
 <li><code>depth</code>
 Search depth as integer (internal parameter).</li>
 </ul>
+
+<p><strong>Additional Options:</strong></p>
+
+<ul>
+<li><code>overwrite</code>
+if set to <code>true</code> it will not fail if destination file already exists and
+overwrite it</li>
+<li><code>ignore</code>
+if set to <code>true</code> it will not fail if destination file already exists, skip
+this and go on with the next file</li>
+</ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">copy = module.exports.async = </span><span class="nf">(source, target, options, cb, depth = 0) -&gt;</span>
@@ -192,7 +203,12 @@ Search depth as integer (internal parameter).</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
           <span class="nx">debug</span> <span class="s">&quot;copying file </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s"> to </span><span class="si">#{</span><span class="nx">target</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="nx">copyFile</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">cb</span>
+          <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span> <span class="nx">target</span><span class="p">,</span> <span class="nf">(exists) -&gt;</span>
+            <span class="k">if</span> <span class="nx">exists</span> <span class="o">and</span> <span class="o">not</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">overwrite</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ignore</span><span class="p">)</span>
+              <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Target file already exists.&quot;</span>
+            <span class="k">if</span> <span class="o">not</span> <span class="nx">exists</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">overwrite</span>
+              <span class="k">return</span> <span class="nx">copyFile</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">cb</span>
+            <span class="nx">cb</span><span class="p">()</span>
       <span class="k">else</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
         <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">ok</span>
 
@@ -302,6 +318,17 @@ Specification of files to find.</li>
 Search depth as integer (internal parameter).</li>
 </ul>
 
+<p><strong>Additional Options:</strong></p>
+
+<ul>
+<li><code>overwrite</code>
+if set to <code>true</code> it will not fail if destination file already exists and
+overwrite it</li>
+<li><code>ignore</code>
+if set to <code>true</code> it will not fail if destination file already exists, skip
+this and go on with the next file</li>
+</ul>
+
 <p><strong>Throw:</strong></p>
 
 <ul>
@@ -341,7 +368,11 @@ If anything out of order happened.</li>
 <p>copy the file</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">copyFileSync</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">target</span>
+    <span class="nv">exists = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">target</span>
+    <span class="k">if</span> <span class="nx">exists</span> <span class="o">and</span> <span class="o">not</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">overwrite</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ignore</span><span class="p">)</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Target file already exists.&quot;</span>
+    <span class="k">if</span> <span class="o">not</span> <span class="nx">exists</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">overwrite</span>
+      <span class="k">return</span> <span class="nx">copyFileSync</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">target</span>
   <span class="k">else</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
     <span class="k">return</span> <span class="k">unless</span> <span class="nx">ok</span>
 
@@ -447,7 +478,6 @@ If anything out of order happened.</li>
             <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
     <span class="nv">cbCalled = </span><span class="kc">true</span>
 
-
 </pre></div>
         </td>
       </tr>
@@ -456,13 +486,12 @@ If anything out of order happened.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
 </div>
-<p>check if copy is possible</p>
+<p>open streams</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span> <span class="nx">target</span><span class="p">,</span> <span class="nf">(err, exists) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="k">if</span> <span class="nx">exists</span>
-      <span class="k">return</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Target file already exists.&quot;</span>
+  <span class="nv">rs = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span> <span class="nx">source</span>
+  <span class="nv">ws = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span> <span class="nx">target</span><span class="p">,</span>
+    <span class="nv">mode: </span><span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span>
 
 </pre></div>
         </td>
@@ -472,12 +501,14 @@ If anything out of order happened.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
 </div>
-<p>open streams</p>
+<p>copy data</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">rs = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span> <span class="nx">source</span>
-    <span class="nv">ws = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span> <span class="nx">target</span><span class="p">,</span>
-      <span class="nv">mode: </span><span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span>
+  <span class="nx">ws</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">done</span>
+  <span class="nx">ws</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;close&#39;</span><span class="p">,</span> <span class="nx">done</span>
+  <span class="nx">rs</span><span class="p">.</span><span class="nx">pipe</span> <span class="nx">ws</span>
+
+<span class="nv">copyFileSync = </span><span class="nf">(source, stats, target) -&gt;</span>
 
 </pre></div>
         </td>
@@ -486,25 +517,6 @@ If anything out of order happened.</li>
         <td class="docs">
 <div class="pilwrap">
   <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
-</div>
-<p>copy data</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">ws</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">done</span>
-    <span class="nx">ws</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;close&#39;</span><span class="p">,</span> <span class="nx">done</span>
-    <span class="nx">rs</span><span class="p">.</span><span class="nx">pipe</span> <span class="nx">ws</span>
-
-<span class="nv">copyFileSync = </span><span class="nf">(source, stats, target) -&gt;</span>
-  <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">target</span>
-    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Target file already exists.&quot;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
 </div>
 <p>copy file</p>
         </td>
@@ -517,7 +529,7 @@ If anything out of order happened.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
 </div>
 <p>copy permissions and times</p>
         </td>
