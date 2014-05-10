@@ -10,6 +10,9 @@ It's design as a drop-in replacement. It uses also
 [graceful-fs](https://github.com/isaacs/node-graceful-fs)
 to normalize behavior across different platforms and environments, and to make filesystem access more resilient to errors.
 
+This package combines features found in a lot of other packages together without
+including too much. Most methods are very customizable using options.
+
 It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
 following the code standards defined there.
 
@@ -203,7 +206,8 @@ __Additional Options:__
 __Example:__
 
     var fs = require('alinex-fs');
-    fs.copy('/tmp/some/directory', function(err) {
+    fs.copy('/tmp/some/directory', '/new/destination',
+    function(err) {
       if (err) return console.error(err);
       console.log("Directory copied!");
     });
@@ -211,7 +215,8 @@ __Example:__
 Or to copy all js files and overwrite existing:
 
     var fs = require('alinex-fs');
-    fs.copy('/tmp/some/directory', { includes: '*.js', overwrite: true },
+    fs.copy('/tmp/some/directory', '/new/destination',
+    { includes: '*.js', overwrite: true },
     function(err) {
       if (err) return console.error(err);
       console.log("Directory copied!");
@@ -231,6 +236,15 @@ __Arguments:__
 * `options`
   Specification of files to find (see [filter](#flter) options).
 
+__Additional Options:__
+
+* `overwrite`
+  if set to `true` it will not fail if destination file already exists and
+  overwrite it
+* `ignore`
+  if set to `true` it will not fail if destination file already exists, skip
+  this and go on with the next file
+
 __Throw:__
 
 * `Error`
@@ -239,8 +253,79 @@ __Throw:__
 __Example:__
 
     var fs = require('alinex-fs');
-    fs.copySync('/tmp/some/directory');
+    fs.copySync('/tmp/some/directory', '/new/destination');
     console.log("Directory copied!");
+
+
+### move
+
+This method will move a single file or complete directory like `mv`.
+
+__Arguments:__
+
+* `source`
+  File or directory to be copied.
+* `target`
+  File or directory to copy to.
+* `options`
+  Specification of files to find (see [filter](#flter) options).
+* `callback(err)`
+  The callback will be called just if an error occurred.
+
+__Additional Options:__
+
+* `overwrite`
+  if set to `true` it will not fail if destination file already exists and
+  overwrite it
+* `clean`
+  if set to `true` it will clean old files from target.
+
+__Example:__
+
+    var fs = require('alinex-fs');
+    fs.copy('/tmp/some/directory', '/new/destination', function(err) {
+      if (err) return console.error(err);
+      console.log("Directory copied!");
+    });
+
+You may also use options to specify which files within the source directory to
+move.
+
+
+### moveSync
+
+This method will move a single file or complete directory like `mv`.
+
+__Arguments:__
+
+* `source`
+  File or directory to be copied.
+* `target`
+  File or directory to copy to.
+* `options`
+  Specification of files to find (see [filter](#flter) options).
+
+__Additional Options:__
+
+* `overwrite`
+  if set to `true` it will not fail if destination file already exists and
+  overwrite it
+* `clean`
+  if set to `true` it will clean old files from target.
+
+__Throw:__
+
+* `Error`
+  If anything out of order happened.
+
+__Example:__
+
+    var fs = require('alinex-fs');
+    fs.moveSync('/tmp/some/directory', '/new/destination');
+    console.log("Directory moved!");
+
+You may also use options to specify which files within the source directory to
+move.
 
 
 ### remove

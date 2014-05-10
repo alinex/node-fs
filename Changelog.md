@@ -7,8 +7,6 @@ individual versions:
 Version 0.1.1 (2014-05-09)
 -------------------------------------------------
 - Added ignore and overwrite options to copy method.
-- Fixed changelog.
-- Change test to lib folder for coverage.
 
 Version 0.1.0 (2014-05-08)
 -------------------------------------------------

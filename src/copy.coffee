@@ -30,6 +30,16 @@ filter = require './filter'
 #   The callback will be called just if an error occurred.
 # * `depth`
 #   Search depth as integer (internal parameter).
+#
+# __Additional Options:__
+#
+# * `overwrite`
+#   if set to `true` it will not fail if destination file already exists and
+#   overwrite it
+# * `ignore`
+#   if set to `true` it will not fail if destination file already exists, skip
+#   this and go on with the next file
+#
 copy = module.exports.async = (source, target, options, cb, depth = 0) ->
   unless cb?
     cb = ->
@@ -94,6 +104,15 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
 #   Specification of files to find.
 # * `depth`
 #   Search depth as integer (internal parameter).
+#
+# __Additional Options:__
+#
+# * `overwrite`
+#   if set to `true` it will not fail if destination file already exists and
+#   overwrite it
+# * `ignore`
+#   if set to `true` it will not fail if destination file already exists, skip
+#   this and go on with the next file
 #
 # __Throw:__
 #
