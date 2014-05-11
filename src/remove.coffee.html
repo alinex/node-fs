@@ -403,6 +403,7 @@ If anything out of order happened.</li>
 <p>remove file</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">debug</span> <span class="s">&quot;removing file </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">fs</span><span class="p">.</span><span class="nx">unlinkSync</span> <span class="nx">file</span>
     <span class="k">return</span> <span class="nx">file</span>
   <span class="k">else</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
@@ -419,6 +420,7 @@ If anything out of order happened.</li>
 <p>remove symbolic link</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">debug</span> <span class="s">&quot;removing link </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">fs</span><span class="p">.</span><span class="nx">unlinkSync</span> <span class="nx">file</span>
     <span class="k">return</span> <span class="nx">file</span>
   <span class="k">else</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
@@ -448,6 +450,7 @@ If anything out of order happened.</li>
 <p>if this dir should be removed, use no filtering for the containing parts</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">debug</span> <span class="s">&quot;removing directory </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nv">options = </span><span class="p">{}</span> <span class="k">if</span> <span class="nx">ok</span>
     <span class="nv">files = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span> <span class="nx">file</span>
 

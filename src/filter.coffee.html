@@ -106,6 +106,8 @@
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
 <span class="p">{</span><span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
 <span class="nv">chrono = </span><span class="nx">require</span> <span class="s">&#39;chrono-node&#39;</span>
+<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;fs:filter&#39;</span><span class="p">)</span>
+<span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
 
 
 </pre></div>
@@ -138,8 +140,10 @@ The callback will be called with a boolean value showing if file is accepted.</l
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">module.exports.async = </span><span class="nf">(file, depth, options = {}, cb = -&gt; ) -&gt;</span>
+  <span class="k">return</span> <span class="k">unless</span> <span class="nx">options</span>
+  <span class="nx">debug</span> <span class="s">&quot;check </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> for &quot;</span> <span class="o">+</span> <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">options</span>
   <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
-    <span class="nf">(cb) -&gt;</span> <span class="nx">skipDepth</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">skipDepth</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
     <span class="nf">(cb) -&gt;</span> <span class="nx">skipPath</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
     <span class="nf">(cb) -&gt;</span> <span class="nx">skipType</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
     <span class="nf">(cb) -&gt;</span> <span class="nx">skipSize</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
@@ -187,8 +191,10 @@ The callback will be called with a boolean value showing if file is accepted.</l
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">module.exports.sync = </span><span class="nf">(file, depth, options = {}) -&gt;</span>
+  <span class="k">return</span> <span class="k">unless</span> <span class="nx">options</span>
+  <span class="nx">debug</span> <span class="s">&quot;check </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> for &quot;</span> <span class="o">+</span> <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">options</span>
   <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipTypeSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipDepthSync</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipDepthSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
   <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipPathSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
   <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipSizeSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
   <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipTimeSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
@@ -241,16 +247,24 @@ successfully it will return nothing.</p>
   <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span>
     <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span> <span class="k">instanceof</span> <span class="nb">RegExp</span>
-      <span class="k">return</span> <span class="kc">true</span> <span class="k">unless</span> <span class="nx">file</span><span class="p">.</span><span class="nx">match</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span>
+      <span class="k">unless</span> <span class="nx">file</span><span class="p">.</span><span class="nx">match</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span>
+        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path not included&quot;</span>
+        <span class="k">return</span> <span class="kc">true</span>
     <span class="k">else</span>
       <span class="nv">minimatch = </span><span class="nx">require</span> <span class="s">&#39;minimatch&#39;</span>
-      <span class="k">return</span> <span class="kc">true</span> <span class="k">unless</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span><span class="p">,</span> <span class="p">{</span> <span class="nv">matchBase: </span><span class="kc">true</span> <span class="p">}</span>
+      <span class="k">unless</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span><span class="p">,</span> <span class="p">{</span> <span class="nv">matchBase: </span><span class="kc">true</span> <span class="p">}</span>
+        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path not included&quot;</span>
+        <span class="k">return</span> <span class="kc">true</span>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
     <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span> <span class="k">instanceof</span> <span class="nb">RegExp</span>
-      <span class="k">return</span> <span class="kc">true</span> <span class="k">if</span> <span class="nx">file</span><span class="p">.</span><span class="nx">match</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
+      <span class="k">if</span> <span class="nx">file</span><span class="p">.</span><span class="nx">match</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
+        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path excluded&quot;</span>
+        <span class="k">return</span> <span class="kc">true</span>
     <span class="k">else</span>
       <span class="nv">minimatch = </span><span class="nx">require</span> <span class="s">&#39;minimatch&#39;</span>
-      <span class="k">return</span> <span class="kc">true</span> <span class="k">if</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span><span class="p">,</span> <span class="p">{</span> <span class="nv">matchBase: </span><span class="kc">true</span> <span class="p">}</span>
+      <span class="k">if</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span><span class="p">,</span> <span class="p">{</span> <span class="nv">matchBase: </span><span class="kc">true</span> <span class="p">}</span>
+        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path excluded&quot;</span>
+        <span class="k">return</span> <span class="kc">true</span>
   <span class="k">return</span> <span class="kc">false</span>
 
 
@@ -271,12 +285,15 @@ successfully it will return nothing.</p>
 check the value against the options.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">skipDepth = </span><span class="nf">(depth, options, cb) -&gt;</span>
-  <span class="nx">cb</span> <span class="nx">skipDepthSync</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
+<span class="nv">skipDepth = </span><span class="nf">(file, depth, options, cb) -&gt;</span>
+  <span class="nx">cb</span> <span class="nx">skipDepthSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
 
-<span class="nv">skipDepthSync = </span><span class="nf">(depth, options) -&gt;</span>
-  <span class="k">return</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">mindepth</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">mindepth</span> <span class="o">&gt;</span> <span class="nx">depth</span><span class="p">)</span> <span class="o">or</span>
+<span class="nv">skipDepthSync = </span><span class="nf">(file, depth, options) -&gt;</span>
+  <span class="nv">skip = </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">mindepth</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">mindepth</span> <span class="o">&gt;</span> <span class="nx">depth</span><span class="p">)</span> <span class="o">or</span>
     <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxdepth</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxdepth</span> <span class="o">&lt;</span> <span class="nx">depth</span><span class="p">)</span>
+  <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not in specified depth&quot;</span> <span class="k">if</span> <span class="nx">skip</span>
+  <span class="k">return</span> <span class="nx">skip</span>
+
 
 
 </pre></div>
@@ -300,15 +317,20 @@ check the value against the options.</p>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="k">switch</span> <span class="nx">options</span><span class="p">.</span><span class="nx">type</span>
       <span class="k">when</span> <span class="s">&#39;file&#39;</span><span class="p">,</span> <span class="s">&#39;f&#39;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span>
+        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a file entry&quot;</span>
       <span class="k">when</span> <span class="s">&#39;directory&#39;</span><span class="p">,</span> <span class="s">&#39;dir&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
+        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a directory entry&quot;</span>
       <span class="k">when</span> <span class="s">&#39;link&#39;</span><span class="p">,</span> <span class="s">&#39;l&#39;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
+        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a link entry&quot;</span>
       <span class="k">when</span> <span class="s">&#39;fifo&#39;</span><span class="p">,</span> <span class="s">&#39;pipe&#39;</span><span class="p">,</span> <span class="s">&#39;p&#39;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFIFO</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFIFO</span><span class="p">()</span>
+        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a FIFO entry&quot;</span>
       <span class="k">when</span> <span class="s">&#39;socket&#39;</span><span class="p">,</span> <span class="s">&#39;s&#39;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSocket</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSocket</span><span class="p">()</span>
+        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a socket entry&quot;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="kc">true</span>
 
 <span class="nv">skipTypeSync = </span><span class="nf">(file, options) -&gt;</span>
@@ -317,15 +339,20 @@ check the value against the options.</p>
   <span class="nv">stats = </span><span class="nx">stat</span> <span class="nx">file</span>
   <span class="k">switch</span> <span class="nx">options</span><span class="p">.</span><span class="nx">type</span>
     <span class="k">when</span> <span class="s">&#39;file&#39;</span><span class="p">,</span> <span class="s">&#39;f&#39;</span>
-      <span class="k">return</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span>
+      <span class="k">return</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span>
+      <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a file entry&quot;</span>
     <span class="k">when</span> <span class="s">&#39;directory&#39;</span><span class="p">,</span> <span class="s">&#39;dir&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span>
-      <span class="k">return</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
+      <span class="k">return</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
+      <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a directory entry&quot;</span>
     <span class="k">when</span> <span class="s">&#39;link&#39;</span><span class="p">,</span> <span class="s">&#39;l&#39;</span>
-      <span class="k">return</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
+      <span class="k">return</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
+      <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a link entry&quot;</span>
     <span class="k">when</span> <span class="s">&#39;fifo&#39;</span><span class="p">,</span> <span class="s">&#39;pipe&#39;</span><span class="p">,</span> <span class="s">&#39;p&#39;</span>
-      <span class="k">return</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFIFO</span><span class="p">()</span>
+      <span class="k">return</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFIFO</span><span class="p">()</span>
+      <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a FIFO entry&quot;</span>
     <span class="k">when</span> <span class="s">&#39;socket&#39;</span><span class="p">,</span> <span class="s">&#39;s&#39;</span>
-      <span class="k">return</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSocket</span><span class="p">()</span>
+      <span class="k">return</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSocket</span><span class="p">()</span>
+      <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a socket entry&quot;</span>
   <span class="k">return</span> <span class="kc">true</span>
 
 
@@ -362,6 +389,7 @@ check the value against the options.</p>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nv">skip = </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="o">&gt;</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span> <span class="o">or</span>
       <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span> <span class="o">&lt;</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span>
+    <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because size mismatch&quot;</span> <span class="k">if</span> <span class="nx">skip</span>
     <span class="nx">cb</span> <span class="nx">skip</span>
 
 <span class="nv">skipSizeSync = </span><span class="nf">(file, options) -&gt;</span>
@@ -370,8 +398,10 @@ check the value against the options.</p>
   <span class="nv">options.maxsize = </span><span class="nx">sizeHumanToInt</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span>
   <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
   <span class="nv">stats = </span><span class="nx">stat</span> <span class="nx">file</span>
-  <span class="k">return</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="o">&gt;</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span> <span class="o">or</span>
+  <span class="nv">skip = </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="o">&gt;</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span> <span class="o">or</span>
     <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span> <span class="o">&lt;</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span>
+  <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because size mismatch&quot;</span> <span class="k">if</span> <span class="nx">skip</span>
+  <span class="k">return</span> <span class="nx">skip</span>
 
 
 </pre></div>
@@ -447,7 +477,9 @@ check the value against the options.</p>
 <p>console.log file, uid, gid, stats.uid, stats.gid</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-        <span class="nx">cb</span> <span class="p">(</span><span class="nx">uid</span> <span class="o">and</span> <span class="nx">uid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span><span class="p">)</span> <span class="o">or</span> <span class="p">(</span><span class="nx">gid</span> <span class="o">and</span> <span class="nx">gid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">gid</span><span class="p">)</span>
+        <span class="nv">skip = </span><span class="p">(</span><span class="nx">uid</span> <span class="o">and</span> <span class="nx">uid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span><span class="p">)</span> <span class="o">or</span> <span class="p">(</span><span class="nx">gid</span> <span class="o">and</span> <span class="nx">gid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">gid</span><span class="p">)</span>
+        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because owner mismatch&quot;</span> <span class="k">if</span> <span class="nx">skip</span>
+        <span class="nx">cb</span> <span class="nx">skip</span>
 
 <span class="nv">skipOwnerSync = </span><span class="nf">(file, options) -&gt;</span>
   <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">user</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">group</span>
@@ -467,7 +499,9 @@ check the value against the options.</p>
 <p>console.log file, uid, gid, stats.uid, stats.gid</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">return</span> <span class="p">(</span><span class="nx">uid</span> <span class="o">and</span> <span class="nx">uid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span><span class="p">)</span> <span class="o">or</span> <span class="p">(</span><span class="nx">gid</span> <span class="o">and</span> <span class="nx">gid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">gid</span><span class="p">)</span>
+  <span class="nv">skip = </span><span class="p">(</span><span class="nx">uid</span> <span class="o">and</span> <span class="nx">uid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span><span class="p">)</span> <span class="o">or</span> <span class="p">(</span><span class="nx">gid</span> <span class="o">and</span> <span class="nx">gid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">gid</span><span class="p">)</span>
+  <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because owner mismatch&quot;</span> <span class="k">if</span> <span class="nx">skip</span>
+  <span class="k">return</span> <span class="nx">skip</span>
 
 
 
@@ -491,11 +525,14 @@ if file can be used or false.</p>
 <span class="nv">skipFunction = </span><span class="nf">(file, options, cb) -&gt;</span>
   <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="o">or</span> <span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="o">is</span> <span class="o">not</span> <span class="s">&#39;function&#39;</span>
   <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(ok) -&gt;</span>
+    <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> by user function&quot;</span> <span class="k">unless</span> <span class="nx">ok</span>
     <span class="nx">cb</span> <span class="o">not</span> <span class="nx">ok</span>
 
 <span class="nv">skipFunctionSync = </span><span class="nf">(file, options) -&gt;</span>
   <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="o">or</span> <span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="o">is</span> <span class="o">not</span> <span class="s">&#39;function&#39;</span>
-  <span class="k">return</span> <span class="o">not</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="nv">ok = </span><span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> by user function&quot;</span> <span class="k">unless</span> <span class="nx">ok</span>
+  <span class="k">return</span> <span class="o">not</span> <span class="nx">ok</span>
 
 
 </pre></div>
@@ -591,6 +628,7 @@ if file can be used or false.</p>
 <p>console.log file, skip</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because out of time range&quot;</span> <span class="k">if</span> <span class="nx">skip</span>
     <span class="nx">cb</span> <span class="nx">skip</span>
 
 <span class="nv">skipTimeSync = </span><span class="nf">(file, options) -&gt;</span>
@@ -601,7 +639,9 @@ if file can be used or false.</p>
   <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">used</span>
   <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
   <span class="nv">stats = </span><span class="nx">stat</span> <span class="nx">file</span>
-  <span class="k">return</span> <span class="o">not</span> <span class="nx">timeCheck</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="nv">skip = </span><span class="o">not</span> <span class="nx">timeCheck</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because out of time range&quot;</span> <span class="k">if</span> <span class="nx">skip</span>
+  <span class="k">return</span> <span class="nx">skip</span>
 </pre></div>
         </td>
       </tr>
