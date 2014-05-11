@@ -58,11 +58,11 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
         mkdirs.async path.dirname(target), (err) ->
           return cb err if err
           # copy the file
-          debug "copying file #{source} to #{target}"
           fs.exists target, (exists) ->
             if exists and not (options.overwrite or options.ignore)
               return cb new Error "Target file already exists."
             if not exists or options.overwrite
+              debug "copying file #{source} to #{target}"
               return copyFile source, stats, target, cb
             cb()
       else if stats.isSymbolicLink()
@@ -131,6 +131,7 @@ copySync = module.exports.sync = (source, target, options = {}, depth = 0) ->
     if exists and not (options.overwrite or options.ignore)
       throw new Error "Target file already exists."
     if not exists or options.overwrite
+      debug "copying file #{source} to #{target}"
       return copyFileSync source, stats, target
   else if stats.isSymbolicLink()
     return unless ok
@@ -138,6 +139,7 @@ copySync = module.exports.sync = (source, target, options = {}, depth = 0) ->
     mkdirs.sync path.dirname(target)
     resolvedPath = fs.readlinkSync source
     # make the symlink
+    debug "copying link #{source} to #{target}"
     fs.symlinkSync resolvedPath, target
   else
     # source is directory
@@ -145,6 +147,7 @@ copySync = module.exports.sync = (source, target, options = {}, depth = 0) ->
     # copy directory
     mkdirs.sync target, stats.mode if ok
     # copy all files in directory
+    debug "copying directory #{source} to #{target}"
     for file in fs.readdirSync source
       copySync path.join(source, file), path.join(target, file), options, depth
 

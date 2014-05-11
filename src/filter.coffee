@@ -10,6 +10,8 @@ path = require 'path'
 async = require 'async'
 {execFile} = require 'child_process'
 chrono = require 'chrono-node'
+debug = require('debug')('fs:filter')
+util = require 'util'
 
 # Find files
 # -------------------------------------------------
@@ -26,8 +28,10 @@ chrono = require 'chrono-node'
 # * `callback(success)`
 #   The callback will be called with a boolean value showing if file is accepted.
 module.exports.async = (file, depth, options = {}, cb = -> ) ->
+  return unless options
+  debug "check #{file} for " + util.inspect options
   async.parallel [
-    (cb) -> skipDepth depth, options, cb
+    (cb) -> skipDepth file, depth, options, cb
     (cb) -> skipPath file, options, cb
     (cb) -> skipType file, options, cb
     (cb) -> skipSize file, options, cb
@@ -57,8 +61,10 @@ module.exports.async = (file, depth, options = {}, cb = -> ) ->
 #
 # The options are the same as in the asynchronous method.
 module.exports.sync = (file, depth, options = {}) ->
+  return unless options
+  debug "check #{file} for " + util.inspect options
   return false if skipTypeSync file, options
-  return false if skipDepthSync depth, options
+  return false if skipDepthSync file, depth, options
   return false if skipPathSync file, options
   return false if skipSizeSync file, options
   return false if skipTimeSync file, options
@@ -82,27 +88,38 @@ skipPathSync = (file, options) ->
   return false unless options.include or options.exclude
   if options.include
     if options.include instanceof RegExp
-      return true unless file.match options.include
+      unless file.match options.include
+        debug "skip #{file} because path not included"
+        return true
     else
       minimatch = require 'minimatch'
-      return true unless minimatch file, options.include, { matchBase: true }
+      unless minimatch file, options.include, { matchBase: true }
+        debug "skip #{file} because path not included"
+        return true
   if options.exclude
     if options.exclude instanceof RegExp
-      return true if file.match options.exclude
+      if file.match options.exclude
+        debug "skip #{file} because path excluded"
+        return true
     else
       minimatch = require 'minimatch'
-      return true if minimatch file, options.exclude, { matchBase: true }
+      if minimatch file, options.exclude, { matchBase: true }
+        debug "skip #{file} because path excluded"
+        return true
   return false
 
 # ### Test the file depth
 # The depth calculation has to be done in the traversing method this will only
 # check the value against the options.
-skipDepth = (depth, options, cb) ->
-  cb skipDepthSync depth, options
+skipDepth = (file, depth, options, cb) ->
+  cb skipDepthSync file, depth, options
 
-skipDepthSync = (depth, options) ->
-  return (options.mindepth? and options.mindepth > depth) or
+skipDepthSync = (file, depth, options) ->
+  skip = (options.mindepth? and options.mindepth > depth) or
     (options.maxdepth? and options.maxdepth < depth)
+  debug "skip #{file} because not in specified depth" if skip
+  return skip
+
 
 # ### Test the file type
 skipType = (file, options, cb) ->
@@ -112,15 +129,20 @@ skipType = (file, options, cb) ->
     return cb err if err
     switch options.type
       when 'file', 'f'
-        return cb not stats.isFile()
+        return cb() if stats.isFile()
+        debug "skip #{file} because not a file entry"
       when 'directory', 'dir', 'd'
-        return cb not stats.isDirectory()
+        return cb() if stats.isDirectory()
+        debug "skip #{file} because not a directory entry"
       when 'link', 'l'
-        return cb not stats.isSymbolicLink()
+        return cb() if stats.isSymbolicLink()
+        debug "skip #{file} because not a link entry"
       when 'fifo', 'pipe', 'p'
-        return cb not stats.isFIFO()
+        return cb() if stats.isFIFO()
+        debug "skip #{file} because not a FIFO entry"
       when 'socket', 's'
-        return cb not stats.isSocket()
+        return cb() if stats.isSocket()
+        debug "skip #{file} because not a socket entry"
     return cb true
 
 skipTypeSync = (file, options) ->
@@ -129,15 +151,20 @@ skipTypeSync = (file, options) ->
   stats = stat file
   switch options.type
     when 'file', 'f'
-      return not stats.isFile()
+      return if stats.isFile()
+      debug "skip #{file} because not a file entry"
     when 'directory', 'dir', 'd'
-      return not stats.isDirectory()
+      return if stats.isDirectory()
+      debug "skip #{file} because not a directory entry"
     when 'link', 'l'
-      return not stats.isSymbolicLink()
+      return if stats.isSymbolicLink()
+      debug "skip #{file} because not a link entry"
     when 'fifo', 'pipe', 'p'
-      return not stats.isFIFO()
+      return if stats.isFIFO()
+      debug "skip #{file} because not a FIFO entry"
     when 'socket', 's'
-      return not stats.isSocket()
+      return if stats.isSocket()
+      debug "skip #{file} because not a socket entry"
   return true
 
 # ### Test for filesize
@@ -160,6 +187,7 @@ skipSize = (file, options, cb) ->
     return cb err if err
     skip = (options.minsize? and options.minsize > stats.size) or
       (options.maxsize? and options.maxsize < stats.size)
+    debug "skip #{file} because size mismatch" if skip
     cb skip
 
 skipSizeSync = (file, options) ->
@@ -168,8 +196,10 @@ skipSizeSync = (file, options) ->
   options.maxsize = sizeHumanToInt options.maxsize if options.maxsize
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   stats = stat file
-  return (options.minsize? and options.minsize > stats.size) or
+  skip = (options.minsize? and options.minsize > stats.size) or
     (options.maxsize? and options.maxsize < stats.size)
+  debug "skip #{file} because size mismatch" if skip
+  return skip
 
 # ### Check the owwner and group
 userToUid = (user, cb) ->
@@ -220,7 +250,9 @@ skipOwner = (file, options, cb) ->
       stat file, (err, stats) ->
         return cb err if err
     #    console.log file, uid, gid, stats.uid, stats.gid
-        cb (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
+        skip = (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
+        debug "skip #{file} because owner mismatch" if skip
+        cb skip
 
 skipOwnerSync = (file, options) ->
   return false unless options.user or options.group
@@ -229,7 +261,9 @@ skipOwnerSync = (file, options) ->
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   stats = stat file
 #  console.log file, uid, gid, stats.uid, stats.gid
-  return (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
+  skip = (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
+  debug "skip #{file} because owner mismatch" if skip
+  return skip
 
 
 # ### User provided test
@@ -238,11 +272,14 @@ skipOwnerSync = (file, options) ->
 skipFunction = (file, options, cb) ->
   return cb() unless options.test or typeof options.test is not 'function'
   options.test file, options, (ok) ->
+    debug "skip #{file} by user function" unless ok
     cb not ok
 
 skipFunctionSync = (file, options) ->
   return false unless options.test or typeof options.test is not 'function'
-  return not options.test file, options
+  ok = options.test file, options
+  debug "skip #{file} by user function" unless ok
+  return not ok
 
 # ### Check file times
 # All timestamps maybe checked with before and after to select the files.
@@ -275,6 +312,7 @@ skipTime = (file, options, cb) ->
 #    console.log file, stats
     skip = not timeCheck stats, options
 #    console.log file, skip
+    debug "skip #{file} because out of time range" if skip
     cb skip
 
 skipTimeSync = (file, options) ->
@@ -285,4 +323,6 @@ skipTimeSync = (file, options) ->
   return false unless used
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   stats = stat file
-  return not timeCheck stats, options
+  skip = not timeCheck stats, options
+  debug "skip #{file} because out of time range" if skip
+  return skip

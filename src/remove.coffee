@@ -119,11 +119,13 @@ removeSync = module.exports.sync = (file, options = {}, depth = 0) ->
   if stats.isFile()
     return unless ok
     # remove file
+    debug "removing file #{file}"
     fs.unlinkSync file
     return file
   else if stats.isSymbolicLink()
     return unless ok
     # remove symbolic link
+    debug "removing link #{file}"
     fs.unlinkSync file
     return file
   else if stats.isDirectory()
@@ -131,6 +133,7 @@ removeSync = module.exports.sync = (file, options = {}, depth = 0) ->
     dir = file
     depth++
     # if this dir should be removed, use no filtering for the containing parts
+    debug "removing directory #{file}"
     options = {} if ok
     files = fs.readdirSync file
     # copy all files in directory

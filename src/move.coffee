@@ -42,7 +42,7 @@ module.exports.async = (source, target, options = {}, cb = ->) ->
   if typeof options is 'function' or not options
     cb = options ? ->
     options = {}
-  debug "Move filepath #{source} to #{target}."
+  debug "move filepath #{source} to #{target}."
   # collect methods to run
   async.series [
     # remove old target first
@@ -98,7 +98,7 @@ copyRemove = (source, target, options, cb) ->
 # * `Error`
 #   If anything out of order happened.
 module.exports.sync = (source, target, options = {}) ->
-  debug "Move filepath #{source} to #{target}."
+  debug "move filepath #{source} to #{target}."
   # remove old target first
   if options.clean
     remove.sync target
