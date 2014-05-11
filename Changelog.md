@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.2 (2014-05-11)
+-------------------------------------------------
+- Added multiple debug messages and fixed move tests.
+- Added tests for move.
+- Added options support to the move method and usage documentation.
+- Added methods to move files or directories.
+- Don't touch the original fs so it may be used unchanged.
+
 Version 0.1.1 (2014-05-09)
 -------------------------------------------------
 - Added ignore and overwrite options to copy method.
