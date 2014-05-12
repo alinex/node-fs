@@ -43,34 +43,10 @@ afs.lstatSync = memoizee fs.lstatSync,
 
 # Add extended functionality
 # -------------------------------------------------
-
-# ### Making directories with parents
-mkdirs = require './mkdirs'
-afs.mkdirs = mkdirs.async
-afs.mkdirsSync = mkdirs.sync
-
-# ### Find files
-find = require './find'
-afs.find = find.async
-afs.findSync = find.sync
-
-# ### Copy file or directory
-copy = require './copy'
-afs.copy = copy.async
-afs.copySync = copy.sync
-
-# ### Remove of entry with subentries
-remove = require './remove'
-afs.remove = remove.async
-afs.removeSync = remove.sync
-
-# ### Move file or directory
-move = require './move'
-afs.move = move.async
-afs.moveSync = move.sync
-
-# ### Find bin in npm packages
-npmbin = require './npmbin'
-afs.npmbin = npmbin.async
-afs.npmbinSync = npmbin.sync
-
+for name in [
+  'mkdirs', 'find', 'copy', 'remove', 'move'
+  'npmbin'
+]
+  commands = require './' + name
+  afs[name] = commands.async
+  afs[name+'Sync'] = commands.sync
