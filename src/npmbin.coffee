@@ -8,7 +8,7 @@
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
-
+debug = require('debug')('fs:npmbin')
 
 # Find binary in node_modules or parent
 # -------------------------------------------------
@@ -22,7 +22,11 @@ async = require 'async'
 # * `callback(err, file)`
 #   The callback will be called just if an error occurred or after finished.
 #   The file is the path to the binary if found.
-npmbin = module.exports.async = (bin, dir, cb) ->
+module.exports.async = (bin, dir, cb) ->
+  debug "Search binary #{bin} starting at #{dir}"
+  npmbin bin, dir, cb
+
+npmbin = (bin, dir, cb) ->
   unless cb
     cb = dir
     dir = path.dirname __dirname
@@ -33,6 +37,10 @@ npmbin = module.exports.async = (bin, dir, cb) ->
     # find in parent
     parent = path.join dir, '..', '..'
     if parent is dir
+      # find in global include path
+      for dir in process.env.PATH.split /:/
+        file = path.join dir, bin
+        return cb null, file if fs.existsSync file
       return cb "Could not find #{bin} program."
     npmbin bin, parent, cb
 
@@ -52,6 +60,10 @@ npmbin = module.exports.async = (bin, dir, cb) ->
 #   The callback will be called just if an error occurred or after finished.
 #   The file is the path to the binary if found.
 npmbinSync = module.exports.sync = (bin, dir) ->
+  debug "Search binary #{bin} starting at #{dir}"
+  return npmbinSync bin, dir
+
+npmbinSync = module.exports.sync = (bin, dir) ->
   unless cb
     cb = dir
     dir = path.dirname __dirname
@@ -61,5 +73,9 @@ npmbinSync = module.exports.sync = (bin, dir) ->
   # find in parent
   parent = path.join dir, '..', '..'
   if parent is dir
+    # find in global include path
+    for dir in process.env.PATH.split /:/
+      file = path.join dir, bin
+      return cb null, file if fs.existsSync file
     return cb "Could not find #{bin} program."
   npmbinSync bin, parent
