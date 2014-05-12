@@ -1,6 +1,6 @@
 {
   "name": "alinex-fs",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Extension of nodes filesystem tools.",
   "copyright": "Alexander Schilling 2014",
   "private": false,

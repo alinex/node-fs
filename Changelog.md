@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.3 (2014-05-12)
+-------------------------------------------------
+- Restructure main collecting single methods.
+- Added search in global installations to npmbin.
+
 Version 0.1.2 (2014-05-11)
 -------------------------------------------------
 - Added multiple debug messages and fixed move tests.
