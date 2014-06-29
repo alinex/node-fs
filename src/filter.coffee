@@ -28,7 +28,7 @@ util = require 'util'
 # * `callback(success)`
 #   The callback will be called with a boolean value showing if file is accepted.
 module.exports.async = (file, depth, options = {}, cb = -> ) ->
-  return unless options
+  return cb true unless options? and options.length
   debug "check #{file} for " + util.inspect options
   async.parallel [
     (cb) -> skipDepth file, depth, options, cb
@@ -61,7 +61,7 @@ module.exports.async = (file, depth, options = {}, cb = -> ) ->
 #
 # The options are the same as in the asynchronous method.
 module.exports.sync = (file, depth, options = {}) ->
-  return unless options
+  return true unless options? and options.length
   debug "check #{file} for " + util.inspect options
   return false if skipTypeSync file, options
   return false if skipDepthSync file, depth, options
