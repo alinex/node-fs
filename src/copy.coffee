@@ -82,13 +82,12 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
           return cb err if err
           # copy all files in directory
           debug "copying directory #{source} to #{target}"
-          async.each files, (file, cb) ->
-            copy path.join(source, file), path.join(target, file), options, cb, depth
-          , (err) ->
+          # make directory
+          mkdirs.async target, stats.mode, (err) ->
             return cb err if err
-            return cb() unless ok
-            # make directory if not done
-            mkdirs.async target, stats.mode, cb
+            async.each files, (file, cb) ->
+              copy path.join(source, file), path.join(target, file), options, cb, depth
+            , cb 
 
 # Copy file or directory (Synchronous)
 # -------------------------------------------------
