@@ -87,7 +87,7 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
             return cb err if err
             async.each files, (file, cb) ->
               copy path.join(source, file), path.join(target, file), options, cb, depth
-            , cb 
+            , cb
 
 # Copy file or directory (Synchronous)
 # -------------------------------------------------

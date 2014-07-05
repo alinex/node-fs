@@ -11,7 +11,7 @@ fs = require 'fs'
 
 describe "Type filtering", ->
 
-  filter = require '../../lib/filter'
+  filter = require '../../src/filter'
 
   files = [
     'test/temp/file1'
