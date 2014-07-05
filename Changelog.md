@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.5 (2014-07-05)
+-------------------------------------------------
+- Fixed broken code in empty options check.
+
 Version 0.1.4 (2014-06-29)
 -------------------------------------------------
 - Fixed bug in which directory should be created to late.
