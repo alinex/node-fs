@@ -32,11 +32,11 @@
   "dependencies": {
     "alinex-error": "0.x",
     "async": "0.x",
-    "graceful-fs": "2.x",
-    "minimatch": "0.2.x || 0.3.x",
+    "graceful-fs": "3.x || 2.x",
+    "minimatch": "0.3.x || 0.2.x",
     "memoizee": "0.3.x",
     "chrono-node": "0.1.x",
-    "debug": "0.8.x"
+    "debug": "1.x || 0.8.x"
   },
   "devDependencies": {
     "alinex-make": "0.2.x",
