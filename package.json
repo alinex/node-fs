@@ -30,7 +30,6 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-error": "0.x",
     "async": "0.x",
     "graceful-fs": "3.x || 2.x",
     "minimatch": "0.3.x || 0.2.x",
