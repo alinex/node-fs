@@ -131,7 +131,7 @@ __Arguments:__
 * `source`
   Path to be searched.
 * `options`
-  Specification of files to find (see [filter](#flter) options).
+  Specification of files to find (see [filter](#filter) options).
 * `callback(err, list)`
   The callback will be called just if an error occurred. The list of found
   entries will be given.
@@ -160,7 +160,7 @@ __Arguments:__
 __Return:__
 
 * `list`
-  Returns the list of found entries (see [filter](#flter) options).
+  Returns the list of found entries (see [filter](#filter) options).
 
 __Throw:__
 
@@ -190,7 +190,7 @@ __Arguments:__
 * `target`
   File or directory to copy to.
 * `options`
-  Specification of files to find (see [filter](#flter) options).
+  Specification of files to find (see [filter](#filter) options).
 * `callback(err)`
   The callback will be called just if an error occurred.
 
@@ -234,7 +234,7 @@ __Arguments:__
 * `target`
   File or directory to copy to.
 * `options`
-  Specification of files to find (see [filter](#flter) options).
+  Specification of files to find (see [filter](#filter) options).
 
 __Additional Options:__
 
@@ -268,7 +268,7 @@ __Arguments:__
 * `target`
   File or directory to copy to.
 * `options`
-  Specification of files to find (see [filter](#flter) options).
+  Specification of files to find (see [filter](#filter) options).
 * `callback(err)`
   The callback will be called just if an error occurred.
 
@@ -303,7 +303,7 @@ __Arguments:__
 * `target`
   File or directory to copy to.
 * `options`
-  Specification of files to find (see [filter](#flter) options).
+  Specification of files to find (see [filter](#filter) options).
 
 __Additional Options:__
 
@@ -338,7 +338,7 @@ __Arguments:__
 * `path`
   File or directory to be removed.
 * `options`
-  Specification of files to remove (see [filter](#flter) options).
+  Specification of files to remove (see [filter](#filter) options).
 * `callback(err, removed)`
   The callback will be called just if an error occurred. It returns the
   file entry which was removed, if any.
@@ -362,7 +362,7 @@ __Arguments:__
 * `path`
   File or directory to create if not existing.
 * `options`
-  Specification of files to remove (see [filter](#flter) options).
+  Specification of files to remove (see [filter](#filter) options).
 
 __Return:__
 
