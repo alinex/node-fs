@@ -6,7 +6,7 @@ Package: alinex-fs
 [![Dependency Status] (https://gemnasium.com/alinex/node-fs.png)](https://gemnasium.com/alinex/node-fs)
 
 Like some other packages this module adds some functions to the nodes fs package.
-It's design as a drop-in replacement. It uses also
+It's designed as a drop-in replacement. It uses also
 [graceful-fs](https://github.com/isaacs/node-graceful-fs)
 to normalize behavior across different platforms and environments, and to make filesystem access more resilient to errors.
 
