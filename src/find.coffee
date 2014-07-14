@@ -46,7 +46,7 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
       fs.readdir source, (err, files) ->
         return cb err if err
         # collect files from each subentry
-        async.map files, (file, cb) ->
+        async.map files.sort(), (file, cb) ->
           find path.join(source, file), options, cb, depth
         , (err, results) ->
           return cb err if err
@@ -87,6 +87,6 @@ findSync = module.exports.sync = (source, options = {}, depth = 0) ->
   depth++
   files = fs.readdirSync source
   # collect files from each subentry
-  for file in files
+  for file in files.sort()
     list = list.concat findSync path.join(source, file), options, depth
   return list
