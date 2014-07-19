@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Users/alex/a3/node-fs/src/find.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-fs/src/find.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -178,7 +178,7 @@ Search depth as integer (internal parameter).</li>
 <p>collect files from each subentry</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-        <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">files</span><span class="p">,</span> <span class="nf">(file, cb) -&gt;</span>
+        <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">files</span><span class="p">.</span><span class="nx">sort</span><span class="p">(),</span> <span class="nf">(file, cb) -&gt;</span>
           <span class="nx">find</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span><span class="p">,</span> <span class="nx">depth</span>
         <span class="p">,</span> <span class="nf">(err, results) -&gt;</span>
           <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -283,7 +283,7 @@ If anything out of order happened.</li>
 <p>collect files from each subentry</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">for</span> <span class="nx">file</span> <span class="k">in</span> <span class="nx">files</span>
+  <span class="k">for</span> <span class="nx">file</span> <span class="k">in</span> <span class="nx">files</span><span class="p">.</span><span class="nx">sort</span><span class="p">()</span>
     <span class="nv">list = </span><span class="nx">list</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">findSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">depth</span>
   <span class="k">return</span> <span class="nx">list</span>
 </pre></div>

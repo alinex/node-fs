@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Users/alex/a3/node-fs/README.md", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3/node-fs/README.md", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -106,19 +106,26 @@
 </div>
 
 
-<p><a href="https://travis-ci.org/alinex/node-fs"><img src="https://travis-ci.org/alinex/node-fs.svg?branch=master" alt="Build Status" title="" /></a>
-<a href="https://coveralls.io/r/alinex/node-fs?branch=master"><img src="https://coveralls.io/repos/alinex/node-fs/badge.png?branch=master" alt="Coverage Status" title="" /></a>
-<a href="https://gemnasium.com/alinex/node-fs"><img src="https://gemnasium.com/alinex/node-fs.png" alt="Dependency Status" title="" /></a></p>
+<p><a href="https://travis-ci.org/alinex/node-fs.html"><img src="https://travis-ci.org/alinex/node-fs.svg?branch=master" alt="Build Status" title="" /></a>
+<a href="https://coveralls.io/r/alinex/node-fs.html?branch=master"><img src="https://coveralls.io/repos/alinex/node-fs/badge.png?branch=master" alt="Coverage Status" title="" /></a>
+<a href="https://gemnasium.com/alinex/node-fs.html"><img src="https://gemnasium.com/alinex/node-fs.png" alt="Dependency Status" title="" /></a></p>
 
 <p>Like some other packages this module adds some functions to the nodes fs package.
-It's design as a drop-in replacement. It uses also
-<a href="https://github.com/isaacs/node-graceful-fs">graceful-fs</a>
+It's designed as a drop-in replacement. It uses also
+<a href="https://github.com/isaacs/node-graceful-fs.html">graceful-fs</a>
 to normalize behavior across different platforms and environments, and to make filesystem access more resilient to errors.</p>
 
 <p>This package combines features found in a lot of other packages together without
 including too much. Most methods are very customizable using options.</p>
 
-<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex">Alinex Universe</a>
+<ul>
+<li>drop in replacement for node's fs module</li>
+<li>recursive file handling functions</li>
+<li>complete asynchronous and synchronous</li>
+<li>powerful find method </li>
+</ul>
+
+<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex.html">Alinex Universe</a>
 following the code standards defined there.</p>
 
 
@@ -138,7 +145,7 @@ following the code standards defined there.</p>
 
 
 
-<p><a href="https://nodei.co/npm/alinex-fs/"><img src="https://nodei.co/npm/alinex-fs.png?downloads=true&amp;stars=true" alt="NPM" title="" /></a></p>
+<p><a href="https://nodei.co/npm/alinex-fs/.html"><img src="https://nodei.co/npm/alinex-fs.png?downloads=true&amp;stars=true" alt="NPM" title="" /></a></p>
 
 
 <div class="pilwrap" id="usage">
@@ -165,7 +172,7 @@ following the code standards defined there.</p>
 
 
 
-<p>After this you may use the <a href="http://nodejs.org/api/fs.html">standard functions</a>
+<p>After this you may use the <a href="http://nodejs.org/api/fs.html.html">standard functions</a>
 and the following extended functions:</p>
 
 <ul>
@@ -297,7 +304,7 @@ If anything out of order happened.</li>
 <li><code>source</code>
 Path to be searched.</li>
 <li><code>options</code>
-Specification of files to find (see <a href="#flter">filter</a> options).</li>
+Specification of files to find (see <a href="#filter">filter</a> options).</li>
 <li><code>callback(err, list)</code>
 The callback will be called just if an error occurred. The list of found
 entries will be given.</li>
@@ -340,7 +347,7 @@ Specification of files to find</li>
 
 <ul>
 <li><code>list</code>
-Returns the list of found entries (see <a href="#flter">filter</a> options).</li>
+Returns the list of found entries (see <a href="#filter">filter</a> options).</li>
 </ul>
 
 <p><strong>Throw:</strong></p>
@@ -384,7 +391,7 @@ File or directory to be copied.</li>
 <li><code>target</code>
 File or directory to copy to.</li>
 <li><code>options</code>
-Specification of files to find (see <a href="#flter">filter</a> options).</li>
+Specification of files to find (see <a href="#filter">filter</a> options).</li>
 <li><code>callback(err)</code>
 The callback will be called just if an error occurred.</li>
 </ul>
@@ -446,7 +453,7 @@ File or directory to be copied.</li>
 <li><code>target</code>
 File or directory to copy to.</li>
 <li><code>options</code>
-Specification of files to find (see <a href="#flter">filter</a> options).</li>
+Specification of files to find (see <a href="#filter">filter</a> options).</li>
 </ul>
 
 <p><strong>Additional Options:</strong></p>
@@ -496,7 +503,7 @@ File or directory to be copied.</li>
 <li><code>target</code>
 File or directory to copy to.</li>
 <li><code>options</code>
-Specification of files to find (see <a href="#flter">filter</a> options).</li>
+Specification of files to find (see <a href="#filter">filter</a> options).</li>
 <li><code>callback(err)</code>
 The callback will be called just if an error occurred.</li>
 </ul>
@@ -545,7 +552,7 @@ File or directory to be copied.</li>
 <li><code>target</code>
 File or directory to copy to.</li>
 <li><code>options</code>
-Specification of files to find (see <a href="#flter">filter</a> options).</li>
+Specification of files to find (see <a href="#filter">filter</a> options).</li>
 </ul>
 
 <p><strong>Additional Options:</strong></p>
@@ -596,7 +603,7 @@ will also remove any containing data.</p>
 <li><code>path</code>
 File or directory to be removed.</li>
 <li><code>options</code>
-Specification of files to remove (see <a href="#flter">filter</a> options).</li>
+Specification of files to remove (see <a href="#filter">filter</a> options).</li>
 <li><code>callback(err, removed)</code>
 The callback will be called just if an error occurred. It returns the
 file entry which was removed, if any.</li>
@@ -632,7 +639,7 @@ file entry which was removed, if any.</li>
 <li><code>path</code>
 File or directory to create if not existing.</li>
 <li><code>options</code>
-Specification of files to remove (see <a href="#flter">filter</a> options).</li>
+Specification of files to remove (see <a href="#filter">filter</a> options).</li>
 </ul>
 
 <p><strong>Return:</strong></p>
@@ -978,7 +985,7 @@ you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
 
 <blockquote>
-  <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+  <p><a href="http://www.apache.org/licenses/LICENSE-2.0.html">http://www.apache.org/licenses/LICENSE-2.0</a></p>
 </blockquote>
 
 <p>Unless required by applicable law or agreed to in writing, software
