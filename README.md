@@ -13,6 +13,11 @@ to normalize behavior across different platforms and environments, and to make f
 This package combines features found in a lot of other packages together without
 including too much. Most methods are very customizable using options.
 
+- drop in replacement for node's fs module
+- recursive file handling functions
+- complete asynchronous and synchronous
+- powerful find method 
+
 It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
 following the code standards defined there.
 
