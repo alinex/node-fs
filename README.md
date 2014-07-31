@@ -16,7 +16,7 @@ including too much. Most methods are very customizable using options.
 - drop in replacement for node's fs module
 - recursive file handling functions
 - complete asynchronous and synchronous
-- powerful find method 
+- powerful find method
 
 It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
 following the code standards defined there.
@@ -451,6 +451,7 @@ Additionally some methods may have special options for filtering.
 - `dereference` set to true to follow symbolic links
 - `mindepth` minimal depth to match
 - `maxdepth` maximal depth to match
+- `type` the inode type (file/directory/link)
 - `test` own function to use
 - `minsize` minimal filesize
 - `maxsize` maximal filesize
@@ -506,6 +507,15 @@ Extended globbing is also possible:
 - +(list): Matches one or more occurrences of the given patterns.
 - @(list): Matches one of the given patterns.
 
+
+### Dereferencing
+
+Normally the methods will not go into symbolic links. They will see the symbolic
+link as itself. Using the option `dereference: true` this behavior will change
+and they will follow the symbolic link and check the path it refers to. This
+means that they will also go into referenced directories.
+
+
 ### Search depth
 
 The search depth specifies in which level of subdirectories the filter will match.
@@ -515,12 +525,17 @@ The search depth specifies in which level of subdirectories the filter will matc
 - `maxdepth` maximal depth to match
 
 
-### Dereferencing
+### File type
 
-Normally the methods will not go into symbolic links. They will see the symbolic
-link as itself. Using the option `dereference: true` this behavior will change
-and they will follow the symbolic link and check the path it refers to. This
-means that they will also go into referenced directories.
+Use `type` to specify which type of file you want to use.
+
+Possible values:
+
+- `file`, `f`
+- `directory`, `dir`, `d`
+- `link`, `l`
+- `fifo`, `pipe`, `p`
+- `socket`, `s`
 
 
 ### File size
