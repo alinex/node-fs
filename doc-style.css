@@ -1,22 +1,17 @@
 body {
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, FreeSerif, serif;
   font-size: 15px;
-  line-height: 120%;
+  line-height: 22px;
   margin: 0;
   padding: 0; }
 
 p, h1, h2, h3, h4, h5, h6 {
-  margin: 0 0 15px 0;}
-h1, h2, h3, h4, h5, h6 {
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-  color: #b5e853;
-}
-a { text-decoration: none; }
+  margin: 0 0 15px 0; }
+
 h1 {
   margin-top: 40px; }
 
 #tree, #headings {
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   position: absolute;
   top: 30px;
   left: 0;
@@ -90,43 +85,34 @@ h1 {
   padding-left: 10px;
   display: block; }
 #headings .h1 {
+  padding-left: 0;
+  margin-top: 10px;
+  font-size: 1.3em; }
+#headings .h2 {
+  padding-left: 10px;
+  margin-top: 8px;
+  font-size: 1.1em; }
+#headings .h3 {
+  padding-left: 20px;
   margin-top: 5px;
   font-size: 1em; }
-#headings .h2 {
+#headings .h4 {
+  padding-left: 30px;
   margin-top: 3px;
   font-size: 0.9em; }
-#headings .h2 a {
-  padding-left: 20px; }
-#headings .h3 {
-  margin-top: 2px;
-  font-size: 0.8em; }
-#headings .h3 a {
-  padding-left: 30px; }
-#headings .h4 {
-  margin-top: 1px;
-  font-size: 0.7em; }
-#headings .h4 a {
-  padding-left: 40px; }
 #headings .h5 {
-  font-size: 0.6em; }
-#headings .h5 a {
-  padding-left: 50px; }
+  padding-left: 40px;
+  margin-top: 1px;
+  font-size: 0.8em; }
 #headings .h6 {
-  font-size: 0.55em; }
-#headings .h6 a {
-  padding-left: 60px; }
-#headings .heading a {
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000; }
-#headings .heading a:hover {
-  border-top: 1px dotted #63c0f5;
-  border-bottom: 1px dotted #63c0f5; }
+  padding-left: 50px;
+  font-size: 0.75em; }
 
 #sidebar-toggle {
   position: fixed;
   top: 0;
   left: 0;
-  width: 3px;
+  width: 5px;
   bottom: 0;
   z-index: 2;
   cursor: pointer; }
@@ -235,7 +221,7 @@ td.code {
   padding: 8px 15px 8px 25px;
   width: 100%;
   vertical-align: top;
-  border-left: 1px dashed #b5e853; }
+  border-left: 1px solid; }
 
 .background {
   border-left: 1px solid;
@@ -247,7 +233,7 @@ td.code {
   left: 525px; }
 
 pre, tt, code {
-  font-size: 11px;
+  font-size: 12px;
   line-height: 18px;
   font-family: Menlo, Monaco, Consolas, "Lucida Console", monospace;
   margin: 0;
@@ -264,50 +250,46 @@ pre, tt, code {
 
 /* All the stuff that can depend on colour scheme goes below here: */
 body {
-  background: #333333;
-  color: #eeeeee; }
+  background: ghostwhite;
+  color: #2f2f24; }
 
 a {
-  color: #63C0F5; }
+  color: #261a3b; }
   a:visited {
-    color: #63C0F5; }
+    color: #261a3b; }
 
 #sidebar_wrapper {
-  background: #000; }
+  background: #ededf3; }
 
 #sidebar_switch {
-  background: #555555;
-  border-bottom-color: #333333; }
+  background: #e7e7ec;
+  border-bottom-color: #d8d8dc; }
   #sidebar_switch span {
-    color: #dddddd; }
+    color: #2d2d22; }
   #sidebar_switch span:hover {
-    background: #777777; }
+    background: #ededf3; }
   #sidebar_switch .selected {
-    background: #666666;
-    color: #eeeeee; }
+    background: #f3f3fa;
+    color: #252519; }
 
-#tree {
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;  
-  color: #dddddd; }
+#tree .file {
+  color: #252519; }
 
 #headings .heading a {
-  font-weight: bold;
- color: #b5e853; }
-#headings .heading a:hover {
- color: #63C0F5; }
+  color: #252519; }
 
 #sidebar-toggle {
-  background: #b5e853; }
+  background: #e2e2e8; }
   #sidebar-toggle:hover {
-    background: #63C0F5; }
+    background: #d8d8dc; }
 
 .docs.markdown {
-  background: #151515; }
+  background: ghostwhite; }
 .docs pre {
-  border-color: #999999; }
+  border-color: #d8d8dc; }
 .docs p tt, .docs p code, .docs li tt, .docs li code {
-  border-color: #999999;
-  background: #444444; }
+  border-color: #d8d8dc;
+  background: #ededf3; }
 
 .highlight {
   background: #ededf3;
@@ -323,16 +305,16 @@ a {
   color: #3a3a2f; }
 
 td.code, .background {
-  border-left-color: #b5e853; }
+  border-left-color: #d8d8dc; }
 
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }
 span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
 pre { line-height: 125%; }
 body .highlight .hll { background-color: #ffffcc }
-body .highlight  { background: #333333; }
+body .highlight  { background: #ffffff; }
 body .highlight .c { color: #aaaaaa; font-style: italic } /* Comment */
 body .highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
-body .highlight .k { color: #aaaaff } /* Keyword */
+body .highlight .k { color: #0000aa } /* Keyword */
 body .highlight .cm { color: #aaaaaa; font-style: italic } /* Comment.Multiline */
 body .highlight .cp { color: #4c8317 } /* Comment.Preproc */
 body .highlight .c1 { color: #aaaaaa; font-style: italic } /* Comment.Single */
@@ -346,25 +328,25 @@ body .highlight .go { color: #888888 } /* Generic.Output */
 body .highlight .gp { color: #555555 } /* Generic.Prompt */
 body .highlight .gs { font-weight: bold } /* Generic.Strong */
 body .highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-body .highlight .gt { color: #ffaaaa } /* Generic.Traceback */
-body .highlight .kc { color: #aaaaff } /* Keyword.Constant */
-body .highlight .kd { color: #aaaaff } /* Keyword.Declaration */
-body .highlight .kn { color: #aaaaff } /* Keyword.Namespace */
-body .highlight .kp { color: #aaaaff } /* Keyword.Pseudo */
-body .highlight .kr { color: #aaaaff } /* Keyword.Reserved */
-body .highlight .kt { color: #aaffff } /* Keyword.Type */
-body .highlight .m { color: #99eeee } /* Literal.Number */
-body .highlight .s { color: #ffccaa } /* Literal.String */
+body .highlight .gt { color: #aa0000 } /* Generic.Traceback */
+body .highlight .kc { color: #0000aa } /* Keyword.Constant */
+body .highlight .kd { color: #0000aa } /* Keyword.Declaration */
+body .highlight .kn { color: #0000aa } /* Keyword.Namespace */
+body .highlight .kp { color: #0000aa } /* Keyword.Pseudo */
+body .highlight .kr { color: #0000aa } /* Keyword.Reserved */
+body .highlight .kt { color: #00aaaa } /* Keyword.Type */
+body .highlight .m { color: #009999 } /* Literal.Number */
+body .highlight .s { color: #aa5500 } /* Literal.String */
 body .highlight .na { color: #1e90ff } /* Name.Attribute */
-body .highlight .nb { color: #aaffff } /* Name.Builtin */
-body .highlight .nc { color: #aaffaa; text-decoration: underline } /* Name.Class */
-body .highlight .no { color: #ffaaaa } /* Name.Constant */
+body .highlight .nb { color: #00aaaa } /* Name.Builtin */
+body .highlight .nc { color: #00aa00; text-decoration: underline } /* Name.Class */
+body .highlight .no { color: #aa0000 } /* Name.Constant */
 body .highlight .nd { color: #888888 } /* Name.Decorator */
 body .highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
-body .highlight .nf { color: #aaffaa } /* Name.Function */
+body .highlight .nf { color: #00aa00 } /* Name.Function */
 body .highlight .nn { color: #00aaaa; text-decoration: underline } /* Name.Namespace */
 body .highlight .nt { color: #1e90ff; font-weight: bold } /* Name.Tag */
-body .highlight .nv { color: #ff6666 } /* Name.Variable */
+body .highlight .nv { color: #aa0000 } /* Name.Variable */
 body .highlight .ow { color: #0000aa } /* Operator.Word */
 body .highlight .w { color: #bbbbbb } /* Text.Whitespace */
 body .highlight .mf { color: #009999 } /* Literal.Number.Float */
@@ -388,31 +370,4 @@ body .highlight .vg { color: #aa0000 } /* Name.Variable.Global */
 body .highlight .vi { color: #aa0000 } /* Name.Variable.Instance */
 body .highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
 
-@media print {
-  .sidebar #sidebar_wrapper,
-  .sidebar #sidebar-toggle {
-    display: none;
-  }
-  .sidebar #container {
-    left: 0;
-    position: absolute;
-    bottom: auto;
-  }
-}
-#fork {
-  position: absolute;
-  top: 0;
-  right: 0; 
-  border: 0;
-  width: 145px;
-  height: 145px;
-  background: url(https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png);
-  z-index: 10000;
-}
-#fork:hover {
-  background: url(https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png);
-}
-
-h1, h2, h3, h4, h5, h6 {
-  line-height:100%;
-}
+  
