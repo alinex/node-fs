@@ -4,6 +4,21 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.6 (2014-08-08)
+-------------------------------------------------
+- Updated minimatch version.
+- Added description of type filter.
+- Merge branch 'master' of https://github.com/alinex/node-fs
+- Added the top features to documentation.
+- Small wording fixes in documentation.
+- Merge branch 'master' of https://github.com/alinex/node-fs
+- Merge branch 'master' of https://github.com/alinex/node-fs
+- Always return find result in alphabetical order.
+- Fixed documentation links to filter description.
+- Removed unused package alinex-error.
+- Updated submodules graceful-fs and debug.
+- Run mocha on lib folder.
+
 Version 0.1.5 (2014-07-05)
 -------------------------------------------------
 - Fixed broken code in empty options check.
