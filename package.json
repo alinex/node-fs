@@ -38,7 +38,7 @@
     "debug": "1.x || 0.8.x"
   },
   "devDependencies": {
-    "alinex-make": "0.2.x",
+    "alinex-make": "0.3.x",
     "chai": "1.x",
     "moment": "2.x"
   },
