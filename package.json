@@ -35,7 +35,7 @@
     "minimatch": "1.x || 0.3.x || 0.2.x",
     "memoizee": "0.3.x",
     "chrono-node": "0.1.x",
-    "debug": "1.x || 0.8.x"
+    "debug": "0.8.0 - 2.x"
   },
   "devDependencies": {
     "alinex-make": "0.3.x",
