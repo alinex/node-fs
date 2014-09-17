@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.7 (2014-09-17)
+-------------------------------------------------
+- Reformat minimatch version check.
+- Updated to debug 2.0.0
+- Fixed calls to new make tool.
+- Updated alinex-make to version 0.3 for development.
+
 Version 0.1.6 (2014-08-08)
 -------------------------------------------------
 - Updated minimatch version.
