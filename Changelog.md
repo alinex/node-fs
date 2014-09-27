@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.8 (2014-09-27)
+-------------------------------------------------
+- Upgraded alinex-make module.
+
 Version 0.1.7 (2014-09-17)
 -------------------------------------------------
 - Reformat minimatch version check.
