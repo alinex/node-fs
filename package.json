@@ -31,11 +31,11 @@
   },
   "dependencies": {
     "async": "0.x",
-    "graceful-fs": "3.x || 2.x",
-    "minimatch": "0.2.x - 1.x",
+    "graceful-fs": ">=2.0.0 <4.0.0",
+    "minimatch": ">=0.2.0 <2.0.0",
     "memoizee": "0.3.x",
     "chrono-node": "0.1.x",
-    "debug": "0.8.0 - 2.x"
+    "debug": ">=0.8.0 <3.0.0"
   },
   "devDependencies": {
     "alinex-make": "0.4.x",
