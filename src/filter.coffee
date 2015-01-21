@@ -30,7 +30,6 @@ util = require 'util'
 module.exports.async = (file, depth, options = {}, cb = -> ) ->
   return cb true unless options? and Object.keys(options).length
   debug "check #{file} for " + util.inspect options
-#  console.log "check #{file} for " + util.inspect options
   async.parallel [
     (cb) -> skipDepth file, depth, options, cb
     (cb) -> skipPath file, options, cb
@@ -121,13 +120,29 @@ skipDepthSync = (file, depth, options) ->
   debug "skip #{file} because not in specified depth" if skip
   return skip
 
+filestat = (file, options, cb) ->
+  stat = if options.dereference? then fs.stat else fs.lstat
+  stat file, (err, stats) ->
+    if err and options.dereference?
+      debug "error resolving #{file} link"
+      return filestat file, {}, cb
+    cb err, stats
+
+filestatSync = (file, options) ->
+  stat = if options.dereference? then fs.statSync else fs.lstatSync
+  try
+    return stat file
+  catch err
+    debug "error resolving #{file} link"
+    return filestatSync file, {}
 
 # ### Test the file type
 skipType = (file, options, cb) ->
   return cb() unless options.type
-  stat = if options.dereference? then fs.stat else fs.lstat
-  stat file, (err, stats) ->
-    return cb err if err
+  filestat file, options, (err, stats) ->
+    if err
+      debug "skip because error #{err} in stat for #{file}"
+      return cb()
     switch options.type
       when 'file', 'f'
         return cb() if stats.isFile()
@@ -148,8 +163,11 @@ skipType = (file, options, cb) ->
 
 skipTypeSync = (file, options) ->
   return false unless options.type
-  stat = if options.dereference? then fs.statSync else fs.lstatSync
-  stats = stat file
+  try
+    stats = filestatSync file, options
+  catch err
+    debug "skip because error #{err} in stat for #{file}"
+    return
   switch options.type
     when 'file', 'f'
       return if stats.isFile()
@@ -183,9 +201,10 @@ skipSize = (file, options, cb) ->
   return cb() unless options.minsize or options.maxsize
   options.minsize = sizeHumanToInt options.minsize if options.minsize
   options.maxsize = sizeHumanToInt options.maxsize if options.maxsize
-  stat = if options.dereference? then fs.stat else fs.lstat
-  stat file, (err, stats) ->
-    return cb err if err
+  filestat file, options, (err, stats) ->
+    if err
+      debug "skip because error #{err} in stat for #{file}"
+      return cb()
     skip = (options.minsize? and options.minsize > stats.size) or
       (options.maxsize? and options.maxsize < stats.size)
     debug "skip #{file} because size mismatch" if skip
@@ -195,8 +214,11 @@ skipSizeSync = (file, options) ->
   return false unless options.minsize or options.maxsize
   options.minsize = sizeHumanToInt options.minsize if options.minsize
   options.maxsize = sizeHumanToInt options.maxsize if options.maxsize
-  stat = if options.dereference? then fs.statSync else fs.lstatSync
-  stats = stat file
+  try
+    stats = filestatSync file, options
+  catch err
+    debug "skip because error #{err} in stat for #{file}"
+    return
   skip = (options.minsize? and options.minsize > stats.size) or
     (options.maxsize? and options.maxsize < stats.size)
   debug "skip #{file} because size mismatch" if skip
@@ -247,10 +269,10 @@ skipOwner = (file, options, cb) ->
     return cb err if err
     groupToGid options.group, (err, gid) ->
       return cb err if err
-      stat = if options.dereference? then fs.stat else fs.lstat
-      stat file, (err, stats) ->
-        return cb err if err
-    #    console.log file, uid, gid, stats.uid, stats.gid
+      filestat file, options, (err, stats) ->
+        if err
+          debug "skip because error #{err} in stat for #{file}"
+          return cb()
         skip = (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
         debug "skip #{file} because owner mismatch" if skip
         cb skip
@@ -259,8 +281,11 @@ skipOwnerSync = (file, options) ->
   return false unless options.user or options.group
   uid = userToUidSync options.user
   gid = groupToGidSync options.group
-  stat = if options.dereference? then fs.statSync else fs.lstatSync
-  stats = stat file
+  try
+    stats = filestatSync file, options
+  catch err
+    debug "skip because error #{err} in stat for #{file}"
+    return
 #  console.log file, uid, gid, stats.uid, stats.gid
   skip = (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
   debug "skip #{file} because owner mismatch" if skip
@@ -307,9 +332,10 @@ skipTime = (file, options, cb) ->
     for dir in ['After', 'Before']
       used = true if options[type+dir]
   return cb false unless used
-  stat = if options.dereference? then fs.stat else fs.lstat
-  stat file, (err, stats) ->
-    return cb err if err
+  filestat file, options, (err, stats) ->
+    if err
+      debug "skip because error #{err} in stat for #{file}"
+      return cb()
 #    console.log file, stats
     skip = not timeCheck stats, options
 #    console.log file, skip
@@ -322,8 +348,11 @@ skipTimeSync = (file, options) ->
     for dir in ['After', 'Before']
       used = true if options[type+dir]
   return false unless used
-  stat = if options.dereference? then fs.statSync else fs.lstatSync
-  stats = stat file
+  try
+    stats = filestatSync file, options
+  catch err
+    debug "skip because error #{err} in stat for #{file}"
+    return
   skip = not timeCheck stats, options
   debug "skip #{file} because out of time range" if skip
   return skip
