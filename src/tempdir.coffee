@@ -9,6 +9,7 @@ debug = require('debug')('fs:tempdir')
 fs = require 'fs'
 path = require 'path'
 crypto = require 'crypto'
+os = require 'os'
 # include other extended commands and helper
 
 
@@ -49,7 +50,8 @@ tempdir = module.exports.sync = (base, prefix = '') ->
   # try to create dir
   dir = path.join base, prefix + crypto.randomBytes(4).readUInt32LE(0)
   try
-    return fs.mkdirSync dir
+    fs.mkdirSync dir
+    return dir
   catch err
     # try again if already existing
     return tempdir base, prefix if err.code is 'EEXIST'
