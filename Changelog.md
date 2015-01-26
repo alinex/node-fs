@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.9 (2015-01-26)
+-------------------------------------------------
+- Fixed bug in tempdirSync() call.
+- Added tempdir() method.
+- Optimized stat calls with dereferences.
+- Updated depending modules.
+- Fixed package.json version notation.
+- Fixed npmignor file.
+
 Version 0.1.8 (2014-09-27)
 -------------------------------------------------
 - Upgraded alinex-make module.
