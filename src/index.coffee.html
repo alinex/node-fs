@@ -227,7 +227,7 @@
         <td class="code highlight"><div class="highlight"><pre>
 <span class="k">for</span> <span class="nx">name</span> <span class="k">in</span> <span class="p">[</span>
   <span class="s">&#39;mkdirs&#39;</span><span class="p">,</span> <span class="s">&#39;find&#39;</span><span class="p">,</span> <span class="s">&#39;copy&#39;</span><span class="p">,</span> <span class="s">&#39;remove&#39;</span><span class="p">,</span> <span class="s">&#39;move&#39;</span>
-  <span class="s">&#39;npmbin&#39;</span>
+  <span class="s">&#39;npmbin&#39;</span><span class="p">,</span> <span class="s">&#39;tempdir&#39;</span>
 <span class="p">]</span>
   <span class="nv">commands = </span><span class="nx">require</span> <span class="s">&#39;./&#39;</span> <span class="o">+</span> <span class="nx">name</span>
   <span class="nx">afs</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">commands</span><span class="p">.</span><span class="nx">async</span>

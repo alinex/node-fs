@@ -67,6 +67,12 @@
       <div class="heading h3">
         <a href="#npmbinsync">npmbinSync</a>
       </div>
+      <div class="heading h3">
+        <a href="#tempdir">tempdir</a>
+      </div>
+      <div class="heading h3">
+        <a href="#tempdirsync">tempdirSync</a>
+      </div>
       <div class="heading h2">
         <a href="#filter">Filter</a>
       </div>
@@ -128,7 +134,7 @@ including too much. Most methods are very customizable using options.</p>
 <li>powerful find method</li>
 </ul>
 
-<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex.html">Alinex Universe</a>
+<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex">Alinex Universe</a>
 following the code standards defined there.</p>
 
 
@@ -187,6 +193,12 @@ to get a list of files or directories</li>
 to deep copy directories with files</li>
 <li><a href="#remove">remove</a> and <a href="#removesync">removeSync</a>
 to remove a file entry with all it's children, if existing</li>
+<li><a href="#move">move</a> and <a href="#movesync">moveSync</a>
+to move a file to another position</li>
+<li><a href="#npmbin">npmbin</a> and <a href="#npmbinsync">npmbinSync</a>
+to find a binary in the module or it's parent</li>
+<li><a href="#tempdir">tempdir</a> and <a href="#tempdirsync">tempdirSync</a>
+to create a temporary directory</li>
 </ul>
 
 <p>The methods <code>find</code>, <code>copy</code> and <code>remove</code> supports multiple options to filter the
@@ -743,6 +755,77 @@ the command path to be called.</li>
 <div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
 <span class="nx">cmd</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span><span class="p">(</span><span class="s1">&#39;coffee&#39;</span><span class="p">);</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Coffee command found at:&quot;</span><span class="o">+</span><span class="nx">cmd</span><span class="p">);</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="tempdir">
+  <h3>
+    <a href="#tempdir" name="tempdir" class="pilcrow">&#182;</a>
+    tempdir
+  </h3>
+</div>
+
+
+<p>Create a temporary directory.</p>
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>base</code>
+path under which the directory should be created (defaults to os setting)</li>
+<li><code>prefix</code>
+prefix string to use</li>
+<li><code>callback(err, dir)</code>
+The callback will be called just if an error occurred or after finished.
+It returns the newly created directory.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">tempdir</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">dir</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Temporary directory is: &quot;</span><span class="o">+</span><span class="nx">dir</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="tempdirsync">
+  <h3>
+    <a href="#tempdirsync" name="tempdirsync" class="pilcrow">&#182;</a>
+    tempdirSync
+  </h3>
+</div>
+
+
+<p>Create a temporary directory.</p>
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>base</code>
+path under which the directory should be created (defaults to os setting)</li>
+<li><code>prefix</code>
+prefix string to use</li>
+</ul>
+
+<p><strong>Return:</strong></p>
+
+<ul>
+<li><code>dir</code>
+it returns the newly created directory.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
+<span class="nx">dir</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">tempdir</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Temporary directory is: &quot;</span><span class="o">+</span><span class="nx">dir</span><span class="p">);</span>
 </code></pre></div>
 
 

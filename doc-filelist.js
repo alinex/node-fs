@@ -1,1 +1,1 @@
-var tree={"files":[".travis.yml","Changelog.md","README.md"],"dirs":{"src":{"files":["copy.coffee","filter.coffee","find.coffee","index.coffee","mkdirs.coffee","move.coffee","npmbin.coffee","remove.coffee"]}}};
+var tree={"files":[".travis.yml","Changelog.md","README.md"],"dirs":{"src":{"files":["copy.coffee","filter.coffee","find.coffee","index.coffee","mkdirs.coffee","move.coffee","npmbin.coffee","remove.coffee","tempdir.coffee"]}}};
