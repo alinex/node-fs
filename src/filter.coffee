@@ -91,6 +91,8 @@ skipPathSync = (file, options) ->
       unless file.match options.include
         debug "skip #{file} because path not included"
         return true
+    else if options.include is path.basename file
+      return false
     else
       minimatch = require 'minimatch'
       unless minimatch file, options.include, { matchBase: true }
@@ -101,6 +103,8 @@ skipPathSync = (file, options) ->
       if file.match options.exclude
         debug "skip #{file} because path excluded"
         return true
+    else if options.exclude is path.basename file
+      return true
     else
       minimatch = require 'minimatch'
       if minimatch file, options.exclude, { matchBase: true }
