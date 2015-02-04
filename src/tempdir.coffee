@@ -20,15 +20,16 @@ os = require 'os'
 # - `base` - path under which the directory should be created (defaults to os setting)
 # - `prefix` - prefix string to use
 # - `cb` - callback method
-tempdir = module.exports.async = (base, prefix = '', cb) ->
+tempdir = module.exports.async = (base, prefix = null, cb) ->
   # optional arguments
   if not cb? and typeof prefix is 'function'
     cb = prefix
-    prefix = ''
+    prefix = null
   if not cb? and typeof base is 'function'
     cb = base
-    base = ''
+    base = null
   base ?= os.tmpDir()
+  prefix ?= process.title + '-'
   # try to create dir
   dir = path.join base, prefix + crypto.randomBytes(4).readUInt32LE(0)
   fs.mkdir dir, (err) ->
@@ -45,8 +46,9 @@ tempdir = module.exports.async = (base, prefix = '', cb) ->
 # - `base` - path under which the directory should be created (defaults to os setting)
 # - `prefix` - prefix string to use
 # - `cb` - callback method
-tempdir = module.exports.sync = (base, prefix = '') ->
+tempdir = module.exports.sync = (base, prefix = null) ->
   base ?= os.tmpDir()
+  prefix ?= process.title + '-'
   # try to create dir
   dir = path.join base, prefix + crypto.randomBytes(4).readUInt32LE(0)
   try
