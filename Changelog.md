@@ -4,6 +4,17 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.0 (2015-02-14)
+-------------------------------------------------
+- Updated changelog.
+- Changed version number.
+- Changed version number.
+- Merged changes.
+- Merge branch 'master' of https://github.com/alinex/node-fs
+- Added information for version 0.2.0
+- Added ignoreErrors option.
+- Update dependent packages.
+
 Version 0.1.10 (2015-02-03)
 -------------------------------------------------
 - Bug fixed: complete filename without asterix will now match also.
