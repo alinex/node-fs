@@ -54,6 +54,12 @@ and the following extended functions:
   to deep copy directories with files
 * [remove](#remove) and [removeSync](#removesync)
   to remove a file entry with all it's children, if existing
+* [move](#move) and [moveSync](#movesync)
+  to move a file to another position
+* [npmbin](#npmbin) and [npmbinSync](#npmbinsync)
+  to find a binary in the module or it's parent
+* [tempdir](#tempdir) and [tempdirSync](#tempdirsync)
+  to create a temporary directory
 
 The methods `find`, `copy` and `remove` supports multiple options to filter the
 files they work on.
@@ -436,6 +442,51 @@ __Example:__
     var fs = require('alinex-fs');
     cmd = fs.npmbin('coffee');
     console.log("Coffee command found at:"+cmd);
+
+
+### tempdir
+
+Create a temporary directory.
+
+__Arguments:__
+
+* `base`
+  path under which the directory should be created (defaults to os setting)
+* `prefix`
+  prefix string to use
+* `callback(err, dir)`
+  The callback will be called just if an error occurred or after finished.
+  It returns the newly created directory.
+
+__Example:__
+
+    var fs = require('alinex-fs');
+    fs.tempdir(function(err, dir) {
+      console.log("Temporary directory is: "+dir);
+    });
+
+
+### tempdirSync
+
+Create a temporary directory.
+
+__Arguments:__
+
+* `base`
+  path under which the directory should be created (defaults to os setting)
+* `prefix`
+  prefix string to use
+
+__Return:__
+
+* `dir`
+  it returns the newly created directory.
+
+__Example:__
+
+    var fs = require('alinex-fs');
+    dir = fs.tempdir();
+    console.log("Temporary directory is: "+dir);
 
 
 Filter

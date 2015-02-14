@@ -8,6 +8,17 @@ Version 0.2.0 (2015-02-14)
 -------------------------------------------------
 - Added ignoreErrors option.
 - Update dependent packages.
+
+Version 0.1.10 (2015-02-03)
+-------------------------------------------------
+- Bug fixed: complete filename without asterix will now match also.
+
+Version 0.1.9 (2015-01-26)
+-------------------------------------------------
+- Fixed bug in tempdirSync() call.
+- Added tempdir() method.
+- Optimized stat calls with dereferences.
+- Updated depending modules.
 - Fixed package.json version notation.
 - Fixed npmignor file.
 
