@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.0 (2015-02-14)
+-------------------------------------------------
+- Added ignoreErrors option.
+- Update dependent packages.
+- Fixed package.json version notation.
+- Fixed npmignor file.
+
 Version 0.1.8 (2014-09-27)
 -------------------------------------------------
 - Upgraded alinex-make module.
