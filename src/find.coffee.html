@@ -149,7 +149,9 @@ Search depth as integer (internal parameter).</li>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span>
     <span class="nx">stat</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="k">if</span> <span class="nx">err</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="p">[]</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ignoreErrors</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">list</span> <span class="k">unless</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
 
 </pre></div>
@@ -255,7 +257,11 @@ If anything out of order happened.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
-  <span class="nv">stats = </span><span class="nx">stat</span> <span class="nx">source</span>
+  <span class="k">try</span>
+    <span class="nv">stats = </span><span class="nx">stat</span> <span class="nx">source</span>
+  <span class="k">catch</span> <span class="nx">err</span>
+    <span class="k">return</span> <span class="nx">list</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ignoreErrors</span>
+    <span class="k">throw</span> <span class="nx">err</span>
   <span class="k">return</span> <span class="nx">list</span> <span class="k">unless</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
 
 </pre></div>

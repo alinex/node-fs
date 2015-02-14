@@ -848,6 +848,7 @@ Additionally some methods may have special options for filtering.</p>
 <li><code>include</code> to specify a inclusion pattern</li>
 <li><code>exclude</code> to specify an exclusion pattern</li>
 <li><code>dereference</code> set to true to follow symbolic links</li>
+<li><code>ignoreErrors</code> set to true to forget errors and go on</li>
 <li><code>mindepth</code> minimal depth to match</li>
 <li><code>maxdepth</code> maximal depth to match</li>
 <li><code>type</code> the inode type (file/directory/link)</li>
@@ -855,8 +856,8 @@ Additionally some methods may have special options for filtering.</p>
 <li><code>minsize</code> minimal filesize</li>
 <li><code>maxsize</code> maximal filesize</li>
 <li><code>user</code> owner name or id</li>
-<li><p><code>group</code> owner group name or id</p></li>
-<li><p><code>accessedAfter</code></p></li>
+<li><code>group</code> owner group name or id</li>
+<li><code>accessedAfter</code></li>
 <li><code>accessedBefore</code></li>
 <li><code>modifiedAfter</code></li>
 <li><code>modifiedBefore</code></li>
@@ -933,6 +934,9 @@ backslash.</p>
 link as itself. Using the option <code>dereference: true</code> this behavior will change
 and they will follow the symbolic link and check the path it refers to. This
 means that they will also go into referenced directories.</p>
+
+<p>You may also use the option <code>ignoreErrors: true</code> to ignore dead symlinks
+otherwise an error is created.</p>
 
 
 <div class="pilwrap" id="search%20depth">
