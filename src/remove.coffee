@@ -42,8 +42,9 @@ remove = module.exports.async = (file, options, cb, depth = 0) ->
   stat = if options.dereference? then fs.stat else fs.lstat
   stat file, (err, stats) ->
     # return if already removed
-    return cb() if err?.code is 'ENOENT'
-    return cb err if err
+    if err
+      return cb() if err.code is 'ENOENT' or options.ignoreErrors
+      return cb err
     # Check the current file through filter options
     filter.async file, depth, options, (ok) ->
       if stats.isFile()
@@ -113,7 +114,8 @@ removeSync = module.exports.sync = (file, options = {}, depth = 0) ->
     stats = stat file
   catch err
     # return if already removed
-    return if err.code is 'ENOENT'
+    return if err.code is 'ENOENT' or options.ignoreErrors
+    throw err
   # Check the current file through filter options
   ok = filter.sync file, depth, options
   if stats.isFile()

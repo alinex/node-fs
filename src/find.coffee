@@ -39,7 +39,9 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
     # check source entry
     stat = if options.dereference? then fs.stat else fs.lstat
     stat source, (err, stats) ->
-      return cb err if err
+      if err
+        return cb null, [] if options.ignoreErrors
+        return cb err
       return cb null, list unless stats.isDirectory()
       # source is directory
       depth++
@@ -81,7 +83,11 @@ findSync = module.exports.sync = (source, options = {}, depth = 0) ->
   list.push source if filter.sync source, depth, options
   # check source entry
   stat = if options.dereference? then fs.statSync else fs.lstatSync
-  stats = stat source
+  try
+    stats = stat source
+  catch err
+    return list if options.ignoreErrors
+    throw err
   return list unless stats.isDirectory()
   # source is directory
   depth++

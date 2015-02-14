@@ -16,12 +16,15 @@ describe "Find", ->
         exec 'touch test/temp/file1', ->
           exec 'touch test/temp/file2', ->
             exec 'touch test/temp/dir1/file11', ->
-              exec 'ln -s dir1 test/temp/dir3', cb
+              exec 'ln -s dir1 test/temp/dir3', ->
+                exec 'mkdir -p test/temp2', ->
+                  exec 'ln -s non-existing-directory test/temp2/deadlink', cb
 
   afterEach (cb) ->
     fs.exists 'test/temp', (exists) ->
       return cb() unless exists
-      exec 'rm -r test/temp', cb
+      exec 'rm -r test/temp', ->
+        exec 'rm -r test/temp2', cb
 
   describe "asynchronous", ->
 
@@ -107,6 +110,34 @@ describe "Find", ->
         ]
         cb()
 
+    it "should work with dead symlink", (cb) ->
+      fs.find 'test/temp2', (err, list) ->
+        expect(err, 'error').to.not.exist
+        expect(list, 'result list').to.deep.equal [
+          'test/temp2'
+          'test/temp2/deadlink'
+        ]
+        cb()
+
+    it "should fail with dead symlink (dereferencing)", (cb) ->
+      fs.find 'test/temp2',
+        dereference: true
+      , (err, list) ->
+        expect(err, 'error').to.exist
+        cb()
+
+    it "should work with dead symlink (dereferencing with ignore)", (cb) ->
+      fs.find 'test/temp2',
+        dereference: true
+        ignoreErrors: true
+      , (err, list) ->
+        expect(err, 'error').to.not.exist
+        expect(list, 'result list').to.deep.equal [
+          'test/temp2'
+        ]
+        cb()
+
+
   describe "synchronous", ->
 
     it "throw error for non-existent dir", ->
@@ -171,5 +202,27 @@ describe "Find", ->
         'test/temp/dir3/file11'
         'test/temp/file1'
         'test/temp/file2'
+      ]
+
+    it "should work with dead symlink", ->
+      list = fs.findSync 'test/temp2', (err, list) ->
+      expect(list, 'result list').to.deep.equal [
+        'test/temp2'
+        'test/temp2/deadlink'
+      ]
+
+    it "should fail with dead symlink (dereferencing)", ->
+      expect ->
+        fs.findSync 'test/temp2',
+          dereference: true
+      .to.throw.error
+
+    it "should work with dead symlink (dereferencing with ignore)", ->
+      list = fs.findSync 'test/temp2',
+        dereference: true
+        ignoreErrors: true
+      expect(list, 'result list').to.deep.equal [
+        'test/temp2'
+        'test/temp2/deadlink'
       ]
 

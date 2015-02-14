@@ -49,7 +49,9 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
   # check file entry
   stat = if options.dereference? then fs.stat else fs.lstat
   stat source, (err, stats) ->
-    return cb err if err
+    if err
+      return cb() if options.ignoreErrors
+      return cb err
     # Check the current file through filter options
     filter.async source, depth, options, (ok) ->
       if stats.isFile()
@@ -119,7 +121,11 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
 #   If anything out of order happened.
 copySync = module.exports.sync = (source, target, options = {}, depth = 0) ->
   stat = if options.dereference? then fs.statSync else fs.lstatSync
-  stats = stat source
+  try
+    stats = stat source
+  catch err
+    return if options.ignoreErrors
+    throw err
   ok = filter.sync source, depth, options
   if stats.isFile()
     return unless ok
