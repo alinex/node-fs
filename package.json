@@ -36,11 +36,7 @@
   "dependencies": {
     "async": "0.x",
     "graceful-fs": ">=2.0.0 <4.0.0",
-<<<<<<< HEAD
-    "minimatch": "0.2.x || 2.x",
-=======
     "minimatch": ">=0.2.0 <3.0.0",
->>>>>>> d3ad2d349f2128ea69464b0765454f34414404e3
     "memoizee": "0.3.x",
     "chrono-node": "0.1.x || 1.x",
     "debug": ">=0.8.0 <3.0.0"
