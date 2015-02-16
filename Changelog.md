@@ -6,14 +6,6 @@ individual versions:
 
 Version 0.2.1 (2015-02-14)
 -------------------------------------------------
-- 
-
-Version 0.2.0 (2015-02-14)
--------------------------------------------------
-- Updated changelog.
-- Changed version number.
-- Changed version number.
-- Merged changes.
 - Merge branch 'master' of https://github.com/alinex/node-fs
 - Added information for version 0.2.0
 - Added ignoreErrors option.
