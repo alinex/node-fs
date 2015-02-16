@@ -35,7 +35,7 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
   list = []
   # Check the current file through filter options
   filter.async source, depth, options, (ok) ->
-    return unless ok
+    return cb null, list unless ok
     list.push source
     # check source entry
     stat = if options.dereference? then fs.stat else fs.lstat
@@ -79,8 +79,8 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
 # * `Error`
 #   If anything out of order happened.
 findSync = module.exports.sync = (source, options = {}, depth = 0) ->
-  return unless filter.sync source, depth, options
   list = []
+  return list unless filter.sync source, depth, options
   # Check the current file through filter options
   list.push source
   # check source entry
