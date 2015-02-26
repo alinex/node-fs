@@ -500,6 +500,8 @@ Additionally some methods may have special options for filtering.
 - `include` to specify a inclusion pattern
 - `exclude` to specify an exclusion pattern
 - `dereference` set to true to follow symbolic links
+- `ignoreErrors` set to true to forget errors and go on
+- `lazy` lazy search will stop traversing if directory failed
 - `mindepth` minimal depth to match
 - `maxdepth` maximal depth to match
 - `type` the inode type (file/directory/link)
@@ -508,7 +510,6 @@ Additionally some methods may have special options for filtering.
 - `maxsize` maximal filesize
 - `user` owner name or id
 - `group` owner group name or id
-
 - `accessedAfter`
 - `accessedBefore`
 - `modifiedAfter`
@@ -565,6 +566,9 @@ Normally the methods will not go into symbolic links. They will see the symbolic
 link as itself. Using the option `dereference: true` this behavior will change
 and they will follow the symbolic link and check the path it refers to. This
 means that they will also go into referenced directories.
+
+You may also use the option `ignoreErrors: true` to ignore dead symlinks
+otherwise an error is created.
 
 
 ### Search depth

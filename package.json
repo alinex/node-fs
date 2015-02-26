@@ -1,6 +1,6 @@
 {
   "name": "alinex-fs",
-  "version": "0.1.10",
+  "version": "0.2.1",
   "description": "Extension of nodes filesystem tools.",
   "copyright": "Alexander Schilling 2014",
   "private": false,
@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "alinex-make": "0.4.x",
-    "chai": "1.x",
+    "chai": "1.x || 2.x",
     "moment": "2.x"
   },
   "optionalDependencies": {},
