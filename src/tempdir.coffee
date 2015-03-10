@@ -29,7 +29,7 @@ tempdir = module.exports.async = (base, prefix = null, cb) ->
     cb = base
     base = null
   base ?= os.tmpDir()
-  prefix ?= process.title + '-'
+  prefix ?= path.basename process.title + '-'
   # try to create dir
   dir = path.join base, prefix + crypto.randomBytes(4).readUInt32LE(0)
   fs.mkdir dir, (err) ->
@@ -48,7 +48,7 @@ tempdir = module.exports.async = (base, prefix = null, cb) ->
 # - `cb` - callback method
 tempdir = module.exports.sync = (base, prefix = null) ->
   base ?= os.tmpDir()
-  prefix ?= process.title + '-'
+  prefix ?= path.basename process.title + '-'
   # try to create dir
   dir = path.join base, prefix + crypto.randomBytes(4).readUInt32LE(0)
   try
