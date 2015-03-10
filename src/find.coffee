@@ -5,6 +5,7 @@
 # -------------------------------------------------
 
 # include base modules
+debug = require('debug')('fs:find')
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
@@ -33,6 +34,7 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
     cb = options ? ->
     options = {}
   list = []
+  debug "check #{source}"
   # Check the current file through filter options
   filter.async source, depth, options, (ok) ->
     return cb null, list if options.lazy and not ok
@@ -41,10 +43,11 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
     stat = if options.dereference? then fs.stat else fs.lstat
     stat source, (err, stats) ->
       if err
-        return cb null, [] if options.ignoreErrors
+        return cb null, [] if options?.ignoreErrors
         return cb err
       return cb null, list unless stats.isDirectory()
       # source is directory
+      debug "going deeper into #{source} directory"
       depth++
       fs.readdir source, (err, files) ->
         return cb err if err

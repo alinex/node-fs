@@ -27,9 +27,6 @@ module.exports.async = (bin, dir, cb) ->
   npmbin bin, dir, cb
 
 npmbin = (bin, dir, cb) ->
-  unless cb
-    cb = dir
-    dir = path.dirname __dirname
   file = path.join dir, 'node_modules', '.bin', bin
   # search for file
   fs.exists file, (exists) ->

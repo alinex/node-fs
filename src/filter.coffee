@@ -89,26 +89,26 @@ skipPathSync = (file, options) ->
   if options.include
     if options.include instanceof RegExp
       unless file.match options.include
-        debug "skip #{file} because path not included"
+        debug "skip #{file} because path not included (regexp)"
         return true
     else if options.include is path.basename file
       return false
     else
       minimatch = require 'minimatch'
       unless minimatch file, options.include, { matchBase: true }
-        debug "skip #{file} because path not included"
+        debug "skip #{file} because path not included (glob)"
         return true
   if options.exclude
     if options.exclude instanceof RegExp
       if file.match options.exclude
-        debug "skip #{file} because path excluded"
+        debug "skip #{file} because path excluded (regexp)"
         return true
     else if options.exclude is path.basename file
       return true
     else
       minimatch = require 'minimatch'
       if minimatch file, options.exclude, { matchBase: true }
-        debug "skip #{file} because path excluded"
+        debug "skip #{file} because path excluded (glob)"
         return true
   return false
 

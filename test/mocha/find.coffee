@@ -4,11 +4,11 @@ expect = chai.expect
 
 # Only use alinex-error to detect errors, it makes messy output with the normal
 # mocha error output.
-#require('alinex-error').install()
+#require('alinex-error')
 
 describe "Find", ->
 
-  fs = require '../../lib/index'
+  fs = require '../../src/index'
 
   beforeEach (cb) ->
     exec 'mkdir -p test/temp/dir1', ->
@@ -30,6 +30,7 @@ describe "Find", ->
 
     it "throw error for non-existent dir", (cb) ->
       fs.find 'test/temp/dir999', (err, list) ->
+        console.log err
         expect(err, 'error').to.exist
         expect(list, 'result list').to.not.exist
         cb()
@@ -62,6 +63,16 @@ describe "Find", ->
           'test/temp/dir2'
           'test/temp/dir3'
           'test/temp/file1'
+          'test/temp/file2'
+        ]
+        cb()
+
+    it "matching concrete file", (cb) ->
+      fs.find 'test',
+        include: 'file2'
+      , (err, list) ->
+        expect(err, 'error').to.not.exist
+        expect(list, 'result list').to.deep.equal [
           'test/temp/file2'
         ]
         cb()
