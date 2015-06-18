@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-fs/src/findcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-fs/src/find.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -15,7 +15,17 @@
   <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
-  <div id="sidebar_wrapper">
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
       <span class="tree">Files</span>
       <span class="headings">Headings</span>
@@ -37,7 +47,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -77,6 +87,7 @@
 <p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;fs:find&#39;</span><span class="p">)</span>
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
@@ -121,6 +132,7 @@ Search depth as integer (internal parameter).</li>
     <span class="nv">cb = </span><span class="nx">options</span> <span class="o">?</span> <span class="nf">-&gt;</span>
     <span class="nv">options = </span><span class="p">{}</span>
   <span class="nv">list = </span><span class="p">[]</span>
+  <span class="nx">debug</span> <span class="s">&quot;check </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s">&quot;</span>
 
 </pre></div>
         </td>
@@ -134,6 +146,7 @@ Search depth as integer (internal parameter).</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nx">filter</span><span class="p">.</span><span class="nx">async</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(ok) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">list</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">lazy</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">ok</span>
     <span class="nx">list</span><span class="p">.</span><span class="nx">push</span> <span class="nx">source</span> <span class="k">if</span> <span class="nx">ok</span>
 
 </pre></div>
@@ -150,7 +163,7 @@ Search depth as integer (internal parameter).</li>
     <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span>
     <span class="nx">stat</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
       <span class="k">if</span> <span class="nx">err</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="p">[]</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ignoreErrors</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="p">[]</span> <span class="k">if</span> <span class="nx">options</span><span class="o">?</span><span class="p">.</span><span class="nx">ignoreErrors</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">list</span> <span class="k">unless</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
 
@@ -165,6 +178,7 @@ Search depth as integer (internal parameter).</li>
 <p>source is directory</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">debug</span> <span class="s">&quot;going deeper into </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s"> directory&quot;</span>
       <span class="nx">depth</span><span class="o">++</span>
       <span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, files) -&gt;</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -231,6 +245,8 @@ If anything out of order happened.</li>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">findSync = module.exports.sync = </span><span class="nf">(source, options = {}, depth = 0) -&gt;</span>
   <span class="nv">list = </span><span class="p">[]</span>
+  <span class="nv">ok = </span><span class="nx">filter</span><span class="p">.</span><span class="nx">sync</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="k">return</span> <span class="nx">list</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">lazy</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">ok</span>
 
 </pre></div>
         </td>
@@ -243,7 +259,7 @@ If anything out of order happened.</li>
 <p>Check the current file through filter options</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">list</span><span class="p">.</span><span class="nx">push</span> <span class="nx">source</span> <span class="k">if</span> <span class="nx">filter</span><span class="p">.</span><span class="nx">sync</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="nx">list</span><span class="p">.</span><span class="nx">push</span> <span class="nx">source</span> <span class="k">if</span> <span class="nx">ok</span>
 
 </pre></div>
         </td>

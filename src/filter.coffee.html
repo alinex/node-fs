@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-fs/src/filtercoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-fs/src/filter.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -15,7 +15,17 @@
   <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
-  <div id="sidebar_wrapper">
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
       <span class="tree">Files</span>
       <span class="headings">Headings</span>
@@ -61,7 +71,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -248,26 +258,26 @@ successfully it will return nothing.</p>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span>
     <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span> <span class="k">instanceof</span> <span class="nb">RegExp</span>
       <span class="k">unless</span> <span class="nx">file</span><span class="p">.</span><span class="nx">match</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span>
-        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path not included&quot;</span>
+        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path not included (regexp)&quot;</span>
         <span class="k">return</span> <span class="kc">true</span>
     <span class="k">else</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span> <span class="o">is</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">file</span>
       <span class="k">return</span> <span class="kc">false</span>
     <span class="k">else</span>
       <span class="nv">minimatch = </span><span class="nx">require</span> <span class="s">&#39;minimatch&#39;</span>
       <span class="k">unless</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span><span class="p">,</span> <span class="p">{</span> <span class="nv">matchBase: </span><span class="kc">true</span> <span class="p">}</span>
-        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path not included&quot;</span>
+        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path not included (glob)&quot;</span>
         <span class="k">return</span> <span class="kc">true</span>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
     <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span> <span class="k">instanceof</span> <span class="nb">RegExp</span>
       <span class="k">if</span> <span class="nx">file</span><span class="p">.</span><span class="nx">match</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
-        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path excluded&quot;</span>
+        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path excluded (regexp)&quot;</span>
         <span class="k">return</span> <span class="kc">true</span>
     <span class="k">else</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span> <span class="o">is</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">file</span>
       <span class="k">return</span> <span class="kc">true</span>
     <span class="k">else</span>
       <span class="nv">minimatch = </span><span class="nx">require</span> <span class="s">&#39;minimatch&#39;</span>
       <span class="k">if</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span><span class="p">,</span> <span class="p">{</span> <span class="nv">matchBase: </span><span class="kc">true</span> <span class="p">}</span>
-        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path excluded&quot;</span>
+        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path excluded (glob)&quot;</span>
         <span class="k">return</span> <span class="kc">true</span>
   <span class="k">return</span> <span class="kc">false</span>
 

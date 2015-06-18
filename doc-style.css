@@ -1,22 +1,37 @@
+@import url(http://alinex.github.com/fonts/sansation/stylesheet.css);
+@import url(http://alinex.github.com/fonts/xcelsion/style.css);
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+
+  src: url('http://alinex.github.com/fonts/glyphicons-halflings-regular.eot');
+  src: url('http://alinex.github.com/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('http://alinex.github.com/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('http://alinex.github.com/fonts/glyphicons-halflings-regular.woff') format('woff'), url('http://alinex.github.com/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('http://alinex.github.com/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
 body {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, FreeSerif, serif;
+  font-family: 'SansationRegular';
   font-size: 15px;
+  line-height: 110%;
   line-height: 120%;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 p, h1, h2, h3, h4, h5, h6 {
   margin: 0 0 15px 0;}
 h1, h2, h3, h4, h5, h6 {
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-  color: #b5e853;
+  font-family: 'SansationBold';
+}
+h1, h2, h3, h4 {
+  color: #f0ad4e;
 }
 a { text-decoration: none; }
 h1 {
-  margin-top: 40px; }
+  margin-top: 10px;
+}
 
 #tree, #headings {
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  font-family: 'SansationBold';
   position: absolute;
   top: 30px;
   left: 0;
@@ -118,9 +133,10 @@ h1 {
 #headings .heading a {
   border-top: 1px solid #000;
   border-bottom: 1px solid #000; }
-#headings .heading a:hover {
-  border-top: 1px dotted #63c0f5;
-  border-bottom: 1px dotted #63c0f5; }
+#headings .heading :hover {
+  border-top: 1px dotted #f0ad4e;
+  border-bottom: 1px dotted #f0ad4e;
+}
 
 #sidebar-toggle {
   position: fixed;
@@ -235,7 +251,7 @@ td.code {
   padding: 8px 15px 8px 25px;
   width: 100%;
   vertical-align: top;
-  border-left: 1px dashed #b5e853; }
+  border-left: 1px dashed #63C0F5; }
 
 .background {
   border-left: 1px solid;
@@ -268,9 +284,13 @@ body {
   color: #eeeeee; }
 
 a {
-  color: #63C0F5; }
-  a:visited {
-    color: #63C0F5; }
+  color: #337ab7; }
+a:visited {
+  color: #337ab7;
+}
+a:hover {
+  color: #f0ad4e;
+}
 
 #sidebar_wrapper {
   background: #000; }
@@ -287,19 +307,19 @@ a {
     color: #eeeeee; }
 
 #tree {
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;  
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   color: #dddddd; }
 
 #headings .heading a {
   font-weight: bold;
- color: #b5e853; }
-#headings .heading a:hover {
  color: #63C0F5; }
+#headings .heading a:hover {
+ color: #f0ad4e; }
 
 #sidebar-toggle {
-  background: #b5e853; }
+  background: #63C0F5; }
   #sidebar-toggle:hover {
-    background: #63C0F5; }
+    background: #f0ad4e; }
 
 .docs.markdown {
   background: #151515; }
@@ -323,13 +343,13 @@ a {
   color: #3a3a2f; }
 
 td.code, .background {
-  border-left-color: #b5e853; }
+  border-left-color: #63C0F5; }
 
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }
 span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
 pre { line-height: 125%; }
 body .highlight .hll { background-color: #ffffcc }
-body .highlight  { background: #333333; }
+body .highlight  { background: #151515; }
 body .highlight .c { color: #aaaaaa; font-style: italic } /* Comment */
 body .highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
 body .highlight .k { color: #aaaaff } /* Keyword */
@@ -399,10 +419,13 @@ body .highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
     bottom: auto;
   }
 }
+#sidebar-toggle {
+  background: url(https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png);
+}
 #fork {
   position: absolute;
   top: 0;
-  right: 0; 
+  right: 0;
   border: 0;
   width: 145px;
   height: 145px;
@@ -416,3 +439,114 @@ body .highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
 h1, h2, h3, h4, h5, h6 {
   line-height:100%;
 }
+
+a[href^="http://alinex.github.io/node-"], .alinex {
+  font-family: 'Xcelsion';
+}
+
+#container {
+  background: #151515;
+}
+
+/*  HEADER LINE */
+nav {
+  height: 40px;
+  position: absolute;
+  width: 100%;
+  background: black;
+  z-index: 1000;
+}
+nav .logo {
+  padding: 8px 20px 5px 33px;
+}
+nav .links {
+  margin-top: -40px;
+  float: right;
+  padding-right: 10px;
+}
+nav .btn {
+  -webkit-user-select: none;
+  background-image: none;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: normal;
+  height: 24px;
+  line-height: 17.142858505249px;
+  margin-bottom: 0px;
+  outline-color: black;
+  outline-style: none;
+  outline-width: 0px;
+  padding-bottom: 1px;
+  padding-left: 6px;
+  padding-right: 10px;
+  padding-top: 3px;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-family: SansationBold;
+  font-weight: boldest;
+}
+nav .btn:hover {
+  color: #fff;
+}
+nav .btn span {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+nav .btn-primary {
+  background-color: rgb(40, 96, 144);
+  border-bottom-color: rgb(32, 77, 116);
+  border-left-color: rgb(32, 77, 116);
+  border-right-color: rgb(32, 77, 116);
+  border-top-color: rgb(32, 77, 116);
+}
+nav .btn-warning {
+  background-color: rgb(240, 173, 78);
+  border-bottom-color: rgb(238, 162, 54);
+  border-left-color: rgb(238, 162, 54);
+  border-right-color: rgb(238, 162, 54);
+  border-top-color: rgb(238, 162, 54);
+}
+.sidebar #sidebar_wrapper, .sidebar #container, .sidebar #sidebar-toggle,
+.slidey #container {
+  top: 50px;
+}
+/*
+.glyphicon-pencil:before {
+  content: "\270f";
+}
+.glyphicon-cog:before {
+  content: "\e019";
+}
+*/
+

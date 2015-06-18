@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-fs/src/tempdircoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-fs/src/tempdir.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -15,7 +15,17 @@
   <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
-  <div id="sidebar_wrapper">
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
       <span class="tree">Files</span>
       <span class="headings">Headings</span>
@@ -37,7 +47,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -119,7 +129,7 @@
 </ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">tempdir = module.exports.async = </span><span class="nf">(base, prefix = &#39;&#39;, cb) -&gt;</span>
+<span class="nv">tempdir = module.exports.async = </span><span class="nf">(base, prefix = null, cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -134,11 +144,12 @@
         <td class="code highlight"><div class="highlight"><pre>
   <span class="k">if</span> <span class="o">not</span> <span class="nx">cb</span><span class="o">?</span> <span class="o">and</span> <span class="k">typeof</span> <span class="nx">prefix</span> <span class="o">is</span> <span class="s">&#39;function&#39;</span>
     <span class="nv">cb = </span><span class="nx">prefix</span>
-    <span class="nv">prefix = </span><span class="s">&#39;&#39;</span>
+    <span class="nv">prefix = </span><span class="kc">null</span>
   <span class="k">if</span> <span class="o">not</span> <span class="nx">cb</span><span class="o">?</span> <span class="o">and</span> <span class="k">typeof</span> <span class="nx">base</span> <span class="o">is</span> <span class="s">&#39;function&#39;</span>
     <span class="nv">cb = </span><span class="nx">base</span>
-    <span class="nv">base = </span><span class="s">&#39;&#39;</span>
+    <span class="nv">base = </span><span class="kc">null</span>
   <span class="nx">base</span> <span class="o">?=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">tmpDir</span><span class="p">()</span>
+  <span class="nx">prefix</span> <span class="o">?=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">process</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="s">&#39;-&#39;</span>
 
 </pre></div>
         </td>
@@ -204,8 +215,9 @@
 </ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">tempdir = module.exports.sync = </span><span class="nf">(base, prefix = &#39;&#39;) -&gt;</span>
+<span class="nv">tempdir = module.exports.sync = </span><span class="nf">(base, prefix = null) -&gt;</span>
   <span class="nx">base</span> <span class="o">?=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">tmpDir</span><span class="p">()</span>
+  <span class="nx">prefix</span> <span class="o">?=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">process</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="s">&#39;-&#39;</span>
 
 </pre></div>
         </td>
