@@ -1,9 +1,9 @@
 Package: alinex-fs
 =================================================
 
-[![Build Status] (https://travis-ci.org/alinex/node-fs.svg?branch=master)](https://travis-ci.org/alinex/node-fs)
-[![Coverage Status] (https://coveralls.io/repos/alinex/node-fs/badge.png?branch=master)](https://coveralls.io/r/alinex/node-fs?branch=master)
-[![Dependency Status] (https://gemnasium.com/alinex/node-fs.png)](https://gemnasium.com/alinex/node-fs)
+[![Build Status](https://travis-ci.org/alinex/node-fs.svg?branch=master)](https://travis-ci.org/alinex/node-fs)
+[![Coverage Status](https://coveralls.io/repos/alinex/node-fs/badge.png?branch=master)](https://coveralls.io/r/alinex/node-fs?branch=master)
+[![Dependency Status](https://gemnasium.com/alinex/node-fs.png)](https://gemnasium.com/alinex/node-fs)
 
 Like some other packages this module adds some functions to the nodes fs package.
 It's designed as a drop-in replacement. It uses also
