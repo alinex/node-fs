@@ -1,11 +1,11 @@
-@import url(http://alinex.github.com/fonts/sansation/stylesheet.css);
-@import url(http://alinex.github.com/fonts/xcelsion/style.css);
+@import url(https://alinex.github.io/fonts/sansation/stylesheet.css);
+@import url(https://alinex.github.io/fonts/xcelsion/style.css);
 
 @font-face {
   font-family: 'Glyphicons Halflings';
 
-  src: url('http://alinex.github.com/fonts/glyphicons-halflings-regular.eot');
-  src: url('http://alinex.github.com/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('http://alinex.github.com/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('http://alinex.github.com/fonts/glyphicons-halflings-regular.woff') format('woff'), url('http://alinex.github.com/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('http://alinex.github.com/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('https://alinex.github.io/fonts/glyphicons-halflings-regular.eot');
+  src: url('https://alinex.github.io/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('http://alinex.github.com/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('http://alinex.github.com/fonts/glyphicons-halflings-regular.woff') format('woff'), url('http://alinex.github.com/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('http://alinex.github.com/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
 body {
@@ -322,7 +322,7 @@ a:hover {
     background: #f0ad4e; }
 
 .docs.markdown {
-  background: #151515; }
+  background: #222; }
 .docs pre {
   border-color: #999999; }
 .docs p tt, .docs p code, .docs li tt, .docs li code {
@@ -440,7 +440,9 @@ h1, h2, h3, h4, h5, h6 {
   line-height:100%;
 }
 
-a[href^="http://alinex.github.io/node-"], .alinex {
+a[href^="http://alinex.github.io/node-"],
+a[href^="https://alinex.github.io/node-"],
+.alinex {
   font-family: 'Xcelsion';
 }
 
@@ -550,3 +552,8 @@ nav .btn-warning {
 }
 */
 
+blockquote {
+  border-left: 4px solid #555;
+  padding-left: 36px;
+  margin-left: 0;
+}
