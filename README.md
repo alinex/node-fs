@@ -18,18 +18,31 @@ including too much. Most methods are very customizable using options.
 - complete asynchronous and synchronous
 - powerful find method
 
-It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
-following the code standards defined there.
+> It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
+> following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
 
 
 Install
 -------------------------------------------------
 
-The easiest way is to let npm add the module directly:
+[![NPM](https://nodei.co/npm/alinex-fs.png?downloads=true&downloadRank=true&stars=true)
+ ![Downloads](https://nodei.co/npm-dl/alinex-fs.png?months=9&height=3)
+](https://www.npmjs.com/package/alinex-fs)
 
-    > npm install alinex-fs --save
+The easiest way is to let npm add the module directly to your modules
+(from within you node modules directory):
 
-[![NPM](https://nodei.co/npm/alinex-fs.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-fs/)
+``` sh
+npm install alinex-fs --save
+```
+
+And update it to the latest version later:
+
+``` sh
+npm update alinex-fs --save
+```
+
+Always have a look at the latest [changes](Changelog.md).
 
 
 Usage
