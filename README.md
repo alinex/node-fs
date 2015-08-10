@@ -628,14 +628,14 @@ Both may be specified as id (uid or gid) or using the alias name.
 It is also possible to select files based on their `creation`, last `modified`
 or last `accessed` time.
 
-Specify the `Before` and `After` time as:
+Specify the `Before` and `After` time appended to one of the above as:
 
 - Unix timestamp
 - ISO-8601 date formats
 - some local formats (based on platform support for Date.parse())
 - time difference from now (human readable)
 
-Examples are:
+The following time definitions are an example what you may use:
 
 - `yesterday`, `2 days ago`, `last Monday` to specify a day from now
 - `yesterday 15:00`, `yesterday at 15:00` to also specify the time
@@ -645,6 +645,11 @@ Examples are:
 - `last night`, `00:00`
 
 If only a day is given it will use 12:00 as the time.
+
+__Examle__
+
+    modifiedBefore: 'yesterday 12:00'
+
 
 
 ### User defined function
