@@ -30,16 +30,17 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "async": "0.x",
-    "graceful-fs": ">=2.0.0 <4.0.0",
-    "minimatch": ">=0.2.0 <3.0.0",
-    "memoizee": "0.3.x",
+    "alinex-error": "^1.0.2",
+    "async": "^1.4.2",
     "chrono-node": "0.1.x || 1.x",
-    "debug": ">=0.8.0 <3.0.0"
+    "debug": ">=0.8.0 <3.0.0",
+    "graceful-fs": "^4.1.2",
+    "memoizee": "0.3.x",
+    "minimatch": ">=0.2.0 <3.0.0"
   },
   "devDependencies": {
     "alinex-make": "0.4.x",
-    "chai": "1.x || 2.x",
+    "chai": "^3.2.0",
     "moment": "2.x"
   },
   "optionalDependencies": {},
