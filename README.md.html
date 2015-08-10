@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-fs/README.md", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3/node-fs/READMEmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -22,7 +22,7 @@
   <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
   <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
@@ -1045,7 +1045,7 @@ of the files.</p>
 <p>It is also possible to select files based on their <code>creation</code>, last <code>modified</code>
 or last <code>accessed</code> time.</p>
 
-<p>Specify the <code>Before</code> and <code>After</code> time as:</p>
+<p>Specify the <code>Before</code> and <code>After</code> time appended to one of the above as:</p>
 
 <ul>
 <li>Unix timestamp</li>
@@ -1054,7 +1054,7 @@ or last <code>accessed</code> time.</p>
 <li>time difference from now (human readable)</li>
 </ul>
 
-<p>Examples are:</p>
+<p>The following time definitions are an example what you may use:</p>
 
 <ul>
 <li><code>yesterday</code>, <code>2 days ago</code>, <code>last Monday</code> to specify a day from now</li>
@@ -1066,6 +1066,14 @@ or last <code>accessed</code> time.</p>
 </ul>
 
 <p>If only a day is given it will use 12:00 as the time.</p>
+
+<p><strong>Examle</strong></p>
+
+
+<div class="highlight"><pre><code><span class="nx">modifiedBefore</span><span class="o">:</span> <span class="s1">&#39;yesterday 12:00&#39;</span>
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="user%20defined%20function">
