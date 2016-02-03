@@ -5,7 +5,6 @@
 # -------------------------------------------------
 
 # include base modules
-debug = require('debug')('fs:tempdir')
 fs = require 'fs'
 path = require 'path'
 crypto = require 'crypto'
@@ -54,8 +53,8 @@ tempdir = module.exports.sync = (base, prefix = null) ->
   try
     fs.mkdirSync dir
     return dir
-  catch err
+  catch error
     # try again if already existing
-    return tempdir base, prefix if err.code is 'EEXIST'
+    return tempdir base, prefix if error.code is 'EEXIST'
     # stop on any other problem
-    throw err
+    throw error

@@ -70,7 +70,7 @@ remove = module.exports.async = (file, options, cb, depth = 0) ->
         options = {} if ok
         fs.readdir file, (err, files) ->
           return cb err if err
-          # copy all files in directory
+          # remove all files in directory
           async.each files, (file, cb) ->
             remove path.join(dir, file), options, cb, depth
           , (err) ->
@@ -78,9 +78,10 @@ remove = module.exports.async = (file, options, cb, depth = 0) ->
             return cb() unless ok
             # remove directory itself
             fs.rmdir dir, (err) ->
+              return cb err if err
               # remove file, if dir is a symbolic link
               fs.unlink dir, (err) ->
-                cb null, dir
+                cb err, dir
       else
         cb new Error "Entry '#{file}' is no directory, file or symbolic link."
 
@@ -112,10 +113,10 @@ removeSync = module.exports.sync = (file, options = {}, depth = 0) ->
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   try
     stats = stat file
-  catch err
+  catch error
     # return if already removed
-    return if err.code is 'ENOENT' or options.ignoreErrors
-    throw err
+    return if error.code is 'ENOENT' or options.ignoreErrors
+    throw error
   # Check the current file through filter options
   ok = filter.sync file, depth, options
   if stats.isFile()

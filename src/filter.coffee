@@ -8,7 +8,6 @@
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
-{execFile} = require 'child_process'
 chrono = require 'chrono-node'
 debug = require('debug')('fs:filter')
 util = require 'util'
@@ -95,7 +94,7 @@ skipPathSync = (file, options) ->
       return false
     else
       minimatch = require 'minimatch'
-      unless minimatch file, options.include, { matchBase: true }
+      unless minimatch file, options.include, {matchBase: true}
         debug "skip #{file} because path not included (glob)"
         return true
   if options.exclude
@@ -107,7 +106,7 @@ skipPathSync = (file, options) ->
       return true
     else
       minimatch = require 'minimatch'
-      if minimatch file, options.exclude, { matchBase: true }
+      if minimatch file, options.exclude, {matchBase: true}
         debug "skip #{file} because path excluded (glob)"
         return true
   return false
@@ -136,8 +135,8 @@ filestatSync = (file, options) ->
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   try
     return stat file
-  catch err
-    debug "error resolving #{file} link"
+  catch error
+    debug "error resolving #{file} link #{error.message}"
     return filestatSync file, {}
 
 # ### Test the file type
@@ -231,7 +230,7 @@ skipSizeSync = (file, options) ->
 # ### Check the owwner and group
 userToUid = (user, cb) ->
   return cb null, user unless user and not isNaN user
-  fs.readFile '/etc/passwd', { encoding: 'utf-8' }, (err, data) ->
+  fs.readFile '/etc/passwd', {encoding: 'utf-8'}, (err, data) ->
     return cb err if err
     for line in data.split /\n/
       cols = line.split /:/
@@ -242,7 +241,7 @@ userToUid = (user, cb) ->
 
 userToUidSync = (user) ->
   return user unless user and not isNaN user
-  data = fs.readFileSync '/etc/passwd', { encoding: 'utf-8' }
+  data = fs.readFileSync '/etc/passwd', {encoding: 'utf-8'}
   for line in data.split /\n/
     cols = line.split /:/
     return cols[2] if cols[0] is user
@@ -252,7 +251,7 @@ userToUidSync = (user) ->
 
 groupToGid = (group, cb) ->
   return cb null, group unless group and not isNaN group
-  fs.readFile '/etc/group', { encoding: 'utf-8' }, (err, data) ->
+  fs.readFile '/etc/group', {encoding: 'utf-8'}, (err, data) ->
     return cb err if err
     for line in data.split /\n/
       cols = line.split /:/
@@ -261,7 +260,7 @@ groupToGid = (group, cb) ->
 
 groupToGidSync = (group) ->
   return group unless group and not isNaN group
-  data = fs.readFileSync '/etc/group', { encoding: 'utf-8' }
+  data = fs.readFileSync '/etc/group', {encoding: 'utf-8'}
   for line in data.split /\n/
     cols = line.split /:/
     return cols[2] if cols[0] is group

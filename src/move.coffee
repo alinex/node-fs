@@ -108,8 +108,8 @@ module.exports.sync = (source, target, options = {}) ->
   unless options
     try
       fs.renameSync source, target
-    catch err
-      return unless err
+    catch error
+      return unless error
       return copyRemoveSync source, target, options
   # direct copy/remove
   copyRemoveSync source, target, options

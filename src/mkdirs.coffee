@@ -72,7 +72,6 @@ mkdirs = module.exports.async = (dir, mode, cb = -> ) ->
 mkdirsSync = module.exports.sync = (dir, mode) ->
   # get parameter and default values
   if typeof mode is 'function' or not mode
-    cb = mode
     mode = 0o0777 & (~process.umask())
   mode = parseInt mode, 8 if typeof mode is 'string'
   dir = path.resolve dir
@@ -80,16 +79,16 @@ mkdirsSync = module.exports.sync = (dir, mode) ->
   try
     fs.mkdirSync dir, mode
     return dir
-  catch err
-    if err.code is 'ENOENT'
+  catch error
+    if error.code is 'ENOENT'
       # parent directory missing
       made = mkdirsSync path.dirname(dir), mode
       # try again if parent was successful created
       fs.mkdirSync dir, mode
       return made
-    else if err.code is 'EEXIST'
+    else if error.code is 'EEXIST'
       # directory already exists
       return null
     else
       # other error let's fail the action
-      throw err
+      throw error

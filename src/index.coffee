@@ -6,7 +6,6 @@
 
 # include base modules
 fs = require 'graceful-fs'
-path = require 'path'
 memoizee = require 'memoizee'
 
 # Clone original fs

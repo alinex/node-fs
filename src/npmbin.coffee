@@ -7,7 +7,6 @@
 # include base modules
 fs = require 'fs'
 path = require 'path'
-async = require 'async'
 debug = require('debug')('fs:npmbin')
 
 # Find binary in node_modules or parent

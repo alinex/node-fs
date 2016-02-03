@@ -56,7 +56,8 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
           find path.join(source, file), options, cb, depth
         , (err, results) ->
           return cb err if err
-          list = list.concat result for result in results
+          for result in results
+            list = list.concat result
           cb null, list
 
 # Find files (Synchronous)
@@ -91,9 +92,9 @@ findSync = module.exports.sync = (source, options = {}, depth = 0) ->
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   try
     stats = stat source
-  catch err
+  catch error
     return list if options.ignoreErrors
-    throw err
+    throw error
   return list unless stats.isDirectory()
   # source is directory
   depth++

@@ -123,9 +123,9 @@ copySync = module.exports.sync = (source, target, options = {}, depth = 0) ->
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   try
     stats = stat source
-  catch err
+  catch error
     return if options.ignoreErrors
-    throw err
+    throw error
   ok = filter.sync source, depth, options
   if stats.isFile()
     return unless ok
@@ -161,10 +161,10 @@ copyFile = (source, stats, target, cb) ->
   done = (err) ->
     unless cbCalled
       return cb err if err
-      # fix file permissions and times
-      fs.utimes target, stats.atime, stats.mtime, (err) ->
-        fs.chown target, stats.uid, stats.gid, (err) ->
-          fs.chmod target, stats.mode, (err) ->
+      # fix file permissions and times but ignore errors
+      fs.utimes target, stats.atime, stats.mtime, ->
+        fs.chown target, stats.uid, stats.gid, ->
+          fs.chmod target, stats.mode, ->
             return cb()
     cbCalled = true
   # open streams
