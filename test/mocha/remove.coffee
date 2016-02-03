@@ -1,5 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 {exec} = require 'child_process'
 
 # Only use alinex-error to detect errors, it makes messy output with the normal
@@ -69,7 +70,7 @@ describe "Remove", ->
       expect(fs.existsSync('test/temp/dir1'), 'precheck').to.be.true
       fs.remove 'test/temp/dir1',
         include: '*11'
-      ,(err, removed) ->
+      , (err) ->
         expect(err, 'error').to.not.exist
         expect(fs.existsSync('test/temp/dir1'), 'unmatched dir').to.be.true
         expect(fs.existsSync('test/temp/dir1/file11'), 'removed file').to.be.false
@@ -79,7 +80,7 @@ describe "Remove", ->
       expect(fs.existsSync('test/temp/dir1'), 'precheck').to.be.true
       fs.remove 'test/temp/dir1',
         mindepth: '1'
-      ,(err, removed) ->
+      , (err) ->
         expect(err, 'error').to.not.exist
         expect(fs.existsSync('test/temp/dir1'), 'dir').to.be.true
         expect(fs.existsSync('test/temp/dir1/file11'), 'removed file').to.be.false
@@ -89,7 +90,7 @@ describe "Remove", ->
       expect(fs.existsSync('test/temp/dir3'), 'precheck').to.be.true
       fs.remove 'test/temp/dir3',
         dereference: true
-      ,(err, removed) ->
+      , (err) ->
         expect(err, 'error').to.not.exist
         expect(fs.existsSync('test/temp/dir3'), 'link').to.be.false
         expect(fs.existsSync('test/temp/dir1/file11'), 'removed file').to.be.false
@@ -124,7 +125,7 @@ describe "Remove", ->
       file = '/.file' if fs.existsSync '/.file'
       return unless file
       expect ->
-        removed = fs.removeSync file
+        fs.removeSync file
       .to.throw Error
 
     it "should remove only pattern matches", ->
@@ -147,4 +148,3 @@ describe "Remove", ->
         dereference: true
       expect(fs.existsSync('test/temp/dir3'), 'link').to.be.false
       expect(fs.existsSync('test/temp/dir1/file11'), 'removed file').to.be.false
-

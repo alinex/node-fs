@@ -1,5 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 async = require 'async'
 util = require 'util'
 {exec} = require 'child_process'
@@ -86,7 +87,7 @@ describe "Time filter", ->
     it "should find modified before", (cb) ->
       async.series [
         (cb) -> check
-          modifiedBefore: moment().add('hour',1).unix()
+          modifiedBefore: moment().add('hour', 1).unix()
         , files, cb
         (cb) -> check
           modifiedBefore: 'tomorrow'
@@ -133,7 +134,7 @@ describe "Time filter", ->
     it "should find accessed before", (cb) ->
       async.series [
         (cb) -> check
-          accessedBefore: moment().add('hour',1).unix()
+          accessedBefore: moment().add('hour', 1).unix()
         , files, cb
         (cb) -> check
           accessedBefore: 'tomorrow'
@@ -170,7 +171,7 @@ describe "Time filter", ->
 
     it "should find modified before", ->
       checkSync
-        modifiedBefore: moment().add('hour',1).unix()
+        modifiedBefore: moment().add('hour', 1).unix()
       , files
       checkSync
         modifiedBefore: 'tomorrow'
@@ -213,7 +214,7 @@ describe "Time filter", ->
 
     it "should find accessed before", ->
       checkSync
-        accessedBefore: moment().add('hour',1).unix()
+        accessedBefore: moment().add('hour', 1).unix()
       , files
       checkSync
         accessedBefore: 'tomorrow'

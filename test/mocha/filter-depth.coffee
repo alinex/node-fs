@@ -1,5 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 async = require 'async'
 util = require 'util'
 
@@ -40,64 +41,64 @@ describe "Filter file structure depth", ->
     it "should match all", (cb) ->
       async.series [
         (cb) -> check {}, files, cb
-        (cb) -> check { mindepth: 0 }, files, cb
-        (cb) -> check { maxdepth: 100 }, files, cb
+        (cb) -> check {mindepth: 0}, files, cb
+        (cb) -> check {maxdepth: 100}, files, cb
       ], cb
 
     it "should start at defined level", (cb) ->
       async.series [
-        (cb) -> check { mindepth: 1 }, [
+        (cb) -> check {mindepth: 1}, [
           'dir1/abc', 'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'
           'dir1/dir2/ca', 'dir1/dir2/cb', 'dir1/dir2/dir3'
           'dir1/dir2/dir3/dd', 'dir1/dir2/dir3/de'
         ], cb
-        (cb) -> check { mindepth: 2 }, [
+        (cb) -> check {mindepth: 2}, [
           'dir1/dir2/ca', 'dir1/dir2/cb', 'dir1/dir2/dir3'
           'dir1/dir2/dir3/dd', 'dir1/dir2/dir3/de'
         ], cb
-        (cb) -> check { mindepth: 3 }, [
+        (cb) -> check {mindepth: 3}, [
           'dir1/dir2/dir3/dd', 'dir1/dir2/dir3/de'
         ], cb
-        (cb) -> check { mindepth: 4 }, [], cb
+        (cb) -> check {mindepth: 4}, [], cb
       ], cb
 
     it "should end at defined level", (cb) ->
       async.series [
-        (cb) -> check { maxdepth: 3 }, [
+        (cb) -> check {maxdepth: 3}, [
           'a', 'b', 'c', 'd', 'dir1'
           'dir1/abc', 'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'
           'dir1/dir2/ca', 'dir1/dir2/cb', 'dir1/dir2/dir3'
           'dir1/dir2/dir3/dd', 'dir1/dir2/dir3/de'
         ], cb
-        (cb) -> check { maxdepth: 2 }, [
+        (cb) -> check {maxdepth: 2}, [
           'a', 'b', 'c', 'd', 'dir1'
           'dir1/abc', 'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'
           'dir1/dir2/ca', 'dir1/dir2/cb', 'dir1/dir2/dir3'
         ], cb
-        (cb) -> check { maxdepth: 1 }, [
+        (cb) -> check {maxdepth: 1}, [
           'a', 'b', 'c', 'd', 'dir1', 'dir1/abc'
           'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'
         ], cb
-        (cb) -> check { maxdepth: 0 }, [
+        (cb) -> check {maxdepth: 0}, [
           'a', 'b', 'c', 'd', 'dir1'
         ], cb
       ], cb
 
     it "should extract specific level", (cb) ->
       async.series [
-        (cb) -> check { mindepth: 0, maxdepth: 0 }, [
+        (cb) -> check {mindepth: 0, maxdepth: 0}, [
           'a', 'b', 'c', 'd', 'dir1'
         ], cb
-        (cb) -> check { mindepth: 1, maxdepth: 1 }, [
+        (cb) -> check {mindepth: 1, maxdepth: 1}, [
           'dir1/abc', 'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'
         ], cb
-        (cb) -> check { mindepth: 2, maxdepth: 2 }, [
+        (cb) -> check {mindepth: 2, maxdepth: 2}, [
           'dir1/dir2/ca', 'dir1/dir2/cb', 'dir1/dir2/dir3'
         ], cb
-        (cb) -> check { mindepth: 3, maxdepth: 3 }, [
+        (cb) -> check {mindepth: 3, maxdepth: 3}, [
           'dir1/dir2/dir3/dd', 'dir1/dir2/dir3/de'
         ], cb
-        (cb) -> check { mindepth: 1, maxdepth: 2 }, [
+        (cb) -> check {mindepth: 1, maxdepth: 2}, [
           'dir1/abc', 'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'
           'dir1/dir2/ca', 'dir1/dir2/cb', 'dir1/dir2/dir3'
         ], cb
@@ -107,58 +108,58 @@ describe "Filter file structure depth", ->
 
     it "should match all", ->
       checkSync {}, files
-      checkSync { mindepth: 0 }, files
-      checkSync { maxdepth: 100 }, files
+      checkSync {mindepth: 0}, files
+      checkSync {maxdepth: 100}, files
 
     it "should start at defined level", ->
-      checkSync { mindepth: 1 }, [
+      checkSync {mindepth: 1}, [
         'dir1/abc', 'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'
         'dir1/dir2/ca', 'dir1/dir2/cb', 'dir1/dir2/dir3'
         'dir1/dir2/dir3/dd', 'dir1/dir2/dir3/de'
       ]
-      checkSync { mindepth: 2 }, [
+      checkSync {mindepth: 2}, [
         'dir1/dir2/ca', 'dir1/dir2/cb', 'dir1/dir2/dir3'
         'dir1/dir2/dir3/dd', 'dir1/dir2/dir3/de'
       ]
-      checkSync { mindepth: 3 }, [
+      checkSync {mindepth: 3}, [
         'dir1/dir2/dir3/dd', 'dir1/dir2/dir3/de'
       ]
-      checkSync { mindepth: 4 }, []
+      checkSync {mindepth: 4}, []
 
     it "should end at defined level", ->
-      checkSync { maxdepth: 3 }, [
+      checkSync {maxdepth: 3}, [
         'a', 'b', 'c', 'd', 'dir1'
         'dir1/abc', 'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'
         'dir1/dir2/ca', 'dir1/dir2/cb', 'dir1/dir2/dir3'
         'dir1/dir2/dir3/dd', 'dir1/dir2/dir3/de'
       ]
-      checkSync { maxdepth: 2 }, [
+      checkSync {maxdepth: 2}, [
         'a', 'b', 'c', 'd', 'dir1'
         'dir1/abc', 'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'
         'dir1/dir2/ca', 'dir1/dir2/cb', 'dir1/dir2/dir3'
       ]
-      checkSync { maxdepth: 1 }, [
+      checkSync {maxdepth: 1}, [
         'a', 'b', 'c', 'd', 'dir1', 'dir1/abc'
         'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'
       ]
-      checkSync { maxdepth: 0 }, [
+      checkSync {maxdepth: 0}, [
         'a', 'b', 'c', 'd', 'dir1'
       ]
 
     it "should extract specific level", ->
-      checkSync { mindepth: 0, maxdepth: 0 }, [
+      checkSync {mindepth: 0, maxdepth: 0}, [
         'a', 'b', 'c', 'd', 'dir1'
       ]
-      checkSync { mindepth: 1, maxdepth: 1 }, [
+      checkSync {mindepth: 1, maxdepth: 1}, [
         'dir1/abc', 'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'
       ]
-      checkSync { mindepth: 2, maxdepth: 2 }, [
+      checkSync {mindepth: 2, maxdepth: 2}, [
         'dir1/dir2/ca', 'dir1/dir2/cb', 'dir1/dir2/dir3'
       ]
-      checkSync { mindepth: 3, maxdepth: 3 }, [
+      checkSync {mindepth: 3, maxdepth: 3}, [
         'dir1/dir2/dir3/dd', 'dir1/dir2/dir3/de'
       ]
-      checkSync { mindepth: 1, maxdepth: 2 }, [
+      checkSync {mindepth: 1, maxdepth: 2}, [
         'dir1/abc', 'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'
         'dir1/dir2/ca', 'dir1/dir2/cb', 'dir1/dir2/dir3'
       ]

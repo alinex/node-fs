@@ -1,5 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 async = require 'async'
 util = require 'util'
 {exec} = require 'child_process'

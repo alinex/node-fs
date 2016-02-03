@@ -1,5 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 
 describe "Nodes default methods:", ->
 

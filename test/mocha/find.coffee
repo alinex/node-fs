@@ -1,5 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 {exec} = require 'child_process'
 
 # Only use alinex-error to detect errors, it makes messy output with the normal
@@ -133,7 +134,7 @@ describe "Find", ->
     it "should fail with dead symlink (dereferencing)", (cb) ->
       fs.find 'test/temp2',
         dereference: true
-      , (err, list) ->
+      , (err) ->
         expect(err, 'error').to.exist
         cb()
 
@@ -216,7 +217,7 @@ describe "Find", ->
       ]
 
     it "should work with dead symlink", ->
-      list = fs.findSync 'test/temp2', (err, list) ->
+      list = fs.findSync 'test/temp2'
       expect(list, 'result list').to.deep.equal [
         'test/temp2'
         'test/temp2/deadlink'
@@ -236,4 +237,3 @@ describe "Find", ->
         'test/temp2'
         'test/temp2/deadlink'
       ]
-

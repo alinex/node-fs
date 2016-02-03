@@ -1,6 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
-{exec} = require 'child_process'
+### eslint-env node, mocha ###
 
 describe "Tempdir", ->
 
@@ -16,7 +16,7 @@ describe "Tempdir", ->
         fs.remove dir, cb
 
     it "should fail if source don't exist", (cb) ->
-      fs.tempdir '/unexisting/directory', (err, dir) ->
+      fs.tempdir '/unexisting/directory', (err) ->
         expect(err, 'error').to.exist
         cb()
 
@@ -27,8 +27,8 @@ describe "Tempdir", ->
     it "should create a new directory", ->
       try
         dir = fs.tempdirSync()
-      catch err
-        expect(err, 'error').to.not.exist
+      catch error
+        expect(error, 'error').to.not.exist
       expect(dir, 'directory path').to.exist
       # cleanup
       fs.removeSync dir
@@ -36,5 +36,5 @@ describe "Tempdir", ->
     it "should fail if source don't exist", ->
       try
         fs.tempdirSync '/unexisting/directory'
-      catch err
-      expect(err, 'error').to.exist
+      catch error
+      expect(error, 'error').to.exist

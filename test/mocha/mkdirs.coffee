@@ -1,5 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 {exec} = require 'child_process'
 
 # Only use alinex-error to detect errors, it makes messy output with the normal

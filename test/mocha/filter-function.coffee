@@ -1,5 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 async = require 'async'
 util = require 'util'
 
@@ -48,6 +49,6 @@ describe "Own filter function", ->
 
     it "should be called", ->
       checkSync
-        test: (file, options) ->
+        test: (file) ->
           return ~file.indexOf 'ab'
       , ['abc', 'abd', 'abe']
