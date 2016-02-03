@@ -2,7 +2,7 @@
   "name": "alinex-fs",
   "version": "0.2.1",
   "description": "Extension of nodes filesystem tools.",
-  "copyright": "Alexander Schilling 2014",
+  "copyright": "Alexander Schilling 2014-2016",
   "private": false,
   "keywords": [
     "file",
