@@ -52,14 +52,14 @@ remove = module.exports.async = (file, options, cb, depth = 0) ->
         # remove file
         debug "removing file #{file}"
         fs.unlink file, (err) ->
-          return cb err if err
+          return cb err if err and err.code isnt 'ENOENT'
           cb null, file
       else if stats.isSymbolicLink()
         return cb() unless ok
         # remove symbolic link
         debug "removing link #{file}"
         fs.unlink file, (err) ->
-          return cb err if err
+          return cb err if err and err.code isnt 'ENOENT'
           cb null, file
       else if stats.isDirectory()
         # file is directory
@@ -78,10 +78,11 @@ remove = module.exports.async = (file, options, cb, depth = 0) ->
             return cb() unless ok
             # remove directory itself
             fs.rmdir dir, (err) ->
-              return cb err if err
+              return cb err if err and err.code isnt 'ENOTDIR'
               # remove file, if dir is a symbolic link
               fs.unlink dir, (err) ->
-                cb err, dir
+                return cb err if err and err.code isnt 'ENOENT'
+                cb null, dir
       else
         cb new Error "Entry '#{file}' is no directory, file or symbolic link."
 

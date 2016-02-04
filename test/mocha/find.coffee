@@ -31,7 +31,6 @@ describe "Find", ->
 
     it "throw error for non-existent dir", (cb) ->
       fs.find 'test/temp/dir999', (err, list) ->
-        console.log err
         expect(err, 'error').to.exist
         expect(list, 'result list').to.not.exist
         cb()
