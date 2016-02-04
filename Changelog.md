@@ -4,6 +4,31 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.0 (2016-02-04)
+-------------------------------------------------
+- Remove error package and upgraded to use alinex-builder.
+- Remove deprecation warnings.
+- Don't throw error on deletion of missing file node.
+- updated ignore files.
+- Fixed style of test cases.
+- Fixed lint warnings in code.
+- Updated meta data of package and travis build versions.
+- Updated third party modules.
+- Made time filters more clear in description.
+- Updated insstall documentation.
+- Made badge links npm compatible in documentation.
+- Use special debug output in find.
+- Fixed creation with default name if process has path as title.
+- Merge branch 'master' of https://github.com/alinex/node-fs
+- Updated changelog.
+- Added documentation for the lazy option.
+- Merge pull request #3 from amazo/master
+- fix bug
+- Add lazy option
+- fix bug
+- Ignore children find if parent was excluded
+- Default for prefix in tempdir() is proccess title.
+
 Version 0.2.1 (2015-02-14)
 -------------------------------------------------
 - Merge branch 'master' of https://github.com/alinex/node-fs
