@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.0 (2016-02-04)
+-------------------------------------------------
+- 
+
 Version 1.0.0 (2016-02-04)
 -------------------------------------------------
 - Remove error package and upgraded to use alinex-builder.
