@@ -31,9 +31,9 @@ describe "Time filter", ->
           exec 'touch test/temp/file2', ->
             exec 'touch test/temp/dir1/file11', ->
               exec 'ln -s dir1 test/temp/dir3', ->
-                day1 = moment().subtract('day', 1).unix()
-                day3 = moment().subtract('days', 3).unix()
-                day5 = moment().subtract('days', 5).unix()
+                day1 = moment().subtract(1, 'day').unix()
+                day3 = moment().subtract(3, 'days').unix()
+                day5 = moment().subtract(5, 'days').unix()
                 fs.utimesSync 'test/temp/file1', day1, day5
                 fs.utimesSync 'test/temp/file2', day1, day3
                 fs.utimesSync 'test/temp/dir1/file11', day3, day3
@@ -64,7 +64,7 @@ describe "Time filter", ->
     it "should find modified after", (cb) ->
       async.series [
         (cb) -> check
-          modifiedAfter: moment().subtract('days', 6).unix()
+          modifiedAfter: moment().subtract(6, 'days').unix()
         , files, cb
         (cb) -> check
           modifiedAfter: '6 days ago'
@@ -87,7 +87,7 @@ describe "Time filter", ->
     it "should find modified before", (cb) ->
       async.series [
         (cb) -> check
-          modifiedBefore: moment().add('hour', 1).unix()
+          modifiedBefore: moment().add(1, 'hour').unix()
         , files, cb
         (cb) -> check
           modifiedBefore: 'tomorrow'
@@ -111,7 +111,7 @@ describe "Time filter", ->
     it "should find accessed after", (cb) ->
       async.series [
         (cb) -> check
-          accessedAfter: moment().subtract('days', 6).unix()
+          accessedAfter: moment().subtract(6, 'days').unix()
         , files, cb
         (cb) -> check
           accessedAfter: '4 days ago'
@@ -134,7 +134,7 @@ describe "Time filter", ->
     it "should find accessed before", (cb) ->
       async.series [
         (cb) -> check
-          accessedBefore: moment().add('hour', 1).unix()
+          accessedBefore: moment().add(1, 'hour').unix()
         , files, cb
         (cb) -> check
           accessedBefore: 'tomorrow'
@@ -150,7 +150,7 @@ describe "Time filter", ->
 
     it "should find modified after", ->
       checkSync
-        modifiedAfter: moment().subtract('days', 6).unix()
+        modifiedAfter: moment().subtract(6, 'days').unix()
       , files
       checkSync
         modifiedAfter: '6 days ago'
@@ -171,7 +171,7 @@ describe "Time filter", ->
 
     it "should find modified before", ->
       checkSync
-        modifiedBefore: moment().add('hour', 1).unix()
+        modifiedBefore: moment().add(1, 'hour').unix()
       , files
       checkSync
         modifiedBefore: 'tomorrow'
@@ -193,7 +193,7 @@ describe "Time filter", ->
 
     it "should find accessed after", ->
       checkSync
-        accessedAfter: moment().subtract('days', 6).unix()
+        accessedAfter: moment().subtract(6, 'days').unix()
       , files
       checkSync
         accessedAfter: '4 days ago'
@@ -214,7 +214,7 @@ describe "Time filter", ->
 
     it "should find accessed before", ->
       checkSync
-        accessedBefore: moment().add('hour', 1).unix()
+        accessedBefore: moment().add(1, 'hour').unix()
       , files
       checkSync
         accessedBefore: 'tomorrow'
