@@ -6,13 +6,9 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-fs/src/copycoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-fs/src/copy.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -352,9 +348,9 @@ If anything out of order happened.</li>
   <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
   <span class="k">try</span>
     <span class="nv">stats = </span><span class="nx">stat</span> <span class="nx">source</span>
-  <span class="k">catch</span> <span class="nx">err</span>
+  <span class="k">catch</span> <span class="nx">error</span>
     <span class="k">return</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ignoreErrors</span>
-    <span class="k">throw</span> <span class="nx">err</span>
+    <span class="k">throw</span> <span class="nx">error</span>
   <span class="nv">ok = </span><span class="nx">filter</span><span class="p">.</span><span class="nx">sync</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
   <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span>
     <span class="k">return</span> <span class="k">unless</span> <span class="nx">ok</span>
@@ -487,12 +483,12 @@ If anything out of order happened.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
 </div>
-<p>fix file permissions and times</p>
+<p>fix file permissions and times but ignore errors</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">fs</span><span class="p">.</span><span class="nx">utimes</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">atime</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mtime</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-        <span class="nx">fs</span><span class="p">.</span><span class="nx">chown</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">gid</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-          <span class="nx">fs</span><span class="p">.</span><span class="nx">chmod</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+      <span class="nx">fs</span><span class="p">.</span><span class="nx">utimes</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">atime</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mtime</span><span class="p">,</span> <span class="nf">-&gt;</span>
+        <span class="nx">fs</span><span class="p">.</span><span class="nx">chown</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">gid</span><span class="p">,</span> <span class="nf">-&gt;</span>
+          <span class="nx">fs</span><span class="p">.</span><span class="nx">chmod</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span><span class="p">,</span> <span class="nf">-&gt;</span>
             <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
     <span class="nv">cbCalled = </span><span class="kc">true</span>
 

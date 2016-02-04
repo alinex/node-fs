@@ -6,13 +6,9 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-fs/src/tempdircoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-fs/src/tempdir.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -87,7 +83,6 @@
 <p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;fs:tempdir&#39;</span><span class="p">)</span>
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">crypto = </span><span class="nx">require</span> <span class="s">&#39;crypto&#39;</span>
@@ -234,7 +229,7 @@
   <span class="k">try</span>
     <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span> <span class="nx">dir</span>
     <span class="k">return</span> <span class="nx">dir</span>
-  <span class="k">catch</span> <span class="nx">err</span>
+  <span class="k">catch</span> <span class="nx">error</span>
 
 </pre></div>
         </td>
@@ -247,7 +242,7 @@
 <p>try again if already existing</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">return</span> <span class="nx">tempdir</span> <span class="nx">base</span><span class="p">,</span> <span class="nx">prefix</span> <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;EEXIST&#39;</span>
+    <span class="k">return</span> <span class="nx">tempdir</span> <span class="nx">base</span><span class="p">,</span> <span class="nx">prefix</span> <span class="k">if</span> <span class="nx">error</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;EEXIST&#39;</span>
 
 </pre></div>
         </td>
@@ -260,7 +255,7 @@
 <p>stop on any other problem</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">throw</span> <span class="nx">err</span>
+    <span class="k">throw</span> <span class="nx">error</span>
 </pre></div>
         </td>
       </tr>

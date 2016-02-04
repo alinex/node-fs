@@ -6,13 +6,9 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-fs/src/filtercoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-fs/src/filter.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -114,7 +110,6 @@
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
-<span class="p">{</span><span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
 <span class="nv">chrono = </span><span class="nx">require</span> <span class="s">&#39;chrono-node&#39;</span>
 <span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;fs:filter&#39;</span><span class="p">)</span>
 <span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
@@ -264,7 +259,7 @@ successfully it will return nothing.</p>
       <span class="k">return</span> <span class="kc">false</span>
     <span class="k">else</span>
       <span class="nv">minimatch = </span><span class="nx">require</span> <span class="s">&#39;minimatch&#39;</span>
-      <span class="k">unless</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span><span class="p">,</span> <span class="p">{</span> <span class="nv">matchBase: </span><span class="kc">true</span> <span class="p">}</span>
+      <span class="k">unless</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span><span class="p">,</span> <span class="p">{</span><span class="nv">matchBase: </span><span class="kc">true</span><span class="p">}</span>
         <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path not included (glob)&quot;</span>
         <span class="k">return</span> <span class="kc">true</span>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
@@ -276,7 +271,7 @@ successfully it will return nothing.</p>
       <span class="k">return</span> <span class="kc">true</span>
     <span class="k">else</span>
       <span class="nv">minimatch = </span><span class="nx">require</span> <span class="s">&#39;minimatch&#39;</span>
-      <span class="k">if</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span><span class="p">,</span> <span class="p">{</span> <span class="nv">matchBase: </span><span class="kc">true</span> <span class="p">}</span>
+      <span class="k">if</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span><span class="p">,</span> <span class="p">{</span><span class="nv">matchBase: </span><span class="kc">true</span><span class="p">}</span>
         <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path excluded (glob)&quot;</span>
         <span class="k">return</span> <span class="kc">true</span>
   <span class="k">return</span> <span class="kc">false</span>
@@ -320,8 +315,8 @@ check the value against the options.</p>
   <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
   <span class="k">try</span>
     <span class="k">return</span> <span class="nx">stat</span> <span class="nx">file</span>
-  <span class="k">catch</span> <span class="nx">err</span>
-    <span class="nx">debug</span> <span class="s">&quot;error resolving </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> link&quot;</span>
+  <span class="k">catch</span> <span class="nx">error</span>
+    <span class="nx">debug</span> <span class="s">&quot;error resolving </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> link </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="k">return</span> <span class="nx">filestatSync</span> <span class="nx">file</span><span class="p">,</span> <span class="p">{}</span>
 
 
@@ -457,7 +452,7 @@ check the value against the options.</p>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">userToUid = </span><span class="nf">(user, cb) -&gt;</span>
   <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">user</span> <span class="k">unless</span> <span class="nx">user</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">isNaN</span> <span class="nx">user</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span> <span class="s">&#39;/etc/passwd&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span> <span class="p">},</span> <span class="nf">(err, data) -&gt;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span> <span class="s">&#39;/etc/passwd&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span><span class="p">},</span> <span class="nf">(err, data) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
       <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/:/</span>
@@ -468,7 +463,7 @@ check the value against the options.</p>
 
 <span class="nv">userToUidSync = </span><span class="nf">(user) -&gt;</span>
   <span class="k">return</span> <span class="nx">user</span> <span class="k">unless</span> <span class="nx">user</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">isNaN</span> <span class="nx">user</span>
-  <span class="nv">data = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="s">&#39;/etc/passwd&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span> <span class="p">}</span>
+  <span class="nv">data = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="s">&#39;/etc/passwd&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span><span class="p">}</span>
   <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
     <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/:/</span>
     <span class="k">return</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="nx">user</span>
@@ -478,7 +473,7 @@ check the value against the options.</p>
 
 <span class="nv">groupToGid = </span><span class="nf">(group, cb) -&gt;</span>
   <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">group</span> <span class="k">unless</span> <span class="nx">group</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">isNaN</span> <span class="nx">group</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span> <span class="s">&#39;/etc/group&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span> <span class="p">},</span> <span class="nf">(err, data) -&gt;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span> <span class="s">&#39;/etc/group&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span><span class="p">},</span> <span class="nf">(err, data) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
       <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/:/</span>
@@ -487,7 +482,7 @@ check the value against the options.</p>
 
 <span class="nv">groupToGidSync = </span><span class="nf">(group) -&gt;</span>
   <span class="k">return</span> <span class="nx">group</span> <span class="k">unless</span> <span class="nx">group</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">isNaN</span> <span class="nx">group</span>
-  <span class="nv">data = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="s">&#39;/etc/group&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span> <span class="p">}</span>
+  <span class="nv">data = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="s">&#39;/etc/group&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span><span class="p">}</span>
   <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
     <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/:/</span>
     <span class="k">return</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="nx">group</span>

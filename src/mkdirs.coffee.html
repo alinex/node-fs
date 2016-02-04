@@ -6,13 +6,9 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-fs/src/mkdirscoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-fs/src/mkdirs.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -278,7 +274,6 @@ If anything out of order happened.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="k">if</span> <span class="k">typeof</span> <span class="nx">mode</span> <span class="o">is</span> <span class="s">&#39;function&#39;</span> <span class="o">or</span> <span class="o">not</span> <span class="nx">mode</span>
-    <span class="nv">cb = </span><span class="nx">mode</span>
     <span class="nv">mode = </span><span class="mi">0</span><span class="nx">o0777</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="nx">process</span><span class="p">.</span><span class="nx">umask</span><span class="p">())</span>
   <span class="nv">mode = </span><span class="nb">parseInt</span> <span class="nx">mode</span><span class="p">,</span> <span class="mi">8</span> <span class="k">if</span> <span class="k">typeof</span> <span class="nx">mode</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
   <span class="nv">dir = </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">dir</span>
@@ -297,8 +292,8 @@ If anything out of order happened.</li>
   <span class="k">try</span>
     <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">mode</span>
     <span class="k">return</span> <span class="nx">dir</span>
-  <span class="k">catch</span> <span class="nx">err</span>
-    <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;ENOENT&#39;</span>
+  <span class="k">catch</span> <span class="nx">error</span>
+    <span class="k">if</span> <span class="nx">error</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;ENOENT&#39;</span>
 
 </pre></div>
         </td>
@@ -326,7 +321,7 @@ If anything out of order happened.</li>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">mode</span>
       <span class="k">return</span> <span class="nx">made</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;EEXIST&#39;</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="nx">error</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;EEXIST&#39;</span>
 
 </pre></div>
         </td>
@@ -353,7 +348,7 @@ If anything out of order happened.</li>
 <p>other error let's fail the action</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">throw</span> <span class="nx">err</span>
+      <span class="k">throw</span> <span class="nx">error</span>
 </pre></div>
         </td>
       </tr>
