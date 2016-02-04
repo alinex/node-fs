@@ -5,4 +5,4 @@ node_js:
    - "4.2"  # LTS from 2015-10  maintenance till 2018-04
    - "5.5"  # current
 after_success:
-   - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=bOsNVcF2rXYY25lOxz8TqnyWCOSRqfdGD node_modules/.bin/alinex-make -c test --coverage --coveralls
+   - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=bOsNVcF2rXYY25lOxz8TqnyWCOSRqfdGD node_modules/.bin/builder -c test --coverage --coveralls
