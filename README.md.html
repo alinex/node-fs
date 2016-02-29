@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/github/node-fs/README.md", defaultSidebar = true;
+    var relativeDir = "";
+    var thisFile = "home/alex/github/node-fs/README.md";
+    var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,229 +39,211 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#package%3A%20alinex-fs">Package: alinex-fs</a>
+        <a href="#package-alinex-fs">Package: alinex-fs</a>
       </div>
+
       <div class="heading h2">
         <a href="#install">Install</a>
       </div>
+
       <div class="heading h2">
         <a href="#usage">Usage</a>
       </div>
+
       <div class="heading h3">
         <a href="#mkdirs">mkdirs</a>
       </div>
+
       <div class="heading h3">
         <a href="#mkdirssync">mkdirsSync</a>
       </div>
+
       <div class="heading h3">
         <a href="#find">find</a>
       </div>
+
       <div class="heading h3">
         <a href="#findsync">findSync</a>
       </div>
+
       <div class="heading h3">
         <a href="#copy">copy</a>
       </div>
+
       <div class="heading h3">
         <a href="#copysync">copySync</a>
       </div>
+
       <div class="heading h3">
         <a href="#move">move</a>
       </div>
+
       <div class="heading h3">
         <a href="#movesync">moveSync</a>
       </div>
+
       <div class="heading h3">
         <a href="#remove">remove</a>
       </div>
+
       <div class="heading h3">
         <a href="#removesync">removeSync</a>
       </div>
+
       <div class="heading h3">
         <a href="#npmbin">npmbin</a>
       </div>
+
       <div class="heading h3">
         <a href="#npmbinsync">npmbinSync</a>
       </div>
+
       <div class="heading h3">
         <a href="#tempdir">tempdir</a>
       </div>
+
       <div class="heading h3">
         <a href="#tempdirsync">tempdirSync</a>
       </div>
+
       <div class="heading h2">
         <a href="#filter">Filter</a>
       </div>
+
       <div class="heading h3">
-        <a href="#file%2Fpath%20matching">File/path matching</a>
+        <a href="#filepath-matching">File/path matching</a>
       </div>
+
       <div class="heading h3">
         <a href="#dereferencing">Dereferencing</a>
       </div>
+
       <div class="heading h3">
-        <a href="#search%20depth">Search depth</a>
+        <a href="#search-depth">Search depth</a>
       </div>
+
       <div class="heading h3">
-        <a href="#file%20type">File type</a>
+        <a href="#file-type">File type</a>
       </div>
+
       <div class="heading h3">
-        <a href="#file%20size">File size</a>
+        <a href="#file-size">File size</a>
       </div>
+
       <div class="heading h3">
-        <a href="#owner%20and%20group">Owner and Group</a>
+        <a href="#owner-and-group">Owner and Group</a>
       </div>
+
       <div class="heading h3">
-        <a href="#time%20specification">Time specification</a>
+        <a href="#time-specification">Time specification</a>
       </div>
+
       <div class="heading h3">
-        <a href="#user%20defined%20function">User defined function</a>
+        <a href="#user-defined-function">User defined function</a>
       </div>
+
       <div class="heading h2">
         <a href="#license">License</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a><div class="docs markdown">
-<div class="pilwrap" id="package%3A%20alinex-fs">
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a>
+    <div class="docs markdown"><div class="pilwrap" id="package-alinex-fs">
   <h1>
-    <a href="#package%3A%20alinex-fs" name="package%3A%20alinex-fs" class="pilcrow">&#182;</a>
-    Package: alinex-fs
+    <a href="#package-alinex-fs" name="package-alinex-fs" class="pilcrow"></a>
+Package: alinex-fs
   </h1>
 </div>
-
-
-<p><a href="https://travis-ci.org/alinex/node-fs"><img src="https://travis-ci.org/alinex/node-fs.svg?branch=master" alt="Build Status" title="" /></a>
-<a href="https://coveralls.io/r/alinex/node-fs?branch=master"><img src="https://coveralls.io/repos/alinex/node-fs/badge.png?branch=master" alt="Coverage Status" title="" /></a>
-<a href="https://gemnasium.com/alinex/node-fs"><img src="https://gemnasium.com/alinex/node-fs.png" alt="Dependency Status" title="" /></a></p>
-
+<p><a href="https://travis-ci.org/alinex/node-fs"><img src="https://travis-ci.org/alinex/node-fs.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/r/alinex/node-fs?branch=master"><img src="https://coveralls.io/repos/alinex/node-fs/badge.png?branch=master" alt="Coverage Status"></a>
+<a href="https://gemnasium.com/alinex/node-fs"><img src="https://gemnasium.com/alinex/node-fs.png" alt="Dependency Status"></a></p>
 <p>Like some other packages this module adds some functions to the nodes fs package.
 It's designed as a drop-in replacement. It uses also
 <a href="https://github.com/isaacs/node-graceful-fs">graceful-fs</a>
 to normalize behavior across different platforms and environments, and to make filesystem access more resilient to errors.</p>
-
 <p>This package combines features found in a lot of other packages together without
 including too much. Most methods are very customizable using options.</p>
-
 <ul>
 <li>drop in replacement for node's fs module</li>
 <li>recursive file handling functions</li>
 <li>complete asynchronous and synchronous</li>
 <li>powerful find method</li>
 </ul>
-
 <blockquote>
-  <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
-  following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
+<p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
+following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
 </blockquote>
-
-
 <div class="pilwrap" id="install">
   <h2>
-    <a href="#install" name="install" class="pilcrow">&#182;</a>
-    Install
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
   </h2>
 </div>
-
-
-<p><a href="https://www.npmjs.com/package/alinex-fs"><img src="https://nodei.co/npm/alinex-fs.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM" title="" />
- <img src="https://nodei.co/npm-dl/alinex-fs.png?months=9&amp;height=3" alt="Downloads" title="" />
+<p><a href="https://www.npmjs.com/package/alinex-fs"><img src="https://nodei.co/npm/alinex-fs.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM">
+<img src="https://nodei.co/npm-dl/alinex-fs.png?months=9&amp;height=3" alt="Downloads">
 </a></p>
-
 <p>The easiest way is to let npm add the module directly to your modules
 (from within you node modules directory):</p>
-
-
-<div class="highlight"><pre><code>npm install alinex-fs --save
-</code></pre></div>
-
-
-
+<pre><code class="sh">npm install alinex-fs --save
+</code></pre>
 <p>And update it to the latest version later:</p>
-
-
-<div class="highlight"><pre><code>npm update alinex-fs --save
-</code></pre></div>
-
-
-
-<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
-
-
+<pre><code class="sh">npm update alinex-fs --save
+</code></pre>
+<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
 <div class="pilwrap" id="usage">
   <h2>
-    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
-    Usage
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
   </h2>
 </div>
-
-
 <p>To use this enhanced filesystem library change your require line from:</p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
-</code></pre></div>
-
-
-
+<pre><code>var fs = require('fs');
+</code></pre>
 <p>to the following:</p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-</code></pre></div>
-
-
-
+<pre><code>var fs = require('alinex-fs');
+</code></pre>
 <p>After this you may use the <a href="http://nodejs.org/api/fs.html">standard functions</a>
 and the following extended functions:</p>
-
 <ul>
-<li><a href="#mkdirs">mkdirs</a> and <a href="#mkdirssync">mkdirsSync</a>
+<li><a href="#mkdirs.html">mkdirs</a> and <a href="#mkdirssync.html">mkdirsSync</a>
 to make directories like needed (including parent ones)</li>
-<li><a href="#find">find</a> and <a href="#findsync">findSync</a>
+<li><a href="#find.html">find</a> and <a href="#findsync.html">findSync</a>
 to get a list of files or directories</li>
-<li><a href="#copy">copy</a> and <a href="#copysync">copySync</a>
+<li><a href="#copy.html">copy</a> and <a href="#copysync.html">copySync</a>
 to deep copy directories with files</li>
-<li><a href="#remove">remove</a> and <a href="#removesync">removeSync</a>
+<li><a href="#remove.html">remove</a> and <a href="#removesync.html">removeSync</a>
 to remove a file entry with all it's children, if existing</li>
-<li><a href="#move">move</a> and <a href="#movesync">moveSync</a>
+<li><a href="#move.html">move</a> and <a href="#movesync.html">moveSync</a>
 to move a file to another position</li>
-<li><a href="#npmbin">npmbin</a> and <a href="#npmbinsync">npmbinSync</a>
+<li><a href="#npmbin.html">npmbin</a> and <a href="#npmbinsync.html">npmbinSync</a>
 to find a binary in the module or it's parent</li>
-<li><a href="#tempdir">tempdir</a> and <a href="#tempdirsync">tempdirSync</a>
+<li><a href="#tempdir.html">tempdir</a> and <a href="#tempdirsync.html">tempdirSync</a>
 to create a temporary directory</li>
 </ul>
-
 <p>The methods <code>find</code>, <code>copy</code> and <code>remove</code> supports multiple options to filter the
 files they work on.</p>
-
 <p>Like you see all the extended functions use the same naming convention as the
 node core, making the use nearly natural.</p>
-
 <p>But you can still use the native Node.js methods, also. Some of the native
 methods are slightly changed:</p>
-
 <ul>
 <li><code>stat</code> and <code>statSync</code> will now use a short caching for performance reasons</li>
 <li><code>lstat</code> and <code>lstatSync</code> will now use a short caching for performance reasons</li>
 </ul>
-
-
 <div class="pilwrap" id="mkdirs">
   <h3>
-    <a href="#mkdirs" name="mkdirs" class="pilcrow">&#182;</a>
-    mkdirs
+    <a href="#mkdirs" name="mkdirs" class="pilcrow"></a>
+mkdirs
   </h3>
 </div>
-
-
 <p>This method is used to create directories recursively if they don't exist.
 That means if the parent directory didn't exist it will also be created, if
 possible.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>directory</code>
 Directory to create if not existing.</li>
@@ -260,180 +253,126 @@ Mode setting defaults to process's file mode creation mask.</li>
 The callback will be called just if an error occurred. It returns the first
 directory that had to be created, if any.</li>
 </ul>
-
 <p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirs</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">made</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">made</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory starting from &#39;&quot;</span><span class="o">+</span><span class="nx">made</span><span class="o">+</span><span class="s2">&quot;&#39; was created.&quot;</span><span class="p">);</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory now exists!&quot;</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
-
-
-
-
+<pre><code>var fs = require('alinex-fs');
+fs.mkdirs('/tmp/some/directory', function(err, made) {
+  if (err) return console.error(err);
+  if (made) console.log(&quot;Directory starting from '&quot;+made+&quot;' was created.&quot;);
+  console.log(&quot;Directory now exists!&quot;);
+});
+</code></pre>
 <div class="pilwrap" id="mkdirssync">
   <h3>
-    <a href="#mkdirssync" name="mkdirssync" class="pilcrow">&#182;</a>
-    mkdirsSync
+    <a href="#mkdirssync" name="mkdirssync" class="pilcrow"></a>
+mkdirsSync
   </h3>
 </div>
-
-
 <p>This will do the same as <code>mkdirs</code> but in an synchronous version.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>directory</code>
 Directory to create if not existing.</li>
 <li><code>mode</code> (optional)
 Mode setting defaults to process's file mode creation mask.</li>
 </ul>
-
 <p><strong>Return:</strong></p>
-
 <ul>
 <li><code>made</code>
 Returns the directory that had to be created, if any.</li>
 </ul>
-
 <p><strong>Throw:</strong></p>
-
 <ul>
 <li><code>Error</code>
 If anything out of order happened.</li>
 </ul>
-
 <p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="k">try</span> <span class="p">{</span>
-  <span class="nx">made</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirsSync</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">);</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">made</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory starting from &#39;&quot;</span><span class="o">+</span><span class="nx">made</span><span class="o">+</span><span class="s2">&quot;&#39; was created.&quot;</span><span class="p">);</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory now exists!&quot;</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-
-
+<pre><code>var fs = require('alinex-fs');
+try {
+  made = fs.mkdirsSync('/tmp/some/directory');
+  if (made) console.log(&quot;Directory starting from '&quot;+made+&quot;' was created.&quot;);
+  console.log(&quot;Directory now exists!&quot;);
+} catch (err) {
+  return console.error(err);
+}
+</code></pre>
 <div class="pilwrap" id="find">
   <h3>
-    <a href="#find" name="find" class="pilcrow">&#182;</a>
-    find
+    <a href="#find" name="find" class="pilcrow"></a>
+find
   </h3>
 </div>
-
-
 <p>List files within directory matching specific options.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>source</code>
 Path to be searched.</li>
 <li><code>options</code>
-Specification of files to find (see <a href="#filter">filter</a> options).</li>
+Specification of files to find (see <a href="#filter.html">filter</a> options).</li>
 <li><code>callback(err, list)</code>
 The callback will be called just if an error occurred. The list of found
 entries will be given.</li>
 </ul>
-
 <p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="nx">fs</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">include</span><span class="o">:</span> <span class="s1">&#39;*.jpg&#39;</span> <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">list</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s2">&quot; images.&quot;</span><span class="p">);</span>
-  <span class="c1">// do something with list</span>
-<span class="p">});</span>
-</code></pre></div>
-
-
-
-
+<pre><code>var fs = require('alinex-fs');
+fs.find('/tmp/some/directory', { include: '*.jpg' }, function(err, list) {
+  if (err) return console.error(err);
+  console.log(&quot;Found &quot; + list.length + &quot; images.&quot;);
+  // do something with list
+});
+</code></pre>
 <div class="pilwrap" id="findsync">
   <h3>
-    <a href="#findsync" name="findsync" class="pilcrow">&#182;</a>
-    findSync
+    <a href="#findsync" name="findsync" class="pilcrow"></a>
+findSync
   </h3>
 </div>
-
-
 <p>List files within directory matching specific options in a synchronous version.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>source</code>
 Path to be searched.</li>
 <li><code>options</code>
 Specification of files to find</li>
 </ul>
-
 <p><strong>Return:</strong></p>
-
 <ul>
 <li><code>list</code>
-Returns the list of found entries (see <a href="#filter">filter</a> options).</li>
+Returns the list of found entries (see <a href="#filter.html">filter</a> options).</li>
 </ul>
-
 <p><strong>Throw:</strong></p>
-
 <ul>
 <li><code>Error</code>
 If anything out of order happened.</li>
 </ul>
-
 <p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="k">try</span> <span class="p">{</span>
-  <span class="nx">list</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">findSync</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">);</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s2">&quot; images.&quot;</span><span class="p">);</span>
-  <span class="c1">// do something with list</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-
-
+<pre><code>var fs = require('alinex-fs');
+try {
+  list = fs.findSync('/tmp/some/directory');
+  console.log(&quot;Found &quot; + list.length + &quot; images.&quot;);
+  // do something with list
+} catch (err) {
+  return console.error(err);
+}
+</code></pre>
 <div class="pilwrap" id="copy">
   <h3>
-    <a href="#copy" name="copy" class="pilcrow">&#182;</a>
-    copy
+    <a href="#copy" name="copy" class="pilcrow"></a>
+copy
   </h3>
 </div>
-
-
 <p>Copy complete directories in a recursive way.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>source</code>
 File or directory to be copied.</li>
 <li><code>target</code>
 File or directory to copy to.</li>
 <li><code>options</code>
-Specification of files to find (see <a href="#filter">filter</a> options).</li>
+Specification of files to find (see <a href="#filter.html">filter</a> options).</li>
 <li><code>callback(err)</code>
 The callback will be called just if an error occurred.</li>
 </ul>
-
 <p><strong>Additional Options:</strong></p>
-
 <ul>
 <li><code>overwrite</code>
 if set to <code>true</code> it will not fail if destination file already exists and
@@ -442,58 +381,40 @@ overwrite it</li>
 if set to <code>true</code> it will not fail if destination file already exists, skip
 this and go on with the next file</li>
 </ul>
-
 <p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="nx">fs</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="s1">&#39;/new/destination&#39;</span><span class="p">,</span>
-<span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory copied!&quot;</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
-
-
-
+<pre><code>var fs = require('alinex-fs');
+fs.copy('/tmp/some/directory', '/new/destination',
+function(err) {
+  if (err) return console.error(err);
+  console.log(&quot;Directory copied!&quot;);
+});
+</code></pre>
 <p>Or to copy all js files and overwrite existing:</p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="nx">fs</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="s1">&#39;/new/destination&#39;</span><span class="p">,</span>
-<span class="p">{</span> <span class="nx">includes</span><span class="o">:</span> <span class="s1">&#39;*.js&#39;</span><span class="p">,</span> <span class="nx">overwrite</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span>
-<span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory copied!&quot;</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
-
-
-
-
+<pre><code>var fs = require('alinex-fs');
+fs.copy('/tmp/some/directory', '/new/destination',
+{ includes: '*.js', overwrite: true },
+function(err) {
+  if (err) return console.error(err);
+  console.log(&quot;Directory copied!&quot;);
+});
+</code></pre>
 <div class="pilwrap" id="copysync">
   <h3>
-    <a href="#copysync" name="copysync" class="pilcrow">&#182;</a>
-    copySync
+    <a href="#copysync" name="copysync" class="pilcrow"></a>
+copySync
   </h3>
 </div>
-
-
 <p>Copy complete directories in a recursive way (synchronous).</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>source</code>
 File or directory to be copied.</li>
 <li><code>target</code>
 File or directory to copy to.</li>
 <li><code>options</code>
-Specification of files to find (see <a href="#filter">filter</a> options).</li>
+Specification of files to find (see <a href="#filter.html">filter</a> options).</li>
 </ul>
-
 <p><strong>Additional Options:</strong></p>
-
 <ul>
 <li><code>overwrite</code>
 if set to <code>true</code> it will not fail if destination file already exists and
@@ -502,50 +423,35 @@ overwrite it</li>
 if set to <code>true</code> it will not fail if destination file already exists, skip
 this and go on with the next file</li>
 </ul>
-
 <p><strong>Throw:</strong></p>
-
 <ul>
 <li><code>Error</code>
 If anything out of order happened.</li>
 </ul>
-
 <p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="nx">fs</span><span class="p">.</span><span class="nx">copySync</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="s1">&#39;/new/destination&#39;</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory copied!&quot;</span><span class="p">);</span>
-</code></pre></div>
-
-
-
-
+<pre><code>var fs = require('alinex-fs');
+fs.copySync('/tmp/some/directory', '/new/destination');
+console.log(&quot;Directory copied!&quot;);
+</code></pre>
 <div class="pilwrap" id="move">
   <h3>
-    <a href="#move" name="move" class="pilcrow">&#182;</a>
-    move
+    <a href="#move" name="move" class="pilcrow"></a>
+move
   </h3>
 </div>
-
-
 <p>This method will move a single file or complete directory like <code>mv</code>.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>source</code>
 File or directory to be copied.</li>
 <li><code>target</code>
 File or directory to copy to.</li>
 <li><code>options</code>
-Specification of files to find (see <a href="#filter">filter</a> options).</li>
+Specification of files to find (see <a href="#filter.html">filter</a> options).</li>
 <li><code>callback(err)</code>
 The callback will be called just if an error occurred.</li>
 </ul>
-
 <p><strong>Additional Options:</strong></p>
-
 <ul>
 <li><code>overwrite</code>
 if set to <code>true</code> it will not fail if destination file already exists and
@@ -553,46 +459,32 @@ overwrite it</li>
 <li><code>clean</code>
 if set to <code>true</code> it will clean old files from target.</li>
 </ul>
-
 <p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="nx">fs</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="s1">&#39;/new/destination&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory copied!&quot;</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
-
-
-
+<pre><code>var fs = require('alinex-fs');
+fs.copy('/tmp/some/directory', '/new/destination', function(err) {
+  if (err) return console.error(err);
+  console.log(&quot;Directory copied!&quot;);
+});
+</code></pre>
 <p>You may also use options to specify which files within the source directory to
 move.</p>
-
-
 <div class="pilwrap" id="movesync">
   <h3>
-    <a href="#movesync" name="movesync" class="pilcrow">&#182;</a>
-    moveSync
+    <a href="#movesync" name="movesync" class="pilcrow"></a>
+moveSync
   </h3>
 </div>
-
-
 <p>This method will move a single file or complete directory like <code>mv</code>.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>source</code>
 File or directory to be copied.</li>
 <li><code>target</code>
 File or directory to copy to.</li>
 <li><code>options</code>
-Specification of files to find (see <a href="#filter">filter</a> options).</li>
+Specification of files to find (see <a href="#filter.html">filter</a> options).</li>
 </ul>
-
 <p><strong>Additional Options:</strong></p>
-
 <ul>
 <li><code>overwrite</code>
 if set to <code>true</code> it will not fail if destination file already exists and
@@ -600,127 +492,87 @@ overwrite it</li>
 <li><code>clean</code>
 if set to <code>true</code> it will clean old files from target.</li>
 </ul>
-
 <p><strong>Throw:</strong></p>
-
 <ul>
 <li><code>Error</code>
 If anything out of order happened.</li>
 </ul>
-
 <p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="nx">fs</span><span class="p">.</span><span class="nx">moveSync</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="s1">&#39;/new/destination&#39;</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory moved!&quot;</span><span class="p">);</span>
-</code></pre></div>
-
-
-
+<pre><code>var fs = require('alinex-fs');
+fs.moveSync('/tmp/some/directory', '/new/destination');
+console.log(&quot;Directory moved!&quot;);
+</code></pre>
 <p>You may also use options to specify which files within the source directory to
 move.</p>
-
-
 <div class="pilwrap" id="remove">
   <h3>
-    <a href="#remove" name="remove" class="pilcrow">&#182;</a>
-    remove
+    <a href="#remove" name="remove" class="pilcrow"></a>
+remove
   </h3>
 </div>
-
-
 <p>This method will remove the given <code>path</code> entry and if it is a directory it
 will also remove any containing data.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>path</code>
 File or directory to be removed.</li>
 <li><code>options</code>
-Specification of files to remove (see <a href="#filter">filter</a> options).</li>
+Specification of files to remove (see <a href="#filter.html">filter</a> options).</li>
 <li><code>callback(err, removed)</code>
 The callback will be called just if an error occurred. It returns the
 file entry which was removed, if any.</li>
 </ul>
-
 <p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">removed</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">removed</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory &#39;&quot;</span><span class="o">+</span><span class="nx">removed</span><span class="o">+</span><span class="s2">&quot;&#39; was removed with all it&#39;s contents.&quot;</span><span class="p">);</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory no longer exists!&quot;</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
-
-
-
-
+<pre><code>var fs = require('alinex-fs');
+fs.remove('/tmp/some/directory', function(err, removed) {
+  if (err) return console.error(err);
+  if (removed) console.log(&quot;Directory '&quot;+removed+&quot;' was removed with all it's contents.&quot;);
+  console.log(&quot;Directory no longer exists!&quot;);
+});
+</code></pre>
 <div class="pilwrap" id="removesync">
   <h3>
-    <a href="#removesync" name="removesync" class="pilcrow">&#182;</a>
-    removeSync
+    <a href="#removesync" name="removesync" class="pilcrow"></a>
+removeSync
   </h3>
 </div>
-
-
 <p>This will do the same as <code>remove</code> but in an synchronous version.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>path</code>
 File or directory to create if not existing.</li>
 <li><code>options</code>
-Specification of files to remove (see <a href="#filter">filter</a> options).</li>
+Specification of files to remove (see <a href="#filter.html">filter</a> options).</li>
 </ul>
-
 <p><strong>Return:</strong></p>
-
 <ul>
 <li><code>removed</code>
 Returns the file entry which was removed.</li>
 </ul>
-
 <p><strong>Throw:</strong></p>
-
 <ul>
 <li><code>Error</code>
 If anything out of order happened.</li>
 </ul>
-
 <p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="k">try</span> <span class="p">{</span>
-  <span class="nx">made</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">removeSync</span><span class="p">(</span><span class="s1">&#39;/tmp/some/directory&#39;</span><span class="p">);</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">made</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory &#39;&quot;</span><span class="o">+</span><span class="nx">made</span><span class="o">+</span><span class="s2">&quot;&#39; was removed with all it&#39;s contents.&quot;</span><span class="p">);</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Directory no longer exists!&quot;</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-
-
+<pre><code>var fs = require('alinex-fs');
+try {
+  made = fs.removeSync('/tmp/some/directory');
+  if (made) console.log(&quot;Directory '&quot;+made+&quot;' was removed with all it's contents.&quot;);
+  console.log(&quot;Directory no longer exists!&quot;);
+} catch (err) {
+  return console.error(err);
+}
+</code></pre>
 <div class="pilwrap" id="npmbin">
   <h3>
-    <a href="#npmbin" name="npmbin" class="pilcrow">&#182;</a>
-    npmbin
+    <a href="#npmbin" name="npmbin" class="pilcrow"></a>
+npmbin
   </h3>
 </div>
-
-
 <p>Find the defined binary in node_modules directories. It will search in the current
 and upper package directories.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>bin</code>
 name of the binary to search for</li>
@@ -730,69 +582,45 @@ Module directory to start search from.</li>
 The callback will be called just if an error occurred or after finished.
 The command path to be called.</li>
 </ul>
-
 <p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span><span class="p">(</span><span class="s1">&#39;coffee&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">cmd</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Coffee command found at:&quot;</span><span class="o">+</span><span class="nx">cmd</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
-
-
-
-
+<pre><code>var fs = require('alinex-fs');
+fs.npmbin('coffee', function(err, cmd) {
+  console.log(&quot;Coffee command found at:&quot;+cmd);
+});
+</code></pre>
 <div class="pilwrap" id="npmbinsync">
   <h3>
-    <a href="#npmbinsync" name="npmbinsync" class="pilcrow">&#182;</a>
-    npmbinSync
+    <a href="#npmbinsync" name="npmbinsync" class="pilcrow"></a>
+npmbinSync
   </h3>
 </div>
-
-
 <p>Find the defined binary in node_modules directories. It will search in the current
 and upper package directories.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>bin</code>
 name of the binary to search for</li>
 <li><code>dir</code>
 Module directory to start search from.</li>
 </ul>
-
 <p><strong>Return:</strong></p>
-
 <ul>
 <li><code>cmd</code>
 the command path to be called.</li>
 </ul>
-
 <p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="nx">cmd</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span><span class="p">(</span><span class="s1">&#39;coffee&#39;</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Coffee command found at:&quot;</span><span class="o">+</span><span class="nx">cmd</span><span class="p">);</span>
-</code></pre></div>
-
-
-
-
+<pre><code>var fs = require('alinex-fs');
+cmd = fs.npmbin('coffee');
+console.log(&quot;Coffee command found at:&quot;+cmd);
+</code></pre>
 <div class="pilwrap" id="tempdir">
   <h3>
-    <a href="#tempdir" name="tempdir" class="pilcrow">&#182;</a>
-    tempdir
+    <a href="#tempdir" name="tempdir" class="pilcrow"></a>
+tempdir
   </h3>
 </div>
-
-
 <p>Create a temporary directory.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>base</code>
 path under which the directory should be created (defaults to os setting)</li>
@@ -802,69 +630,46 @@ prefix string to use</li>
 The callback will be called just if an error occurred or after finished.
 It returns the newly created directory.</li>
 </ul>
-
 <p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="nx">fs</span><span class="p">.</span><span class="nx">tempdir</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">dir</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Temporary directory is: &quot;</span><span class="o">+</span><span class="nx">dir</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
-
-
-
-
+<pre><code>var fs = require('alinex-fs');
+fs.tempdir(function(err, dir) {
+  console.log(&quot;Temporary directory is: &quot;+dir);
+});
+</code></pre>
 <div class="pilwrap" id="tempdirsync">
   <h3>
-    <a href="#tempdirsync" name="tempdirsync" class="pilcrow">&#182;</a>
-    tempdirSync
+    <a href="#tempdirsync" name="tempdirsync" class="pilcrow"></a>
+tempdirSync
   </h3>
 </div>
-
-
 <p>Create a temporary directory.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>base</code>
 path under which the directory should be created (defaults to os setting)</li>
 <li><code>prefix</code>
 prefix string to use</li>
 </ul>
-
 <p><strong>Return:</strong></p>
-
 <ul>
 <li><code>dir</code>
 it returns the newly created directory.</li>
 </ul>
-
 <p><strong>Example:</strong></p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-fs&#39;</span><span class="p">);</span>
-<span class="nx">dir</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">tempdir</span><span class="p">();</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Temporary directory is: &quot;</span><span class="o">+</span><span class="nx">dir</span><span class="p">);</span>
-</code></pre></div>
-
-
-
-
+<pre><code>var fs = require('alinex-fs');
+dir = fs.tempdir();
+console.log(&quot;Temporary directory is: &quot;+dir);
+</code></pre>
 <div class="pilwrap" id="filter">
   <h2>
-    <a href="#filter" name="filter" class="pilcrow">&#182;</a>
-    Filter
+    <a href="#filter" name="filter" class="pilcrow"></a>
+Filter
   </h2>
 </div>
-
-
 <p>The filter is used to select some of the files based on specific settings.
 The filter is given as options array which may have some of the following
 specification settings.
 Additionally some methods may have special options for filtering.</p>
-
 <ul>
 <li><code>include</code> to specify a inclusion pattern</li>
 <li><code>exclude</code> to specify an exclusion pattern</li>
@@ -886,110 +691,79 @@ Additionally some methods may have special options for filtering.</p>
 <li><code>createdAfter</code></li>
 <li><code>createdBefore</code></li>
 </ul>
-
 <p>If you use multiple options all of them have to match the file to be valid.
 See the details below.</p>
-
-
-<div class="pilwrap" id="file%2Fpath%20matching">
+<div class="pilwrap" id="filepath-matching">
   <h3>
-    <a href="#file%2Fpath%20matching" name="file%2Fpath%20matching" class="pilcrow">&#182;</a>
-    File/path matching
+    <a href="#filepath-matching" name="filepath-matching" class="pilcrow"></a>
+File/path matching
   </h3>
 </div>
-
-
 <p>This is based on glob expressions like used in unix systems. You may use these
 as the <code>include</code> or <code>exclude</code> pattern while the <code>exclude</code> pattern has the higher
 priority. All files are matched which are in the include pattern and not in the
 exclude pattern.</p>
-
 <p>The pattern may be a regular expression or a glob pattern string with
 the following specification:</p>
-
 <p>To use one of the special characters <code>*</code>, <code>?</code> or <code>[</code> you have to preceed it with an
 backslash.</p>
-
 <p>The patter may contain:</p>
-
 <ul>
 <li><code>?</code> (not between brackets) matches any single character.</li>
 <li><code>*</code> (not between brackets) matches any string, including the empty string.</li>
 <li><code>**</code> (not between brackets) matches any string and also includes the path separator.</li>
 </ul>
-
 <p>Character groups:</p>
-
 <ul>
 <li><code>[ade]</code> or <code>[a-z]</code> Matches any one of the enclosed characters ranges can be given using a hyphen.</li>
 <li><code>[!ade]</code> or <code>[!a-z]</code> negates the search and matches any character not enclosed.</li>
 <li><code>[^ade]</code> or <code>[^a-z]</code> negates the search and matches any character not enclosed.</li>
 </ul>
-
 <p>Brace Expansion:</p>
-
 <ul>
 <li><code>{a,b}</code> will be expanded to <code>a</code> or <code>b</code></li>
 <li><code>{a,b{c,d}}</code> stacked to match <code>a</code>, <code>bc</code> or <code>bd</code></li>
 <li><code>{1..3}</code> will be expanded to <code>1</code> or <code>2</code> or <code>3</code></li>
 </ul>
-
 <p>Extended globbing is also possible:</p>
-
 <ul>
 <li>?(list): Matches zero or one occurrence of the given patterns.</li>
 <li>*(list): Matches zero or more occurrences of the given patterns.</li>
 <li>+(list): Matches one or more occurrences of the given patterns.</li>
 <li>@(list): Matches one of the given patterns.</li>
 </ul>
-
-
 <div class="pilwrap" id="dereferencing">
   <h3>
-    <a href="#dereferencing" name="dereferencing" class="pilcrow">&#182;</a>
-    Dereferencing
+    <a href="#dereferencing" name="dereferencing" class="pilcrow"></a>
+Dereferencing
   </h3>
 </div>
-
-
 <p>Normally the methods will not go into symbolic links. They will see the symbolic
 link as itself. Using the option <code>dereference: true</code> this behavior will change
 and they will follow the symbolic link and check the path it refers to. This
 means that they will also go into referenced directories.</p>
-
 <p>You may also use the option <code>ignoreErrors: true</code> to ignore dead symlinks
 otherwise an error is created.</p>
-
-
-<div class="pilwrap" id="search%20depth">
+<div class="pilwrap" id="search-depth">
   <h3>
-    <a href="#search%20depth" name="search%20depth" class="pilcrow">&#182;</a>
-    Search depth
+    <a href="#search-depth" name="search-depth" class="pilcrow"></a>
+Search depth
   </h3>
 </div>
-
-
 <p>The search depth specifies in which level of subdirectories the filter will match.
 1 means everything in the given directory, 2 one level deeper.</p>
-
 <ul>
 <li><code>mindepth</code> minimal depth to match</li>
 <li><code>maxdepth</code> maximal depth to match</li>
 </ul>
-
-
-<div class="pilwrap" id="file%20type">
+<div class="pilwrap" id="file-type">
   <h3>
-    <a href="#file%20type" name="file%20type" class="pilcrow">&#182;</a>
-    File type
+    <a href="#file-type" name="file-type" class="pilcrow"></a>
+File type
   </h3>
 </div>
-
-
 <p>Use <code>type</code> to specify which type of file you want to use.</p>
-
 <p>Possible values:</p>
-
 <ul>
 <li><code>file</code>, <code>f</code></li>
 <li><code>directory</code>, <code>dir</code>, <code>d</code></li>
@@ -997,61 +771,43 @@ otherwise an error is created.</p>
 <li><code>fifo</code>, <code>pipe</code>, <code>p</code></li>
 <li><code>socket</code>, <code>s</code></li>
 </ul>
-
-
-<div class="pilwrap" id="file%20size">
+<div class="pilwrap" id="file-size">
   <h3>
-    <a href="#file%20size" name="file%20size" class="pilcrow">&#182;</a>
-    File size
+    <a href="#file-size" name="file-size" class="pilcrow"></a>
+File size
   </h3>
 </div>
-
-
 <p>With the <code>minsize</code> and  <code>maxsize</code> options it is possible to specify the exact
 size of the matching files in bytes:</p>
-
 <ul>
 <li>use an integer value as number of bytes</li>
 <li>use a string like <code>1M</code> or <code>100k</code></li>
 </ul>
-
-
-<div class="pilwrap" id="owner%20and%20group">
+<div class="pilwrap" id="owner-and-group">
   <h3>
-    <a href="#owner%20and%20group" name="owner%20and%20group" class="pilcrow">&#182;</a>
-    Owner and Group
+    <a href="#owner-and-group" name="owner-and-group" class="pilcrow"></a>
+Owner and Group
   </h3>
 </div>
-
-
 <p>You may also specify files based on the user which owns the files or the group
 of the files.</p>
-
 <p>Both may be specified as id (uid or gid) or using the alias name.</p>
-
-
-<div class="pilwrap" id="time%20specification">
+<div class="pilwrap" id="time-specification">
   <h3>
-    <a href="#time%20specification" name="time%20specification" class="pilcrow">&#182;</a>
-    Time specification
+    <a href="#time-specification" name="time-specification" class="pilcrow"></a>
+Time specification
   </h3>
 </div>
-
-
 <p>It is also possible to select files based on their <code>creation</code>, last <code>modified</code>
 or last <code>accessed</code> time.</p>
-
 <p>Specify the <code>Before</code> and <code>After</code> time appended to one of the above as:</p>
-
 <ul>
 <li>Unix timestamp</li>
 <li>ISO-8601 date formats</li>
 <li>some local formats (based on platform support for Date.parse())</li>
 <li>time difference from now (human readable)</li>
 </ul>
-
 <p>The following time definitions are an example what you may use:</p>
-
 <ul>
 <li><code>yesterday</code>, <code>2 days ago</code>, <code>last Monday</code> to specify a day from now</li>
 <li><code>yesterday 15:00</code>, <code>yesterday at 15:00</code> to also specify the time</li>
@@ -1060,81 +816,55 @@ or last <code>accessed</code> time.</p>
 <li><code>9:00</code>, <code>9:00 GMT+0900</code> to specify a time today or in combination with a date</li>
 <li><code>last night</code>, <code>00:00</code></li>
 </ul>
-
 <p>If only a day is given it will use 12:00 as the time.</p>
-
 <p><strong>Examle</strong></p>
-
-
-<div class="highlight"><pre><code><span class="nx">modifiedBefore</span><span class="o">:</span> <span class="s1">&#39;yesterday 12:00&#39;</span>
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="user%20defined%20function">
+<pre><code>modifiedBefore: 'yesterday 12:00'
+</code></pre>
+<div class="pilwrap" id="user-defined-function">
   <h3>
-    <a href="#user%20defined%20function" name="user%20defined%20function" class="pilcrow">&#182;</a>
-    User defined function
+    <a href="#user-defined-function" name="user-defined-function" class="pilcrow"></a>
+User defined function
   </h3>
 </div>
-
-
 <p>With the <code>test</code> parameter you may add an user defined function which will be
 called to check each file. It will get the file path and options array so you
 may also add some configuration therefore in additional option values.</p>
-
 <p>Asynchrony call:</p>
-
-
-<div class="highlight"><pre><code><span class="nx">fs</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">test</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">cb</span><span class="p">(</span><span class="o">~</span><span class="nx">file</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;ab&#39;</span><span class="p">));</span>
-  <span class="p">}</span>
-<span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">list</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s2">&quot; matches.&quot;</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
-
-
-
+<pre><code>fs.find('.', {
+  test: function(file, options, cb) {
+    cb(~file.indexOf('ab'));
+  }
+}, function(err, list) {
+  console.log(&quot;Found &quot; + list.length + &quot; matches.&quot;);
+});
+</code></pre>
 <p>Or use synchrony calls:</p>
-
-
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">list</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">findSync</span><span class="p">(</span><span class="s1">&#39;test/temp&#39;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">test</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fil</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="o">~</span><span class="nx">file</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;ab&#39;</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s2">&quot; matches.&quot;</span><span class="p">);</span>
-</code></pre></div>
-
-
-
-
+<pre><code>var list = fs.findSync('test/temp', {
+  test: function(fil, options) {
+    return ~file.indexOf('ab');
+  }
+});
+console.log(&quot;Found &quot; + list.length + &quot; matches.&quot;);
+</code></pre>
 <div class="pilwrap" id="license">
   <h2>
-    <a href="#license" name="license" class="pilcrow">&#182;</a>
-    License
+    <a href="#license" name="license" class="pilcrow"></a>
+License
   </h2>
 </div>
-
-
 <p>Copyright 201-2016 Alexander Schilling</p>
-
-<p>Licensed under the Apache License, Version 2.0 (the "License");
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
-
 <blockquote>
-  <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
 </blockquote>
-
 <p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.</p></div>
+limitations under the License.</p>
+</div>
   </div>
 </body>
 </html>

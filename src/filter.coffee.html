@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-fs/src/filter.coffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-fs/src/filter.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,110 +39,126 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#extension%20of%20nodes%20fs%20utils">Extension of nodes fs utils</a>
+        <a href="#extension-of-nodes-fs-utils">Extension of nodes fs utils</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#find%20files">Find files</a>
+        <a href="#find-files">Find files</a>
       </div>
+
       <div class="heading h2">
-        <a href="#find%20files%20(synchronous)">Find files (synchronous)</a>
+        <a href="#find-files-synchronous">Find files (synchronous)</a>
       </div>
+
       <div class="heading h2">
-        <a href="#skip%20methods">Skip Methods</a>
+        <a href="#skip-methods">Skip Methods</a>
       </div>
+
       <div class="heading h3">
-        <a href="#test%20the%20path">Test the path</a>
+        <a href="#test-the-path">Test the path</a>
       </div>
+
       <div class="heading h3">
-        <a href="#test%20the%20file%20depth">Test the file depth</a>
+        <a href="#test-the-file-depth">Test the file depth</a>
       </div>
+
       <div class="heading h3">
-        <a href="#test%20the%20file%20type">Test the file type</a>
+        <a href="#test-the-file-type">Test the file type</a>
       </div>
+
       <div class="heading h3">
-        <a href="#test%20for%20filesize">Test for filesize</a>
+        <a href="#test-for-filesize">Test for filesize</a>
       </div>
+
       <div class="heading h3">
-        <a href="#check%20the%20owwner%20and%20group">Check the owwner and group</a>
+        <a href="#check-the-owwner-and-group">Check the owwner and group</a>
       </div>
+
       <div class="heading h3">
-        <a href="#user%20provided%20test">User provided test</a>
+        <a href="#user-provided-test">User provided test</a>
       </div>
+
       <div class="heading h3">
-        <a href="#check%20file%20times">Check file times</a>
+        <a href="#check-file-times">Check file times</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="extension%20of%20nodes%20fs%20utils">
+          <div class="pilwrap" id="extension-of-nodes-fs-utils">
   <h1>
-    <a href="#extension%20of%20nodes%20fs%20utils" name="extension%20of%20nodes%20fs%20utils" class="pilcrow">&#182;</a>
-    Extension of nodes fs utils
+    <a href="#extension-of-nodes-fs-utils" name="extension-of-nodes-fs-utils" class="pilcrow"></a>
+Extension of nodes fs utils
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
-<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
-<span class="nv">chrono = </span><span class="nx">require</span> <span class="s">&#39;chrono-node&#39;</span>
-<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;fs:filter&#39;</span><span class="p">)</span>
-<span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
+path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
+chrono = <span class="hljs-built_in">require</span> <span class="hljs-string">'chrono-node'</span>
+debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'fs:filter'</span>)
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="find%20files">
+          <div class="pilwrap" id="find-files">
   <h2>
-    <a href="#find%20files" name="find%20files" class="pilcrow">&#182;</a>
-    Find files
+    <a href="#find-files" name="find-files" class="pilcrow"></a>
+Find files
   </h2>
 </div>
-
-
 <p>This method will check a given file/path against some filter options.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>file</code>
 File to check against filter</li>
@@ -142,40 +169,37 @@ Specification of files to success.</li>
 <li><code>callback(success)</code>
 The callback will be called with a boolean value showing if file is accepted.</li>
 </ul>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports.async = </span><span class="nf">(file, depth, options = {}, cb = -&gt; ) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span> <span class="kc">true</span> <span class="k">unless</span> <span class="nx">options</span><span class="o">?</span> <span class="o">and</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">options</span><span class="p">).</span><span class="nx">length</span>
-  <span class="nx">debug</span> <span class="s">&quot;check </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> for &quot;</span> <span class="o">+</span> <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">options</span>
-  <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
-    <span class="nf">(cb) -&gt;</span> <span class="nx">skipDepth</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="nf">(cb) -&gt;</span> <span class="nx">skipPath</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="nf">(cb) -&gt;</span> <span class="nx">skipType</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="nf">(cb) -&gt;</span> <span class="nx">skipSize</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="nf">(cb) -&gt;</span> <span class="nx">skipTime</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="nf">(cb) -&gt;</span> <span class="nx">skipOwner</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="nf">(cb) -&gt;</span> <span class="nx">skipFunction</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-  <span class="p">],</span> <span class="nf">(skip) -&gt;</span>
-    <span class="nx">cb</span> <span class="o">not</span> <span class="nx">skip</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports.async = <span class="hljs-function"><span class="hljs-params">(file, depth, options = {}, cb = -&gt; )</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb <span class="hljs-literal">true</span> <span class="hljs-keyword">unless</span> options? <span class="hljs-keyword">and</span> Object.keys(options).length
+  debug <span class="hljs-string">"check <span class="hljs-subst">#{file}</span> for "</span> + util.inspect options
+  async.parallel [
+    (cb) -&gt; skipDepth file, depth, options, cb
+    (cb) -&gt; skipPath file, options, cb
+    (cb) -&gt; skipType file, options, cb
+    (cb) -&gt; skipSize file, options, cb
+    (cb) -&gt; skipTime file, options, cb
+    (cb) -&gt; skipOwner file, options, cb
+    (cb) -&gt; skipFunction file, options, cb
+  ], <span class="hljs-function"><span class="hljs-params">(skip)</span> -&gt;</span>
+    cb <span class="hljs-keyword">not</span> skip
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="find%20files%20(synchronous)">
+          <div class="pilwrap" id="find-files-synchronous">
   <h2>
-    <a href="#find%20files%20(synchronous)" name="find%20files%20(synchronous)" class="pilcrow">&#182;</a>
-    Find files (synchronous)
+    <a href="#find-files-synchronous" name="find-files-synchronous" class="pilcrow"></a>
+Find files (synchronous)
   </h2>
 </div>
-
-
 <p>This method will check a given file/path against some filter options.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>file</code>
 File to check against filter</li>
@@ -184,497 +208,494 @@ Search depth as integer (internal parameter).</li>
 <li><code>options</code>
 Specification of files to success.</li>
 </ul>
-
 <p><strong>Return:</strong></p>
-
 <ul>
 <li><code>success</code>
 The callback will be called with a boolean value showing if file is accepted.</li>
 </ul>
-
 <p>The options are the same as in the asynchronous method.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports.sync = </span><span class="nf">(file, depth, options = {}) -&gt;</span>
-  <span class="k">return</span> <span class="kc">true</span> <span class="k">unless</span> <span class="nx">options</span><span class="o">?</span> <span class="o">and</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">options</span><span class="p">).</span><span class="nx">length</span>
-  <span class="nx">debug</span> <span class="s">&quot;check </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> for &quot;</span> <span class="o">+</span> <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">options</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipTypeSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipDepthSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipPathSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipSizeSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipTimeSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipOwnerSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">skipFunctionSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="kc">true</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports.sync = <span class="hljs-function"><span class="hljs-params">(file, depth, options = {})</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span> <span class="hljs-keyword">unless</span> options? <span class="hljs-keyword">and</span> Object.keys(options).length
+  debug <span class="hljs-string">"check <span class="hljs-subst">#{file}</span> for "</span> + util.inspect options
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> skipTypeSync file, options
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> skipDepthSync file, depth, options
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> skipPathSync file, options
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> skipSizeSync file, options
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> skipTimeSync file, options
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> skipOwnerSync file, options
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> skipFunctionSync file, options
+  <span class="hljs-literal">true</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="skip%20methods">
+          <div class="pilwrap" id="skip-methods">
   <h2>
-    <a href="#skip%20methods" name="skip%20methods" class="pilcrow">&#182;</a>
-    Skip Methods
+    <a href="#skip-methods" name="skip-methods" class="pilcrow"></a>
+Skip Methods
   </h2>
 </div>
-
-
 <p>The following methods will throw/return an boolean true as error if the file
 failed an specific test and therefore should not be included. If test is passed
 successfully it will return nothing.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="test%20the%20path">
+          <div class="pilwrap" id="test-the-path">
   <h3>
-    <a href="#test%20the%20path" name="test%20the%20path" class="pilcrow">&#182;</a>
-    Test the path
+    <a href="#test-the-path" name="test-the-path" class="pilcrow"></a>
+Test the path
   </h3>
 </div>
-
-
 <p>This is done using Minimatch or RegExp</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">skipPath = </span><span class="nf">(file, options, cb) -&gt;</span>
-  <span class="nx">cb</span> <span class="nx">skipPathSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">skipPath</span> = <span class="hljs-params">(file, options, cb)</span> -&gt;</span>
+  cb skipPathSync file, options
+<span class="hljs-function">
+<span class="hljs-title">skipPathSync</span> = <span class="hljs-params">(file, options)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> options.include <span class="hljs-keyword">or</span> options.exclude
+  <span class="hljs-keyword">if</span> options.include
+    <span class="hljs-keyword">if</span> options.include <span class="hljs-keyword">instanceof</span> RegExp
+      <span class="hljs-keyword">unless</span> file.match options.include
+        debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because path not included (regexp)"</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> options.include <span class="hljs-keyword">is</span> path.basename file
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">else</span>
+      minimatch = <span class="hljs-built_in">require</span> <span class="hljs-string">'minimatch'</span>
+      <span class="hljs-keyword">unless</span> minimatch file, options.include, {<span class="hljs-attribute">matchBase</span>: <span class="hljs-literal">true</span>}
+        debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because path not included (glob)"</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">if</span> options.exclude
+    <span class="hljs-keyword">if</span> options.exclude <span class="hljs-keyword">instanceof</span> RegExp
+      <span class="hljs-keyword">if</span> file.match options.exclude
+        debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because path excluded (regexp)"</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> options.exclude <span class="hljs-keyword">is</span> path.basename file
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    <span class="hljs-keyword">else</span>
+      minimatch = <span class="hljs-built_in">require</span> <span class="hljs-string">'minimatch'</span>
+      <span class="hljs-keyword">if</span> minimatch file, options.exclude, {<span class="hljs-attribute">matchBase</span>: <span class="hljs-literal">true</span>}
+        debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because path excluded (glob)"</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
 
-<span class="nv">skipPathSync = </span><span class="nf">(file, options) -&gt;</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
-  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span>
-    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span> <span class="k">instanceof</span> <span class="nb">RegExp</span>
-      <span class="k">unless</span> <span class="nx">file</span><span class="p">.</span><span class="nx">match</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span>
-        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path not included (regexp)&quot;</span>
-        <span class="k">return</span> <span class="kc">true</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span> <span class="o">is</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">file</span>
-      <span class="k">return</span> <span class="kc">false</span>
-    <span class="k">else</span>
-      <span class="nv">minimatch = </span><span class="nx">require</span> <span class="s">&#39;minimatch&#39;</span>
-      <span class="k">unless</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">include</span><span class="p">,</span> <span class="p">{</span><span class="nv">matchBase: </span><span class="kc">true</span><span class="p">}</span>
-        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path not included (glob)&quot;</span>
-        <span class="k">return</span> <span class="kc">true</span>
-  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
-    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span> <span class="k">instanceof</span> <span class="nb">RegExp</span>
-      <span class="k">if</span> <span class="nx">file</span><span class="p">.</span><span class="nx">match</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span>
-        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path excluded (regexp)&quot;</span>
-        <span class="k">return</span> <span class="kc">true</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span> <span class="o">is</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">file</span>
-      <span class="k">return</span> <span class="kc">true</span>
-    <span class="k">else</span>
-      <span class="nv">minimatch = </span><span class="nx">require</span> <span class="s">&#39;minimatch&#39;</span>
-      <span class="k">if</span> <span class="nx">minimatch</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">exclude</span><span class="p">,</span> <span class="p">{</span><span class="nv">matchBase: </span><span class="kc">true</span><span class="p">}</span>
-        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because path excluded (glob)&quot;</span>
-        <span class="k">return</span> <span class="kc">true</span>
-  <span class="k">return</span> <span class="kc">false</span>
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="test%20the%20file%20depth">
+          <div class="pilwrap" id="test-the-file-depth">
   <h3>
-    <a href="#test%20the%20file%20depth" name="test%20the%20file%20depth" class="pilcrow">&#182;</a>
-    Test the file depth
+    <a href="#test-the-file-depth" name="test-the-file-depth" class="pilcrow"></a>
+Test the file depth
   </h3>
 </div>
-
-
 <p>The depth calculation has to be done in the traversing method this will only
 check the value against the options.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">skipDepth = </span><span class="nf">(file, depth, options, cb) -&gt;</span>
-  <span class="nx">cb</span> <span class="nx">skipDepthSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">skipDepth</span> = <span class="hljs-params">(file, depth, options, cb)</span> -&gt;</span>
+  cb skipDepthSync file, depth, options
+<span class="hljs-function">
+<span class="hljs-title">skipDepthSync</span> = <span class="hljs-params">(file, depth, options)</span> -&gt;</span>
+  skip = (options.mindepth? <span class="hljs-keyword">and</span> options.mindepth &gt; depth) <span class="hljs-keyword">or</span>
+    (options.maxdepth? <span class="hljs-keyword">and</span> options.maxdepth &lt; depth)
+  debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because not in specified depth"</span> <span class="hljs-keyword">if</span> skip
+  <span class="hljs-keyword">return</span> skip
+<span class="hljs-function">
+<span class="hljs-title">filestat</span> = <span class="hljs-params">(file, options, cb)</span> -&gt;</span>
+  stat = <span class="hljs-keyword">if</span> options.dereference? <span class="hljs-keyword">then</span> fs.stat <span class="hljs-keyword">else</span> fs.lstat
+  stat file, <span class="hljs-function"><span class="hljs-params">(err, stats)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> options.dereference?
+      debug <span class="hljs-string">"error resolving <span class="hljs-subst">#{file}</span> link"</span>
+      <span class="hljs-keyword">return</span> filestat file, {}, cb
+    cb err, stats
+<span class="hljs-function">
+<span class="hljs-title">filestatSync</span> = <span class="hljs-params">(file, options)</span> -&gt;</span>
+  stat = <span class="hljs-keyword">if</span> options.dereference? <span class="hljs-keyword">then</span> fs.statSync <span class="hljs-keyword">else</span> fs.lstatSync
+  <span class="hljs-keyword">try</span>
+    <span class="hljs-keyword">return</span> stat file
+  <span class="hljs-keyword">catch</span> error
+    debug <span class="hljs-string">"error resolving <span class="hljs-subst">#{file}</span> link <span class="hljs-subst">#{error.message}</span>"</span>
+    <span class="hljs-keyword">return</span> filestatSync file, {}
 
-<span class="nv">skipDepthSync = </span><span class="nf">(file, depth, options) -&gt;</span>
-  <span class="nv">skip = </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">mindepth</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">mindepth</span> <span class="o">&gt;</span> <span class="nx">depth</span><span class="p">)</span> <span class="o">or</span>
-    <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxdepth</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxdepth</span> <span class="o">&lt;</span> <span class="nx">depth</span><span class="p">)</span>
-  <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not in specified depth&quot;</span> <span class="k">if</span> <span class="nx">skip</span>
-  <span class="k">return</span> <span class="nx">skip</span>
-
-<span class="nv">filestat = </span><span class="nf">(file, options, cb) -&gt;</span>
-  <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span>
-  <span class="nx">stat</span> <span class="nx">file</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span>
-      <span class="nx">debug</span> <span class="s">&quot;error resolving </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> link&quot;</span>
-      <span class="k">return</span> <span class="nx">filestat</span> <span class="nx">file</span><span class="p">,</span> <span class="p">{},</span> <span class="nx">cb</span>
-    <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">stats</span>
-
-<span class="nv">filestatSync = </span><span class="nf">(file, options) -&gt;</span>
-  <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
-  <span class="k">try</span>
-    <span class="k">return</span> <span class="nx">stat</span> <span class="nx">file</span>
-  <span class="k">catch</span> <span class="nx">error</span>
-    <span class="nx">debug</span> <span class="s">&quot;error resolving </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> link </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">return</span> <span class="nx">filestatSync</span> <span class="nx">file</span><span class="p">,</span> <span class="p">{}</span>
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="test%20the%20file%20type">
+          <div class="pilwrap" id="test-the-file-type">
   <h3>
-    <a href="#test%20the%20file%20type" name="test%20the%20file%20type" class="pilcrow">&#182;</a>
-    Test the file type
+    <a href="#test-the-file-type" name="test-the-file-type" class="pilcrow"></a>
+Test the file type
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">skipType = </span><span class="nf">(file, options, cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">type</span>
-  <span class="nx">filestat</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
-    <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">debug</span> <span class="s">&quot;skip because error </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s"> in stat for </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-    <span class="k">switch</span> <span class="nx">options</span><span class="p">.</span><span class="nx">type</span>
-      <span class="k">when</span> <span class="s">&#39;file&#39;</span><span class="p">,</span> <span class="s">&#39;f&#39;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span>
-        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a file entry&quot;</span>
-      <span class="k">when</span> <span class="s">&#39;directory&#39;</span><span class="p">,</span> <span class="s">&#39;dir&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
-        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a directory entry&quot;</span>
-      <span class="k">when</span> <span class="s">&#39;link&#39;</span><span class="p">,</span> <span class="s">&#39;l&#39;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
-        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a link entry&quot;</span>
-      <span class="k">when</span> <span class="s">&#39;fifo&#39;</span><span class="p">,</span> <span class="s">&#39;pipe&#39;</span><span class="p">,</span> <span class="s">&#39;p&#39;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFIFO</span><span class="p">()</span>
-        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a FIFO entry&quot;</span>
-      <span class="k">when</span> <span class="s">&#39;socket&#39;</span><span class="p">,</span> <span class="s">&#39;s&#39;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSocket</span><span class="p">()</span>
-        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a socket entry&quot;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="kc">true</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">skipType</span> = <span class="hljs-params">(file, options, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.type
+  filestat file, options, <span class="hljs-function"><span class="hljs-params">(err, stats)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> err
+      debug <span class="hljs-string">"skip because error <span class="hljs-subst">#{err}</span> in stat for <span class="hljs-subst">#{file}</span>"</span>
+      <span class="hljs-keyword">return</span> cb()
+    <span class="hljs-keyword">switch</span> options.type
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'file'</span>, <span class="hljs-string">'f'</span>
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> stats.isFile()
+        debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because not a file entry"</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'directory'</span>, <span class="hljs-string">'dir'</span>, <span class="hljs-string">'d'</span>
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> stats.isDirectory()
+        debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because not a directory entry"</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'link'</span>, <span class="hljs-string">'l'</span>
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> stats.isSymbolicLink()
+        debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because not a link entry"</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'fifo'</span>, <span class="hljs-string">'pipe'</span>, <span class="hljs-string">'p'</span>
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> stats.isFIFO()
+        debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because not a FIFO entry"</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'socket'</span>, <span class="hljs-string">'s'</span>
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> stats.isSocket()
+        debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because not a socket entry"</span>
+    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">true</span>
+<span class="hljs-function">
+<span class="hljs-title">skipTypeSync</span> = <span class="hljs-params">(file, options)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> options.type
+  <span class="hljs-keyword">try</span>
+    stats = filestatSync file, options
+  <span class="hljs-keyword">catch</span> err
+    debug <span class="hljs-string">"skip because error <span class="hljs-subst">#{err}</span> in stat for <span class="hljs-subst">#{file}</span>"</span>
+    <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">switch</span> options.type
+    <span class="hljs-keyword">when</span> <span class="hljs-string">'file'</span>, <span class="hljs-string">'f'</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> stats.isFile()
+      debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because not a file entry"</span>
+    <span class="hljs-keyword">when</span> <span class="hljs-string">'directory'</span>, <span class="hljs-string">'dir'</span>, <span class="hljs-string">'d'</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> stats.isDirectory()
+      debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because not a directory entry"</span>
+    <span class="hljs-keyword">when</span> <span class="hljs-string">'link'</span>, <span class="hljs-string">'l'</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> stats.isSymbolicLink()
+      debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because not a link entry"</span>
+    <span class="hljs-keyword">when</span> <span class="hljs-string">'fifo'</span>, <span class="hljs-string">'pipe'</span>, <span class="hljs-string">'p'</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> stats.isFIFO()
+      debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because not a FIFO entry"</span>
+    <span class="hljs-keyword">when</span> <span class="hljs-string">'socket'</span>, <span class="hljs-string">'s'</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> stats.isSocket()
+      debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because not a socket entry"</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
 
-<span class="nv">skipTypeSync = </span><span class="nf">(file, options) -&gt;</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">type</span>
-  <span class="k">try</span>
-    <span class="nv">stats = </span><span class="nx">filestatSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="k">catch</span> <span class="nx">err</span>
-    <span class="nx">debug</span> <span class="s">&quot;skip because error </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s"> in stat for </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">return</span>
-  <span class="k">switch</span> <span class="nx">options</span><span class="p">.</span><span class="nx">type</span>
-    <span class="k">when</span> <span class="s">&#39;file&#39;</span><span class="p">,</span> <span class="s">&#39;f&#39;</span>
-      <span class="k">return</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span>
-      <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a file entry&quot;</span>
-    <span class="k">when</span> <span class="s">&#39;directory&#39;</span><span class="p">,</span> <span class="s">&#39;dir&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span>
-      <span class="k">return</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
-      <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a directory entry&quot;</span>
-    <span class="k">when</span> <span class="s">&#39;link&#39;</span><span class="p">,</span> <span class="s">&#39;l&#39;</span>
-      <span class="k">return</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
-      <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a link entry&quot;</span>
-    <span class="k">when</span> <span class="s">&#39;fifo&#39;</span><span class="p">,</span> <span class="s">&#39;pipe&#39;</span><span class="p">,</span> <span class="s">&#39;p&#39;</span>
-      <span class="k">return</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFIFO</span><span class="p">()</span>
-      <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a FIFO entry&quot;</span>
-    <span class="k">when</span> <span class="s">&#39;socket&#39;</span><span class="p">,</span> <span class="s">&#39;s&#39;</span>
-      <span class="k">return</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSocket</span><span class="p">()</span>
-      <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because not a socket entry&quot;</span>
-  <span class="k">return</span> <span class="kc">true</span>
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="test%20for%20filesize">
+          <div class="pilwrap" id="test-for-filesize">
   <h3>
-    <a href="#test%20for%20filesize" name="test%20for%20filesize" class="pilcrow">&#182;</a>
-    Test for filesize
+    <a href="#test-for-filesize" name="test-for-filesize" class="pilcrow"></a>
+Test for filesize
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">sizeHumanToInt = </span><span class="nf">(text) -&gt;</span>
-  <span class="k">if</span> <span class="k">typeof</span> <span class="nx">text</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span> <span class="o">and</span> <span class="nv">match = </span><span class="nx">text</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/^(\d*\.?\d*)\s*([kKmMgGtTpP])$/</span>
-    <span class="k">return</span> <span class="k">switch</span> <span class="nx">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-      <span class="k">when</span> <span class="s">&#39;k&#39;</span><span class="p">,</span> <span class="s">&#39;K&#39;</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>
-      <span class="k">when</span> <span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="s">&#39;M&#39;</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">2</span>
-      <span class="k">when</span> <span class="s">&#39;g&#39;</span><span class="p">,</span> <span class="s">&#39;G&#39;</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">3</span>
-      <span class="k">when</span> <span class="s">&#39;T&#39;</span><span class="p">,</span> <span class="s">&#39;T&#39;</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">4</span>
-      <span class="k">when</span> <span class="s">&#39;P&#39;</span><span class="p">,</span> <span class="s">&#39;P&#39;</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">5</span>
-  <span class="nx">text</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">sizeHumanToInt</span> = <span class="hljs-params">(text)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> text <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span> <span class="hljs-keyword">and</span> match = text.match <span class="hljs-regexp">/^(\d*\.?\d*)\s*([kKmMgGtTpP])$/</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">switch</span> match[<span class="hljs-number">2</span>]
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'k'</span>, <span class="hljs-string">'K'</span> <span class="hljs-keyword">then</span> match[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'m'</span>, <span class="hljs-string">'M'</span> <span class="hljs-keyword">then</span> match[<span class="hljs-number">1</span>] * Math.pow <span class="hljs-number">1024</span>, <span class="hljs-number">2</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'g'</span>, <span class="hljs-string">'G'</span> <span class="hljs-keyword">then</span> match[<span class="hljs-number">1</span>] * Math.pow <span class="hljs-number">1024</span>, <span class="hljs-number">3</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'T'</span>, <span class="hljs-string">'T'</span> <span class="hljs-keyword">then</span> match[<span class="hljs-number">1</span>] * Math.pow <span class="hljs-number">1024</span>, <span class="hljs-number">4</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'P'</span>, <span class="hljs-string">'P'</span> <span class="hljs-keyword">then</span> match[<span class="hljs-number">1</span>] * Math.pow <span class="hljs-number">1024</span>, <span class="hljs-number">5</span>
+  text
+<span class="hljs-function">
+<span class="hljs-title">skipSize</span> = <span class="hljs-params">(file, options, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.minsize <span class="hljs-keyword">or</span> options.maxsize
+  options.minsize = sizeHumanToInt options.minsize <span class="hljs-keyword">if</span> options.minsize
+  options.maxsize = sizeHumanToInt options.maxsize <span class="hljs-keyword">if</span> options.maxsize
+  filestat file, options, <span class="hljs-function"><span class="hljs-params">(err, stats)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> err
+      debug <span class="hljs-string">"skip because error <span class="hljs-subst">#{err}</span> in stat for <span class="hljs-subst">#{file}</span>"</span>
+      <span class="hljs-keyword">return</span> cb()
+    skip = (options.minsize? <span class="hljs-keyword">and</span> options.minsize &gt; stats.size) <span class="hljs-keyword">or</span>
+      (options.maxsize? <span class="hljs-keyword">and</span> options.maxsize &lt; stats.size)
+    debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because size mismatch"</span> <span class="hljs-keyword">if</span> skip
+    cb skip
+<span class="hljs-function">
+<span class="hljs-title">skipSizeSync</span> = <span class="hljs-params">(file, options)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> options.minsize <span class="hljs-keyword">or</span> options.maxsize
+  options.minsize = sizeHumanToInt options.minsize <span class="hljs-keyword">if</span> options.minsize
+  options.maxsize = sizeHumanToInt options.maxsize <span class="hljs-keyword">if</span> options.maxsize
+  <span class="hljs-keyword">try</span>
+    stats = filestatSync file, options
+  <span class="hljs-keyword">catch</span> err
+    debug <span class="hljs-string">"skip because error <span class="hljs-subst">#{err}</span> in stat for <span class="hljs-subst">#{file}</span>"</span>
+    <span class="hljs-keyword">return</span>
+  skip = (options.minsize? <span class="hljs-keyword">and</span> options.minsize &gt; stats.size) <span class="hljs-keyword">or</span>
+    (options.maxsize? <span class="hljs-keyword">and</span> options.maxsize &lt; stats.size)
+  debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because size mismatch"</span> <span class="hljs-keyword">if</span> skip
+  <span class="hljs-keyword">return</span> skip
 
-<span class="nv">skipSize = </span><span class="nf">(file, options, cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span>
-  <span class="nv">options.minsize = </span><span class="nx">sizeHumanToInt</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span>
-  <span class="nv">options.maxsize = </span><span class="nx">sizeHumanToInt</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span>
-  <span class="nx">filestat</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
-    <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">debug</span> <span class="s">&quot;skip because error </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s"> in stat for </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-    <span class="nv">skip = </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="o">&gt;</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span> <span class="o">or</span>
-      <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span> <span class="o">&lt;</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span>
-    <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because size mismatch&quot;</span> <span class="k">if</span> <span class="nx">skip</span>
-    <span class="nx">cb</span> <span class="nx">skip</span>
-
-<span class="nv">skipSizeSync = </span><span class="nf">(file, options) -&gt;</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span>
-  <span class="nv">options.minsize = </span><span class="nx">sizeHumanToInt</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span>
-  <span class="nv">options.maxsize = </span><span class="nx">sizeHumanToInt</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span>
-  <span class="k">try</span>
-    <span class="nv">stats = </span><span class="nx">filestatSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="k">catch</span> <span class="nx">err</span>
-    <span class="nx">debug</span> <span class="s">&quot;skip because error </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s"> in stat for </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">return</span>
-  <span class="nv">skip = </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minsize</span> <span class="o">&gt;</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span> <span class="o">or</span>
-    <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span><span class="o">?</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">maxsize</span> <span class="o">&lt;</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span>
-  <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because size mismatch&quot;</span> <span class="k">if</span> <span class="nx">skip</span>
-  <span class="k">return</span> <span class="nx">skip</span>
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="check%20the%20owwner%20and%20group">
+          <div class="pilwrap" id="check-the-owwner-and-group">
   <h3>
-    <a href="#check%20the%20owwner%20and%20group" name="check%20the%20owwner%20and%20group" class="pilcrow">&#182;</a>
-    Check the owwner and group
+    <a href="#check-the-owwner-and-group" name="check-the-owwner-and-group" class="pilcrow"></a>
+Check the owwner and group
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">userToUid = </span><span class="nf">(user, cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">user</span> <span class="k">unless</span> <span class="nx">user</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">isNaN</span> <span class="nx">user</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span> <span class="s">&#39;/etc/passwd&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span><span class="p">},</span> <span class="nf">(err, data) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
-      <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/:/</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="nx">user</span>
-    <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span> <span class="s">&#39;/Users/&#39;</span><span class="o">+</span><span class="nx">user</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">user</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span>
-
-<span class="nv">userToUidSync = </span><span class="nf">(user) -&gt;</span>
-  <span class="k">return</span> <span class="nx">user</span> <span class="k">unless</span> <span class="nx">user</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">isNaN</span> <span class="nx">user</span>
-  <span class="nv">data = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="s">&#39;/etc/passwd&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span><span class="p">}</span>
-  <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
-    <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/:/</span>
-    <span class="k">return</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="nx">user</span>
-  <span class="k">try</span>
-    <span class="nv">stats = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="s">&#39;/Users/&#39;</span><span class="o">+</span><span class="nx">user</span>
-  <span class="k">return</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span>
-
-<span class="nv">groupToGid = </span><span class="nf">(group, cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">group</span> <span class="k">unless</span> <span class="nx">group</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">isNaN</span> <span class="nx">group</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span> <span class="s">&#39;/etc/group&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span><span class="p">},</span> <span class="nf">(err, data) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
-      <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/:/</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="nx">group</span>
-    <span class="nx">cb</span><span class="p">()</span>
-
-<span class="nv">groupToGidSync = </span><span class="nf">(group) -&gt;</span>
-  <span class="k">return</span> <span class="nx">group</span> <span class="k">unless</span> <span class="nx">group</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">isNaN</span> <span class="nx">group</span>
-  <span class="nv">data = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="s">&#39;/etc/group&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nv">encoding: </span><span class="s">&#39;utf-8&#39;</span><span class="p">}</span>
-  <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
-    <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/:/</span>
-    <span class="k">return</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="nx">group</span>
-  <span class="k">return</span> <span class="nx">group</span>
-
-<span class="nv">skipOwner = </span><span class="nf">(file, options, cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">user</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">group</span>
-  <span class="nx">userToUid</span> <span class="nx">options</span><span class="p">.</span><span class="nx">user</span><span class="p">,</span> <span class="nf">(err, uid) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">groupToGid</span> <span class="nx">options</span><span class="p">.</span><span class="nx">group</span><span class="p">,</span> <span class="nf">(err, gid) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">filestat</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
-        <span class="k">if</span> <span class="nx">err</span>
-          <span class="nx">debug</span> <span class="s">&quot;skip because error </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s"> in stat for </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-        <span class="nv">skip = </span><span class="p">(</span><span class="nx">uid</span> <span class="o">and</span> <span class="nx">uid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span><span class="p">)</span> <span class="o">or</span> <span class="p">(</span><span class="nx">gid</span> <span class="o">and</span> <span class="nx">gid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">gid</span><span class="p">)</span>
-        <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because owner mismatch&quot;</span> <span class="k">if</span> <span class="nx">skip</span>
-        <span class="nx">cb</span> <span class="nx">skip</span>
-
-<span class="nv">skipOwnerSync = </span><span class="nf">(file, options) -&gt;</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">user</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">group</span>
-  <span class="nv">uid = </span><span class="nx">userToUidSync</span> <span class="nx">options</span><span class="p">.</span><span class="nx">user</span>
-  <span class="nv">gid = </span><span class="nx">groupToGidSync</span> <span class="nx">options</span><span class="p">.</span><span class="nx">group</span>
-  <span class="k">try</span>
-    <span class="nv">stats = </span><span class="nx">filestatSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="k">catch</span> <span class="nx">err</span>
-    <span class="nx">debug</span> <span class="s">&quot;skip because error </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s"> in stat for </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">return</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">userToUid</span> = <span class="hljs-params">(user, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, user <span class="hljs-keyword">unless</span> user <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> isNaN user
+  fs.readFile <span class="hljs-string">'/etc/passwd'</span>, {<span class="hljs-attribute">encoding</span>: <span class="hljs-string">'utf-8'</span>}, <span class="hljs-function"><span class="hljs-params">(err, data)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> data.split <span class="hljs-regexp">/\n/</span>
+      cols = line.split <span class="hljs-regexp">/:/</span>
+      <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, cols[<span class="hljs-number">2</span>] <span class="hljs-keyword">if</span> cols[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> user
+    fs.stat <span class="hljs-string">'/Users/'</span>+user, <span class="hljs-function"><span class="hljs-params">(err, stats)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb user <span class="hljs-keyword">if</span> err
+      cb <span class="hljs-literal">null</span>, stats.uid
+<span class="hljs-function">
+<span class="hljs-title">userToUidSync</span> = <span class="hljs-params">(user)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> user <span class="hljs-keyword">unless</span> user <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> isNaN user
+  data = fs.readFileSync <span class="hljs-string">'/etc/passwd'</span>, {<span class="hljs-attribute">encoding</span>: <span class="hljs-string">'utf-8'</span>}
+  <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> data.split <span class="hljs-regexp">/\n/</span>
+    cols = line.split <span class="hljs-regexp">/:/</span>
+    <span class="hljs-keyword">return</span> cols[<span class="hljs-number">2</span>] <span class="hljs-keyword">if</span> cols[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> user
+  <span class="hljs-keyword">try</span>
+    stats = fs.statSync <span class="hljs-string">'/Users/'</span>+user
+  <span class="hljs-keyword">return</span> stats.uid
+<span class="hljs-function">
+<span class="hljs-title">groupToGid</span> = <span class="hljs-params">(group, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, group <span class="hljs-keyword">unless</span> group <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> isNaN group
+  fs.readFile <span class="hljs-string">'/etc/group'</span>, {<span class="hljs-attribute">encoding</span>: <span class="hljs-string">'utf-8'</span>}, <span class="hljs-function"><span class="hljs-params">(err, data)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> data.split <span class="hljs-regexp">/\n/</span>
+      cols = line.split <span class="hljs-regexp">/:/</span>
+      <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, cols[<span class="hljs-number">2</span>] <span class="hljs-keyword">if</span> cols[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> group
+    cb()
+<span class="hljs-function">
+<span class="hljs-title">groupToGidSync</span> = <span class="hljs-params">(group)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> group <span class="hljs-keyword">unless</span> group <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> isNaN group
+  data = fs.readFileSync <span class="hljs-string">'/etc/group'</span>, {<span class="hljs-attribute">encoding</span>: <span class="hljs-string">'utf-8'</span>}
+  <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> data.split <span class="hljs-regexp">/\n/</span>
+    cols = line.split <span class="hljs-regexp">/:/</span>
+    <span class="hljs-keyword">return</span> cols[<span class="hljs-number">2</span>] <span class="hljs-keyword">if</span> cols[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> group
+  <span class="hljs-keyword">return</span> group
+<span class="hljs-function">
+<span class="hljs-title">skipOwner</span> = <span class="hljs-params">(file, options, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.user <span class="hljs-keyword">or</span> options.group
+  userToUid options.user, <span class="hljs-function"><span class="hljs-params">(err, uid)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    groupToGid options.group, <span class="hljs-function"><span class="hljs-params">(err, gid)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      filestat file, options, <span class="hljs-function"><span class="hljs-params">(err, stats)</span> -&gt;</span>
+        <span class="hljs-keyword">if</span> err
+          debug <span class="hljs-string">"skip because error <span class="hljs-subst">#{err}</span> in stat for <span class="hljs-subst">#{file}</span>"</span>
+          <span class="hljs-keyword">return</span> cb()
+        skip = (uid <span class="hljs-keyword">and</span> uid <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> stats.uid) <span class="hljs-keyword">or</span> (gid <span class="hljs-keyword">and</span> gid <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> stats.gid)
+        debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because owner mismatch"</span> <span class="hljs-keyword">if</span> skip
+        cb skip
+<span class="hljs-function">
+<span class="hljs-title">skipOwnerSync</span> = <span class="hljs-params">(file, options)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> options.user <span class="hljs-keyword">or</span> options.group
+  uid = userToUidSync options.user
+  gid = groupToGidSync options.group
+  <span class="hljs-keyword">try</span>
+    stats = filestatSync file, options
+  <span class="hljs-keyword">catch</span> err
+    debug <span class="hljs-string">"skip because error <span class="hljs-subst">#{err}</span> in stat for <span class="hljs-subst">#{file}</span>"</span>
+    <span class="hljs-keyword">return</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>console.log file, uid, gid, stats.uid, stats.gid</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">skip = </span><span class="p">(</span><span class="nx">uid</span> <span class="o">and</span> <span class="nx">uid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span><span class="p">)</span> <span class="o">or</span> <span class="p">(</span><span class="nx">gid</span> <span class="o">and</span> <span class="nx">gid</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">gid</span><span class="p">)</span>
-  <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because owner mismatch&quot;</span> <span class="k">if</span> <span class="nx">skip</span>
-  <span class="k">return</span> <span class="nx">skip</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  skip = (uid <span class="hljs-keyword">and</span> uid <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> stats.uid) <span class="hljs-keyword">or</span> (gid <span class="hljs-keyword">and</span> gid <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> stats.gid)
+  debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because owner mismatch"</span> <span class="hljs-keyword">if</span> skip
+  <span class="hljs-keyword">return</span> skip
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="user%20provided%20test">
+          <div class="pilwrap" id="user-provided-test">
   <h3>
-    <a href="#user%20provided%20test" name="user%20provided%20test" class="pilcrow">&#182;</a>
-    User provided test
+    <a href="#user-provided-test" name="user-provided-test" class="pilcrow"></a>
+User provided test
   </h3>
 </div>
-
-
 <p>Here a function can be given which will be invoked and should return true
 if file can be used or false.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">skipFunction = </span><span class="nf">(file, options, cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="o">or</span> <span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="o">is</span> <span class="o">not</span> <span class="s">&#39;function&#39;</span>
-  <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(ok) -&gt;</span>
-    <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> by user function&quot;</span> <span class="k">unless</span> <span class="nx">ok</span>
-    <span class="nx">cb</span> <span class="o">not</span> <span class="nx">ok</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">skipFunction</span> = <span class="hljs-params">(file, options, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.test <span class="hljs-keyword">or</span> <span class="hljs-keyword">typeof</span> options.test <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-string">'function'</span>
+  options.test file, options, <span class="hljs-function"><span class="hljs-params">(ok)</span> -&gt;</span>
+    debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> by user function"</span> <span class="hljs-keyword">unless</span> ok
+    cb <span class="hljs-keyword">not</span> ok
+<span class="hljs-function">
+<span class="hljs-title">skipFunctionSync</span> = <span class="hljs-params">(file, options)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> options.test <span class="hljs-keyword">or</span> <span class="hljs-keyword">typeof</span> options.test <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-string">'function'</span>
+  ok = options.test file, options
+  debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> by user function"</span> <span class="hljs-keyword">unless</span> ok
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">not</span> ok
 
-<span class="nv">skipFunctionSync = </span><span class="nf">(file, options) -&gt;</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="o">or</span> <span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="o">is</span> <span class="o">not</span> <span class="s">&#39;function&#39;</span>
-  <span class="nv">ok = </span><span class="nx">options</span><span class="p">.</span><span class="nx">test</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> by user function&quot;</span> <span class="k">unless</span> <span class="nx">ok</span>
-  <span class="k">return</span> <span class="o">not</span> <span class="nx">ok</span>
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="check%20file%20times">
+          <div class="pilwrap" id="check-file-times">
   <h3>
-    <a href="#check%20file%20times" name="check%20file%20times" class="pilcrow">&#182;</a>
-    Check file times
+    <a href="#check-file-times" name="check-file-times" class="pilcrow"></a>
+Check file times
   </h3>
 </div>
-
-
 <p>All timestamps maybe checked with before and after to select the files.</p>
-
 <p>This may be enhanced later using date.js for human readable date specifications.</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">timeCheck = </span><span class="nf">(stats, options) -&gt;</span>
-  <span class="k">for</span> <span class="nx">type</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;accessed&#39;</span><span class="p">,</span> <span class="s">&#39;modified&#39;</span><span class="p">,</span> <span class="s">&#39;created&#39;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="nx">dir</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;After&#39;</span><span class="p">,</span> <span class="s">&#39;Before&#39;</span><span class="p">]</span>
-      <span class="k">continue</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">[</span><span class="nx">type</span><span class="o">+</span><span class="nx">dir</span><span class="p">]</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">timeCheck</span> = <span class="hljs-params">(stats, options)</span> -&gt;</span>
+  <span class="hljs-keyword">for</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">'accessed'</span>, <span class="hljs-string">'modified'</span>, <span class="hljs-string">'created'</span>]
+    <span class="hljs-keyword">for</span> dir <span class="hljs-keyword">in</span> [<span class="hljs-string">'After'</span>, <span class="hljs-string">'Before'</span>]
+      <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> options[type+dir]
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
 <p>try to read as specific date</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">ref = </span><span class="nx">options</span><span class="p">[</span><span class="nx">type</span><span class="o">+</span><span class="nx">dir</span><span class="p">]</span>
-      <span class="nv">ref = </span><span class="nx">chrono</span><span class="p">.</span><span class="nx">parseDate</span><span class="p">(</span><span class="nx">ref</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">getTime</span><span class="p">()</span><span class="o">/</span><span class="mi">1000</span> <span class="k">if</span> <span class="k">typeof</span> <span class="nx">ref</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
-      <span class="k">unless</span> <span class="nx">ref</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Given value &#39;</span><span class="si">#{</span><span class="nx">options</span><span class="p">[</span><span class="nx">type</span><span class="o">+</span><span class="nx">dir</span><span class="p">]</span><span class="si">}</span><span class="s">&#39; in option </span><span class="si">#{</span><span class="nx">type</span><span class="o">+</span><span class="nx">dir</span><span class="si">}</span><span class="s"> is invalid.&quot;</span>
-      <span class="nv">value = </span><span class="nx">stats</span><span class="p">[</span><span class="nx">type</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;time&#39;</span><span class="p">].</span><span class="nx">getTime</span><span class="p">()</span><span class="o">/</span><span class="mi">1000</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      ref = options[type+dir]
+      ref = chrono.parseDate(ref)?.getTime()/<span class="hljs-number">1000</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> ref <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
+      <span class="hljs-keyword">unless</span> ref
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Given value '<span class="hljs-subst">#{options[type+dir]}</span>' in option <span class="hljs-subst">#{type+dir}</span> is invalid."</span>
+      value = stats[type.charAt(<span class="hljs-number">0</span>) + <span class="hljs-string">'time'</span>].getTime()/<span class="hljs-number">1000</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
 </div>
-
-<div class="highlight"><pre><code> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">[</span><span class="nx">type</span><span class="o">+</span><span class="nx">dir</span><span class="p">],</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">ref</span>
-</code></pre></div>
-
+<pre><code> console.log type, dir, options[type+dir], value, ref
+</code></pre>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">dir</span> <span class="o">is</span> <span class="s">&#39;Before&#39;</span> <span class="o">and</span> <span class="nx">value</span> <span class="o">&gt;=</span> <span class="nx">ref</span>
-      <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">dir</span> <span class="o">is</span> <span class="s">&#39;After&#39;</span> <span class="o">and</span> <span class="nx">value</span> <span class="o">&lt;=</span> <span class="nx">ref</span>
-  <span class="k">return</span> <span class="kc">true</span>
-
-<span class="nv">skipTime = </span><span class="nf">(file, options, cb) -&gt;</span>
-  <span class="nv">used = </span><span class="kc">false</span>
-  <span class="k">for</span> <span class="nx">type</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;accessed&#39;</span><span class="p">,</span> <span class="s">&#39;modified&#39;</span><span class="p">,</span> <span class="s">&#39;created&#39;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="nx">dir</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;After&#39;</span><span class="p">,</span> <span class="s">&#39;Before&#39;</span><span class="p">]</span>
-      <span class="nv">used = </span><span class="kc">true</span> <span class="k">if</span> <span class="nx">options</span><span class="p">[</span><span class="nx">type</span><span class="o">+</span><span class="nx">dir</span><span class="p">]</span>
-  <span class="k">return</span> <span class="nx">cb</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">used</span>
-  <span class="nx">filestat</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
-    <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">debug</span> <span class="s">&quot;skip because error </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s"> in stat for </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> dir <span class="hljs-keyword">is</span> <span class="hljs-string">'Before'</span> <span class="hljs-keyword">and</span> value &gt;= ref
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> dir <span class="hljs-keyword">is</span> <span class="hljs-string">'After'</span> <span class="hljs-keyword">and</span> value &lt;= ref
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+<span class="hljs-function">
+<span class="hljs-title">skipTime</span> = <span class="hljs-params">(file, options, cb)</span> -&gt;</span>
+  used = <span class="hljs-literal">false</span>
+  <span class="hljs-keyword">for</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">'accessed'</span>, <span class="hljs-string">'modified'</span>, <span class="hljs-string">'created'</span>]
+    <span class="hljs-keyword">for</span> dir <span class="hljs-keyword">in</span> [<span class="hljs-string">'After'</span>, <span class="hljs-string">'Before'</span>]
+      used = <span class="hljs-literal">true</span> <span class="hljs-keyword">if</span> options[type+dir]
+  <span class="hljs-keyword">return</span> cb <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> used
+  filestat file, options, <span class="hljs-function"><span class="hljs-params">(err, stats)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> err
+      debug <span class="hljs-string">"skip because error <span class="hljs-subst">#{err}</span> in stat for <span class="hljs-subst">#{file}</span>"</span>
+      <span class="hljs-keyword">return</span> cb()
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
 </div>
 <p>console.log file, stats</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">skip = </span><span class="o">not</span> <span class="nx">timeCheck</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">options</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    skip = <span class="hljs-keyword">not</span> timeCheck stats, options
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
 </div>
 <p>console.log file, skip</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because out of time range&quot;</span> <span class="k">if</span> <span class="nx">skip</span>
-    <span class="nx">cb</span> <span class="nx">skip</span>
 
-<span class="nv">skipTimeSync = </span><span class="nf">(file, options) -&gt;</span>
-  <span class="nv">used = </span><span class="kc">false</span>
-  <span class="k">for</span> <span class="nx">type</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;accessed&#39;</span><span class="p">,</span> <span class="s">&#39;modified&#39;</span><span class="p">,</span> <span class="s">&#39;created&#39;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="nx">dir</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;After&#39;</span><span class="p">,</span> <span class="s">&#39;Before&#39;</span><span class="p">]</span>
-      <span class="nv">used = </span><span class="kc">true</span> <span class="k">if</span> <span class="nx">options</span><span class="p">[</span><span class="nx">type</span><span class="o">+</span><span class="nx">dir</span><span class="p">]</span>
-  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">used</span>
-  <span class="k">try</span>
-    <span class="nv">stats = </span><span class="nx">filestatSync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="k">catch</span> <span class="nx">err</span>
-    <span class="nx">debug</span> <span class="s">&quot;skip because error </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s"> in stat for </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">return</span>
-  <span class="nv">skip = </span><span class="o">not</span> <span class="nx">timeCheck</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="nx">debug</span> <span class="s">&quot;skip </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> because out of time range&quot;</span> <span class="k">if</span> <span class="nx">skip</span>
-  <span class="k">return</span> <span class="nx">skip</span>
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because out of time range"</span> <span class="hljs-keyword">if</span> skip
+    cb skip
+<span class="hljs-function">
+<span class="hljs-title">skipTimeSync</span> = <span class="hljs-params">(file, options)</span> -&gt;</span>
+  used = <span class="hljs-literal">false</span>
+  <span class="hljs-keyword">for</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">'accessed'</span>, <span class="hljs-string">'modified'</span>, <span class="hljs-string">'created'</span>]
+    <span class="hljs-keyword">for</span> dir <span class="hljs-keyword">in</span> [<span class="hljs-string">'After'</span>, <span class="hljs-string">'Before'</span>]
+      used = <span class="hljs-literal">true</span> <span class="hljs-keyword">if</span> options[type+dir]
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> used
+  <span class="hljs-keyword">try</span>
+    stats = filestatSync file, options
+  <span class="hljs-keyword">catch</span> err
+    debug <span class="hljs-string">"skip because error <span class="hljs-subst">#{err}</span> in stat for <span class="hljs-subst">#{file}</span>"</span>
+    <span class="hljs-keyword">return</span>
+  skip = <span class="hljs-keyword">not</span> timeCheck stats, options
+  debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because out of time range"</span> <span class="hljs-keyword">if</span> skip
+  <span class="hljs-keyword">return</span> skip
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

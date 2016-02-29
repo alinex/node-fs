@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-fs/src/copy.coffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-fs/src/copy.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,99 +39,108 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#extension%20of%20nodes%20fs%20utils">Extension of nodes fs utils</a>
+        <a href="#extension-of-nodes-fs-utils">Extension of nodes fs utils</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#copy%20file%20or%20directory">Copy file or directory</a>
+        <a href="#copy-file-or-directory">Copy file or directory</a>
       </div>
+
       <div class="heading h2">
-        <a href="#copy%20file%20or%20directory%20(synchronous)">Copy file or directory (Synchronous)</a>
+        <a href="#copy-file-or-directory-synchronous">Copy file or directory (Synchronous)</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="extension%20of%20nodes%20fs%20utils">
+          <div class="pilwrap" id="extension-of-nodes-fs-utils">
   <h1>
-    <a href="#extension%20of%20nodes%20fs%20utils" name="extension%20of%20nodes%20fs%20utils" class="pilcrow">&#182;</a>
-    Extension of nodes fs utils
+    <a href="#extension-of-nodes-fs-utils" name="extension-of-nodes-fs-utils" class="pilcrow"></a>
+Extension of nodes fs utils
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
-<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
-<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;fs:copy&#39;</span><span class="p">)</span>
+        <td class="code highlight">
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
+path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
+debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'fs:copy'</span>)
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>include other extended commands and helper</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">mkdirs = </span><span class="nx">require</span> <span class="s">&#39;./mkdirs&#39;</span>
-<span class="nv">filter = </span><span class="nx">require</span> <span class="s">&#39;./filter&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">mkdirs = <span class="hljs-built_in">require</span> <span class="hljs-string">'./mkdirs'</span>
+filter = <span class="hljs-built_in">require</span> <span class="hljs-string">'./filter'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="copy%20file%20or%20directory">
+          <div class="pilwrap" id="copy-file-or-directory">
   <h2>
-    <a href="#copy%20file%20or%20directory" name="copy%20file%20or%20directory" class="pilcrow">&#182;</a>
-    Copy file or directory
+    <a href="#copy-file-or-directory" name="copy-file-or-directory" class="pilcrow"></a>
+Copy file or directory
   </h2>
 </div>
-
-
 <p>This method will copy a single file or complete directory like <code>cp -r</code>.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>source</code>
 File or directory to be copied.</li>
@@ -133,9 +153,7 @@ The callback will be called just if an error occurred.</li>
 <li><code>depth</code>
 Search depth as integer (internal parameter).</li>
 </ul>
-
 <p><strong>Additional Options:</strong></p>
-
 <ul>
 <li><code>overwrite</code>
 if set to <code>true</code> it will not fail if destination file already exists and
@@ -144,176 +162,182 @@ overwrite it</li>
 if set to <code>true</code> it will not fail if destination file already exists, skip
 this and go on with the next file</li>
 </ul>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">copy = module.exports.async = </span><span class="nf">(source, target, options, cb, depth = 0) -&gt;</span>
-  <span class="k">unless</span> <span class="nx">cb</span><span class="o">?</span>
-    <span class="nv">cb = </span><span class="nf">-&gt;</span>
-  <span class="k">if</span> <span class="k">typeof</span> <span class="nx">options</span> <span class="o">is</span> <span class="s">&#39;function&#39;</span> <span class="o">or</span> <span class="o">not</span> <span class="nx">options</span>
-    <span class="nv">cb = </span><span class="nx">options</span> <span class="o">?</span> <span class="nf">-&gt;</span>
-    <span class="nv">options = </span><span class="p">{}</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">copy = <span class="hljs-built_in">module</span>.exports.async = <span class="hljs-function"><span class="hljs-params">(source, target, options, cb, depth = <span class="hljs-number">0</span>)</span> -&gt;</span>
+  <span class="hljs-keyword">unless</span> cb?
+<span class="hljs-function">    <span class="hljs-title">cb</span> = -&gt;</span>
+  <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> options <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> options
+    cb = options ? -&gt;
+    options = {}
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
 </div>
 <p>check file entry</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span>
-  <span class="nx">stat</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
-    <span class="k">if</span> <span class="nx">err</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ignoreErrors</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  stat = <span class="hljs-keyword">if</span> options.dereference? <span class="hljs-keyword">then</span> fs.stat <span class="hljs-keyword">else</span> fs.lstat
+  stat source, <span class="hljs-function"><span class="hljs-params">(err, stats)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> err
+      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> options.ignoreErrors
+      <span class="hljs-keyword">return</span> cb err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
 </div>
 <p>Check the current file through filter options</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">filter</span><span class="p">.</span><span class="nx">async</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(ok) -&gt;</span>
-      <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">ok</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    filter.async source, depth, options, <span class="hljs-function"><span class="hljs-params">(ok)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> stats.isFile()
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> ok
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
 <p>create directory if necessary</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">async</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">target</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        mkdirs.async path.dirname(target), <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
 </div>
 <p>copy the file</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span> <span class="nx">target</span><span class="p">,</span> <span class="nf">(exists) -&gt;</span>
-            <span class="k">if</span> <span class="nx">exists</span> <span class="o">and</span> <span class="o">not</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">overwrite</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ignore</span><span class="p">)</span>
-              <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Target file already exists.&quot;</span>
-            <span class="k">if</span> <span class="o">not</span> <span class="nx">exists</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">overwrite</span>
-              <span class="nx">debug</span> <span class="s">&quot;copying file </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s"> to </span><span class="si">#{</span><span class="nx">target</span><span class="si">}</span><span class="s">&quot;</span>
-              <span class="k">return</span> <span class="nx">copyFile</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">cb</span>
-            <span class="nx">cb</span><span class="p">()</span>
-      <span class="k">else</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">ok</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">          fs.exists target, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span>
+            <span class="hljs-keyword">if</span> exists <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> (options.overwrite <span class="hljs-keyword">or</span> options.ignore)
+              <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Target file already exists."</span>
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> exists <span class="hljs-keyword">or</span> options.overwrite
+              debug <span class="hljs-string">"copying file <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>"</span>
+              <span class="hljs-keyword">return</span> copyFile source, stats, target, cb
+            cb()
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> stats.isSymbolicLink()
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> ok
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
 <p>create directory if necessary</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">async</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">target</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-          <span class="nx">debug</span> <span class="s">&quot;copying link </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s"> to </span><span class="si">#{</span><span class="nx">target</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="nx">fs</span><span class="p">.</span><span class="nx">readlink</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, resolvedPath) -&gt;</span>
-            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        mkdirs.async path.dirname(target), <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+          debug <span class="hljs-string">"copying link <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>"</span>
+          fs.readlink source, <span class="hljs-function"><span class="hljs-params">(err, resolvedPath)</span> -&gt;</span>
+            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>make the symlink</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-            <span class="nx">fs</span><span class="p">.</span><span class="nx">symlink</span> <span class="nx">resolvedPath</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">cb</span>
-      <span class="k">else</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">            fs.symlink resolvedPath, target, cb
+      <span class="hljs-keyword">else</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>source is directory</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="nx">depth</span><span class="o">++</span>
-        <span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, files) -&gt;</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        depth++
+        fs.readdir source, <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
+          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
 <p>copy all files in directory</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">debug</span> <span class="s">&quot;copying directory </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s"> to </span><span class="si">#{</span><span class="nx">target</span><span class="si">}</span><span class="s">&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">          debug <span class="hljs-string">"copying directory <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
 <p>make directory</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">async</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-            <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">files</span><span class="p">,</span> <span class="nf">(file, cb) -&gt;</span>
-              <span class="nx">copy</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span><span class="p">,</span> <span class="nx">depth</span>
-            <span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">          mkdirs.async target, stats.mode, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+            async.each files, <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
+              copy path.join(source, file), path.join(target, file), options, cb, depth
+            , cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="copy%20file%20or%20directory%20(synchronous)">
+          <div class="pilwrap" id="copy-file-or-directory-synchronous">
   <h2>
-    <a href="#copy%20file%20or%20directory%20(synchronous)" name="copy%20file%20or%20directory%20(synchronous)" class="pilcrow">&#182;</a>
-    Copy file or directory (Synchronous)
+    <a href="#copy-file-or-directory-synchronous" name="copy-file-or-directory-synchronous" class="pilcrow"></a>
+Copy file or directory (Synchronous)
   </h2>
 </div>
-
-
 <p>This method will copy a single file or complete directory like <code>cp -r</code>.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>source</code>
 File or directory to be copied.</li>
@@ -324,9 +348,7 @@ Specification of files to find.</li>
 <li><code>depth</code>
 Search depth as integer (internal parameter).</li>
 </ul>
-
 <p><strong>Additional Options:</strong></p>
-
 <ul>
 <li><code>overwrite</code>
 if set to <code>true</code> it will not fail if destination file already exists and
@@ -335,227 +357,242 @@ overwrite it</li>
 if set to <code>true</code> it will not fail if destination file already exists, skip
 this and go on with the next file</li>
 </ul>
-
 <p><strong>Throw:</strong></p>
-
 <ul>
 <li><code>Error</code>
 If anything out of order happened.</li>
 </ul>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">copySync = module.exports.sync = </span><span class="nf">(source, target, options = {}, depth = 0) -&gt;</span>
-  <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
-  <span class="k">try</span>
-    <span class="nv">stats = </span><span class="nx">stat</span> <span class="nx">source</span>
-  <span class="k">catch</span> <span class="nx">error</span>
-    <span class="k">return</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ignoreErrors</span>
-    <span class="k">throw</span> <span class="nx">error</span>
-  <span class="nv">ok = </span><span class="nx">filter</span><span class="p">.</span><span class="nx">sync</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span>
-    <span class="k">return</span> <span class="k">unless</span> <span class="nx">ok</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">copySync = <span class="hljs-built_in">module</span>.exports.sync = <span class="hljs-function"><span class="hljs-params">(source, target, options = {}, depth = <span class="hljs-number">0</span>)</span> -&gt;</span>
+  stat = <span class="hljs-keyword">if</span> options.dereference? <span class="hljs-keyword">then</span> fs.statSync <span class="hljs-keyword">else</span> fs.lstatSync
+  <span class="hljs-keyword">try</span>
+    stats = stat source
+  <span class="hljs-keyword">catch</span> error
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> options.ignoreErrors
+    <span class="hljs-keyword">throw</span> error
+  ok = filter.sync source, depth, options
+  <span class="hljs-keyword">if</span> stats.isFile()
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> ok
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
 </div>
 <p>create directory if neccessary</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">sync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    mkdirs.sync path.dirname(target)
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
 </div>
 <p>copy the file</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">exists = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">target</span>
-    <span class="k">if</span> <span class="nx">exists</span> <span class="o">and</span> <span class="o">not</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">overwrite</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ignore</span><span class="p">)</span>
-      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Target file already exists.&quot;</span>
-    <span class="k">if</span> <span class="o">not</span> <span class="nx">exists</span> <span class="o">or</span> <span class="nx">options</span><span class="p">.</span><span class="nx">overwrite</span>
-      <span class="nx">debug</span> <span class="s">&quot;copying file </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s"> to </span><span class="si">#{</span><span class="nx">target</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="k">return</span> <span class="nx">copyFileSync</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">stats</span><span class="p">,</span> <span class="nx">target</span>
-  <span class="k">else</span> <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
-    <span class="k">return</span> <span class="k">unless</span> <span class="nx">ok</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    exists = fs.existsSync target
+    <span class="hljs-keyword">if</span> exists <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> (options.overwrite <span class="hljs-keyword">or</span> options.ignore)
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Target file already exists."</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> exists <span class="hljs-keyword">or</span> options.overwrite
+      debug <span class="hljs-string">"copying file <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>"</span>
+      <span class="hljs-keyword">return</span> copyFileSync source, stats, target
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> stats.isSymbolicLink()
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> ok
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
 </div>
 <p>create directory if neccessary</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">sync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span>
-    <span class="nv">resolvedPath = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readlinkSync</span> <span class="nx">source</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    mkdirs.sync path.dirname(target)
+    resolvedPath = fs.readlinkSync source
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
 </div>
 <p>make the symlink</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">debug</span> <span class="s">&quot;copying link </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s"> to </span><span class="si">#{</span><span class="nx">target</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">fs</span><span class="p">.</span><span class="nx">symlinkSync</span> <span class="nx">resolvedPath</span><span class="p">,</span> <span class="nx">target</span>
-  <span class="k">else</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    debug <span class="hljs-string">"copying link <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>"</span>
+    fs.symlinkSync resolvedPath, target
+  <span class="hljs-keyword">else</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
 </div>
 <p>source is directory</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">depth</span><span class="o">++</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    depth++
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
 </div>
 <p>copy directory</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">mkdirs</span><span class="p">.</span><span class="nx">sync</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span> <span class="k">if</span> <span class="nx">ok</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    mkdirs.sync target, stats.mode <span class="hljs-keyword">if</span> ok
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
 </div>
 <p>copy all files in directory</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">debug</span> <span class="s">&quot;copying directory </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s"> to </span><span class="si">#{</span><span class="nx">target</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">for</span> <span class="nx">file</span> <span class="k">in</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span> <span class="nx">source</span>
-      <span class="nx">copySync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">depth</span>
-
-<span class="nv">copyFile = </span><span class="nf">(source, stats, target, cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">    debug <span class="hljs-string">"copying directory <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>"</span>
+    <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> fs.readdirSync source
+      copySync path.join(source, file), path.join(target, file), options, depth
+<span class="hljs-function">
+<span class="hljs-title">copyFile</span> = <span class="hljs-params">(source, stats, target, cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
 </div>
 <p>finalize only once</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">done = </span><span class="nf">(err) -&gt;</span>
-    <span class="k">unless</span> <span class="nx">cbCalled</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function">  <span class="hljs-title">done</span> = <span class="hljs-params">(err)</span> -&gt;</span>
+    <span class="hljs-keyword">unless</span> cbCalled
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
 </div>
 <p>fix file permissions and times but ignore errors</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">fs</span><span class="p">.</span><span class="nx">utimes</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">atime</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mtime</span><span class="p">,</span> <span class="nf">-&gt;</span>
-        <span class="nx">fs</span><span class="p">.</span><span class="nx">chown</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">gid</span><span class="p">,</span> <span class="nf">-&gt;</span>
-          <span class="nx">fs</span><span class="p">.</span><span class="nx">chmod</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span><span class="p">,</span> <span class="nf">-&gt;</span>
-            <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-    <span class="nv">cbCalled = </span><span class="kc">true</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      fs.utimes target, stats.atime, stats.mtime, <span class="hljs-function">-&gt;</span>
+        fs.chown target, stats.uid, stats.gid, <span class="hljs-function">-&gt;</span>
+          fs.chmod target, stats.mode, <span class="hljs-function">-&gt;</span>
+            <span class="hljs-keyword">return</span> cb()
+    cbCalled = <span class="hljs-literal">true</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
 </div>
 <p>open streams</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">rs = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span> <span class="nx">source</span>
-  <span class="nv">ws = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span> <span class="nx">target</span><span class="p">,</span>
-    <span class="nv">mode: </span><span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  rs = fs.createReadStream source
+  ws = fs.createWriteStream target,
+    <span class="hljs-attribute">mode</span>: stats.mode
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
 </div>
 <p>copy data</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">ws</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">done</span>
-  <span class="nx">ws</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;close&#39;</span><span class="p">,</span> <span class="nx">done</span>
-  <span class="nx">rs</span><span class="p">.</span><span class="nx">pipe</span> <span class="nx">ws</span>
-
-<span class="nv">copyFileSync = </span><span class="nf">(source, stats, target) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  ws.<span class="hljs-literal">on</span> <span class="hljs-string">'error'</span>, done
+  ws.<span class="hljs-literal">on</span> <span class="hljs-string">'close'</span>, done
+  rs.pipe ws
+<span class="hljs-function">
+<span class="hljs-title">copyFileSync</span> = <span class="hljs-params">(source, stats, target)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
 </div>
 <p>copy file</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">source</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  fs.writeFileSync target, fs.readFileSync source
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
 </div>
 <p>copy permissions and times</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">utimesSync</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">atime</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mtime</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">chownSync</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">uid</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">gid</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">chmodSync</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">mode</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  fs.utimesSync target, stats.atime, stats.mtime
+  fs.chownSync target, stats.uid, stats.gid
+  fs.chmodSync target, stats.mode
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-fs/src/find.coffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-fs/src/find.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,86 +39,94 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#extension%20of%20nodes%20fs%20utils">Extension of nodes fs utils</a>
+        <a href="#extension-of-nodes-fs-utils">Extension of nodes fs utils</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#find%20files">Find files</a>
+        <a href="#find-files">Find files</a>
       </div>
+
       <div class="heading h2">
-        <a href="#find%20files%20(synchronous)">Find files (Synchronous)</a>
+        <a href="#find-files-synchronous">Find files (Synchronous)</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="extension%20of%20nodes%20fs%20utils">
+          <div class="pilwrap" id="extension-of-nodes-fs-utils">
   <h1>
-    <a href="#extension%20of%20nodes%20fs%20utils" name="extension%20of%20nodes%20fs%20utils" class="pilcrow">&#182;</a>
-    Extension of nodes fs utils
+    <a href="#extension-of-nodes-fs-utils" name="extension-of-nodes-fs-utils" class="pilcrow"></a>
+Extension of nodes fs utils
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;fs:find&#39;</span><span class="p">)</span>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
-<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'fs:find'</span>)
+fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
+path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
 
-<span class="nv">filter = </span><span class="nx">require</span> <span class="s">&#39;./filter&#39;</span>
+filter = <span class="hljs-built_in">require</span> <span class="hljs-string">'./filter'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="find%20files">
+          <div class="pilwrap" id="find-files">
   <h2>
-    <a href="#find%20files" name="find%20files" class="pilcrow">&#182;</a>
-    Find files
+    <a href="#find-files" name="find-files" class="pilcrow"></a>
+Find files
   </h2>
 </div>
-
-
 <p>This method will list all files and directories in the given directory.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>source</code>
 Path to be searched.</li>
@@ -119,103 +138,104 @@ entries will be given.</li>
 <li><code>depth</code>
 Search depth as integer (internal parameter).</li>
 </ul>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">find = module.exports.async = </span><span class="nf">(source, options, cb , depth = 0 ) -&gt;</span>
-  <span class="k">unless</span> <span class="nx">cb</span><span class="o">?</span>
-    <span class="nv">cb = </span><span class="nf">-&gt;</span>
-  <span class="k">if</span> <span class="k">typeof</span> <span class="nx">options</span> <span class="o">is</span> <span class="s">&#39;function&#39;</span> <span class="o">or</span> <span class="o">not</span> <span class="nx">options</span>
-    <span class="nv">cb = </span><span class="nx">options</span> <span class="o">?</span> <span class="nf">-&gt;</span>
-    <span class="nv">options = </span><span class="p">{}</span>
-  <span class="nv">list = </span><span class="p">[]</span>
-  <span class="nx">debug</span> <span class="s">&quot;check </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s">&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">find = <span class="hljs-built_in">module</span>.exports.async = <span class="hljs-function"><span class="hljs-params">(source, options, cb , depth = <span class="hljs-number">0</span> )</span> -&gt;</span>
+  <span class="hljs-keyword">unless</span> cb?
+<span class="hljs-function">    <span class="hljs-title">cb</span> = -&gt;</span>
+  <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> options <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> options
+    cb = options ? -&gt;
+    options = {}
+  list = []
+  debug <span class="hljs-string">"check <span class="hljs-subst">#{source}</span>"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
 <p>Check the current file through filter options</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">filter</span><span class="p">.</span><span class="nx">async</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(ok) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">list</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">lazy</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">ok</span>
-    <span class="nx">list</span><span class="p">.</span><span class="nx">push</span> <span class="nx">source</span> <span class="k">if</span> <span class="nx">ok</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  filter.async source, depth, options, <span class="hljs-function"><span class="hljs-params">(ok)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, list <span class="hljs-keyword">if</span> options.lazy <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> ok
+    list.push source <span class="hljs-keyword">if</span> ok
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
 </div>
 <p>check source entry</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span>
-    <span class="nx">stat</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
-      <span class="k">if</span> <span class="nx">err</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="p">[]</span> <span class="k">if</span> <span class="nx">options</span><span class="o">?</span><span class="p">.</span><span class="nx">ignoreErrors</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">list</span> <span class="k">unless</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    stat = <span class="hljs-keyword">if</span> options.dereference? <span class="hljs-keyword">then</span> fs.stat <span class="hljs-keyword">else</span> fs.lstat
+    stat source, <span class="hljs-function"><span class="hljs-params">(err, stats)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> err
+        <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, [] <span class="hljs-keyword">if</span> options?.ignoreErrors
+        <span class="hljs-keyword">return</span> cb err
+      <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, list <span class="hljs-keyword">unless</span> stats.isDirectory()
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
 </div>
 <p>source is directory</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">debug</span> <span class="s">&quot;going deeper into </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s"> directory&quot;</span>
-      <span class="nx">depth</span><span class="o">++</span>
-      <span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span> <span class="nx">source</span><span class="p">,</span> <span class="nf">(err, files) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      debug <span class="hljs-string">"going deeper into <span class="hljs-subst">#{source}</span> directory"</span>
+      depth++
+      fs.readdir source, <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
+        <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
 <p>collect files from each subentry</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">files</span><span class="p">.</span><span class="nx">sort</span><span class="p">(),</span> <span class="nf">(file, cb) -&gt;</span>
-          <span class="nx">find</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span><span class="p">,</span> <span class="nx">depth</span>
-        <span class="p">,</span> <span class="nf">(err, results) -&gt;</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-          <span class="k">for</span> <span class="nx">result</span> <span class="k">in</span> <span class="nx">results</span>
-            <span class="nv">list = </span><span class="nx">list</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">result</span>
-          <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">list</span>
+        <td class="code highlight">
+          <pre class="coffeescript">        async.map files.sort(), <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
+          find path.join(source, file), options, cb, depth
+        , <span class="hljs-function"><span class="hljs-params">(err, results)</span> -&gt;</span>
+          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+          <span class="hljs-keyword">for</span> result <span class="hljs-keyword">in</span> results
+            list = list.concat result
+          cb <span class="hljs-literal">null</span>, list
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="find%20files%20(synchronous)">
+          <div class="pilwrap" id="find-files-synchronous">
   <h2>
-    <a href="#find%20files%20(synchronous)" name="find%20files%20(synchronous)" class="pilcrow">&#182;</a>
-    Find files (Synchronous)
+    <a href="#find-files-synchronous" name="find-files-synchronous" class="pilcrow"></a>
+Find files (Synchronous)
   </h2>
 </div>
-
-
 <p>This method will list all files and directories in the given directory.</p>
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>source</code>
 Path to be searched.</li>
@@ -224,92 +244,96 @@ Specification of files to find.</li>
 <li><code>depth</code>
 Search depth as integer (internal parameter).</li>
 </ul>
-
 <p><strong>Return:</strong></p>
-
 <ul>
 <li><code>list</code>
 Returns the list of found entries</li>
 </ul>
-
 <p><strong>Throw:</strong></p>
-
 <ul>
 <li><code>Error</code>
 If anything out of order happened.</li>
 </ul>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">findSync = module.exports.sync = </span><span class="nf">(source, options = {}, depth = 0) -&gt;</span>
-  <span class="nv">list = </span><span class="p">[]</span>
-  <span class="nv">ok = </span><span class="nx">filter</span><span class="p">.</span><span class="nx">sync</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">options</span>
-  <span class="k">return</span> <span class="nx">list</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">lazy</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">ok</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">findSync = <span class="hljs-built_in">module</span>.exports.sync = <span class="hljs-function"><span class="hljs-params">(source, options = {}, depth = <span class="hljs-number">0</span>)</span> -&gt;</span>
+  list = []
+  ok = filter.sync source, depth, options
+  <span class="hljs-keyword">return</span> list <span class="hljs-keyword">if</span> options.lazy <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> ok
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
 <p>Check the current file through filter options</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">list</span><span class="p">.</span><span class="nx">push</span> <span class="nx">source</span> <span class="k">if</span> <span class="nx">ok</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  list.push source <span class="hljs-keyword">if</span> ok
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>check source entry</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">stat = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dereference</span><span class="o">?</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="k">else</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span>
-  <span class="k">try</span>
-    <span class="nv">stats = </span><span class="nx">stat</span> <span class="nx">source</span>
-  <span class="k">catch</span> <span class="nx">error</span>
-    <span class="k">return</span> <span class="nx">list</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ignoreErrors</span>
-    <span class="k">throw</span> <span class="nx">error</span>
-  <span class="k">return</span> <span class="nx">list</span> <span class="k">unless</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  stat = <span class="hljs-keyword">if</span> options.dereference? <span class="hljs-keyword">then</span> fs.statSync <span class="hljs-keyword">else</span> fs.lstatSync
+  <span class="hljs-keyword">try</span>
+    stats = stat source
+  <span class="hljs-keyword">catch</span> error
+    <span class="hljs-keyword">return</span> list <span class="hljs-keyword">if</span> options.ignoreErrors
+    <span class="hljs-keyword">throw</span> error
+  <span class="hljs-keyword">return</span> list <span class="hljs-keyword">unless</span> stats.isDirectory()
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>source is directory</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">depth</span><span class="o">++</span>
-  <span class="nv">files = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span> <span class="nx">source</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  depth++
+  files = fs.readdirSync source
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
 <p>collect files from each subentry</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">for</span> <span class="nx">file</span> <span class="k">in</span> <span class="nx">files</span><span class="p">.</span><span class="nx">sort</span><span class="p">()</span>
-    <span class="nv">list = </span><span class="nx">list</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">findSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">file</span><span class="p">),</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">depth</span>
-  <span class="k">return</span> <span class="nx">list</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> files.sort()
+    list = list.concat findSync path.join(source, file), options, depth
+  <span class="hljs-keyword">return</span> list
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

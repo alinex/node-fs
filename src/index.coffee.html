@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-fs/src/index.coffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-fs/src/index.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,220 +39,240 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#extension%20of%20nodes%20fs%20utils">Extension of nodes fs utils</a>
+        <a href="#extension-of-nodes-fs-utils">Extension of nodes fs utils</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#clone%20original%20fs">Clone original fs</a>
+        <a href="#clone-original-fs">Clone original fs</a>
       </div>
+
       <div class="heading h2">
-        <a href="#optimize%20original%20methods">Optimize original methods</a>
+        <a href="#optimize-original-methods">Optimize original methods</a>
       </div>
+
       <div class="heading h3">
-        <a href="#stat%20with%20cached%20results">stat with cached results</a>
+        <a href="#stat-with-cached-results">stat with cached results</a>
       </div>
+
       <div class="heading h3">
-        <a href="#statsync%20with%20cached%20results%20(synchronous)">statSync with cached results (synchronous)</a>
+        <a href="#statsync-with-cached-results-synchronous">statSync with cached results (synchronous)</a>
       </div>
+
       <div class="heading h3">
-        <a href="#lstat%20with%20cached%20results">lstat with cached results</a>
+        <a href="#lstat-with-cached-results">lstat with cached results</a>
       </div>
+
       <div class="heading h3">
-        <a href="#lstatsync%20with%20cached%20results%20(synchronous)">lstatSync with cached results (synchronous)</a>
+        <a href="#lstatsync-with-cached-results-synchronous">lstatSync with cached results (synchronous)</a>
       </div>
+
       <div class="heading h2">
-        <a href="#add%20extended%20functionality">Add extended functionality</a>
+        <a href="#add-extended-functionality">Add extended functionality</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="extension%20of%20nodes%20fs%20utils">
+          <div class="pilwrap" id="extension-of-nodes-fs-utils">
   <h1>
-    <a href="#extension%20of%20nodes%20fs%20utils" name="extension%20of%20nodes%20fs%20utils" class="pilcrow">&#182;</a>
-    Extension of nodes fs utils
+    <a href="#extension-of-nodes-fs-utils" name="extension-of-nodes-fs-utils" class="pilcrow"></a>
+Extension of nodes fs utils
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;graceful-fs&#39;</span>
-<span class="nv">memoizee = </span><span class="nx">require</span> <span class="s">&#39;memoizee&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'graceful-fs'</span>
+memoizee = <span class="hljs-built_in">require</span> <span class="hljs-string">'memoizee'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="clone%20original%20fs">
+          <div class="pilwrap" id="clone-original-fs">
   <h2>
-    <a href="#clone%20original%20fs" name="clone%20original%20fs" class="pilcrow">&#182;</a>
-    Clone original fs
+    <a href="#clone-original-fs" name="clone-original-fs" class="pilcrow"></a>
+Clone original fs
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">afs = module.exports = </span><span class="p">{}</span>
-<span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">fs</span>
-  <span class="nx">afs</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span>
+        <td class="code highlight">
+          <pre class="coffeescript">afs = <span class="hljs-built_in">module</span>.exports = {}
+<span class="hljs-keyword">for</span> name, value <span class="hljs-keyword">of</span> fs
+  afs[name] = value
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="optimize%20original%20methods">
+          <div class="pilwrap" id="optimize-original-methods">
   <h2>
-    <a href="#optimize%20original%20methods" name="optimize%20original%20methods" class="pilcrow">&#182;</a>
-    Optimize original methods
+    <a href="#optimize-original-methods" name="optimize-original-methods" class="pilcrow"></a>
+Optimize original methods
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="stat%20with%20cached%20results">
+          <div class="pilwrap" id="stat-with-cached-results">
   <h3>
-    <a href="#stat%20with%20cached%20results" name="stat%20with%20cached%20results" class="pilcrow">&#182;</a>
-    stat with cached results
+    <a href="#stat-with-cached-results" name="stat-with-cached-results" class="pilcrow"></a>
+stat with cached results
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">afs.stat = </span><span class="nx">memoizee</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span><span class="p">,</span>
-  <span class="nv">async: </span><span class="kc">true</span>
-  <span class="nv">maxAge: </span><span class="mi">1000</span> <span class="c1"># expiration time in milliseconds</span>
-  <span class="nv">max: </span><span class="mi">1000</span> <span class="c1"># limit number of elements</span>
+        <td class="code highlight">
+          <pre class="coffeescript">afs.stat = memoizee fs.stat,
+  <span class="hljs-attribute">async</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">maxAge</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
+  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="statsync%20with%20cached%20results%20(synchronous)">
+          <div class="pilwrap" id="statsync-with-cached-results-synchronous">
   <h3>
-    <a href="#statsync%20with%20cached%20results%20(synchronous)" name="statsync%20with%20cached%20results%20(synchronous)" class="pilcrow">&#182;</a>
-    statSync with cached results (synchronous)
+    <a href="#statsync-with-cached-results-synchronous" name="statsync-with-cached-results-synchronous" class="pilcrow"></a>
+statSync with cached results (synchronous)
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">afs.statSync = </span><span class="nx">memoizee</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span><span class="p">,</span>
-  <span class="nv">maxAge: </span><span class="mi">1000</span> <span class="c1"># expiration time in milliseconds</span>
-  <span class="nv">max: </span><span class="mi">1000</span> <span class="c1"># limit number of elements</span>
+        <td class="code highlight">
+          <pre class="coffeescript">afs.statSync = memoizee fs.statSync,
+  <span class="hljs-attribute">maxAge</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
+  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="lstat%20with%20cached%20results">
+          <div class="pilwrap" id="lstat-with-cached-results">
   <h3>
-    <a href="#lstat%20with%20cached%20results" name="lstat%20with%20cached%20results" class="pilcrow">&#182;</a>
-    lstat with cached results
+    <a href="#lstat-with-cached-results" name="lstat-with-cached-results" class="pilcrow"></a>
+lstat with cached results
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">afs.lstat = </span><span class="nx">memoizee</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span><span class="p">,</span>
-  <span class="nv">async: </span><span class="kc">true</span>
-  <span class="nv">maxAge: </span><span class="mi">1000</span> <span class="c1"># expiration time in milliseconds</span>
-  <span class="nv">max: </span><span class="mi">1000</span> <span class="c1"># limit number of elements</span>
+        <td class="code highlight">
+          <pre class="coffeescript">afs.lstat = memoizee fs.lstat,
+  <span class="hljs-attribute">async</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">maxAge</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
+  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="lstatsync%20with%20cached%20results%20(synchronous)">
+          <div class="pilwrap" id="lstatsync-with-cached-results-synchronous">
   <h3>
-    <a href="#lstatsync%20with%20cached%20results%20(synchronous)" name="lstatsync%20with%20cached%20results%20(synchronous)" class="pilcrow">&#182;</a>
-    lstatSync with cached results (synchronous)
+    <a href="#lstatsync-with-cached-results-synchronous" name="lstatsync-with-cached-results-synchronous" class="pilcrow"></a>
+lstatSync with cached results (synchronous)
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">afs.lstatSync = </span><span class="nx">memoizee</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span><span class="p">,</span>
-  <span class="nv">maxAge: </span><span class="mi">1000</span> <span class="c1"># expiration time in milliseconds</span>
-  <span class="nv">max: </span><span class="mi">1000</span> <span class="c1"># limit number of elements</span>
+        <td class="code highlight">
+          <pre class="coffeescript">afs.lstatSync = memoizee fs.lstatSync,
+  <span class="hljs-attribute">maxAge</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
+  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="add%20extended%20functionality">
+          <div class="pilwrap" id="add-extended-functionality">
   <h2>
-    <a href="#add%20extended%20functionality" name="add%20extended%20functionality" class="pilcrow">&#182;</a>
-    Add extended functionality
+    <a href="#add-extended-functionality" name="add-extended-functionality" class="pilcrow"></a>
+Add extended functionality
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="k">for</span> <span class="nx">name</span> <span class="k">in</span> <span class="p">[</span>
-  <span class="s">&#39;mkdirs&#39;</span><span class="p">,</span> <span class="s">&#39;find&#39;</span><span class="p">,</span> <span class="s">&#39;copy&#39;</span><span class="p">,</span> <span class="s">&#39;remove&#39;</span><span class="p">,</span> <span class="s">&#39;move&#39;</span>
-  <span class="s">&#39;npmbin&#39;</span><span class="p">,</span> <span class="s">&#39;tempdir&#39;</span>
-<span class="p">]</span>
-  <span class="nv">commands = </span><span class="nx">require</span> <span class="s">&#39;./&#39;</span> <span class="o">+</span> <span class="nx">name</span>
-  <span class="nx">afs</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">commands</span><span class="p">.</span><span class="nx">async</span>
-  <span class="nx">afs</span><span class="p">[</span><span class="nx">name</span><span class="o">+</span><span class="s">&#39;Sync&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">commands</span><span class="p">.</span><span class="nx">sync</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> [
+  <span class="hljs-string">'mkdirs'</span>, <span class="hljs-string">'find'</span>, <span class="hljs-string">'copy'</span>, <span class="hljs-string">'remove'</span>, <span class="hljs-string">'move'</span>
+  <span class="hljs-string">'npmbin'</span>, <span class="hljs-string">'tempdir'</span>
+]
+  commands = <span class="hljs-built_in">require</span> <span class="hljs-string">'./'</span> + name
+  afs[name] = commands.async
+  afs[name+<span class="hljs-string">'Sync'</span>] = commands.sync
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

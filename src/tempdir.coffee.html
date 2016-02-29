@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-fs/src/tempdir.coffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-fs/src/tempdir.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,239 +39,258 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#extension%20of%20nodes%20fs%20utils">Extension of nodes fs utils</a>
+        <a href="#extension-of-nodes-fs-utils">Extension of nodes fs utils</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#create%20temporary%20folder">Create temporary folder</a>
+        <a href="#create-temporary-folder">Create temporary folder</a>
       </div>
+
       <div class="heading h2">
-        <a href="#create%20temporary%20folder%20(synchronous)">Create temporary folder (Synchronous)</a>
+        <a href="#create-temporary-folder-synchronous">Create temporary folder (Synchronous)</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="extension%20of%20nodes%20fs%20utils">
+          <div class="pilwrap" id="extension-of-nodes-fs-utils">
   <h1>
-    <a href="#extension%20of%20nodes%20fs%20utils" name="extension%20of%20nodes%20fs%20utils" class="pilcrow">&#182;</a>
-    Extension of nodes fs utils
+    <a href="#extension-of-nodes-fs-utils" name="extension-of-nodes-fs-utils" class="pilcrow"></a>
+Extension of nodes fs utils
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
-<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">crypto = </span><span class="nx">require</span> <span class="s">&#39;crypto&#39;</span>
-<span class="nv">os = </span><span class="nx">require</span> <span class="s">&#39;os&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
+path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+crypto = <span class="hljs-built_in">require</span> <span class="hljs-string">'crypto'</span>
+os = <span class="hljs-built_in">require</span> <span class="hljs-string">'os'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>include other extended commands and helper</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
 
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="create%20temporary%20folder">
+          <div class="pilwrap" id="create-temporary-folder">
   <h2>
-    <a href="#create%20temporary%20folder" name="create%20temporary%20folder" class="pilcrow">&#182;</a>
-    Create temporary folder
+    <a href="#create-temporary-folder" name="create-temporary-folder" class="pilcrow"></a>
+Create temporary folder
   </h2>
 </div>
-
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>base</code> - path under which the directory should be created (defaults to os setting)</li>
 <li><code>prefix</code> - prefix string to use</li>
 <li><code>cb</code> - callback method</li>
 </ul>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">tempdir = module.exports.async = </span><span class="nf">(base, prefix = null, cb) -&gt;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">tempdir = <span class="hljs-built_in">module</span>.exports.async = <span class="hljs-function"><span class="hljs-params">(base, prefix = <span class="hljs-literal">null</span>, cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
 </div>
 <p>optional arguments</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">if</span> <span class="o">not</span> <span class="nx">cb</span><span class="o">?</span> <span class="o">and</span> <span class="k">typeof</span> <span class="nx">prefix</span> <span class="o">is</span> <span class="s">&#39;function&#39;</span>
-    <span class="nv">cb = </span><span class="nx">prefix</span>
-    <span class="nv">prefix = </span><span class="kc">null</span>
-  <span class="k">if</span> <span class="o">not</span> <span class="nx">cb</span><span class="o">?</span> <span class="o">and</span> <span class="k">typeof</span> <span class="nx">base</span> <span class="o">is</span> <span class="s">&#39;function&#39;</span>
-    <span class="nv">cb = </span><span class="nx">base</span>
-    <span class="nv">base = </span><span class="kc">null</span>
-  <span class="nx">base</span> <span class="o">?=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">tmpDir</span><span class="p">()</span>
-  <span class="nx">prefix</span> <span class="o">?=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">process</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="s">&#39;-&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> cb? <span class="hljs-keyword">and</span> <span class="hljs-keyword">typeof</span> prefix <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+    cb = prefix
+    prefix = <span class="hljs-literal">null</span>
+  <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> cb? <span class="hljs-keyword">and</span> <span class="hljs-keyword">typeof</span> base <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+    cb = base
+    base = <span class="hljs-literal">null</span>
+  base ?= os.tmpDir()
+  prefix ?= path.basename process.title + <span class="hljs-string">'-'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
 </div>
 <p>try to create dir</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">dir = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">base</span><span class="p">,</span> <span class="nx">prefix</span> <span class="o">+</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">randomBytes</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="nx">readUInt32LE</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdir</span> <span class="nx">dir</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  dir = path.join base, prefix + crypto.randomBytes(<span class="hljs-number">4</span>).readUInt32LE(<span class="hljs-number">0</span>)
+  fs.mkdir dir, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
 <p>try again if already existing</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">return</span> <span class="nx">tempdir</span> <span class="nx">base</span><span class="p">,</span> <span class="nx">prefix</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">err</span><span class="o">?</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;EEXIST&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">return</span> tempdir base, prefix, cb <span class="hljs-keyword">if</span> err?.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
 </div>
 <p>stop on any other problem</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">dir</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    cb <span class="hljs-literal">null</span>, dir
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="create%20temporary%20folder%20(synchronous)">
+          <div class="pilwrap" id="create-temporary-folder-synchronous">
   <h2>
-    <a href="#create%20temporary%20folder%20(synchronous)" name="create%20temporary%20folder%20(synchronous)" class="pilcrow">&#182;</a>
-    Create temporary folder (Synchronous)
+    <a href="#create-temporary-folder-synchronous" name="create-temporary-folder-synchronous" class="pilcrow"></a>
+Create temporary folder (Synchronous)
   </h2>
 </div>
-
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>base</code> - path under which the directory should be created (defaults to os setting)</li>
 <li><code>prefix</code> - prefix string to use</li>
 <li><code>cb</code> - callback method</li>
 </ul>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">tempdir = module.exports.sync = </span><span class="nf">(base, prefix = null) -&gt;</span>
-  <span class="nx">base</span> <span class="o">?=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">tmpDir</span><span class="p">()</span>
-  <span class="nx">prefix</span> <span class="o">?=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">process</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="s">&#39;-&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">tempdir = <span class="hljs-built_in">module</span>.exports.sync = <span class="hljs-function"><span class="hljs-params">(base, prefix = <span class="hljs-literal">null</span>)</span> -&gt;</span>
+  base ?= os.tmpDir()
+  prefix ?= path.basename process.title + <span class="hljs-string">'-'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>try to create dir</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">dir = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">base</span><span class="p">,</span> <span class="nx">prefix</span> <span class="o">+</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">randomBytes</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="nx">readUInt32LE</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-  <span class="k">try</span>
-    <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span> <span class="nx">dir</span>
-    <span class="k">return</span> <span class="nx">dir</span>
-  <span class="k">catch</span> <span class="nx">error</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  dir = path.join base, prefix + crypto.randomBytes(<span class="hljs-number">4</span>).readUInt32LE(<span class="hljs-number">0</span>)
+  <span class="hljs-keyword">try</span>
+    fs.mkdirSync dir
+    <span class="hljs-keyword">return</span> dir
+  <span class="hljs-keyword">catch</span> error
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>try again if already existing</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">return</span> <span class="nx">tempdir</span> <span class="nx">base</span><span class="p">,</span> <span class="nx">prefix</span> <span class="k">if</span> <span class="nx">error</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;EEXIST&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">return</span> tempdir base, prefix <span class="hljs-keyword">if</span> error.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
 <p>stop on any other problem</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">throw</span> <span class="nx">error</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">throw</span> error
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>
