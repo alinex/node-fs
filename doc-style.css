@@ -617,6 +617,29 @@ a:hover {
   color: black;
   border-radius: 5px;
 }
+#container table {
+  width: 100%;
+  background: #333;
+}
+div.background {
+  background: #333;
+  border: 0;
+}
+td.code {
+  background: #333;
+  width: auto;
+}
+td.code pre {
+  border-radius: 8px;
+  padding: 5px 10px;
+}
+pre {
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
 pre code.sh::before {
   content: "Shell Script";
   color: #505050;
@@ -665,10 +688,10 @@ pre, tt, code {
 }
 .highlight {
   background: #ededf3;
-  color: auto; }
-
+  color: auto;
+}
 .dox {
-  border-top-color: #e0e0e4;
+  border-top: 0;
 }
 .dox .details {
   background: #ededf3;
