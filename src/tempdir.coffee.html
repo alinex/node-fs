@@ -107,8 +107,7 @@ Node Modules
           <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
 path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
 crypto = <span class="hljs-built_in">require</span> <span class="hljs-string">'crypto'</span>
-os = <span class="hljs-built_in">require</span> <span class="hljs-string">'os'</span>
-</pre>
+os = <span class="hljs-built_in">require</span> <span class="hljs-string">'os'</span></pre>
         </td>
       </tr>
     
@@ -142,8 +141,7 @@ Create temporary folder
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">tempdir = <span class="hljs-built_in">module</span>.exports.async = <span class="hljs-function"><span class="hljs-params">(base, prefix = <span class="hljs-literal">null</span>, cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">tempdir = <span class="hljs-built_in">module</span>.exports.async = <span class="hljs-function"><span class="hljs-params">(base, prefix = <span class="hljs-literal">null</span>, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -163,8 +161,7 @@ Create temporary folder
     cb = base
     base = <span class="hljs-literal">null</span>
   base ?= os.tmpDir()
-  prefix ?= path.basename process.title + <span class="hljs-string">'-'</span>
-</pre>
+  prefix ?= path.basename process.title + <span class="hljs-string">'-'</span></pre>
         </td>
       </tr>
     
@@ -178,8 +175,7 @@ Create temporary folder
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  dir = path.join base, prefix + crypto.randomBytes(<span class="hljs-number">4</span>).readUInt32LE(<span class="hljs-number">0</span>)
-  fs.mkdir dir, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-</pre>
+  fs.mkdir dir, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -192,8 +188,7 @@ Create temporary folder
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">return</span> tempdir base, prefix, cb <span class="hljs-keyword">if</span> err?.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span>
-</pre>
+          <pre class="coffeescript">    <span class="hljs-keyword">return</span> tempdir base, prefix, cb <span class="hljs-keyword">if</span> err?.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span></pre>
         </td>
       </tr>
     
@@ -207,9 +202,7 @@ Create temporary folder
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-    cb <span class="hljs-literal">null</span>, dir
-
-</pre>
+    cb <span class="hljs-literal">null</span>, dir</pre>
         </td>
       </tr>
     
@@ -232,8 +225,7 @@ Create temporary folder (Synchronous)
         <td class="code highlight">
           <pre class="coffeescript">tempdir = <span class="hljs-built_in">module</span>.exports.sync = <span class="hljs-function"><span class="hljs-params">(base, prefix = <span class="hljs-literal">null</span>)</span> -&gt;</span>
   base ?= os.tmpDir()
-  prefix ?= path.basename process.title + <span class="hljs-string">'-'</span>
-</pre>
+  prefix ?= path.basename process.title + <span class="hljs-string">'-'</span></pre>
         </td>
       </tr>
     
@@ -250,8 +242,7 @@ Create temporary folder (Synchronous)
   <span class="hljs-keyword">try</span>
     fs.mkdirSync dir
     <span class="hljs-keyword">return</span> dir
-  <span class="hljs-keyword">catch</span> error
-</pre>
+  <span class="hljs-keyword">catch</span> error</pre>
         </td>
       </tr>
     
@@ -264,8 +255,7 @@ Create temporary folder (Synchronous)
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">return</span> tempdir base, prefix <span class="hljs-keyword">if</span> error.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span>
-</pre>
+          <pre class="coffeescript">    <span class="hljs-keyword">return</span> tempdir base, prefix <span class="hljs-keyword">if</span> error.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span></pre>
         </td>
       </tr>
     
@@ -278,9 +268,7 @@ Create temporary folder (Synchronous)
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">throw</span> error
-
-</pre>
+          <pre class="coffeescript">    <span class="hljs-keyword">throw</span> error</pre>
         </td>
       </tr>
     

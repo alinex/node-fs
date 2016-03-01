@@ -106,9 +106,7 @@ Node Modules
         <td class="code highlight">
           <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
 path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
-debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'fs:npmbin'</span>)
-
-</pre>
+debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'fs:npmbin'</span>)</pre>
         </td>
       </tr>
     
@@ -138,8 +136,7 @@ The file is the path to the binary if found.</li>
   npmbin bin, dir, cb
 <span class="hljs-function">
 <span class="hljs-title">npmbin</span> = <span class="hljs-params">(bin, dir, cb)</span> -&gt;</span>
-  file = path.join dir, <span class="hljs-string">'node_modules'</span>, <span class="hljs-string">'.bin'</span>, bin
-</pre>
+  file = path.join dir, <span class="hljs-string">'node_modules'</span>, <span class="hljs-string">'.bin'</span>, bin</pre>
         </td>
       </tr>
     
@@ -153,8 +150,7 @@ The file is the path to the binary if found.</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  fs.exists file, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, file <span class="hljs-keyword">if</span> exists
-</pre>
+    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, file <span class="hljs-keyword">if</span> exists</pre>
         </td>
       </tr>
     
@@ -168,8 +164,7 @@ The file is the path to the binary if found.</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    parent = path.join dir, <span class="hljs-string">'..'</span>, <span class="hljs-string">'..'</span>
-    <span class="hljs-keyword">if</span> parent <span class="hljs-keyword">is</span> dir
-</pre>
+    <span class="hljs-keyword">if</span> parent <span class="hljs-keyword">is</span> dir</pre>
         </td>
       </tr>
     
@@ -186,9 +181,7 @@ The file is the path to the binary if found.</li>
         file = path.join dir, bin
         <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, file <span class="hljs-keyword">if</span> fs.existsSync file
       <span class="hljs-keyword">return</span> cb <span class="hljs-string">"Could not find <span class="hljs-subst">#{bin}</span> program."</span>
-    npmbin bin, parent, cb
-
-</pre>
+    npmbin bin, parent, cb</pre>
         </td>
       </tr>
     
@@ -224,8 +217,7 @@ npmbinSync = <span class="hljs-built_in">module</span>.exports.sync = <span clas
   <span class="hljs-keyword">unless</span> cb
     cb = dir
     dir = path.dirname __dirname
-  file = path.join dir, <span class="hljs-string">'node_modules'</span>, <span class="hljs-string">'.bin'</span>, bin
-</pre>
+  file = path.join dir, <span class="hljs-string">'node_modules'</span>, <span class="hljs-string">'.bin'</span>, bin</pre>
         </td>
       </tr>
     
@@ -238,8 +230,7 @@ npmbinSync = <span class="hljs-built_in">module</span>.exports.sync = <span clas
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-keyword">return</span> file <span class="hljs-keyword">if</span> fs.exists file
-</pre>
+          <pre class="coffeescript">  <span class="hljs-keyword">return</span> file <span class="hljs-keyword">if</span> fs.exists file</pre>
         </td>
       </tr>
     
@@ -253,8 +244,7 @@ npmbinSync = <span class="hljs-built_in">module</span>.exports.sync = <span clas
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  parent = path.join dir, <span class="hljs-string">'..'</span>, <span class="hljs-string">'..'</span>
-  <span class="hljs-keyword">if</span> parent <span class="hljs-keyword">is</span> dir
-</pre>
+  <span class="hljs-keyword">if</span> parent <span class="hljs-keyword">is</span> dir</pre>
         </td>
       </tr>
     
@@ -271,9 +261,7 @@ npmbinSync = <span class="hljs-built_in">module</span>.exports.sync = <span clas
       file = path.join dir, bin
       <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, file <span class="hljs-keyword">if</span> fs.existsSync file
     <span class="hljs-keyword">return</span> cb <span class="hljs-string">"Could not find <span class="hljs-subst">#{bin}</span> program."</span>
-  npmbinSync bin, parent
-
-</pre>
+  npmbinSync bin, parent</pre>
         </td>
       </tr>
     

@@ -125,9 +125,7 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'graceful-fs'</span>
-memoizee = <span class="hljs-built_in">require</span> <span class="hljs-string">'memoizee'</span>
-
-</pre>
+memoizee = <span class="hljs-built_in">require</span> <span class="hljs-string">'memoizee'</span></pre>
         </td>
       </tr>
     
@@ -144,10 +142,7 @@ Clone original fs
         <td class="code highlight">
           <pre class="coffeescript">afs = <span class="hljs-built_in">module</span>.exports = {}
 <span class="hljs-keyword">for</span> name, value <span class="hljs-keyword">of</span> fs
-  afs[name] = value
-
-
-</pre>
+  afs[name] = value</pre>
         </td>
       </tr>
     
@@ -180,9 +175,7 @@ stat with cached results
           <pre class="coffeescript">afs.stat = memoizee fs.stat,
   <span class="hljs-attribute">async</span>: <span class="hljs-literal">true</span>
   <span class="hljs-attribute">maxAge</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
-  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span>
-
-</pre>
+  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span></pre>
         </td>
       </tr>
     
@@ -199,9 +192,7 @@ statSync with cached results (synchronous)
         <td class="code highlight">
           <pre class="coffeescript">afs.statSync = memoizee fs.statSync,
   <span class="hljs-attribute">maxAge</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
-  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span>
-
-</pre>
+  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span></pre>
         </td>
       </tr>
     
@@ -219,9 +210,7 @@ lstat with cached results
           <pre class="coffeescript">afs.lstat = memoizee fs.lstat,
   <span class="hljs-attribute">async</span>: <span class="hljs-literal">true</span>
   <span class="hljs-attribute">maxAge</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
-  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span>
-
-</pre>
+  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span></pre>
         </td>
       </tr>
     
@@ -238,9 +227,7 @@ lstatSync with cached results (synchronous)
         <td class="code highlight">
           <pre class="coffeescript">afs.lstatSync = memoizee fs.lstatSync,
   <span class="hljs-attribute">maxAge</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
-  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span>
-
-</pre>
+  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span></pre>
         </td>
       </tr>
     
@@ -261,9 +248,7 @@ Add extended functionality
 ]
   commands = <span class="hljs-built_in">require</span> <span class="hljs-string">'./'</span> + name
   afs[name] = commands.async
-  afs[name+<span class="hljs-string">'Sync'</span>] = commands.sync
-
-</pre>
+  afs[name+<span class="hljs-string">'Sync'</span>] = commands.sync</pre>
         </td>
       </tr>
     

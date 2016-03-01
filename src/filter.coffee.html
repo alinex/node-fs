@@ -141,9 +141,7 @@ path = <span class="hljs-built_in">require</span> <span class="hljs-string">'pat
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
 chrono = <span class="hljs-built_in">require</span> <span class="hljs-string">'chrono-node'</span>
 debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'fs:filter'</span>)
-util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
-
-</pre>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span></pre>
         </td>
       </tr>
     
@@ -182,9 +180,7 @@ The callback will be called with a boolean value showing if file is accepted.</l
     (cb) -&gt; skipOwner file, options, cb
     (cb) -&gt; skipFunction file, options, cb
   ], <span class="hljs-function"><span class="hljs-params">(skip)</span> -&gt;</span>
-    cb <span class="hljs-keyword">not</span> skip
-
-</pre>
+    cb <span class="hljs-keyword">not</span> skip</pre>
         </td>
       </tr>
     
@@ -225,10 +221,7 @@ The callback will be called with a boolean value showing if file is accepted.</l
   <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> skipTimeSync file, options
   <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> skipOwnerSync file, options
   <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> skipFunctionSync file, options
-  <span class="hljs-literal">true</span>
-
-
-</pre>
+  <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -291,9 +284,7 @@ Test the path
       <span class="hljs-keyword">if</span> minimatch file, options.exclude, {<span class="hljs-attribute">matchBase</span>: <span class="hljs-literal">true</span>}
         debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because path excluded (glob)"</span>
         <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
-
-</pre>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span></pre>
         </td>
       </tr>
     
@@ -333,9 +324,7 @@ check the value against the options.</p>
     <span class="hljs-keyword">return</span> stat file
   <span class="hljs-keyword">catch</span> error
     debug <span class="hljs-string">"error resolving <span class="hljs-subst">#{file}</span> link <span class="hljs-subst">#{error.message}</span>"</span>
-    <span class="hljs-keyword">return</span> filestatSync file, {}
-
-</pre>
+    <span class="hljs-keyword">return</span> filestatSync file, {}</pre>
         </td>
       </tr>
     
@@ -397,9 +386,7 @@ Test the file type
     <span class="hljs-keyword">when</span> <span class="hljs-string">'socket'</span>, <span class="hljs-string">'s'</span>
       <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> stats.isSocket()
       debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because not a socket entry"</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
-
-</pre>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -449,9 +436,7 @@ Test for filesize
   skip = (options.minsize? <span class="hljs-keyword">and</span> options.minsize &gt; stats.size) <span class="hljs-keyword">or</span>
     (options.maxsize? <span class="hljs-keyword">and</span> options.maxsize &lt; stats.size)
   debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because size mismatch"</span> <span class="hljs-keyword">if</span> skip
-  <span class="hljs-keyword">return</span> skip
-
-</pre>
+  <span class="hljs-keyword">return</span> skip</pre>
         </td>
       </tr>
     
@@ -526,8 +511,7 @@ Check the owwner and group
     stats = filestatSync file, options
   <span class="hljs-keyword">catch</span> err
     debug <span class="hljs-string">"skip because error <span class="hljs-subst">#{err}</span> in stat for <span class="hljs-subst">#{file}</span>"</span>
-    <span class="hljs-keyword">return</span>
-</pre>
+    <span class="hljs-keyword">return</span></pre>
         </td>
       </tr>
     
@@ -542,10 +526,7 @@ Check the owwner and group
         <td class="code highlight">
           <pre class="coffeescript">  skip = (uid <span class="hljs-keyword">and</span> uid <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> stats.uid) <span class="hljs-keyword">or</span> (gid <span class="hljs-keyword">and</span> gid <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> stats.gid)
   debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because owner mismatch"</span> <span class="hljs-keyword">if</span> skip
-  <span class="hljs-keyword">return</span> skip
-
-
-</pre>
+  <span class="hljs-keyword">return</span> skip</pre>
         </td>
       </tr>
     
@@ -572,9 +553,7 @@ if file can be used or false.</p>
   <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> options.test <span class="hljs-keyword">or</span> <span class="hljs-keyword">typeof</span> options.test <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-string">'function'</span>
   ok = options.test file, options
   debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> by user function"</span> <span class="hljs-keyword">unless</span> ok
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">not</span> ok
-
-</pre>
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">not</span> ok</pre>
         </td>
       </tr>
     
@@ -594,8 +573,7 @@ Check file times
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">timeCheck</span> = <span class="hljs-params">(stats, options)</span> -&gt;</span>
   <span class="hljs-keyword">for</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">'accessed'</span>, <span class="hljs-string">'modified'</span>, <span class="hljs-string">'created'</span>]
     <span class="hljs-keyword">for</span> dir <span class="hljs-keyword">in</span> [<span class="hljs-string">'After'</span>, <span class="hljs-string">'Before'</span>]
-      <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> options[type+dir]
-</pre>
+      <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> options[type+dir]</pre>
         </td>
       </tr>
     
@@ -612,8 +590,7 @@ Check file times
       ref = chrono.parseDate(ref)?.getTime()/<span class="hljs-number">1000</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> ref <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
       <span class="hljs-keyword">unless</span> ref
         <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Given value '<span class="hljs-subst">#{options[type+dir]}</span>' in option <span class="hljs-subst">#{type+dir}</span> is invalid."</span>
-      value = stats[type.charAt(<span class="hljs-number">0</span>) + <span class="hljs-string">'time'</span>].getTime()/<span class="hljs-number">1000</span>
-</pre>
+      value = stats[type.charAt(<span class="hljs-number">0</span>) + <span class="hljs-string">'time'</span>].getTime()/<span class="hljs-number">1000</span></pre>
         </td>
       </tr>
     
@@ -640,8 +617,7 @@ Check file times
   filestat file, options, <span class="hljs-function"><span class="hljs-params">(err, stats)</span> -&gt;</span>
     <span class="hljs-keyword">if</span> err
       debug <span class="hljs-string">"skip because error <span class="hljs-subst">#{err}</span> in stat for <span class="hljs-subst">#{file}</span>"</span>
-      <span class="hljs-keyword">return</span> cb()
-</pre>
+      <span class="hljs-keyword">return</span> cb()</pre>
         </td>
       </tr>
     
@@ -654,8 +630,7 @@ Check file times
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    skip = <span class="hljs-keyword">not</span> timeCheck stats, options
-</pre>
+          <pre class="coffeescript">    skip = <span class="hljs-keyword">not</span> timeCheck stats, options</pre>
         </td>
       </tr>
     
@@ -684,9 +659,7 @@ Check file times
     <span class="hljs-keyword">return</span>
   skip = <span class="hljs-keyword">not</span> timeCheck stats, options
   debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because out of time range"</span> <span class="hljs-keyword">if</span> skip
-  <span class="hljs-keyword">return</span> skip
-
-</pre>
+  <span class="hljs-keyword">return</span> skip</pre>
         </td>
       </tr>
     

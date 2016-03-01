@@ -107,9 +107,7 @@ Node Modules
           <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
 path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
-debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'fs:copy'</span>)
-
-</pre>
+debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'fs:copy'</span>)</pre>
         </td>
       </tr>
     
@@ -123,9 +121,7 @@ debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'de
         </td>
         <td class="code highlight">
           <pre class="coffeescript">mkdirs = <span class="hljs-built_in">require</span> <span class="hljs-string">'./mkdirs'</span>
-filter = <span class="hljs-built_in">require</span> <span class="hljs-string">'./filter'</span>
-
-</pre>
+filter = <span class="hljs-built_in">require</span> <span class="hljs-string">'./filter'</span></pre>
         </td>
       </tr>
     
@@ -168,8 +164,7 @@ this and go on with the next file</li>
 <span class="hljs-function">    <span class="hljs-title">cb</span> = -&gt;</span>
   <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> options <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> options
     cb = options ? -&gt;
-    options = {}
-</pre>
+    options = {}</pre>
         </td>
       </tr>
     
@@ -186,8 +181,7 @@ this and go on with the next file</li>
   stat source, <span class="hljs-function"><span class="hljs-params">(err, stats)</span> -&gt;</span>
     <span class="hljs-keyword">if</span> err
       <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> options.ignoreErrors
-      <span class="hljs-keyword">return</span> cb err
-</pre>
+      <span class="hljs-keyword">return</span> cb err</pre>
         </td>
       </tr>
     
@@ -202,8 +196,7 @@ this and go on with the next file</li>
         <td class="code highlight">
           <pre class="coffeescript">    filter.async source, depth, options, <span class="hljs-function"><span class="hljs-params">(ok)</span> -&gt;</span>
       <span class="hljs-keyword">if</span> stats.isFile()
-        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> ok
-</pre>
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> ok</pre>
         </td>
       </tr>
     
@@ -217,8 +210,7 @@ this and go on with the next file</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">        mkdirs.async path.dirname(target), <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -239,8 +231,7 @@ this and go on with the next file</li>
               <span class="hljs-keyword">return</span> copyFile source, stats, target, cb
             cb()
       <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> stats.isSymbolicLink()
-        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> ok
-</pre>
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> ok</pre>
         </td>
       </tr>
     
@@ -257,8 +248,7 @@ this and go on with the next file</li>
           <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
           debug <span class="hljs-string">"copying link <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>"</span>
           fs.readlink source, <span class="hljs-function"><span class="hljs-params">(err, resolvedPath)</span> -&gt;</span>
-            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -272,8 +262,7 @@ this and go on with the next file</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">            fs.symlink resolvedPath, target, cb
-      <span class="hljs-keyword">else</span>
-</pre>
+      <span class="hljs-keyword">else</span></pre>
         </td>
       </tr>
     
@@ -288,8 +277,7 @@ this and go on with the next file</li>
         <td class="code highlight">
           <pre class="coffeescript">        depth++
         fs.readdir source, <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
-          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -302,8 +290,7 @@ this and go on with the next file</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">          debug <span class="hljs-string">"copying directory <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>"</span>
-</pre>
+          <pre class="coffeescript">          debug <span class="hljs-string">"copying directory <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>"</span></pre>
         </td>
       </tr>
     
@@ -320,9 +307,7 @@ this and go on with the next file</li>
             <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
             async.each files, <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
               copy path.join(source, file), path.join(target, file), options, cb, depth
-            , cb
-
-</pre>
+            , cb</pre>
         </td>
       </tr>
     
@@ -372,8 +357,7 @@ If anything out of order happened.</li>
     <span class="hljs-keyword">throw</span> error
   ok = filter.sync source, depth, options
   <span class="hljs-keyword">if</span> stats.isFile()
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> ok
-</pre>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> ok</pre>
         </td>
       </tr>
     
@@ -386,8 +370,7 @@ If anything out of order happened.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    mkdirs.sync path.dirname(target)
-</pre>
+          <pre class="coffeescript">    mkdirs.sync path.dirname(target)</pre>
         </td>
       </tr>
     
@@ -407,8 +390,7 @@ If anything out of order happened.</li>
       debug <span class="hljs-string">"copying file <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>"</span>
       <span class="hljs-keyword">return</span> copyFileSync source, stats, target
   <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> stats.isSymbolicLink()
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> ok
-</pre>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> ok</pre>
         </td>
       </tr>
     
@@ -422,8 +404,7 @@ If anything out of order happened.</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    mkdirs.sync path.dirname(target)
-    resolvedPath = fs.readlinkSync source
-</pre>
+    resolvedPath = fs.readlinkSync source</pre>
         </td>
       </tr>
     
@@ -438,8 +419,7 @@ If anything out of order happened.</li>
         <td class="code highlight">
           <pre class="coffeescript">    debug <span class="hljs-string">"copying link <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>"</span>
     fs.symlinkSync resolvedPath, target
-  <span class="hljs-keyword">else</span>
-</pre>
+  <span class="hljs-keyword">else</span></pre>
         </td>
       </tr>
     
@@ -452,8 +432,7 @@ If anything out of order happened.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    depth++
-</pre>
+          <pre class="coffeescript">    depth++</pre>
         </td>
       </tr>
     
@@ -466,8 +445,7 @@ If anything out of order happened.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    mkdirs.sync target, stats.mode <span class="hljs-keyword">if</span> ok
-</pre>
+          <pre class="coffeescript">    mkdirs.sync target, stats.mode <span class="hljs-keyword">if</span> ok</pre>
         </td>
       </tr>
     
@@ -484,8 +462,7 @@ If anything out of order happened.</li>
     <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> fs.readdirSync source
       copySync path.join(source, file), path.join(target, file), options, depth
 <span class="hljs-function">
-<span class="hljs-title">copyFile</span> = <span class="hljs-params">(source, stats, target, cb)</span> -&gt;</span>
-</pre>
+<span class="hljs-title">copyFile</span> = <span class="hljs-params">(source, stats, target, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -500,8 +477,7 @@ If anything out of order happened.</li>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function">  <span class="hljs-title">done</span> = <span class="hljs-params">(err)</span> -&gt;</span>
     <span class="hljs-keyword">unless</span> cbCalled
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -518,8 +494,7 @@ If anything out of order happened.</li>
         fs.chown target, stats.uid, stats.gid, <span class="hljs-function">-&gt;</span>
           fs.chmod target, stats.mode, <span class="hljs-function">-&gt;</span>
             <span class="hljs-keyword">return</span> cb()
-    cbCalled = <span class="hljs-literal">true</span>
-</pre>
+    cbCalled = <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -534,8 +509,7 @@ If anything out of order happened.</li>
         <td class="code highlight">
           <pre class="coffeescript">  rs = fs.createReadStream source
   ws = fs.createWriteStream target,
-    <span class="hljs-attribute">mode</span>: stats.mode
-</pre>
+    <span class="hljs-attribute">mode</span>: stats.mode</pre>
         </td>
       </tr>
     
@@ -552,8 +526,7 @@ If anything out of order happened.</li>
   ws.<span class="hljs-literal">on</span> <span class="hljs-string">'close'</span>, done
   rs.pipe ws
 <span class="hljs-function">
-<span class="hljs-title">copyFileSync</span> = <span class="hljs-params">(source, stats, target)</span> -&gt;</span>
-</pre>
+<span class="hljs-title">copyFileSync</span> = <span class="hljs-params">(source, stats, target)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -566,8 +539,7 @@ If anything out of order happened.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  fs.writeFileSync target, fs.readFileSync source
-</pre>
+          <pre class="coffeescript">  fs.writeFileSync target, fs.readFileSync source</pre>
         </td>
       </tr>
     
@@ -582,9 +554,7 @@ If anything out of order happened.</li>
         <td class="code highlight">
           <pre class="coffeescript">  fs.utimesSync target, stats.atime, stats.mtime
   fs.chownSync target, stats.uid, stats.gid
-  fs.chmodSync target, stats.mode
-
-</pre>
+  fs.chmodSync target, stats.mode</pre>
         </td>
       </tr>
     

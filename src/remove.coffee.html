@@ -107,9 +107,7 @@ Node Modules
           <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
 path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
-debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'fs:remove'</span>)
-
-</pre>
+debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'fs:remove'</span>)</pre>
         </td>
       </tr>
     
@@ -122,9 +120,7 @@ debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'de
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">filter = <span class="hljs-built_in">require</span> <span class="hljs-string">'./filter'</span>
-
-</pre>
+          <pre class="coffeescript">filter = <span class="hljs-built_in">require</span> <span class="hljs-string">'./filter'</span></pre>
         </td>
       </tr>
     
@@ -160,8 +156,7 @@ matched everything within will be deleted.</p>
 <span class="hljs-function">    <span class="hljs-title">cb</span> = -&gt;</span>
   <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> options <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> options
     cb = options ? -&gt;
-    options = {}
-</pre>
+    options = {}</pre>
         </td>
       </tr>
     
@@ -175,8 +170,7 @@ matched everything within will be deleted.</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  stat = <span class="hljs-keyword">if</span> options.dereference? <span class="hljs-keyword">then</span> fs.stat <span class="hljs-keyword">else</span> fs.lstat
-  stat file, <span class="hljs-function"><span class="hljs-params">(err, stats)</span> -&gt;</span>
-</pre>
+  stat file, <span class="hljs-function"><span class="hljs-params">(err, stats)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -191,8 +185,7 @@ matched everything within will be deleted.</p>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> err
       <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> err.code <span class="hljs-keyword">is</span> <span class="hljs-string">'ENOENT'</span> <span class="hljs-keyword">or</span> options.ignoreErrors
-      <span class="hljs-keyword">return</span> cb err
-</pre>
+      <span class="hljs-keyword">return</span> cb err</pre>
         </td>
       </tr>
     
@@ -207,8 +200,7 @@ matched everything within will be deleted.</p>
         <td class="code highlight">
           <pre class="coffeescript">    filter.async file, depth, options, <span class="hljs-function"><span class="hljs-params">(ok)</span> -&gt;</span>
       <span class="hljs-keyword">if</span> stats.isFile()
-        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> ok
-</pre>
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> ok</pre>
         </td>
       </tr>
     
@@ -226,8 +218,7 @@ matched everything within will be deleted.</p>
           <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> err.code <span class="hljs-keyword">isnt</span> <span class="hljs-string">'ENOENT'</span>
           cb <span class="hljs-literal">null</span>, file
       <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> stats.isSymbolicLink()
-        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> ok
-</pre>
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> ok</pre>
         </td>
       </tr>
     
@@ -244,8 +235,7 @@ matched everything within will be deleted.</p>
         fs.unlink file, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
           <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> err.code <span class="hljs-keyword">isnt</span> <span class="hljs-string">'ENOENT'</span>
           cb <span class="hljs-literal">null</span>, file
-      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> stats.isDirectory()
-</pre>
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> stats.isDirectory()</pre>
         </td>
       </tr>
     
@@ -259,8 +249,7 @@ matched everything within will be deleted.</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">        dir = file
-        depth++
-</pre>
+        depth++</pre>
         </td>
       </tr>
     
@@ -276,8 +265,7 @@ matched everything within will be deleted.</p>
           <pre class="coffeescript">        debug <span class="hljs-string">"removing directory <span class="hljs-subst">#{dir}</span>"</span>
         options = {} <span class="hljs-keyword">if</span> ok
         fs.readdir file, <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
-          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -294,8 +282,7 @@ matched everything within will be deleted.</p>
             remove path.join(dir, file), options, cb, depth
           , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
             <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-            <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> ok
-</pre>
+            <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> ok</pre>
         </td>
       </tr>
     
@@ -309,8 +296,7 @@ matched everything within will be deleted.</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">            fs.rmdir dir, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-              <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> err.code <span class="hljs-keyword">isnt</span> <span class="hljs-string">'ENOTDIR'</span>
-</pre>
+              <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> err.code <span class="hljs-keyword">isnt</span> <span class="hljs-string">'ENOTDIR'</span></pre>
         </td>
       </tr>
     
@@ -327,10 +313,7 @@ matched everything within will be deleted.</p>
                 <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> err.code <span class="hljs-keyword">isnt</span> <span class="hljs-string">'ENOENT'</span>
                 cb <span class="hljs-literal">null</span>, dir
       <span class="hljs-keyword">else</span>
-        cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Entry '<span class="hljs-subst">#{file}</span>' is no directory, file or symbolic link."</span>
-
-
-</pre>
+        cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Entry '<span class="hljs-subst">#{file}</span>' is no directory, file or symbolic link."</span></pre>
         </td>
       </tr>
     
@@ -363,8 +346,7 @@ If anything out of order happened.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">removeSync = <span class="hljs-built_in">module</span>.exports.sync = <span class="hljs-function"><span class="hljs-params">(file, options = {}, depth = <span class="hljs-number">0</span>)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">removeSync = <span class="hljs-built_in">module</span>.exports.sync = <span class="hljs-function"><span class="hljs-params">(file, options = {}, depth = <span class="hljs-number">0</span>)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -377,8 +359,7 @@ If anything out of order happened.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  file = path.resolve file
-</pre>
+          <pre class="coffeescript">  file = path.resolve file</pre>
         </td>
       </tr>
     
@@ -394,8 +375,7 @@ If anything out of order happened.</li>
           <pre class="coffeescript">  stat = <span class="hljs-keyword">if</span> options.dereference? <span class="hljs-keyword">then</span> fs.statSync <span class="hljs-keyword">else</span> fs.lstatSync
   <span class="hljs-keyword">try</span>
     stats = stat file
-  <span class="hljs-keyword">catch</span> error
-</pre>
+  <span class="hljs-keyword">catch</span> error</pre>
         </td>
       </tr>
     
@@ -409,8 +389,7 @@ If anything out of order happened.</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> error.code <span class="hljs-keyword">is</span> <span class="hljs-string">'ENOENT'</span> <span class="hljs-keyword">or</span> options.ignoreErrors
-    <span class="hljs-keyword">throw</span> error
-</pre>
+    <span class="hljs-keyword">throw</span> error</pre>
         </td>
       </tr>
     
@@ -425,8 +404,7 @@ If anything out of order happened.</li>
         <td class="code highlight">
           <pre class="coffeescript">  ok = filter.sync file, depth, options
   <span class="hljs-keyword">if</span> stats.isFile()
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> ok
-</pre>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> ok</pre>
         </td>
       </tr>
     
@@ -443,8 +421,7 @@ If anything out of order happened.</li>
     fs.unlinkSync file
     <span class="hljs-keyword">return</span> file
   <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> stats.isSymbolicLink()
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> ok
-</pre>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> ok</pre>
         </td>
       </tr>
     
@@ -460,8 +437,7 @@ If anything out of order happened.</li>
           <pre class="coffeescript">    debug <span class="hljs-string">"removing link <span class="hljs-subst">#{file}</span>"</span>
     fs.unlinkSync file
     <span class="hljs-keyword">return</span> file
-  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> stats.isDirectory()
-</pre>
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> stats.isDirectory()</pre>
         </td>
       </tr>
     
@@ -475,8 +451,7 @@ If anything out of order happened.</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    dir = file
-    depth++
-</pre>
+    depth++</pre>
         </td>
       </tr>
     
@@ -491,8 +466,7 @@ If anything out of order happened.</li>
         <td class="code highlight">
           <pre class="coffeescript">    debug <span class="hljs-string">"removing directory <span class="hljs-subst">#{file}</span>"</span>
     options = {} <span class="hljs-keyword">if</span> ok
-    files = fs.readdirSync file
-</pre>
+    files = fs.readdirSync file</pre>
         </td>
       </tr>
     
@@ -507,8 +481,7 @@ If anything out of order happened.</li>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> files
       removeSync path.join(dir, file), options, depth
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> ok
-</pre>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> ok</pre>
         </td>
       </tr>
     
@@ -521,8 +494,7 @@ If anything out of order happened.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">try</span> fs.rmdirSync dir
-</pre>
+          <pre class="coffeescript">    <span class="hljs-keyword">try</span> fs.rmdirSync dir</pre>
         </td>
       </tr>
     
@@ -538,9 +510,7 @@ If anything out of order happened.</li>
           <pre class="coffeescript">    <span class="hljs-keyword">try</span> fs.unlinkSync dir
     <span class="hljs-keyword">return</span> dir
   <span class="hljs-keyword">else</span>
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Entry '<span class="hljs-subst">#{file}</span>' is no directory, file or symbolic link."</span>
-
-</pre>
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Entry '<span class="hljs-subst">#{file}</span>' is no directory, file or symbolic link."</span></pre>
         </td>
       </tr>
     

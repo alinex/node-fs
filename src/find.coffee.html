@@ -109,9 +109,7 @@ fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</
 path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
 
-filter = <span class="hljs-built_in">require</span> <span class="hljs-string">'./filter'</span>
-
-</pre>
+filter = <span class="hljs-built_in">require</span> <span class="hljs-string">'./filter'</span></pre>
         </td>
       </tr>
     
@@ -146,8 +144,7 @@ Search depth as integer (internal parameter).</li>
     cb = options ? -&gt;
     options = {}
   list = []
-  debug <span class="hljs-string">"check <span class="hljs-subst">#{source}</span>"</span>
-</pre>
+  debug <span class="hljs-string">"check <span class="hljs-subst">#{source}</span>"</span></pre>
         </td>
       </tr>
     
@@ -162,8 +159,7 @@ Search depth as integer (internal parameter).</li>
         <td class="code highlight">
           <pre class="coffeescript">  filter.async source, depth, options, <span class="hljs-function"><span class="hljs-params">(ok)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, list <span class="hljs-keyword">if</span> options.lazy <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> ok
-    list.push source <span class="hljs-keyword">if</span> ok
-</pre>
+    list.push source <span class="hljs-keyword">if</span> ok</pre>
         </td>
       </tr>
     
@@ -181,8 +177,7 @@ Search depth as integer (internal parameter).</li>
       <span class="hljs-keyword">if</span> err
         <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, [] <span class="hljs-keyword">if</span> options?.ignoreErrors
         <span class="hljs-keyword">return</span> cb err
-      <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, list <span class="hljs-keyword">unless</span> stats.isDirectory()
-</pre>
+      <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, list <span class="hljs-keyword">unless</span> stats.isDirectory()</pre>
         </td>
       </tr>
     
@@ -198,8 +193,7 @@ Search depth as integer (internal parameter).</li>
           <pre class="coffeescript">      debug <span class="hljs-string">"going deeper into <span class="hljs-subst">#{source}</span> directory"</span>
       depth++
       fs.readdir source, <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
-        <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+        <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -218,9 +212,7 @@ Search depth as integer (internal parameter).</li>
           <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
           <span class="hljs-keyword">for</span> result <span class="hljs-keyword">in</span> results
             list = list.concat result
-          cb <span class="hljs-literal">null</span>, list
-
-</pre>
+          cb <span class="hljs-literal">null</span>, list</pre>
         </td>
       </tr>
     
@@ -258,8 +250,7 @@ If anything out of order happened.</li>
           <pre class="coffeescript">findSync = <span class="hljs-built_in">module</span>.exports.sync = <span class="hljs-function"><span class="hljs-params">(source, options = {}, depth = <span class="hljs-number">0</span>)</span> -&gt;</span>
   list = []
   ok = filter.sync source, depth, options
-  <span class="hljs-keyword">return</span> list <span class="hljs-keyword">if</span> options.lazy <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> ok
-</pre>
+  <span class="hljs-keyword">return</span> list <span class="hljs-keyword">if</span> options.lazy <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> ok</pre>
         </td>
       </tr>
     
@@ -272,8 +263,7 @@ If anything out of order happened.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  list.push source <span class="hljs-keyword">if</span> ok
-</pre>
+          <pre class="coffeescript">  list.push source <span class="hljs-keyword">if</span> ok</pre>
         </td>
       </tr>
     
@@ -292,8 +282,7 @@ If anything out of order happened.</li>
   <span class="hljs-keyword">catch</span> error
     <span class="hljs-keyword">return</span> list <span class="hljs-keyword">if</span> options.ignoreErrors
     <span class="hljs-keyword">throw</span> error
-  <span class="hljs-keyword">return</span> list <span class="hljs-keyword">unless</span> stats.isDirectory()
-</pre>
+  <span class="hljs-keyword">return</span> list <span class="hljs-keyword">unless</span> stats.isDirectory()</pre>
         </td>
       </tr>
     
@@ -307,8 +296,7 @@ If anything out of order happened.</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  depth++
-  files = fs.readdirSync source
-</pre>
+  files = fs.readdirSync source</pre>
         </td>
       </tr>
     
@@ -323,9 +311,7 @@ If anything out of order happened.</li>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> files.sort()
     list = list.concat findSync path.join(source, file), options, depth
-  <span class="hljs-keyword">return</span> list
-
-</pre>
+  <span class="hljs-keyword">return</span> list</pre>
         </td>
       </tr>
     

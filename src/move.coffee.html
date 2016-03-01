@@ -107,9 +107,7 @@ Node Modules
           <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
 path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
-debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'fs:move'</span>)
-
-</pre>
+debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'fs:move'</span>)</pre>
         </td>
       </tr>
     
@@ -124,9 +122,7 @@ debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'de
         <td class="code highlight">
           <pre class="coffeescript">mkdirs = <span class="hljs-built_in">require</span> <span class="hljs-string">'./mkdirs'</span>
 copy = <span class="hljs-built_in">require</span> <span class="hljs-string">'./copy'</span>
-remove = <span class="hljs-built_in">require</span> <span class="hljs-string">'./remove'</span>
-
-</pre>
+remove = <span class="hljs-built_in">require</span> <span class="hljs-string">'./remove'</span></pre>
         </td>
       </tr>
     
@@ -166,8 +162,7 @@ if set to <code>true</code> it will clean old files from target.</li>
   <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> options <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> options
     cb = options ? -&gt;
     options = {}
-  debug <span class="hljs-string">"move filepath <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>."</span>
-</pre>
+  debug <span class="hljs-string">"move filepath <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>."</span></pre>
         </td>
       </tr>
     
@@ -180,8 +175,7 @@ if set to <code>true</code> it will clean old files from target.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  async.series [
-</pre>
+          <pre class="coffeescript">  async.series [</pre>
         </td>
       </tr>
     
@@ -196,8 +190,7 @@ if set to <code>true</code> it will clean old files from target.</li>
         <td class="code highlight">
           <pre class="coffeescript">    (cb) -&gt;
       <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.clean
-      remove.async target, cb
-</pre>
+      remove.async target, cb</pre>
         </td>
       </tr>
     
@@ -211,8 +204,7 @@ if set to <code>true</code> it will clean old files from target.</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    (cb) -&gt;
-      mkdirs.async path.dirname(target), cb
-</pre>
+      mkdirs.async path.dirname(target), cb</pre>
         </td>
       </tr>
     
@@ -229,8 +221,7 @@ if set to <code>true</code> it will clean old files from target.</li>
       <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> options
       fs.rename source, target, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
         <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> err
-        copyRemove source, target, options, cb
-</pre>
+        copyRemove source, target, options, cb</pre>
         </td>
       </tr>
     
@@ -248,8 +239,7 @@ if set to <code>true</code> it will clean old files from target.</li>
       copyRemove source, target, options, cb
   ], cb
 <span class="hljs-function">
-<span class="hljs-title">copyRemove</span> = <span class="hljs-params">(source, target, options, cb)</span> -&gt;</span>
-</pre>
+<span class="hljs-title">copyRemove</span> = <span class="hljs-params">(source, target, options, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -263,8 +253,7 @@ if set to <code>true</code> it will clean old files from target.</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  copy.async source, target, options, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -277,10 +266,7 @@ if set to <code>true</code> it will clean old files from target.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    remove.async source, options, cb
-
-
-</pre>
+          <pre class="coffeescript">    remove.async source, options, cb</pre>
         </td>
       </tr>
     
@@ -319,8 +305,7 @@ If anything out of order happened.</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports.sync = <span class="hljs-function"><span class="hljs-params">(source, target, options = {})</span> -&gt;</span>
-  debug <span class="hljs-string">"move filepath <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>."</span>
-</pre>
+  debug <span class="hljs-string">"move filepath <span class="hljs-subst">#{source}</span> to <span class="hljs-subst">#{target}</span>."</span></pre>
         </td>
       </tr>
     
@@ -334,8 +319,7 @@ If anything out of order happened.</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> options.clean
-    remove.sync target
-</pre>
+    remove.sync target</pre>
         </td>
       </tr>
     
@@ -348,8 +332,7 @@ If anything out of order happened.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  mkdirs.sync path.dirname target
-</pre>
+          <pre class="coffeescript">  mkdirs.sync path.dirname target</pre>
         </td>
       </tr>
     
@@ -367,8 +350,7 @@ If anything out of order happened.</li>
       fs.renameSync source, target
     <span class="hljs-keyword">catch</span> error
       <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> error
-      <span class="hljs-keyword">return</span> copyRemoveSync source, target, options
-</pre>
+      <span class="hljs-keyword">return</span> copyRemoveSync source, target, options</pre>
         </td>
       </tr>
     
@@ -383,8 +365,7 @@ If anything out of order happened.</li>
         <td class="code highlight">
           <pre class="coffeescript">  copyRemoveSync source, target, options
 <span class="hljs-function">
-<span class="hljs-title">copyRemoveSync</span> = <span class="hljs-params">(source, target, options)</span> -&gt;</span>
-</pre>
+<span class="hljs-title">copyRemoveSync</span> = <span class="hljs-params">(source, target, options)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -397,8 +378,7 @@ If anything out of order happened.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  copy.sync source, target, options
-</pre>
+          <pre class="coffeescript">  copy.sync source, target, options</pre>
         </td>
       </tr>
     
@@ -411,9 +391,7 @@ If anything out of order happened.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  remove.sync source, options
-
-</pre>
+          <pre class="coffeescript">  remove.sync source, options</pre>
         </td>
       </tr>
     

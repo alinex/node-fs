@@ -105,9 +105,7 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
-path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
-
-</pre>
+path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
         </td>
       </tr>
     
@@ -134,8 +132,7 @@ directory that had to be created, if any.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">mkdirs = <span class="hljs-built_in">module</span>.exports.async = <span class="hljs-function"><span class="hljs-params">(dir, mode, cb = -&gt; )</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">mkdirs = <span class="hljs-built_in">module</span>.exports.async = <span class="hljs-function"><span class="hljs-params">(dir, mode, cb = -&gt; )</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -152,8 +149,7 @@ directory that had to be created, if any.</li>
     cb = mode
     mode = <span class="hljs-number">0</span>o0777 &amp; (~process.umask())
   mode = parseInt mode, <span class="hljs-number">8</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> mode <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
-  dir = path.resolve dir
-</pre>
+  dir = path.resolve dir</pre>
         </td>
       </tr>
     
@@ -166,8 +162,7 @@ directory that had to be created, if any.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  fs.mkdir dir, mode, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">  fs.mkdir dir, mode, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -181,8 +176,7 @@ directory that had to be created, if any.</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, dir ? dir <span class="hljs-keyword">unless</span> err
-    <span class="hljs-keyword">if</span> err.code <span class="hljs-keyword">is</span> <span class="hljs-string">'ENOENT'</span>
-</pre>
+    <span class="hljs-keyword">if</span> err.code <span class="hljs-keyword">is</span> <span class="hljs-string">'ENOENT'</span></pre>
         </td>
       </tr>
     
@@ -196,8 +190,7 @@ directory that had to be created, if any.</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      mkdirs path.dirname(dir), mode, <span class="hljs-function"><span class="hljs-params">(err, made)</span> -&gt;</span>
-        <span class="hljs-keyword">return</span> cb err, made <span class="hljs-keyword">if</span> err
-</pre>
+        <span class="hljs-keyword">return</span> cb err, made <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -212,8 +205,7 @@ directory that had to be created, if any.</li>
         <td class="code highlight">
           <pre class="coffeescript">        fs.mkdir dir, mode, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
           cb err, made
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> err.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span>
-</pre>
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> err.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span></pre>
         </td>
       </tr>
     
@@ -227,8 +219,7 @@ directory that had to be created, if any.</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      <span class="hljs-keyword">return</span> cb()
-    <span class="hljs-keyword">else</span>
-</pre>
+    <span class="hljs-keyword">else</span></pre>
         </td>
       </tr>
     
@@ -241,10 +232,7 @@ directory that had to be created, if any.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      cb err
-
-
-</pre>
+          <pre class="coffeescript">      cb err</pre>
         </td>
       </tr>
     
@@ -278,8 +266,7 @@ If anything out of order happened.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">mkdirsSync = <span class="hljs-built_in">module</span>.exports.sync = <span class="hljs-function"><span class="hljs-params">(dir, mode)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">mkdirsSync = <span class="hljs-built_in">module</span>.exports.sync = <span class="hljs-function"><span class="hljs-params">(dir, mode)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -295,8 +282,7 @@ If anything out of order happened.</li>
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> mode <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> mode
     mode = <span class="hljs-number">0</span>o0777 &amp; (~process.umask())
   mode = parseInt mode, <span class="hljs-number">8</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> mode <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
-  dir = path.resolve dir
-</pre>
+  dir = path.resolve dir</pre>
         </td>
       </tr>
     
@@ -313,8 +299,7 @@ If anything out of order happened.</li>
     fs.mkdirSync dir, mode
     <span class="hljs-keyword">return</span> dir
   <span class="hljs-keyword">catch</span> error
-    <span class="hljs-keyword">if</span> error.code <span class="hljs-keyword">is</span> <span class="hljs-string">'ENOENT'</span>
-</pre>
+    <span class="hljs-keyword">if</span> error.code <span class="hljs-keyword">is</span> <span class="hljs-string">'ENOENT'</span></pre>
         </td>
       </tr>
     
@@ -327,8 +312,7 @@ If anything out of order happened.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      made = mkdirsSync path.dirname(dir), mode
-</pre>
+          <pre class="coffeescript">      made = mkdirsSync path.dirname(dir), mode</pre>
         </td>
       </tr>
     
@@ -343,8 +327,7 @@ If anything out of order happened.</li>
         <td class="code highlight">
           <pre class="coffeescript">      fs.mkdirSync dir, mode
       <span class="hljs-keyword">return</span> made
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> error.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span>
-</pre>
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> error.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span></pre>
         </td>
       </tr>
     
@@ -358,8 +341,7 @@ If anything out of order happened.</li>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
-    <span class="hljs-keyword">else</span>
-</pre>
+    <span class="hljs-keyword">else</span></pre>
         </td>
       </tr>
     
@@ -372,9 +354,7 @@ If anything out of order happened.</li>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      <span class="hljs-keyword">throw</span> error
-
-</pre>
+          <pre class="coffeescript">      <span class="hljs-keyword">throw</span> error</pre>
         </td>
       </tr>
     

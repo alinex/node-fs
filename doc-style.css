@@ -512,6 +512,7 @@ p, h1, h2, h3, h4, h5, h6 {
   margin: 0 0 15px 0;}
 h1, h2, h3, h4, h5, h6 {
   font-family: 'SansationBold';
+  line-height: 100%;
 }
 h1, h2, h3, h4, #headings .heading.h1 a {
   color: #f0ad4e;
