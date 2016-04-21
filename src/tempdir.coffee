@@ -45,7 +45,7 @@ tempdir = module.exports.async = (base, prefix = null, cb) ->
 # - `base` - path under which the directory should be created (defaults to os setting)
 # - `prefix` - prefix string to use
 # - `cb` - callback method
-tempdir = module.exports.sync = (base, prefix = null) ->
+tempdirSync = module.exports.sync = (base, prefix = null) ->
   base ?= os.tmpDir()
   prefix ?= path.basename process.title + '-'
   # try to create dir
@@ -55,6 +55,6 @@ tempdir = module.exports.sync = (base, prefix = null) ->
     return dir
   catch error
     # try again if already existing
-    return tempdir base, prefix if error.code is 'EEXIST'
+    return tempdirSync base, prefix if error.code is 'EEXIST'
     # stop on any other problem
     throw error
