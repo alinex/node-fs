@@ -136,15 +136,16 @@ __Throw:__
 
 __Example:__
 
-    var fs = require('alinex-fs');
-    try {
-      made = fs.mkdirsSync('/tmp/some/directory');
-      if (made) console.log("Directory starting from '"+made+"' was created.");
-      console.log("Directory now exists!");
-    } catch (err) {
-      return console.error(err);
-    }
-
+``` coffee
+var fs = require('alinex-fs');
+try {
+  made = fs.mkdirsSync('/tmp/some/directory');
+  if (made) console.log("Directory starting from '"+made+"' was created.");
+  console.log("Directory now exists!");
+} catch (err) {
+  return console.error(err);
+}
+```
 
 ### find
 
@@ -162,13 +163,14 @@ __Arguments:__
 
 __Example:__
 
-    var fs = require('alinex-fs');
-    fs.find('/tmp/some/directory', { include: '*.jpg' }, function(err, list) {
-      if (err) return console.error(err);
-      console.log("Found " + list.length + " images.");
-      // do something with list
-    });
-
+``` coffee
+var fs = require('alinex-fs');
+fs.find('/tmp/some/directory', { include: '*.jpg' }, function(err, list) {
+  if (err) return console.error(err);
+  console.log("Found " + list.length + " images.");
+  // do something with list
+});
+```
 
 ### findSync
 
@@ -193,15 +195,16 @@ __Throw:__
 
 __Example:__
 
-    var fs = require('alinex-fs');
-    try {
-      list = fs.findSync('/tmp/some/directory');
-      console.log("Found " + list.length + " images.");
-      // do something with list
-    } catch (err) {
-      return console.error(err);
-    }
-
+``` coffee
+var fs = require('alinex-fs');
+try {
+  list = fs.findSync('/tmp/some/directory');
+  console.log("Found " + list.length + " images.");
+  // do something with list
+} catch (err) {
+  return console.error(err);
+}
+```
 
 ### copy
 
@@ -229,23 +232,26 @@ __Additional Options:__
 
 __Example:__
 
-    var fs = require('alinex-fs');
-    fs.copy('/tmp/some/directory', '/new/destination',
-    function(err) {
-      if (err) return console.error(err);
-      console.log("Directory copied!");
-    });
+``` coffee
+var fs = require('alinex-fs');
+fs.copy('/tmp/some/directory', '/new/destination',
+function(err) {
+  if (err) return console.error(err);
+  console.log("Directory copied!");
+});
+```
 
 Or to copy all js files and overwrite existing:
 
-    var fs = require('alinex-fs');
-    fs.copy('/tmp/some/directory', '/new/destination',
-    { includes: '*.js', overwrite: true },
-    function(err) {
-      if (err) return console.error(err);
-      console.log("Directory copied!");
-    });
-
+``` coffee
+var fs = require('alinex-fs');
+fs.copy('/tmp/some/directory', '/new/destination',
+{ includes: '*.js', overwrite: true },
+function(err) {
+  if (err) return console.error(err);
+  console.log("Directory copied!");
+});
+```
 
 ### copySync
 
@@ -276,10 +282,11 @@ __Throw:__
 
 __Example:__
 
-    var fs = require('alinex-fs');
-    fs.copySync('/tmp/some/directory', '/new/destination');
-    console.log("Directory copied!");
-
+``` coffee
+var fs = require('alinex-fs');
+fs.copySync('/tmp/some/directory', '/new/destination');
+console.log("Directory copied!");
+```
 
 ### move
 
@@ -306,11 +313,13 @@ __Additional Options:__
 
 __Example:__
 
-    var fs = require('alinex-fs');
-    fs.copy('/tmp/some/directory', '/new/destination', function(err) {
-      if (err) return console.error(err);
-      console.log("Directory copied!");
-    });
+``` coffee
+var fs = require('alinex-fs');
+fs.copy('/tmp/some/directory', '/new/destination', function(err) {
+  if (err) return console.error(err);
+  console.log("Directory copied!");
+});
+```
 
 You may also use options to specify which files within the source directory to
 move.
@@ -344,9 +353,11 @@ __Throw:__
 
 __Example:__
 
-    var fs = require('alinex-fs');
-    fs.moveSync('/tmp/some/directory', '/new/destination');
-    console.log("Directory moved!");
+``` coffee
+var fs = require('alinex-fs');
+fs.moveSync('/tmp/some/directory', '/new/destination');
+console.log("Directory moved!");
+```
 
 You may also use options to specify which files within the source directory to
 move.
@@ -369,13 +380,14 @@ __Arguments:__
 
 __Example:__
 
-    var fs = require('alinex-fs');
-    fs.remove('/tmp/some/directory', function(err, removed) {
-      if (err) return console.error(err);
-      if (removed) console.log("Directory '"+removed+"' was removed with all it's contents.");
-      console.log("Directory no longer exists!");
-    });
-
+``` coffee
+var fs = require('alinex-fs');
+fs.remove('/tmp/some/directory', function(err, removed) {
+  if (err) return console.error(err);
+  if (removed) console.log("Directory '"+removed+"' was removed with all it's contents.");
+  console.log("Directory no longer exists!");
+});
+```
 
 ### removeSync
 
@@ -400,15 +412,16 @@ __Throw:__
 
 __Example:__
 
-    var fs = require('alinex-fs');
-    try {
-      made = fs.removeSync('/tmp/some/directory');
-      if (made) console.log("Directory '"+made+"' was removed with all it's contents.");
-      console.log("Directory no longer exists!");
-    } catch (err) {
-      return console.error(err);
-    }
-
+``` coffee
+var fs = require('alinex-fs');
+try {
+  made = fs.removeSync('/tmp/some/directory');
+  if (made) console.log("Directory '"+made+"' was removed with all it's contents.");
+  console.log("Directory no longer exists!");
+} catch (err) {
+  return console.error(err);
+}
+```
 
 ### npmbin
 
@@ -427,11 +440,12 @@ __Arguments:__
 
 __Example:__
 
-    var fs = require('alinex-fs');
-    fs.npmbin('coffee', function(err, cmd) {
-      console.log("Coffee command found at:"+cmd);
-    });
-
+``` coffee
+var fs = require('alinex-fs');
+fs.npmbin('coffee', function(err, cmd) {
+  console.log("Coffee command found at:"+cmd);
+});
+```
 
 ### npmbinSync
 
@@ -452,10 +466,11 @@ __Return:__
 
 __Example:__
 
-    var fs = require('alinex-fs');
-    cmd = fs.npmbin('coffee');
-    console.log("Coffee command found at:"+cmd);
-
+``` coffee
+var fs = require('alinex-fs');
+cmd = fs.npmbin('coffee');
+console.log("Coffee command found at:"+cmd);
+```
 
 ### tempdir
 
@@ -473,11 +488,35 @@ __Arguments:__
 
 __Example:__
 
-    var fs = require('alinex-fs');
-    fs.tempdir(function(err, dir) {
-      console.log("Temporary directory is: "+dir);
-    });
+``` coffee
+var fs = require('alinex-fs');
+fs.tempdir(function(err, dir) {
+  console.log("Temporary directory is: "+dir);
+});
+```
 
+### tempfile
+
+Create a temporary file.
+
+__Arguments:__
+
+* `base`
+  path under which the file should be created (defaults to os setting)
+* `prefix`
+  prefix string to use
+* `callback(err, dir)`
+  The callback will be called just if an error occurred or after finished.
+  It returns the newly created file path.
+
+__Example:__
+
+``` coffee
+var fs = require('alinex-fs');
+fs.tempfile(function(err, dir) {
+  console.log("Temporary file is: "+dir);
+});
+```
 
 ### tempdirSync
 
@@ -497,10 +536,11 @@ __Return:__
 
 __Example:__
 
-    var fs = require('alinex-fs');
-    dir = fs.tempdir();
-    console.log("Temporary directory is: "+dir);
-
+``` coffee
+var fs = require('alinex-fs');
+dir = fs.tempdir();
+console.log("Temporary directory is: "+dir);
+```
 
 Filter
 -------------------------------------------------
@@ -660,22 +700,26 @@ may also add some configuration therefore in additional option values.
 
 Asynchrony call:
 
-    fs.find('.', {
-      test: function(file, options, cb) {
-        cb(~file.indexOf('ab'));
-      }
-    }, function(err, list) {
-      console.log("Found " + list.length + " matches.");
-    });
+``` coffee
+fs.find('.', {
+  test: function(file, options, cb) {
+    cb(~file.indexOf('ab'));
+  }
+}, function(err, list) {
+  console.log("Found " + list.length + " matches.");
+});
+```
 
 Or use synchrony calls:
 
-    var list = fs.findSync('test/temp', {
-      test: function(fil, options) {
-        return ~file.indexOf('ab');
-      }
-    });
-    console.log("Found " + list.length + " matches.");
+``` coffee
+var list = fs.findSync('test/temp', {
+  test: function(fil, options) {
+    return ~file.indexOf('ab');
+  }
+});
+console.log("Found " + list.length + " matches.");
+```
 
 
 License

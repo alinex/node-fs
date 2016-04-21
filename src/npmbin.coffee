@@ -34,7 +34,7 @@ npmbin = (bin, dir, cb) ->
   fs.exists file, (exists) ->
     if exists
       debug "-> found at #{file}"
-      return cb null, file 
+      return cb null, file
     # find in parent
     parent = path.join dir, '..', '..'
     if parent is dir
