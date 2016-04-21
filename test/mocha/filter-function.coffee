@@ -10,7 +10,7 @@ util = require 'util'
 
 describe "Own filter function", ->
 
-  filter = require '../../lib/filter'
+  filter = require '../../src/filter'
 
   files = [
     'a', 'b', 'c', 'd'

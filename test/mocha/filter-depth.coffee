@@ -10,7 +10,7 @@ util = require 'util'
 
 describe "Filter file structure depth", ->
 
-  filter = require '../../lib/filter'
+  filter = require '../../src/filter'
 
   files = [
     'a', 'b', 'c', 'd', 'dir1'

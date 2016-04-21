@@ -10,7 +10,7 @@ util = require 'util'
 
 describe "Pattern matching filter", ->
 
-  filter = require '../../lib/filter'
+  filter = require '../../src/filter'
 
   # Tests based on
   # -------------------------------------------------------

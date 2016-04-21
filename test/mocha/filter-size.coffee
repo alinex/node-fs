@@ -12,7 +12,7 @@ fs = require 'fs'
 
 describe "Filter on file size", ->
 
-  filter = require '../../lib/filter'
+  filter = require '../../src/filter'
 
   files = [
     'test/temp/file1'

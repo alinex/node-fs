@@ -12,7 +12,7 @@ fs = require 'fs'
 
 describe "Filter by owner", ->
 
-  filter = require '../../lib/filter'
+  filter = require '../../src/filter'
 
   files = [
     'test/temp/file1'

@@ -4,7 +4,7 @@ expect = chai.expect
 
 describe "Tempdir", ->
 
-  fs = require '../../lib/index'
+  fs = require '../../src/index'
 
   describe "asynchronous", ->
 
