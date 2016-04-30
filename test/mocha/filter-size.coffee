@@ -6,10 +6,6 @@ util = require 'util'
 {exec} = require 'child_process'
 fs = require 'fs'
 
-# Only use alinex-error to detect errors, it makes messy output with the normal
-# mocha error output.
-#require('alinex-error').install()
-
 describe "Filter on file size", ->
 
   filter = require '../../src/filter'

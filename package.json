@@ -28,14 +28,14 @@
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "scripts": {
-    "prepublish": "node_modules/.bin/builder -c compile",
-    "test": "node_modules/.bin/builder -c test"
+    "prepublish": "node_modules/.bin/builder compile --uglify",
+    "test": "node_modules/.bin/builder test"
   },
   "directories": {
     "lib": "./lib"
   },
   "dependencies": {
-    "async": "^1.5.2",
+    "async": "^2.0.0-rc.3",
     "chrono-node": "^1.2.1",
     "debug": ">=0.8.0 <3.0.0",
     "graceful-fs": "^4.1.3",
@@ -43,7 +43,7 @@
     "minimatch": "^3.0.0"
   },
   "devDependencies": {
-    "alinex-builder": "^1.2.9",
+    "alinex-builder": "^2.0.3",
     "chai": "^3.5.0",
     "moment": "^2.13.0"
   },

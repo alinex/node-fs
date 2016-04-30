@@ -7,10 +7,6 @@ util = require 'util'
 fs = require 'fs'
 moment = require 'moment'
 
-# Only use alinex-error to detect errors, it makes messy output with the normal
-# mocha error output.
-#require('alinex-error').install()
-
 describe "Time filter", ->
 
   filter = require '../../src/filter'

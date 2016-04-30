@@ -4,10 +4,6 @@ expect = chai.expect
 async = require 'async'
 util = require 'util'
 
-# Only use alinex-error to detect errors, it makes messy output with the normal
-# mocha error output.
-#require('alinex-error').install()
-
 describe "Filter file structure depth", ->
 
   filter = require '../../src/filter'
