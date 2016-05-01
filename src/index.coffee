@@ -44,7 +44,7 @@ afs.lstatSync = memoizee fs.lstatSync,
 # -------------------------------------------------
 for name in [
   'mkdirs', 'find', 'copy', 'remove', 'move'
-  'npmbin', 'tempdir', 'tempfile'
+  'npmbin', 'tempdir', 'tempfile', 'touch'
 ]
   commands = require './' + name
   afs[name] = commands.async
