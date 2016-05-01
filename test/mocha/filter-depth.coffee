@@ -18,7 +18,7 @@ describe "Filter file structure depth", ->
   check = (options, list, cb) ->
     async.filter files, (file, cb) ->
       parts = file.split /\//
-      filter.async file, (parts.length-1), options, cb
+      filter.async file, (parts.length-1), options, (success) -> cb null, success
     , (err, result) ->
 #      console.log "check pattern", options, "with result: #{result}"
       expect(result, util.inspect options).to.deep.equal list

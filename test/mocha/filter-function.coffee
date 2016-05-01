@@ -20,8 +20,8 @@ describe "Own filter function", ->
 
   check = (options, list, cb) ->
     async.filter files, (file, cb) ->
-      filter.async file, 0, options, cb
-    , (result) ->
+      filter.async file, 0, options, (success) -> cb null, success
+    , (err, result) ->
 #      console.log "check pattern", options, "with result: #{result}"
       expect(result, util.inspect options).to.deep.equal list
       cb()
