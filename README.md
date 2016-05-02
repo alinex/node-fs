@@ -495,29 +495,6 @@ fs.tempdir(function(err, dir) {
 });
 ```
 
-### tempfile
-
-Create a temporary file.
-
-__Arguments:__
-
-* `base`
-  path under which the file should be created (defaults to os setting)
-* `prefix`
-  prefix string to use
-* `callback(err, dir)`
-  The callback will be called just if an error occurred or after finished.
-  It returns the newly created file path.
-
-__Example:__
-
-``` coffee
-var fs = require('alinex-fs');
-fs.tempfile(function(err, dir) {
-  console.log("Temporary file is: "+dir);
-});
-```
-
 ### tempdirSync
 
 Create a temporary directory.
@@ -541,6 +518,57 @@ var fs = require('alinex-fs');
 dir = fs.tempdir();
 console.log("Temporary directory is: "+dir);
 ```
+
+### tempfile
+
+Create a temporary file.
+
+__Arguments:__
+
+* `base`
+  path under which the file should be created (defaults to os setting)
+* `prefix`
+  prefix string to use
+* `callback(err, dir)`
+  The callback will be called just if an error occurred or after finished.
+  It returns the newly created file path.
+
+__Example:__
+
+``` coffee
+var fs = require('alinex-fs');
+fs.tempfile(function(err, dir) {
+  console.log("Temporary file is: "+dir);
+});
+```
+
+### tempfileSync
+
+Create a temporary file.
+
+__Arguments:__
+
+* `base`
+  path under which the file should be created (defaults to os setting)
+* `prefix`
+  prefix string to use
+
+  __Return:__
+
+  * `file`
+    it returns the newly created file path
+
+__Example:__
+
+``` coffee
+fs = require 'alinex-fs'
+try
+  file = fs.tempfileSync()
+catch error
+  console.error error.message
+console.log "Temporary file is: " + file
+```
+
 
 Filter
 -------------------------------------------------

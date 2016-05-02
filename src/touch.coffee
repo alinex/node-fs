@@ -19,11 +19,15 @@ fs = require 'fs'
 #   - `time` - timw to set
 #   - `mtime` - modification timw to set
 #   - `reference` - use this file's time
-#   - `access` - (boolean) set access time
-#   - `modified` - (boolean) set modified time
+#   - `noAccess` - (boolean) set access time
+#   - `noModified` - (boolean) set modified time
 # - `cb` - callback method
 touch = module.exports.async = (file, options = {}, cb = ->) ->
+  if typeof options is 'function'
+    cb = options
+    options = {}
   # optional arguments
+  options.time ?= new Date()
   atime = mtime = options.time
   mtime = options.mtime if options.mtime
   if options.reference
@@ -35,11 +39,11 @@ touch = module.exports.async = (file, options = {}, cb = ->) ->
         mtime: mtime
         noCreate: options.noCreate
       , cb
-  atime = null if options.access or not options.access?
-  mtime = null if options.modified or not options.modified?
+  atime = null if options.noAccess
+  atime = null if options.nopModified
   # do the touch
   fs.exists file, (exists) ->
-    return cb() if exists and options.noCreate
+    return cb() if exists or options.noCreate
     fs.open file, 'a', (err, fd) ->
       return cb err if err
       fs.close fd, (err) ->
@@ -48,6 +52,7 @@ touch = module.exports.async = (file, options = {}, cb = ->) ->
 
 touchSync = module.exports.sync = (file, options = {}) ->
   # optional arguments
+  options.time ?= new Date()
   atime = mtime = options.time
   mtime = options.mtime if options.mtime
   if options.reference
@@ -56,9 +61,9 @@ touchSync = module.exports.sync = (file, options = {}) ->
       time: atime
       mtime: mtime
       noCreate: options.noCreate
-  atime = null if options.access or not options.access?
-  mtime = null if options.modified or not options.modified?
+  atime = null if options.noAccess
+  atime = null if options.nopModified
   # do the touch
-  return if fs.existsSync(file) and options.noCreate
+  return if fs.existsSync(file) or options.noCreate
   fs.closeSync fs.openSync file, 'a'
   fs.utimesSync file, atime, mtime
