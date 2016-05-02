@@ -562,6 +562,74 @@ console.log "Temporary file is: " + file
 ```
 
 
+### touch
+
+Touch a file and change it's access times.
+
+__Arguments:__
+
+* `file`
+  path under which the file should be changed or created
+* `options`
+  optional specific settings like:
+
+  - `noCreate` - don't create file if it already exists
+  - `time` - timw to set
+  - `mtime` - modification timw to set
+  - `reference` - use this file's time
+  - `noAccess` - (boolean) set access time
+  - `noModified` - (boolean) set modified time`
+
+* `callback(err, dir)`
+  The callback will be called just if an error occurred or after finished.
+  It returns the newly created file path.
+
+__Example:__
+
+``` coffee
+fs = require 'alinex-fs'
+fs.touch "/tmp/testfile", (err) ->
+  # everything done, go on
+```
+
+``` coffee
+fs = require 'alinex-fs'
+fs.touch "/tmp/testfile",
+  noCreate: true
+, (err) ->
+  # everything done, go on
+```
+
+### touchSync
+
+Touch a file and change it's access times.
+
+__Arguments:__
+
+* `file`
+  path under which the file should be changed or created
+* `options`
+  optional specific settings like:
+
+  - `noCreate` - don't create file if it already exists
+  - `time` - timw to set
+  - `mtime` - modification timw to set
+  - `reference` - use this file's time
+  - `noAccess` - (boolean) set access time
+  - `noModified` - (boolean) set modified time`
+
+__Example:__
+
+``` coffee
+fs = require 'alinex-fs'
+try
+  fs.touch "/tmp/testfile"
+catch error
+  # handle error
+# everything done, go on
+```
+
+
 Filter
 -------------------------------------------------
 

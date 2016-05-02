@@ -3,7 +3,7 @@ expect = chai.expect
 ### eslint-env node, mocha ###
 {exec} = require 'child_process'
 
-describe.only "Touch", ->
+describe "Touch", ->
 
   fs = require '../../src/index'
   file = 'test/temp/touch'
