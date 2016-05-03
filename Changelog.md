@@ -4,6 +4,25 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.1 (2016-05-03)
+-------------------------------------------------
+- Add documentation.
+- Add chowns and chmods method.
+- Add chowns method.
+- Fixed touch, extended coverage.
+- Remove node v6 bacause subpackages not supported there.
+- Added documentation for touch.
+- Change examples to coffee script.
+- Add tests for touch.
+- Fixed filter tests to work with new async module.
+- Add touch functionality.
+- Upgrade async and builder package.
+- Added tempfile methods.
+- Fix bug in tempdirSync.
+- Fix bug in npmbinSync.
+- Updated chrono, moment, memoizeem, builder.
+- Fixed general link in README.
+
 Version 2.0.0 (2016-02-04)
 -------------------------------------------------
 - 
