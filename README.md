@@ -630,6 +630,36 @@ catch error
 ```
 
 
+### chmods /chmodsSync
+
+Recursive change file mode like `chmod`.
+
+__Arguments:__
+
+* `file`
+  path under which the file should be changed
+* `options`
+  optional specific settings like:
+
+  - `uid` - user id to set
+  - `gid` - group id to set
+  - `dereference` - go into symbolic link
+
+### chowns / chownsSync
+
+Recursive change file ownership like `chown`.
+
+__Arguments:__
+
+* `file`
+  path under which the file should be changed
+* `options`
+  optional specific settings like:
+
+  - `mode` - access mode
+  - `dereference` - go into symbolic link
+
+
 Filter
 -------------------------------------------------
 
