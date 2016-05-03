@@ -8,12 +8,12 @@
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
-debug = require('debug')('fs:chowns')
+debug = require('debug')('fs:chmods')
 
 
 # Chown
 # -------------------------------------------------
-# Change the ownership of path like fs.chown but recursively.
+# Change the ownership of path like fs.chmod but recursively.
 #
 # __Arguments:__
 #
@@ -22,13 +22,12 @@ debug = require('debug')('fs:chowns')
 # * `options`
 #   Specification of files to find.
 #
-#   - `uid`
-#   - `gid`
+#   - `mode`
 #   - `dereference` (boolean)
 #
 # * `callback(err)`
 #   The callback will be called just if an error occurred.
-chowns = module.exports.async = (file, options, cb = ->) ->
+chmods = module.exports.async = (file, options, cb = ->) ->
   # check file entry
   stat = if options.dereference? then fs.stat else fs.lstat
   stat file, (err, stats) ->
@@ -37,17 +36,17 @@ chowns = module.exports.async = (file, options, cb = ->) ->
       return cb() if err.code is 'ENOENT' or options.ignoreErrors
       return cb err
     # change inode ownership
-    fs.chown file, options.uid, options.gid, (err) ->
+    fs.chmod file, options.mode, (err) ->
       return cb err if err
       return cb() unless stats.isDirectory()
       # do the same for contents of directory
       dir = file
-      debug "chown directory contents of #{dir}"
+      debug "chmod directory contents of #{dir}"
       fs.readdir file, (err, files) ->
         return cb err if err
         # remove all files in directory
         async.each files, (file, cb) ->
-          chowns path.join(dir, file), options, cb
+          chmods path.join(dir, file), options, cb
         , cb
 
 # Remove path recursively (Synchronous)
@@ -69,7 +68,7 @@ chowns = module.exports.async = (file, options, cb = ->) ->
 #
 # * `Error`
 #   If anything out of order happened.
-chownsSync = module.exports.async = (file, options) ->
+chmodsSync = module.exports.async = (file, options) ->
   # check file entry
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   try
@@ -79,11 +78,11 @@ chownsSync = module.exports.async = (file, options) ->
     return if error.code is 'ENOENT' or options.ignoreErrors
     throw error
   # change inode ownership
-  fs.chownSync file, options.uid, options.gid
+  fs.chmodSync file, options.mode
   return unless stats.isDirectory()
   # do the same for contents of directory
   dir = file
-  debug "chown directory contents of #{dir}"
+  debug "chmod directory contents of #{dir}"
   # remove all files in directory
   for file in fs.readdirSync dir
-    chownsSync path.join(dir, file), options
+    chmodsSync path.join(dir, file), options
