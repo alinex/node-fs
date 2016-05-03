@@ -33,14 +33,22 @@ touch = module.exports.async = (file, options = {}, cb = ->) ->
   if options.reference
     return fs.stat options.reference, (err, stats) ->
       return cb err if err
-      {atime, mtime} = stats
       touch file,
-        time: atime
-        mtime: mtime
+        time: stats.atime
+        mtime: stats.mtime
         noCreate: options.noCreate
       , cb
-  atime = null if options.noAccess
-  atime = null if options.nopModified
+  # don't change some times
+  if options.noAccess or options.noModified
+    atime = null if options.noAccess
+    atime = null if options.noModified
+    return fs.stat file, (err, stats) ->
+      return cb err if err
+      touch file,
+        time: atime ? stats.atime
+        mtime: mtime ? stats.mtime
+        noCreate: options.noCreate
+      , cb
   # do the touch
   fs.exists file, (exists) ->
     return cb() if exists or options.noCreate
@@ -56,13 +64,20 @@ touchSync = module.exports.sync = (file, options = {}) ->
   atime = mtime = options.time
   mtime = options.mtime if options.mtime
   if options.reference
-    {atime, mtime} = fs.statSync options.reference
+    stats = fs.statSync options.reference
     return touchSync file,
-      time: atime
-      mtime: mtime
+      time: stats.atime
+      mtime: stats.mtime
       noCreate: options.noCreate
-  atime = null if options.noAccess
-  atime = null if options.nopModified
+  # don't change some times
+  if options.noAccess or options.noModified
+    atime = null if options.noAccess
+    atime = null if options.noModified
+    stats = fs.statSync file
+    return touchSync file,
+      time: atime ? stats.atime
+      mtime: mtime ? stats.mtime
+      noCreate: options.noCreate
   # do the touch
   return if fs.existsSync(file) or options.noCreate
   fs.closeSync fs.openSync file, 'a'
