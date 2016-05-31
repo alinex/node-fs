@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>chowns.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "src/chowns.coffee";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#extension-of-nodes-fs-utils">Extension of nodes fs utils</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node-modules">Node Modules</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#chown">Chown</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#remove-path-recursively-synchronous">Remove path recursively (Synchronous)</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-fs" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="extension-of-nodes-fs-utils">
+  <h1>
+    <a href="#extension-of-nodes-fs-utils" name="extension-of-nodes-fs-utils" class="pilcrow"></a>
+Extension of nodes fs utils
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="node-modules">
+  <h2>
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>include base modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
+path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
+debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'fs:chowns'</span>)</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="chown">
+  <h2>
+    <a href="#chown" name="chown" class="pilcrow"></a>
+Chown
+  </h2>
+</div>
+<p>Change the ownership of path like fs.chown but recursively.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li>
+<p><code>path</code>
+File or directory to be changed</p>
+</li>
+<li>
+<p><code>options</code>
+Specification of files to find.</p>
+<ul>
+<li><code>uid</code></li>
+<li><code>gid</code></li>
+<li><code>dereference</code> (boolean)</li>
+</ul>
+</li>
+<li>
+<p><code>callback(err)</code>
+The callback will be called just if an error occurred.</p>
+</li>
+</ul>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">chowns = <span class="hljs-built_in">module</span>.exports.async = <span class="hljs-function"><span class="hljs-params">(file, options, cb = -&gt;)</span> -&gt;</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>check file entry</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  stat = <span class="hljs-keyword">if</span> options.dereference? <span class="hljs-keyword">then</span> fs.stat <span class="hljs-keyword">else</span> fs.lstat
+  stat file, <span class="hljs-function"><span class="hljs-params">(err, stats)</span> -&gt;</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>return if not existing</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> err
+      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> err.code <span class="hljs-keyword">is</span> <span class="hljs-string">'ENOENT'</span> <span class="hljs-keyword">or</span> options.ignoreErrors
+      <span class="hljs-keyword">return</span> cb err</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>change inode ownership</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    fs.chown file, options.uid, options.gid, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> stats.isDirectory()</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>do the same for contents of directory</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      dir = file
+      debug <span class="hljs-string">"chown directory contents of <span class="hljs-subst">#{dir}</span>"</span>
+      fs.readdir file, <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
+        <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>remove all files in directory</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        async.each files, <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
+          chowns path.join(dir, file), options, cb
+        , cb</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="remove-path-recursively-synchronous">
+  <h2>
+    <a href="#remove-path-recursively-synchronous" name="remove-path-recursively-synchronous" class="pilcrow"></a>
+Remove path recursively (Synchronous)
+  </h2>
+</div>
+<p>Removes the given path and any containing files or subdirectories.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li>
+<p><code>path</code>
+File or directory to be changed</p>
+</li>
+<li>
+<p><code>options</code>
+Specification of files to find.</p>
+<ul>
+<li><code>uid</code></li>
+<li><code>gid</code></li>
+<li><code>dereference</code> (boolean)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Throw:</strong></p>
+<ul>
+<li><code>Error</code>
+If anything out of order happened.</li>
+</ul>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">chownsSync = <span class="hljs-built_in">module</span>.exports.async = <span class="hljs-function"><span class="hljs-params">(file, options)</span> -&gt;</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>check file entry</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  stat = <span class="hljs-keyword">if</span> options.dereference? <span class="hljs-keyword">then</span> fs.statSync <span class="hljs-keyword">else</span> fs.lstatSync
+  <span class="hljs-keyword">try</span>
+    stats = stat file
+  <span class="hljs-keyword">catch</span> error</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>return if already removed</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> error.code <span class="hljs-keyword">is</span> <span class="hljs-string">'ENOENT'</span> <span class="hljs-keyword">or</span> options.ignoreErrors
+    <span class="hljs-keyword">throw</span> error</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>change inode ownership</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  fs.chownSync file, options.uid, options.gid
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> stats.isDirectory()</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>do the same for contents of directory</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  dir = file
+  debug <span class="hljs-string">"chown directory contents of <span class="hljs-subst">#{dir}</span>"</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>remove all files in directory</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> fs.readdirSync dir
+    chownsSync path.join(dir, file), options</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-fs/src/index.coffee";
+    var thisFile = "src/index.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -173,9 +173,9 @@ stat with cached results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">afs.stat = memoizee fs.stat,
-  <span class="hljs-attribute">async</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">maxAge</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
-  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span></pre>
+  async: <span class="hljs-literal">true</span>
+  maxAge: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
+  max: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span></pre>
         </td>
       </tr>
     
@@ -191,8 +191,8 @@ statSync with cached results (synchronous)
         </td>
         <td class="code highlight">
           <pre class="coffeescript">afs.statSync = memoizee fs.statSync,
-  <span class="hljs-attribute">maxAge</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
-  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span></pre>
+  maxAge: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
+  max: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span></pre>
         </td>
       </tr>
     
@@ -208,9 +208,9 @@ lstat with cached results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">afs.lstat = memoizee fs.lstat,
-  <span class="hljs-attribute">async</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">maxAge</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
-  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span></pre>
+  async: <span class="hljs-literal">true</span>
+  maxAge: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
+  max: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span></pre>
         </td>
       </tr>
     
@@ -226,8 +226,8 @@ lstatSync with cached results (synchronous)
         </td>
         <td class="code highlight">
           <pre class="coffeescript">afs.lstatSync = memoizee fs.lstatSync,
-  <span class="hljs-attribute">maxAge</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
-  <span class="hljs-attribute">max</span>: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span></pre>
+  maxAge: <span class="hljs-number">1000</span> <span class="hljs-comment"># expiration time in milliseconds</span>
+  max: <span class="hljs-number">1000</span> <span class="hljs-comment"># limit number of elements</span></pre>
         </td>
       </tr>
     
@@ -244,7 +244,8 @@ Add extended functionality
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> [
   <span class="hljs-string">'mkdirs'</span>, <span class="hljs-string">'find'</span>, <span class="hljs-string">'copy'</span>, <span class="hljs-string">'remove'</span>, <span class="hljs-string">'move'</span>
-  <span class="hljs-string">'npmbin'</span>, <span class="hljs-string">'tempdir'</span>
+  <span class="hljs-string">'npmbin'</span>, <span class="hljs-string">'tempdir'</span>, <span class="hljs-string">'tempfile'</span>, <span class="hljs-string">'touch'</span>
+  <span class="hljs-string">'chowns'</span>, <span class="hljs-string">'chmods'</span>
 ]
   commands = <span class="hljs-built_in">require</span> <span class="hljs-string">'./'</span> + name
   afs[name] = commands.async

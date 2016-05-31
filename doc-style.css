@@ -677,6 +677,30 @@ pre code.json::before {
   margin: -6px -5px 2px -11px;
   padding: 4px 0 0 10px;
 }
+pre code.json::before {
+  content: "CSON data";
+  color: #505050;
+  font-weight: bold;
+  display: block;
+  background: rgba(225, 135, 40, 0.38);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: 5px;
+  margin: -6px -5px 2px -11px;
+  padding: 4px 0 0 10px;
+}
+pre code.yaml::before {
+  content: "YAML data";
+  color: #505050;
+  font-weight: bold;
+  display: block;
+  background: rgba(225, 135, 40, 0.38);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: 5px;
+  margin: -6px -5px 2px -11px;
+  padding: 4px 0 0 10px;
+}
 
 pre, tt, code {
   background: #ccc;
@@ -827,4 +851,19 @@ nav .btn-warning {
 .sidebar #sidebar_wrapper, .sidebar #container, .sidebar #sidebar-toggle,
 .slidey #container {
   top: 50px;
+}
+
+
+#fork {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  width: 145px;
+  height: 145px;
+  background: url(https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png);
+  z-index: 10000;
+}
+#fork:hover {
+  background: url(https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png);
 }

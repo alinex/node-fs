@@ -1,1 +1,1 @@
-var tree={"files":["Changelog.md","README.md","coffeelint.json","package.json"],"dirs":{"src":{"files":["copy.coffee","filter.coffee","find.coffee","index.coffee","mkdirs.coffee","move.coffee","npmbin.coffee","remove.coffee","tempdir.coffee"]}}};
+var tree={"files":["Changelog.md","README.md","coffeelint.json","package.json"],"dirs":{"src":{"files":["chmods.coffee","chowns.coffee","copy.coffee","filter.coffee","find.coffee","index.coffee","mkdirs.coffee","move.coffee","npmbin.coffee","remove.coffee","tempdir.coffee","tempfile.coffee","touch.coffee"]}}};

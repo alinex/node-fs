@@ -7,7 +7,7 @@
   <script src="doc-filelist.js"></script>
   <script>
     var relativeDir = "";
-    var thisFile = "home/alex/github/node-fs/README.md";
+    var thisFile = "README.md";
     var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
@@ -108,6 +108,30 @@
         <a href="#tempdirsync">tempdirSync</a>
       </div>
 
+      <div class="heading h3">
+        <a href="#tempfile">tempfile</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#tempfilesync">tempfileSync</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#touch">touch</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#touchsync">touchSync</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#chmods-chmodssync">chmods /chmodsSync</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#chowns-chownssync">chowns / chownsSync</a>
+      </div>
+
       <div class="heading h2">
         <a href="#filter">Filter</a>
       </div>
@@ -175,7 +199,7 @@ including too much. Most methods are very customizable using options.</p>
 </ul>
 <blockquote>
 <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
-following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
+following the code standards defined in the <a href="http://alinex.github.io/develop">General Docs</a>.</p>
 </blockquote>
 <div class="pilwrap" id="install">
   <h2>
@@ -193,7 +217,7 @@ Install
 <p>And update it to the latest version later:</p>
 <pre><code class="sh">npm update alinex-fs --save
 </code></pre>
-<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
 <div class="pilwrap" id="usage">
   <h2>
     <a href="#usage" name="usage" class="pilcrow"></a>
@@ -204,7 +228,7 @@ Usage
 <pre><code>var fs = require('fs');
 </code></pre>
 <p>to the following:</p>
-<pre><code>var fs = require('alinex-fs');
+<pre><code>fs = require 'alinex-fs'
 </code></pre>
 <p>After this you may use the <a href="http://nodejs.org/api/fs.html">standard functions</a>
 and the following extended functions:</p>
@@ -254,12 +278,12 @@ The callback will be called just if an error occurred. It returns the first
 directory that had to be created, if any.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<pre><code>var fs = require('alinex-fs');
-fs.mkdirs('/tmp/some/directory', function(err, made) {
-  if (err) return console.error(err);
-  if (made) console.log(&quot;Directory starting from '&quot;+made+&quot;' was created.&quot;);
-  console.log(&quot;Directory now exists!&quot;);
-});
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+fs.mkdirs <span class="hljs-string">'/tmp/some/directory'</span>, <span class="hljs-function"><span class="hljs-params">(err, made)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error err <span class="hljs-keyword">if</span> err
+  <span class="hljs-keyword">if</span> made
+    <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Directory starting from <span class="hljs-subst">#{made}</span> was created."</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">'Directory now exists!'</span>
 </code></pre>
 <div class="pilwrap" id="mkdirssync">
   <h3>
@@ -286,14 +310,13 @@ Returns the directory that had to be created, if any.</li>
 If anything out of order happened.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<pre><code>var fs = require('alinex-fs');
-try {
-  made = fs.mkdirsSync('/tmp/some/directory');
-  if (made) console.log(&quot;Directory starting from '&quot;+made+&quot;' was created.&quot;);
-  console.log(&quot;Directory now exists!&quot;);
-} catch (err) {
-  return console.error(err);
-}
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+<span class="hljs-keyword">try</span>
+  made = fs.mkdirsSync <span class="hljs-string">'/tmp/some/directory'</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Directory starting from <span class="hljs-subst">#{made}</span> was created."</span> <span class="hljs-keyword">if</span> made
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Directory now exists!"</span>
+<span class="hljs-keyword">catch</span> error
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error error.message
 </code></pre>
 <div class="pilwrap" id="find">
   <h3>
@@ -313,12 +336,11 @@ The callback will be called just if an error occurred. The list of found
 entries will be given.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<pre><code>var fs = require('alinex-fs');
-fs.find('/tmp/some/directory', { include: '*.jpg' }, function(err, list) {
-  if (err) return console.error(err);
-  console.log(&quot;Found &quot; + list.length + &quot; images.&quot;);
-  // do something with list
-});
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+fs.find <span class="hljs-string">'/tmp/some/directory'</span>, {include: <span class="hljs-string">'*.jpg'</span>}, <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error err <span class="hljs-keyword">if</span> err
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Found "</span> + list.length + <span class="hljs-string">" images."</span>
+  <span class="hljs-comment"># do something with list</span>
 </code></pre>
 <div class="pilwrap" id="findsync">
   <h3>
@@ -345,14 +367,13 @@ Returns the list of found entries (see <a href="#filter.html">filter</a> options
 If anything out of order happened.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<pre><code>var fs = require('alinex-fs');
-try {
-  list = fs.findSync('/tmp/some/directory');
-  console.log(&quot;Found &quot; + list.length + &quot; images.&quot;);
-  // do something with list
-} catch (err) {
-  return console.error(err);
-}
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+<span class="hljs-keyword">try</span>
+  list = fs.findSync <span class="hljs-string">'/tmp/some/directory'</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Found "</span> + list.length + <span class="hljs-string">" images."</span>
+  <span class="hljs-comment"># do something with list</span>
+<span class="hljs-keyword">catch</span> error
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error error.message
 </code></pre>
 <div class="pilwrap" id="copy">
   <h3>
@@ -382,21 +403,19 @@ if set to <code>true</code> it will not fail if destination file already exists,
 this and go on with the next file</li>
 </ul>
 <p><strong>Example:</strong></p>
-<pre><code>var fs = require('alinex-fs');
-fs.copy('/tmp/some/directory', '/new/destination',
-function(err) {
-  if (err) return console.error(err);
-  console.log(&quot;Directory copied!&quot;);
-});
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+fs.copy <span class="hljs-string">'/tmp/some/directory'</span>, <span class="hljs-string">'/new/destination'</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error err <span class="hljs-keyword">if</span> err
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Directory copied!"</span>
 </code></pre>
 <p>Or to copy all js files and overwrite existing:</p>
-<pre><code>var fs = require('alinex-fs');
-fs.copy('/tmp/some/directory', '/new/destination',
-{ includes: '*.js', overwrite: true },
-function(err) {
-  if (err) return console.error(err);
-  console.log(&quot;Directory copied!&quot;);
-});
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+fs.copy <span class="hljs-string">'/tmp/some/directory'</span>, <span class="hljs-string">'/new/destination'</span>,
+  includes: <span class="hljs-string">'*.js'</span>
+  overwrite: <span class="hljs-literal">true</span>
+, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error err.message <span class="hljs-keyword">if</span> err
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Directory copied!"</span>
 </code></pre>
 <div class="pilwrap" id="copysync">
   <h3>
@@ -429,9 +448,9 @@ this and go on with the next file</li>
 If anything out of order happened.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<pre><code>var fs = require('alinex-fs');
-fs.copySync('/tmp/some/directory', '/new/destination');
-console.log(&quot;Directory copied!&quot;);
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+fs.copySync <span class="hljs-string">'/tmp/some/directory'</span>, <span class="hljs-string">'/new/destination'</span>
+<span class="hljs-built_in">console</span>.log <span class="hljs-string">"Directory copied!"</span>
 </code></pre>
 <div class="pilwrap" id="move">
   <h3>
@@ -460,11 +479,10 @@ overwrite it</li>
 if set to <code>true</code> it will clean old files from target.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<pre><code>var fs = require('alinex-fs');
-fs.copy('/tmp/some/directory', '/new/destination', function(err) {
-  if (err) return console.error(err);
-  console.log(&quot;Directory copied!&quot;);
-});
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+fs.copy <span class="hljs-string">'/tmp/some/directory'</span>, <span class="hljs-string">'/new/destination'</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error err.message <span class="hljs-keyword">if</span> err
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Directory copied!"</span>
 </code></pre>
 <p>You may also use options to specify which files within the source directory to
 move.</p>
@@ -498,9 +516,9 @@ if set to <code>true</code> it will clean old files from target.</li>
 If anything out of order happened.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<pre><code>var fs = require('alinex-fs');
-fs.moveSync('/tmp/some/directory', '/new/destination');
-console.log(&quot;Directory moved!&quot;);
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+fs.moveSync <span class="hljs-string">'/tmp/some/directory'</span>, <span class="hljs-string">'/new/destination'</span>
+<span class="hljs-built_in">console</span>.log <span class="hljs-string">"Directory moved!"</span>
 </code></pre>
 <p>You may also use options to specify which files within the source directory to
 move.</p>
@@ -523,12 +541,12 @@ The callback will be called just if an error occurred. It returns the
 file entry which was removed, if any.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<pre><code>var fs = require('alinex-fs');
-fs.remove('/tmp/some/directory', function(err, removed) {
-  if (err) return console.error(err);
-  if (removed) console.log(&quot;Directory '&quot;+removed+&quot;' was removed with all it's contents.&quot;);
-  console.log(&quot;Directory no longer exists!&quot;);
-});
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+fs.remove <span class="hljs-string">'/tmp/some/directory'</span>, <span class="hljs-function"><span class="hljs-params">(err, removed)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error err <span class="hljs-keyword">if</span> err
+  <span class="hljs-keyword">if</span> removed
+    <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Directory '"</span>+removed+<span class="hljs-string">"' was removed with all it's contents."</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Directory no longer exists!"</span>
 </code></pre>
 <div class="pilwrap" id="removesync">
   <h3>
@@ -555,14 +573,14 @@ Returns the file entry which was removed.</li>
 If anything out of order happened.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<pre><code>var fs = require('alinex-fs');
-try {
-  made = fs.removeSync('/tmp/some/directory');
-  if (made) console.log(&quot;Directory '&quot;+made+&quot;' was removed with all it's contents.&quot;);
-  console.log(&quot;Directory no longer exists!&quot;);
-} catch (err) {
-  return console.error(err);
-}
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+<span class="hljs-keyword">try</span>
+  made = fs.removeSync <span class="hljs-string">'/tmp/some/directory'</span>
+  <span class="hljs-keyword">if</span> made
+    <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Directory '"</span>+made+<span class="hljs-string">"' was removed with all it's contents."</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Directory no longer exists!"</span>
+<span class="hljs-keyword">catch</span> error
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error error.message
 </code></pre>
 <div class="pilwrap" id="npmbin">
   <h3>
@@ -583,10 +601,9 @@ The callback will be called just if an error occurred or after finished.
 The command path to be called.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<pre><code>var fs = require('alinex-fs');
-fs.npmbin('coffee', function(err, cmd) {
-  console.log(&quot;Coffee command found at:&quot;+cmd);
-});
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+fs.npmbin <span class="hljs-string">'coffee'</span>, <span class="hljs-function"><span class="hljs-params">(err, cmd)</span> -&gt;</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Coffee command found at:"</span> + cmd
 </code></pre>
 <div class="pilwrap" id="npmbinsync">
   <h3>
@@ -609,9 +626,9 @@ Module directory to start search from.</li>
 the command path to be called.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<pre><code>var fs = require('alinex-fs');
-cmd = fs.npmbin('coffee');
-console.log(&quot;Coffee command found at:&quot;+cmd);
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+cmd = fs.npmbin <span class="hljs-string">'coffee'</span>
+<span class="hljs-built_in">console</span>.log <span class="hljs-string">"Coffee command found at:"</span> + cmd
 </code></pre>
 <div class="pilwrap" id="tempdir">
   <h3>
@@ -631,10 +648,9 @@ The callback will be called just if an error occurred or after finished.
 It returns the newly created directory.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<pre><code>var fs = require('alinex-fs');
-fs.tempdir(function(err, dir) {
-  console.log(&quot;Temporary directory is: &quot;+dir);
-});
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+fs.tempdir (err, dir) -&gt;
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Temporary directory is: "</span> + dir
 </code></pre>
 <div class="pilwrap" id="tempdirsync">
   <h3>
@@ -656,10 +672,184 @@ prefix string to use</li>
 it returns the newly created directory.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<pre><code>var fs = require('alinex-fs');
-dir = fs.tempdir();
-console.log(&quot;Temporary directory is: &quot;+dir);
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+dir = fs.tempdir()
+<span class="hljs-built_in">console</span>.log <span class="hljs-string">"Temporary directory is: "</span> + dir
 </code></pre>
+<div class="pilwrap" id="tempfile">
+  <h3>
+    <a href="#tempfile" name="tempfile" class="pilcrow"></a>
+tempfile
+  </h3>
+</div>
+<p>Create a temporary file.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>base</code>
+path under which the file should be created (defaults to os setting)</li>
+<li><code>prefix</code>
+prefix string to use</li>
+<li><code>callback(err, dir)</code>
+The callback will be called just if an error occurred or after finished.
+It returns the newly created file path.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+fs.tempfile (err, dir) -&gt;
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Temporary file is: "</span> + dir
+</code></pre>
+<div class="pilwrap" id="tempfilesync">
+  <h3>
+    <a href="#tempfilesync" name="tempfilesync" class="pilcrow"></a>
+tempfileSync
+  </h3>
+</div>
+<p>Create a temporary file.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li>
+<p><code>base</code>
+path under which the file should be created (defaults to os setting)</p>
+</li>
+<li>
+<p><code>prefix</code>
+prefix string to use</p>
+<p><strong>Return:</strong></p>
+<ul>
+<li><code>file</code>
+it returns the newly created file path</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+<span class="hljs-keyword">try</span>
+  file = fs.tempfileSync()
+<span class="hljs-keyword">catch</span> error
+  <span class="hljs-built_in">console</span>.error error.message
+<span class="hljs-built_in">console</span>.log <span class="hljs-string">"Temporary file is: "</span> + file
+</code></pre>
+<div class="pilwrap" id="touch">
+  <h3>
+    <a href="#touch" name="touch" class="pilcrow"></a>
+touch
+  </h3>
+</div>
+<p>Touch a file and change it's access times.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li>
+<p><code>file</code>
+path under which the file should be changed or created</p>
+</li>
+<li>
+<p><code>options</code>
+optional specific settings like:</p>
+<ul>
+<li><code>noCreate</code> - don't create file if it already exists</li>
+<li><code>time</code> - timw to set</li>
+<li><code>mtime</code> - modification timw to set</li>
+<li><code>reference</code> - use this file's time</li>
+<li><code>noAccess</code> - (boolean) set access time</li>
+<li><code>noModified</code> - (boolean) set modified time`</li>
+</ul>
+</li>
+<li>
+<p><code>callback(err, dir)</code>
+The callback will be called just if an error occurred or after finished.
+It returns the newly created file path.</p>
+</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+fs.touch <span class="hljs-string">"/tmp/testfile"</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+  <span class="hljs-comment"># everything done, go on</span>
+</code></pre>
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+fs.touch <span class="hljs-string">"/tmp/testfile"</span>,
+  noCreate: <span class="hljs-literal">true</span>
+, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+  <span class="hljs-comment"># everything done, go on</span>
+</code></pre>
+<div class="pilwrap" id="touchsync">
+  <h3>
+    <a href="#touchsync" name="touchsync" class="pilcrow"></a>
+touchSync
+  </h3>
+</div>
+<p>Touch a file and change it's access times.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li>
+<p><code>file</code>
+path under which the file should be changed or created</p>
+</li>
+<li>
+<p><code>options</code>
+optional specific settings like:</p>
+<ul>
+<li><code>noCreate</code> - don't create file if it already exists</li>
+<li><code>time</code> - timw to set</li>
+<li><code>mtime</code> - modification timw to set</li>
+<li><code>reference</code> - use this file's time</li>
+<li><code>noAccess</code> - (boolean) set access time</li>
+<li><code>noModified</code> - (boolean) set modified time`</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="coffee">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+<span class="hljs-keyword">try</span>
+  fs.touch <span class="hljs-string">"/tmp/testfile"</span>
+<span class="hljs-keyword">catch</span> error
+  <span class="hljs-comment"># handle error</span>
+<span class="hljs-comment"># everything done, go on</span>
+</code></pre>
+<div class="pilwrap" id="chmods-chmodssync">
+  <h3>
+    <a href="#chmods-chmodssync" name="chmods-chmodssync" class="pilcrow"></a>
+chmods /chmodsSync
+  </h3>
+</div>
+<p>Recursive change file mode like <code>chmod</code>.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li>
+<p><code>file</code>
+path under which the file should be changed</p>
+</li>
+<li>
+<p><code>options</code>
+optional specific settings like:</p>
+<ul>
+<li><code>uid</code> - user id to set</li>
+<li><code>gid</code> - group id to set</li>
+<li><code>dereference</code> - go into symbolic link</li>
+</ul>
+</li>
+</ul>
+<div class="pilwrap" id="chowns-chownssync">
+  <h3>
+    <a href="#chowns-chownssync" name="chowns-chownssync" class="pilcrow"></a>
+chowns / chownsSync
+  </h3>
+</div>
+<p>Recursive change file ownership like <code>chown</code>.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li>
+<p><code>file</code>
+path under which the file should be changed</p>
+</li>
+<li>
+<p><code>options</code>
+optional specific settings like:</p>
+<ul>
+<li><code>mode</code> - access mode</li>
+<li><code>dereference</code> - go into symbolic link</li>
+</ul>
+</li>
+</ul>
 <div class="pilwrap" id="filter">
   <h2>
     <a href="#filter" name="filter" class="pilcrow"></a>
@@ -830,21 +1020,21 @@ User defined function
 called to check each file. It will get the file path and options array so you
 may also add some configuration therefore in additional option values.</p>
 <p>Asynchrony call:</p>
-<pre><code>fs.find('.', {
+<pre><code class="coffee">fs.find(<span class="hljs-string">'.'</span>, {
   test: function(file, options, cb) {
-    cb(~file.indexOf('ab'));
+    cb(~file.indexOf(<span class="hljs-string">'ab'</span>));
   }
 }, function(err, list) {
-  console.log(&quot;Found &quot; + list.length + &quot; matches.&quot;);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Found "</span> + list.length + <span class="hljs-string">" matches."</span>);
 });
 </code></pre>
 <p>Or use synchrony calls:</p>
-<pre><code>var list = fs.findSync('test/temp', {
+<pre><code class="coffee">var list = fs.findSync(<span class="hljs-string">'test/temp'</span>, {
   test: function(fil, options) {
-    return ~file.indexOf('ab');
+    <span class="hljs-keyword">return</span> ~file.indexOf(<span class="hljs-string">'ab'</span>);
   }
 });
-console.log(&quot;Found &quot; + list.length + &quot; matches.&quot;);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Found "</span> + list.length + <span class="hljs-string">" matches."</span>);
 </code></pre>
 <div class="pilwrap" id="license">
   <h2>

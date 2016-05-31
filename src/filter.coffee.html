@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-fs/src/filter.coffee";
+    var thisFile = "src/filter.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -269,7 +269,7 @@ Test the path
       <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
     <span class="hljs-keyword">else</span>
       minimatch = <span class="hljs-built_in">require</span> <span class="hljs-string">'minimatch'</span>
-      <span class="hljs-keyword">unless</span> minimatch file, options.include, {<span class="hljs-attribute">matchBase</span>: <span class="hljs-literal">true</span>}
+      <span class="hljs-keyword">unless</span> minimatch file, options.include, {matchBase: <span class="hljs-literal">true</span>}
         debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because path not included (glob)"</span>
         <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
   <span class="hljs-keyword">if</span> options.exclude
@@ -281,7 +281,7 @@ Test the path
       <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
     <span class="hljs-keyword">else</span>
       minimatch = <span class="hljs-built_in">require</span> <span class="hljs-string">'minimatch'</span>
-      <span class="hljs-keyword">if</span> minimatch file, options.exclude, {<span class="hljs-attribute">matchBase</span>: <span class="hljs-literal">true</span>}
+      <span class="hljs-keyword">if</span> minimatch file, options.exclude, {matchBase: <span class="hljs-literal">true</span>}
         debug <span class="hljs-string">"skip <span class="hljs-subst">#{file}</span> because path excluded (glob)"</span>
         <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
   <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span></pre>
@@ -453,7 +453,7 @@ Check the owwner and group
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">userToUid</span> = <span class="hljs-params">(user, cb)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, user <span class="hljs-keyword">unless</span> user <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> isNaN user
-  fs.readFile <span class="hljs-string">'/etc/passwd'</span>, {<span class="hljs-attribute">encoding</span>: <span class="hljs-string">'utf-8'</span>}, <span class="hljs-function"><span class="hljs-params">(err, data)</span> -&gt;</span>
+  fs.readFile <span class="hljs-string">'/etc/passwd'</span>, {encoding: <span class="hljs-string">'utf-8'</span>}, <span class="hljs-function"><span class="hljs-params">(err, data)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> data.split <span class="hljs-regexp">/\n/</span>
       cols = line.split <span class="hljs-regexp">/:/</span>
@@ -464,7 +464,7 @@ Check the owwner and group
 <span class="hljs-function">
 <span class="hljs-title">userToUidSync</span> = <span class="hljs-params">(user)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> user <span class="hljs-keyword">unless</span> user <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> isNaN user
-  data = fs.readFileSync <span class="hljs-string">'/etc/passwd'</span>, {<span class="hljs-attribute">encoding</span>: <span class="hljs-string">'utf-8'</span>}
+  data = fs.readFileSync <span class="hljs-string">'/etc/passwd'</span>, {encoding: <span class="hljs-string">'utf-8'</span>}
   <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> data.split <span class="hljs-regexp">/\n/</span>
     cols = line.split <span class="hljs-regexp">/:/</span>
     <span class="hljs-keyword">return</span> cols[<span class="hljs-number">2</span>] <span class="hljs-keyword">if</span> cols[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> user
@@ -474,7 +474,7 @@ Check the owwner and group
 <span class="hljs-function">
 <span class="hljs-title">groupToGid</span> = <span class="hljs-params">(group, cb)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, group <span class="hljs-keyword">unless</span> group <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> isNaN group
-  fs.readFile <span class="hljs-string">'/etc/group'</span>, {<span class="hljs-attribute">encoding</span>: <span class="hljs-string">'utf-8'</span>}, <span class="hljs-function"><span class="hljs-params">(err, data)</span> -&gt;</span>
+  fs.readFile <span class="hljs-string">'/etc/group'</span>, {encoding: <span class="hljs-string">'utf-8'</span>}, <span class="hljs-function"><span class="hljs-params">(err, data)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> data.split <span class="hljs-regexp">/\n/</span>
       cols = line.split <span class="hljs-regexp">/:/</span>
@@ -483,7 +483,7 @@ Check the owwner and group
 <span class="hljs-function">
 <span class="hljs-title">groupToGidSync</span> = <span class="hljs-params">(group)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> group <span class="hljs-keyword">unless</span> group <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> isNaN group
-  data = fs.readFileSync <span class="hljs-string">'/etc/group'</span>, {<span class="hljs-attribute">encoding</span>: <span class="hljs-string">'utf-8'</span>}
+  data = fs.readFileSync <span class="hljs-string">'/etc/group'</span>, {encoding: <span class="hljs-string">'utf-8'</span>}
   <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> data.split <span class="hljs-regexp">/\n/</span>
     cols = line.split <span class="hljs-regexp">/:/</span>
     <span class="hljs-keyword">return</span> cols[<span class="hljs-number">2</span>] <span class="hljs-keyword">if</span> cols[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> group

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>tempdir.coffee</title>
+  <title>tempfile.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "src/tempdir.coffee";
+    var thisFile = "src/tempfile.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -141,7 +141,7 @@ Create temporary folder
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">tempdir = <span class="hljs-built_in">module</span>.exports.async = <span class="hljs-function"><span class="hljs-params">(base, prefix = <span class="hljs-literal">null</span>, cb)</span> -&gt;</span></pre>
+          <pre class="coffeescript">tempfile = <span class="hljs-built_in">module</span>.exports.async = <span class="hljs-function"><span class="hljs-params">(base, prefix = <span class="hljs-literal">null</span>, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -170,12 +170,12 @@ Create temporary folder
           <div class="pilwrap">
   <a class="pilcrow" href="#section-7" id="section-7"></a>
 </div>
-<p>try to create dir</p>
+<p>try to create file</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  dir = path.join base, prefix + crypto.randomBytes(<span class="hljs-number">4</span>).readUInt32LE(<span class="hljs-number">0</span>)
-  fs.mkdir dir, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span></pre>
+          <pre class="coffeescript">  file = path.join base, prefix + crypto.randomBytes(<span class="hljs-number">4</span>).readUInt32LE(<span class="hljs-number">0</span>)
+  fs.open file, <span class="hljs-string">'wx'</span>, <span class="hljs-function"><span class="hljs-params">(err, fd)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -188,7 +188,7 @@ Create temporary folder
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">return</span> tempdir base, prefix, cb <span class="hljs-keyword">if</span> err?.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span></pre>
+          <pre class="coffeescript">    <span class="hljs-keyword">return</span> tempfile base, prefix, cb <span class="hljs-keyword">if</span> err?.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span></pre>
         </td>
       </tr>
     
@@ -202,7 +202,8 @@ Create temporary folder
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-    cb <span class="hljs-literal">null</span>, dir</pre>
+    fs.close fd, <span class="hljs-function">-&gt;</span>
+      cb <span class="hljs-literal">null</span>, file</pre>
         </td>
       </tr>
     
@@ -223,7 +224,7 @@ Create temporary folder (Synchronous)
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">tempdirSync = <span class="hljs-built_in">module</span>.exports.sync = <span class="hljs-function"><span class="hljs-params">(base, prefix = <span class="hljs-literal">null</span>)</span> -&gt;</span>
+          <pre class="coffeescript">tempfileSync = <span class="hljs-built_in">module</span>.exports.sync = <span class="hljs-function"><span class="hljs-params">(base, prefix = <span class="hljs-literal">null</span>)</span> -&gt;</span>
   base ?= os.tmpDir()
   prefix ?= path.basename process.title + <span class="hljs-string">'-'</span></pre>
         </td>
@@ -238,10 +239,10 @@ Create temporary folder (Synchronous)
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  dir = path.join base, prefix + crypto.randomBytes(<span class="hljs-number">4</span>).readUInt32LE(<span class="hljs-number">0</span>)
+          <pre class="coffeescript">  file = path.join base, prefix + crypto.randomBytes(<span class="hljs-number">4</span>).readUInt32LE(<span class="hljs-number">0</span>)
   <span class="hljs-keyword">try</span>
-    fs.mkdirSync dir
-    <span class="hljs-keyword">return</span> dir
+    fs.closeSync fs.openSync file, <span class="hljs-string">'wx'</span>
+    <span class="hljs-keyword">return</span> file
   <span class="hljs-keyword">catch</span> error</pre>
         </td>
       </tr>
@@ -255,7 +256,7 @@ Create temporary folder (Synchronous)
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">return</span> tempdirSync base, prefix <span class="hljs-keyword">if</span> error.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span></pre>
+          <pre class="coffeescript">    <span class="hljs-keyword">return</span> tempfileSync base, prefix <span class="hljs-keyword">if</span> error.code <span class="hljs-keyword">is</span> <span class="hljs-string">'EEXIST'</span></pre>
         </td>
       </tr>
     
