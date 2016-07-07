@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.2 (2016-07-07)
+-------------------------------------------------
+- Upgrade memoizee@3.0.0
+- Check pattern against subpath only.
+
 Version 2.0.1 (2016-05-03)
 -------------------------------------------------
 - Add documentation.
