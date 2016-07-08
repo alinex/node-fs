@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.3 (2016-07-08)
+-------------------------------------------------
+Replace defect build.
+
+- Update alinex-builder@2.1.14
+- Fix bug in pattern checking of root element.
+- Upgrade chrono-node@1.2.4, graceful-fs@4.1.4, minimatch@3.0.2, alinex-builder@2.1.13, moment@2.14.1
+
 Version 2.0.2 (2016-07-07)
 -------------------------------------------------
 - Upgrade memoizee@3.0.0
