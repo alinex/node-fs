@@ -31,25 +31,25 @@ describe "Find", ->
         expect(list, 'result list').to.not.exist
         cb()
 
-    it "lists single file", (cb) ->
+    it "list single file", (cb) ->
       fs.find 'test/temp/file1', (err, list) ->
         expect(err, 'error').to.not.exist
         expect(list, 'result list').to.deep.equal ['test/temp/file1']
         cb()
 
-    it "lists single directory", (cb) ->
+    it "list single directory", (cb) ->
       fs.find 'test/temp/dir2', (err, list) ->
         expect(err, 'error').to.not.exist
         expect(list, 'result list').to.deep.equal ['test/temp/dir2']
         cb()
 
-    it "lists softlinked directory as entry", (cb) ->
+    it "list softlinked directory as entry", (cb) ->
       fs.find 'test/temp/dir3', (err, list) ->
         expect(err, 'error').to.not.exist
         expect(list, 'result list').to.deep.equal['test/temp/dir3']
         cb()
 
-    it "lists multiple files", (cb) ->
+    it "list multiple files", (cb) ->
       fs.find 'test/temp', (err, list) ->
         expect(err, 'error').to.not.exist
         expect(list, 'result list').to.deep.equal [
@@ -58,6 +58,18 @@ describe "Find", ->
           'test/temp/dir1/file11'
           'test/temp/dir2'
           'test/temp/dir3'
+          'test/temp/file1'
+          'test/temp/file2'
+        ]
+        cb()
+
+    it "list only files", (cb) ->
+      fs.find 'test/temp',
+        type: 'f'
+      , (err, list) ->
+        expect(err, 'error').to.not.exist
+        expect(list, 'result list').to.deep.equal [
+          'test/temp/dir1/file11'
           'test/temp/file1'
           'test/temp/file2'
         ]

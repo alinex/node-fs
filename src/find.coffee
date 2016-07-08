@@ -36,10 +36,7 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
   list = []
   debug "check #{source}"
   # Check the current file through filter options
-  check = source.split /\//
-  check.shift()
-  check = check[check.length-depth..].join '/'
-  filter.async check, depth, options, (ok) ->
+  filter.async source, depth, options, (ok) ->
     return cb null, list if options.lazy and not ok
     list.push source if ok
     # check source entry

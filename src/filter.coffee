@@ -29,9 +29,13 @@ util = require 'util'
 module.exports.async = (file, depth, options = {}, cb = -> ) ->
   return cb true unless options? and Object.keys(options).length
   debug "check #{file} for " + util.inspect options
+  if depth
+    subpath = file.split /\//
+    subpath.shift() if subpath.length > 1
+    subpath = subpath[subpath.length-depth..].join '/'
   async.parallel [
     (cb) -> skipDepth file, depth, options, cb
-    (cb) -> skipPath file, options, cb
+    (cb) -> skipPath (subpath ? file), options, cb
     (cb) -> skipType file, options, cb
     (cb) -> skipSize file, options, cb
     (cb) -> skipTime file, options, cb
