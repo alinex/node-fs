@@ -43,7 +43,7 @@
     "minimatch": "^3.0.2"
   },
   "devDependencies": {
-    "alinex-builder": "^2.1.13",
+    "alinex-builder": "^2.1.14",
     "chai": "^3.5.0",
     "moment": "^2.14.1"
   },
