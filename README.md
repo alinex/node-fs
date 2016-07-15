@@ -18,7 +18,7 @@ including too much. Most methods are very customizable using options.
 - complete asynchronous and synchronous
 - powerful find method
 
-> It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
+> It is one of the modules of the [Alinex Namespace](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/develop).
 
 
