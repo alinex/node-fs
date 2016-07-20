@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.6 (2016-07-20)
+-------------------------------------------------
+- optimize include check to always scheck for exclude on fullname match, too.
+
 Version 2.0.5 (2016-07-20)
 -------------------------------------------------
 - Hot fix in file pattern search.
