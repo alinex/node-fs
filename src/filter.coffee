@@ -29,8 +29,8 @@ util = require 'util'
 module.exports.async = (file, depth = 0, options = {}, cb = -> ) ->
   return cb true unless options? and Object.keys(options).length
   subpath = file.split /\//
-  subpath.shift() if subpath.length > 1
-  subpath = subpath[subpath.length-depth-1..].join '/'
+#  subpath.shift() if subpath.length > 1
+  subpath = subpath[subpath.length-depth..].join '/'
   skipPath (subpath ? file), options, (skip) ->
     if skip
       return cb() if skip is 'SKIPPATH'
@@ -68,8 +68,8 @@ module.exports.sync = (file, depth, options = {}) ->
   return true unless options? and Object.keys(options).length
   debug "check #{file} for " + util.inspect options
   subpath = file.split /\//
-  subpath.shift() if subpath.length > 1
-  subpath = subpath[subpath.length-depth-1..].join '/'
+#  subpath.shift() if subpath.length > 1
+  subpath = subpath[subpath.length-depth..].join '/'
   if res = skipPathSync (subpath ? file), options
     return undefined if res is 'SKIPPATH'
     return false

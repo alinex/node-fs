@@ -24,7 +24,8 @@ describe "Pattern matching filter", ->
 
   check = (options, list, cb) ->
     async.filter files, (file, cb) ->
-      filter.async file, 1, options, (success) -> cb null, success
+      depth = file.split(/\//).length - 1
+      filter.async file, depth, options, (success) -> cb null, success
     , (err, result) ->
 #      console.log "check pattern", options, "with result: #{result}"
       expect(result, util.inspect options).to.deep.equal list
@@ -33,7 +34,8 @@ describe "Pattern matching filter", ->
   checkSync = (options, list) ->
     result = []
     for file in files
-      result.push file if filter.sync file, 1, options
+      depth = file.split(/\//).length - 1
+      result.push file if filter.sync file, depth, options
 #    console.log "check pattern", options, "with result: #{result}"
     expect(result, util.inspect options).to.deep.equal list
 
