@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.5 (2016-07-20)
+-------------------------------------------------
+- Hot fix in file pattern search.
+
 Version 2.0.4 (2016-07-20)
 -------------------------------------------------
 - Fix subfile name calculation based on depth.
