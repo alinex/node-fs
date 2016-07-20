@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.4 (2016-07-20)
+-------------------------------------------------
+- Fix subfile name calculation based on depth.
+- Upgrade alinex-builder@2.3.1, memoizee@0.4.1, async@2.0.0
+- Fixed subpath for path check on parent directory (depth = 0).
+- Remove lazy option and do this for path exclude checks automatically.
+- Rename links to Alinex Namespace.
+- Add copyright sign.
+
 Version 2.0.3 (2016-07-08)
 -------------------------------------------------
 Replace defect build.
