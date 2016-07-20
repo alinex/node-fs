@@ -35,15 +35,15 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "async": "^2.0.0-rc.3",
+    "async": "^2.0.0",
     "chrono-node": "^1.2.4",
     "debug": ">=0.8.0 <3.0.0",
     "graceful-fs": "^4.1.4",
-    "memoizee": "^0.4.0",
+    "memoizee": "^0.4.1",
     "minimatch": "^3.0.2"
   },
   "devDependencies": {
-    "alinex-builder": "^2.1.14",
+    "alinex-builder": "^2.3.1",
     "chai": "^3.5.0",
     "moment": "^2.14.1"
   },
