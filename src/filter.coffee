@@ -30,7 +30,7 @@ module.exports.async = (file, depth = 0, options = {}, cb = -> ) ->
   return cb true unless options? and Object.keys(options).length
   subpath = file.split /\//
   subpath.shift() if subpath.length > 1
-  subpath = subpath[subpath.length-depth..].join '/'
+  subpath = subpath[subpath.length-depth-1..].join '/'
   skipPath (subpath ? file), options, (skip) ->
     if skip
       return cb() if skip is 'SKIPPATH'
@@ -67,7 +67,10 @@ module.exports.async = (file, depth = 0, options = {}, cb = -> ) ->
 module.exports.sync = (file, depth, options = {}) ->
   return true unless options? and Object.keys(options).length
   debug "check #{file} for " + util.inspect options
-  if res = skipPathSync file, options
+  subpath = file.split /\//
+  subpath.shift() if subpath.length > 1
+  subpath = subpath[subpath.length-depth-1..].join '/'
+  if res = skipPathSync (subpath ? file), options
     return undefined if res is 'SKIPPATH'
     return false
   return false if skipTypeSync file, options
