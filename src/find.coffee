@@ -38,6 +38,7 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
   list = []
   debug "check #{source}"
   # Check the current file through filter options
+#  sourceCheck = if depth then source else '.'
   filter.async source, depth, options, (ok) ->
     return cb null, list if ok is undefined
     list.push source if ok

@@ -26,13 +26,11 @@ util = require 'util'
 #   Specification of files to success.
 # * `callback(success)`
 #   The callback will be called with a boolean value showing if file is accepted.
-module.exports.async = (file, depth, options = {}, cb = -> ) ->
+module.exports.async = (file, depth = 0, options = {}, cb = -> ) ->
   return cb true unless options? and Object.keys(options).length
-  debug "check #{file} for " + util.inspect options
-  if depth
-    subpath = file.split /\//
-    subpath.shift() if subpath.length > 1
-    subpath = subpath[subpath.length-depth..].join '/'
+  subpath = file.split /\//
+  subpath.shift() if subpath.length > 1
+  subpath = subpath[subpath.length-depth..].join '/'
   skipPath (subpath ? file), options, (skip) ->
     if skip
       return cb() if skip is 'SKIPPATH'
