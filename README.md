@@ -672,7 +672,6 @@ Additionally some methods may have special options for filtering.
 - `exclude` to specify an exclusion pattern
 - `dereference` set to true to follow symbolic links
 - `ignoreErrors` set to true to forget errors and go on
-- `lazy` lazy search will stop traversing if directory failed
 - `mindepth` minimal depth to match
 - `maxdepth` maximal depth to match
 - `type` the inode type (file/directory/link)

@@ -33,16 +33,19 @@ module.exports.async = (file, depth, options = {}, cb = -> ) ->
     subpath = file.split /\//
     subpath.shift() if subpath.length > 1
     subpath = subpath[subpath.length-depth..].join '/'
-  async.parallel [
-    (cb) -> skipDepth file, depth, options, cb
-    (cb) -> skipPath (subpath ? file), options, cb
-    (cb) -> skipType file, options, cb
-    (cb) -> skipSize file, options, cb
-    (cb) -> skipTime file, options, cb
-    (cb) -> skipOwner file, options, cb
-    (cb) -> skipFunction file, options, cb
-  ], (skip) ->
-    cb not skip
+  skipPath (subpath ? file), options, (skip) ->
+    if skip
+      return cb() if skip is 'SKIPPATH'
+      return cb false
+    async.parallel [
+      (cb) -> skipDepth file, depth, options, cb
+      (cb) -> skipType file, options, cb
+      (cb) -> skipSize file, options, cb
+      (cb) -> skipTime file, options, cb
+      (cb) -> skipOwner file, options, cb
+      (cb) -> skipFunction file, options, cb
+    ], (skip) ->
+      cb not skip
 
 # Find files (synchronous)
 # -------------------------------------------------
@@ -66,9 +69,11 @@ module.exports.async = (file, depth, options = {}, cb = -> ) ->
 module.exports.sync = (file, depth, options = {}) ->
   return true unless options? and Object.keys(options).length
   debug "check #{file} for " + util.inspect options
+  if res = skipPathSync file, options
+    return undefined if res is 'SKIPPATH'
+    return false
   return false if skipTypeSync file, options
   return false if skipDepthSync file, depth, options
-  return false if skipPathSync file, options
   return false if skipSizeSync file, options
   return false if skipTimeSync file, options
   return false if skipOwnerSync file, options
@@ -105,14 +110,14 @@ skipPathSync = (file, options) ->
     if options.exclude instanceof RegExp
       if file.match options.exclude
         debug "skip #{file} because path excluded (regexp)"
-        return true
+        return 'SKIPPATH'
     else if options.exclude is path.basename file
       return true
     else
       minimatch = require 'minimatch'
       if minimatch file, options.exclude, {matchBase: true}
         debug "skip #{file} because path excluded (glob)"
-        return true
+        return 'SKIPPATH'
   return false
 
 # ### Test the file depth

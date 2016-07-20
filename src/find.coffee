@@ -12,6 +12,8 @@ async = require 'async'
 
 filter = require './filter'
 
+PARALLEL = 10
+
 # Find files
 # -------------------------------------------------
 # This method will list all files and directories in the given directory.
@@ -37,7 +39,7 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
   debug "check #{source}"
   # Check the current file through filter options
   filter.async source, depth, options, (ok) ->
-    return cb null, list if options.lazy and not ok
+    return cb null, list if ok is undefined
     list.push source if ok
     # check source entry
     stat = if options.dereference? then fs.stat else fs.lstat
@@ -52,7 +54,7 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
       fs.readdir source, (err, files) ->
         return cb err if err
         # collect files from each subentry
-        async.map files.sort(), (file, cb) ->
+        async.mapLimit files.sort(), PARALLEL, (file, cb) ->
           find path.join(source, file), options, cb, depth
         , (err, results) ->
           return cb err if err
