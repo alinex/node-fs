@@ -1,14 +1,17 @@
-Package: alinex-fs
+Filesystem: Readme
 =================================================
 
 [![Build Status](https://travis-ci.org/alinex/node-fs.svg?branch=master)](https://travis-ci.org/alinex/node-fs)
 [![Coverage Status](https://coveralls.io/repos/alinex/node-fs/badge.png?branch=master)](https://coveralls.io/r/alinex/node-fs?branch=master)
 [![Dependency Status](https://gemnasium.com/alinex/node-fs.png)](https://gemnasium.com/alinex/node-fs)
+[![GitHub](https://assets-cdn.github.com/favicon.ico)](https://github.com/alinex/node-codedoc "Code on GitHub")
+<!-- {.right} -->
 
-Like some other packages this module adds some functions to the nodes fs package.
+Like some other packages this module adds functions to the node.js fs package.
 It's designed as a drop-in replacement. It uses also
 [graceful-fs](https://github.com/isaacs/node-graceful-fs)
-to normalize behavior across different platforms and environments, and to make filesystem access more resilient to errors.
+to normalize behavior across different platforms and environments, and to make
+filesystem access more resilient to errors.
 
 This package combines features found in a lot of other packages together without
 including too much. Most methods are very customizable using options.
@@ -20,6 +23,10 @@ including too much. Most methods are very customizable using options.
 
 > It is one of the modules of the [Alinex Namespace](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/develop).
+
+__Read the complete documentation under
+[https://alinex.github.io/node-fs](https://alinex.github.io/node-fs).__
+<!-- {p: .hide} -->
 
 
 Install
@@ -36,25 +43,21 @@ The easiest way is to let npm add the module directly to your modules
 npm install alinex-fs --save
 ```
 
-And update it to the latest version later:
-
-``` sh
-npm update alinex-fs --save
-```
-
-Always have a look at the latest [changes](Changelog.md).
-
 
 Usage
 -------------------------------------------------
 
 To use this enhanced filesystem library change your require line from:
 
-    var fs = require('fs');
+``` coffee
+fs = require 'fs'
+```
 
 to the following:
 
-    fs = require 'alinex-fs'
+``` coffee
+fs = require 'alinex-fs'
+```
 
 After this you may use the [standard functions](http://nodejs.org/api/fs.html)
 and the following extended functions:

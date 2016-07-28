@@ -1,12 +1,17 @@
-# Extension of nodes fs utils
-# =================================================
+###
+API Usage
+=================================================
+For the [standard](http://nodejs.org/api/fs.html) node.js functions everything is
+the same as far as not listed below.
+
+As the default methods all can be used synchroneous and asynchroneous.
+###
+
 
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
 fs = require 'graceful-fs'
-memoizee = require 'memoizee'
+
 
 # Clone original fs
 # -------------------------------------------------
@@ -15,38 +20,30 @@ for name, value of fs
   afs[name] = value
 
 
-# Optimize original methods
-# -------------------------------------------------
-
-# ### stat with cached results
-afs.stat = memoizee fs.stat,
-  async: true
-  maxAge: 1000 # expiration time in milliseconds
-  max: 1000 # limit number of elements
-
-# ### statSync with cached results (synchronous)
-afs.statSync = memoizee fs.statSync,
-  maxAge: 1000 # expiration time in milliseconds
-  max: 1000 # limit number of elements
-
-# ### lstat with cached results
-afs.lstat = memoizee fs.lstat,
-  async: true
-  maxAge: 1000 # expiration time in milliseconds
-  max: 1000 # limit number of elements
-
-# ### lstatSync with cached results (synchronous)
-afs.lstatSync = memoizee fs.lstatSync,
-  maxAge: 1000 # expiration time in milliseconds
-  max: 1000 # limit number of elements
+###
+Additional functionalities are:
+- [stat/lstat](stat.coffee) - file stat retrieval
+- [mkdirs](mkdirs.coffee) -
+- [find](find.coffee) -
+- [copy](copy.coffee) -
+- [remove](remove.coffee) -
+- [move](move.coffee) -
+- [npmdir](npmdir.coffee) -
+- [tempdir](tempdir.coffee) -
+- [tempfile](tempfile.coffee) -
+- [touch](touch.coffee) -
+- [chowns](chowns.coffee) -
+- [chmods](chmods.coffee) -
+###
 
 # Add extended functionality
 # -------------------------------------------------
 for name in [
+  'stats'
   'mkdirs', 'find', 'copy', 'remove', 'move'
   'npmbin', 'tempdir', 'tempfile', 'touch'
   'chowns', 'chmods'
 ]
-  commands = require './' + name
-  afs[name] = commands.async
-  afs[name+'Sync'] = commands.sync
+  command = require './' + name
+  for name, value of command
+    afs[name] = value
