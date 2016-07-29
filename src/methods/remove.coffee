@@ -1,38 +1,33 @@
-# Extension of nodes fs utils
-# =================================================
+###
+Remove
+=================================================
+This method will remove the given `path` entry and if it is a directory it
+will also remove any containing data or only the selection of files.
+
+The option `maxdepth` is only supported in the search, but if a directory is
+matched everything within will be deleted.
+###
+
 
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
-fs = require 'fs'
+debug = require('debug')('fs:remove')
 path = require 'path'
 async = require 'async'
-debug = require('debug')('fs:remove')
-
+fs = require 'fs'
 # internal helper methods
 filter = require './filter'
 
-# Remove path recursively
-# -------------------------------------------------
-# This method will remove the given `path` entry and if it is a directory it
-# will also remove any containing data.
-#
-# __Arguments:__
-#
-# * `path`
-#   File or directory to be removed.
-# * `options`
-#   Specification of files to find.
-# * `callback(err, removed)`
-#   The callback will be called just if an error occurred. It returns the
-#   file entry which was removed, if any.
-# * `depth`
-#   Search depth as integer (internal parameter).
-#
-# The option `maxdepth` is only supported in the search, but if a directory is
-# matched everything within will be deleted.
-remove = module.exports.async = (file, options, cb, depth = 0) ->
+
+###
+@param {String} path directory or file to be deleted
+@param {Object} [options] specifications for check defining which files to remove
+@param {function(err, removed)} [cb] callback which is called after done with possible
+       `Èrror` or with the file/directory deleted
+@internal The `depth` parameter is only used internally.
+@param {Integer} [depth=0] current depth in file tree
+###
+remove = module.exports.remove = (file, options, cb, depth = 0) ->
   unless cb?
     cb = ->
   if typeof options is 'function' or not options
@@ -87,27 +82,15 @@ remove = module.exports.async = (file, options, cb, depth = 0) ->
         cb new Error "Entry '#{file}' is no directory, file or symbolic link."
 
 
-# Remove path recursively (Synchronous)
-# -------------------------------------------------
-# Removes the given path and any containing files or subdirectories.
-#
-# __Arguments:__
-#
-# * `path`
-#   File or directory to create if not existing.
-# * `options`
-#   Specification of files to find.
-#
-# __Return:__
-#
-# * `removed`
-#   Returns the file entry which was removed.
-#
-# __Throw:__
-#
-# * `Error`
-#   If anything out of order happened.
-removeSync = module.exports.sync = (file, options = {}, depth = 0) ->
+###
+@param {String} path directory or file to be deleted
+@param {Object} [options] specifications for check defining which files to remove
+@return {String} the file or directory deleted
+@throws {Error} if domething went wrong
+@internal The `depth` parameter is only used internally.
+@param {Integer} [depth=0] current depth in file tree
+###
+removeSync = module.exports.removeSync = (file, options = {}, depth = 0) ->
   # get parameter and default values
   file = path.resolve file
   # check file entry

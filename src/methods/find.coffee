@@ -26,7 +26,7 @@ PARALLEL = 10
 
 ###
 @param {String} search source path to be searched in
-@param {Object} [options] specifications for check which define which files to list
+@param {Object} [options] specifications for check defining which files to list
 @param {function(err, list)} [cb] callback which is called after done with an `Èrror`
 or the complete list of files found as `Àrray`
 @internal The `depth` parameter is only used internally.
@@ -68,7 +68,7 @@ find = module.exports.find = (source, options, cb , depth = 0 ) ->
 
 ###
 @param {String} search source path to be searched in
-@param {Object} [options] specifications for check which define which files to list
+@param {Object} [options] specifications for check defining which files to list
 @return {Array} complete list of files found
 @throws {Error} if anything out of order happened
 @internal The `depth` parameter is only used internally.

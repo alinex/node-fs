@@ -24,9 +24,9 @@ for name, value of fs
 Additional functionalities are:
 - [stat/lstat](stat.coffee) - file stat retrieval
 - [mkdirs](mkdirs.coffee) - recursive create depth directory with it's parents
-- [find](find.coffee) -
-- [copy](copy.coffee) -
-- [remove](remove.coffee) -
+- [find](find.coffee) - search for files or directories
+- [copy](copy.coffee) - copy file, directory or selection
+- [remove](remove.coffee) - remove file, directory or selection
 - [move](move.coffee) -
 - [npmdir](npmdir.coffee) -
 - [tempdir](tempdir.coffee) -

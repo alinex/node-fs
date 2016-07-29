@@ -1,46 +1,47 @@
-# Extension of nodes fs utils
-# =================================================
+###
+Copy Files
+=================================================
+This will copy a single file, complete directory or selection from directory.
+It will make exact copies of the files as far as possible including times, ownership
+and access modes. But if some of this rights are not possible to set it will be ignored
+without an explicit error.
+
+To select which files to copy you may specify it like in the
+[`find()`](find.coffee) method. But the following options may be used:
+
+__Additional Options:__
+
+* `overwrite` -
+  if set to `true` it will not fail if destination file already exists and
+  overwrite it
+* `ignore` -
+  if set to `true` it will not fail if destination file already exists, skip
+  this and go on with the next file
+###
 
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
 debug = require('debug')('fs:copy')
-
 # include other extended commands and helper
 mkdirs = require './mkdirs'
 filter = require './filter'
 
-# Copy file or directory
-# -------------------------------------------------
-# This method will copy a single file or complete directory like `cp -r`.
-#
-# __Arguments:__
-#
-# * `source`
-#   File or directory to be copied.
-# * `target`
-#   File or directory to copy to.
-# * `options`
-#   Specification of files to find.
-# * `callback(err)`
-#   The callback will be called just if an error occurred.
-# * `depth`
-#   Search depth as integer (internal parameter).
-#
-# __Additional Options:__
-#
-# * `overwrite`
-#   if set to `true` it will not fail if destination file already exists and
-#   overwrite it
-# * `ignore`
-#   if set to `true` it will not fail if destination file already exists, skip
-#   this and go on with the next file
-#
-copy = module.exports.async = (source, target, options, cb, depth = 0) ->
+
+# Exported Methods
+# ------------------------------------------------
+
+###
+@param {String} source path or file to be copied
+@param {String} target file or directory to copy to
+@param {Object} [options] specifications for check defining which files to copy
+@param {function(err)} [cb] callback which is called after done with possible `Èrror`
+@internal The `depth` parameter is only used internally.
+@param {Integer} [depth=0] current depth in file tree
+###
+copy = module.exports.copy = (source, target, options, cb, depth = 0) ->
   unless cb?
     cb = ->
   if typeof options is 'function' or not options
@@ -91,35 +92,15 @@ copy = module.exports.async = (source, target, options, cb, depth = 0) ->
               copy path.join(source, file), path.join(target, file), options, cb, depth
             , cb
 
-# Copy file or directory (Synchronous)
-# -------------------------------------------------
-# This method will copy a single file or complete directory like `cp -r`.
-#
-# __Arguments:__
-#
-# * `source`
-#   File or directory to be copied.
-# * `target`
-#   File or directory to copy to.
-# * `options`
-#   Specification of files to find.
-# * `depth`
-#   Search depth as integer (internal parameter).
-#
-# __Additional Options:__
-#
-# * `overwrite`
-#   if set to `true` it will not fail if destination file already exists and
-#   overwrite it
-# * `ignore`
-#   if set to `true` it will not fail if destination file already exists, skip
-#   this and go on with the next file
-#
-# __Throw:__
-#
-# * `Error`
-#   If anything out of order happened.
-copySync = module.exports.sync = (source, target, options = {}, depth = 0) ->
+###
+@param {String} source path or file to be copied
+@param {String} target file or directory to copy to
+@param {Object} [options] specifications for check defining which files to copy
+@throws {Error} if anything out of order happened
+@internal The `depth` parameter is only used internally.
+@param {Integer} [depth=0] current depth in file tree
+###
+copySync = module.exports.copySync = (source, target, options = {}, depth = 0) ->
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   try
     stats = stat source
@@ -156,6 +137,13 @@ copySync = module.exports.sync = (source, target, options = {}, depth = 0) ->
     for file in fs.readdirSync source
       copySync path.join(source, file), path.join(target, file), options, depth
 
+# Helper Methods
+# -------------------------------------------------------
+
+# @param {String} source dourcepath of concrete file to copy
+# @param {fs.Stats} stats file information object
+# @param {String} target path to store file copy to
+# @param {function(err)} cb callback after dann with possible `Error` object
 copyFile = (source, stats, target, cb) ->
   # finalize only once
   done = (err) ->
@@ -176,6 +164,10 @@ copyFile = (source, stats, target, cb) ->
   ws.on 'close', done
   rs.pipe ws
 
+# @param {String} source dourcepath of concrete file to copy
+# @param {fs.Stats} stats file information object
+# @param {String} target path to store file copy to
+# @throws `Error` if something went wrong
 copyFileSync = (source, stats, target) ->
   # copy file
   fs.writeFileSync target, fs.readFileSync source
