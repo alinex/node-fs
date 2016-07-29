@@ -1,35 +1,38 @@
-# Extension of nodes fs utils
-# =================================================
+###
+Find Files
+=================================================
+This is a powerfull method to search for files on the local filesystem. It works
+recursively with multiple checks and to get a file list as quick as possible.
+###
+
 
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
 debug = require('debug')('fs:find')
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
-
+# helper modules
 filter = require './filter'
 
+
+# Setup
+# ------------------------------------------------
 PARALLEL = 10
 
-# Find files
-# -------------------------------------------------
-# This method will list all files and directories in the given directory.
-#
-# __Arguments:__
-#
-# * `source`
-#   Path to be searched.
-# * `options`
-#   Specification of files to find.
-# * `callback(err, list)`
-#   The callback will be called just if an error occurred. The list of found
-#   entries will be given.
-# * `depth`
-#   Search depth as integer (internal parameter).
-find = module.exports.async = (source, options, cb , depth = 0 ) ->
+
+# Exported Methods
+# ------------------------------------------------
+
+###
+@param {String} search source path to be searched in
+@param {Object} [options] specifications for check which define which files to list
+@param {function(err, list)} [cb] callback which is called after done with an `Èrror`
+or the complete list of files found as `Àrray`
+@internal The `depth` parameter is only used internally.
+@param {Integer} [depth=0] current depth in file tree
+###
+find = module.exports.find = (source, options, cb , depth = 0 ) ->
   unless cb?
     cb = ->
   if typeof options is 'function' or not options
@@ -63,29 +66,15 @@ find = module.exports.async = (source, options, cb , depth = 0 ) ->
             list = list.concat result
           cb null, list
 
-# Find files (Synchronous)
-# -------------------------------------------------
-# This method will list all files and directories in the given directory.
-#
-# __Arguments:__
-#
-# * `source`
-#   Path to be searched.
-# * `options`
-#   Specification of files to find.
-# * `depth`
-#   Search depth as integer (internal parameter).
-#
-# __Return:__
-#
-# * `list`
-#   Returns the list of found entries
-#
-# __Throw:__
-#
-# * `Error`
-#   If anything out of order happened.
-findSync = module.exports.sync = (source, options = {}, depth = 0) ->
+###
+@param {String} search source path to be searched in
+@param {Object} [options] specifications for check which define which files to list
+@return {Array} complete list of files found
+@throws {Error} if anything out of order happened
+@internal The `depth` parameter is only used internally.
+@param {Integer} [depth=0] current depth in file tree
+###
+findSync = module.exports.findSync = (source, options = {}, depth = 0) ->
   list = []
   ok = filter.sync source, depth, options
   return list if options.lazy and not ok

@@ -1,4 +1,4 @@
-Filesystem: Readme
+Filesystem (fs): Readme
 =================================================
 
 [![Build Status](https://travis-ci.org/alinex/node-fs.svg?branch=master)](https://travis-ci.org/alinex/node-fs)
@@ -20,9 +20,10 @@ including too much. Most methods are very customizable using options.
 - recursive file handling functions
 - complete asynchronous and synchronous
 - powerful find method
+- addiztional features
 
-> It is one of the modules of the [Alinex Namespace](http://alinex.github.io/code.html)
-> following the code standards defined in the [General Docs](http://alinex.github.io/develop).
+> It is one of the modules of the [Alinex Namespace](https://alinex.github.io/code.html)
+> following the code standards defined in the [General Docs](https://alinex.github.io/develop).
 
 __Read the complete documentation under
 [https://alinex.github.io/node-fs](https://alinex.github.io/node-fs).__
@@ -59,7 +60,7 @@ to the following:
 fs = require 'alinex-fs'
 ```
 
-After this you may use the [standard functions](http://nodejs.org/api/fs.html)
+After this you may use the [standard functions](https://nodejs.org/api/fs.html)
 and the following extended functions:
 
 * [mkdirs](#mkdirs) and [mkdirsSync](#mkdirssync)
@@ -851,7 +852,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
->  <http://www.apache.org/licenses/LICENSE-2.0>
+>  <https://www.apache.org/licenses/LICENSE-2.0>
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,

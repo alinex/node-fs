@@ -1,7 +1,7 @@
 ###
 API Usage
 =================================================
-For the [standard](http://nodejs.org/api/fs.html) node.js functions everything is
+For the [standard](https://nodejs.org/api/fs.html) node.js functions everything is
 the same as far as not listed below.
 
 As the default methods all can be used synchroneous and asynchroneous.
@@ -23,7 +23,7 @@ for name, value of fs
 ###
 Additional functionalities are:
 - [stat/lstat](stat.coffee) - file stat retrieval
-- [mkdirs](mkdirs.coffee) -
+- [mkdirs](mkdirs.coffee) - recursive create depth directory with it's parents
 - [find](find.coffee) -
 - [copy](copy.coffee) -
 - [remove](remove.coffee) -
@@ -44,6 +44,6 @@ for name in [
   'npmbin', 'tempdir', 'tempfile', 'touch'
   'chowns', 'chmods'
 ]
-  command = require './' + name
+  command = require './methods/' + name
   for name, value of command
     afs[name] = value

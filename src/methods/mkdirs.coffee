@@ -1,28 +1,30 @@
-# Extension of nodes fs utils
-# =================================================
+###
+Make Directory
+=================================================
+The basic [`mkdir()`](https://nodejs.org/api/fs.html#fs_fs_mkdir_path_mode_callback)
+will only create one level of directory. While this extension gives additional methods
+which will also create the full path if possible.
+
+If an `EEXIST` code will be thrown this signals that the directory is already there so
+this methods will succeed without doing anything and without `Error`. All other errors
+will be given back.
+###
+
 
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
 fs = require 'fs'
 path = require 'path'
 
-# Make dirs recursively
-# -------------------------------------------------
-# Create a new directory and any necessary subdirectories of `dir` with octal
-# permission string `mode`.
-#
-# __Arguments:__
-#
-# * `dir`
-#   Directory to create if not existing.
-# * `mode` (optional)
-#   Mode setting defaults to process's file mode creation mask.
-# * `callback(err, made)`
-#   The callback will be called just if an error occurred. It returns the first
-#   directory that had to be created, if any.
-mkdirs = module.exports.async = (dir, mode, cb = -> ) ->
+
+###
+@param {String} dir directory path to create
+@param {String|Integer} [mode] the permission mode for the directories (may be given
+as string like '775')
+@param {function(err, made)} cb callback method given an `Error`, the path of the
+first directory which was created or `null` if nothing had to be done
+###
+mkdirs = module.exports.mkdirs = (dir, mode, cb = -> ) ->
   # get parameter and default values
   if typeof mode is 'function' or not mode
     cb = mode
@@ -48,28 +50,18 @@ mkdirs = module.exports.async = (dir, mode, cb = -> ) ->
       cb err
 
 
-# Make dirs recursively (Synchronous)
-# -------------------------------------------------
-# Create a new directory and any necessary subdirectories of `dir` with octal
-# permission string `mode`.
-#
-# __Arguments:__
-#
-# * `dir`
-#   Directory to create if not existing.
-# * `mode` (optional)
-#   Mode setting defaults to process's file mode creation mask.
-#
-# __Return:__
-#
-# * `made`
-#   Returns the directory that had to be created, if any.
-#
-# __Throw:__
-#
-# * `Error`
-#   If anything out of order happened.
-mkdirsSync = module.exports.sync = (dir, mode) ->
+# Exported Methods
+# ------------------------------------------------
+
+###
+@param {String} dir directory path to create
+@param {String|Integer} [mode] the permission mode for the directories (may be given
+as string like '775')
+@return {String} the path of the first directory which was created or `null` if
+nothing had to be done
+@throws {Error} if anything out of order happened
+###
+mkdirsSync = module.exports.mkdirsSync = (dir, mode) ->
   # get parameter and default values
   if typeof mode is 'function' or not mode
     mode = 0o0777 & (~process.umask())

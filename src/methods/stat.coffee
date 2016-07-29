@@ -4,13 +4,16 @@ File Stats
 The [default stat](https://nodejs.org/api/fs.html#fs_fs_stat_path_callback) is
 extended by cached results. The io lookup result is cached for one second, so that
 multiple calls don't check on disk each time.
+There are `stat()` and `lstat()` methods available which differ in the handling of
+softlinks. While `stat()` will follow the softlink and analyze the file it is pointing
+to, `lstat()` will analyse the softlink inode itself.
 
 Stats objects returned from one of the stats-methods have the following methods:
 - `isFile()` - `Boolean` true if this is a plain file
 - `isDirectory()` - `Boolean` true if this is a directory
 - `isBlockDevice()` - `Boolean` true if this is a block device
 - `isCharacterDevice()` - `Boolean` true if this is a character device
-- `isSymbolicLink()` - `Boolean` true if this is a symbolic link (only valid with `lstat()`)
+- `isSymbolicLink()` - `Boolean` true if this is a symbolic link (only possible with `lstat()`)
 - `isFIFO()` - `Boolean` true if this is a FIFO pipe
 - `isSocket()` - `Boolean` true if this is a UNIX socket
 
@@ -38,6 +41,9 @@ fs = require 'graceful-fs'
 memoizee = require 'memoizee'
 
 
+# Exported Methods
+# ------------------------------------------------
+
 ###
 @name stat()
 @param {String|Buffer} path local path to check
@@ -59,7 +65,7 @@ module.exports.statSync = memoizee fs.statSync,
   max: 1000 # limit number of elements
 
 ###
-@name stat()
+@name lstat()
 @param {String|Buffer} path local path to check
 @param {function(err, stats)} cb callback which gets an `Error` or a `Stats` object.
 ###
@@ -69,7 +75,7 @@ module.exports.lstat = memoizee fs.lstat,
   max: 1000 # limit number of elements
 
 ###
-@name statSync()
+@name lstatSync()
 @param {String|Buffer} path local path to check
 @return {Stats} an statss objects
 @throws {Error} if io problems occure
