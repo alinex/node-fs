@@ -1,5 +1,5 @@
 ###
-Find Files
+Find
 =================================================
 This is a powerfull method to search for files on the local filesystem. It works
 recursively with multiple checks and to get a file list as quick as possible.
@@ -42,7 +42,7 @@ find = module.exports.find = (source, options, cb , depth = 0 ) ->
   debug "check #{source}"
   # Check the current file through filter options
 #  sourceCheck = if depth then source else '.'
-  filter.async source, depth, options, (ok) ->
+  filter.filter source, depth, options, (ok) ->
     return cb null, list if ok is undefined
     list.push source if ok
     # check source entry
@@ -76,7 +76,7 @@ find = module.exports.find = (source, options, cb , depth = 0 ) ->
 ###
 findSync = module.exports.findSync = (source, options = {}, depth = 0) ->
   list = []
-  ok = filter.sync source, depth, options
+  ok = filter.filterSync source, depth, options
   return list if options.lazy and not ok
   # Check the current file through filter options
   list.push source if ok

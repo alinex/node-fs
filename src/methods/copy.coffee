@@ -1,5 +1,5 @@
 ###
-Copy Files
+Copy
 =================================================
 This will copy a single file, complete directory or selection from directory.
 It will make exact copies of the files as far as possible including times, ownership
@@ -54,11 +54,11 @@ copy = module.exports.copy = (source, target, options, cb, depth = 0) ->
       return cb() if options.ignoreErrors
       return cb err
     # Check the current file through filter options
-    filter.async source, depth, options, (ok) ->
+    filter.filter source, depth, options, (ok) ->
       if stats.isFile()
         return cb() unless ok
         # create directory if necessary
-        mkdirs.async path.dirname(target), (err) ->
+        mkdirs.mkdirs path.dirname(target), (err) ->
           return cb err if err
           # copy the file
           fs.exists target, (exists) ->
@@ -71,7 +71,7 @@ copy = module.exports.copy = (source, target, options, cb, depth = 0) ->
       else if stats.isSymbolicLink()
         return cb() unless ok
         # create directory if necessary
-        mkdirs.async path.dirname(target), (err) ->
+        mkdirs.mkdirs path.dirname(target), (err) ->
           return cb err if err
           debug "copying link #{source} to #{target}"
           fs.readlink source, (err, resolvedPath) ->
@@ -86,7 +86,7 @@ copy = module.exports.copy = (source, target, options, cb, depth = 0) ->
           # copy all files in directory
           debug "copying directory #{source} to #{target}"
           # make directory
-          mkdirs.async target, stats.mode, (err) ->
+          mkdirs.mkdirs target, stats.mode, (err) ->
             return cb err if err
             async.each files, (file, cb) ->
               copy path.join(source, file), path.join(target, file), options, cb, depth
@@ -107,11 +107,11 @@ copySync = module.exports.copySync = (source, target, options = {}, depth = 0) -
   catch error
     return if options.ignoreErrors
     throw error
-  ok = filter.sync source, depth, options
+  ok = filter.filterSync source, depth, options
   if stats.isFile()
     return unless ok
     # create directory if neccessary
-    mkdirs.sync path.dirname(target)
+    mkdirs.mkdirsSync path.dirname(target)
     # copy the file
     exists = fs.existsSync target
     if exists and not (options.overwrite or options.ignore)
@@ -122,7 +122,7 @@ copySync = module.exports.copySync = (source, target, options = {}, depth = 0) -
   else if stats.isSymbolicLink()
     return unless ok
     # create directory if neccessary
-    mkdirs.sync path.dirname(target)
+    mkdirs.mkdirsSync path.dirname(target)
     resolvedPath = fs.readlinkSync source
     # make the symlink
     debug "copying link #{source} to #{target}"
@@ -131,7 +131,7 @@ copySync = module.exports.copySync = (source, target, options = {}, depth = 0) -
     # source is directory
     depth++
     # copy directory
-    mkdirs.sync target, stats.mode if ok
+    mkdirs.mkdirsSync target, stats.mode if ok
     # copy all files in directory
     debug "copying directory #{source} to #{target}"
     for file in fs.readdirSync source

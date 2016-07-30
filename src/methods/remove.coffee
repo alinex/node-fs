@@ -41,7 +41,7 @@ remove = module.exports.remove = (file, options, cb, depth = 0) ->
       return cb() if err.code is 'ENOENT' or options.ignoreErrors
       return cb err
     # Check the current file through filter options
-    filter.async file, depth, options, (ok) ->
+    filter.filter file, depth, options, (ok) ->
       if stats.isFile()
         return cb() unless ok
         # remove file
@@ -102,7 +102,7 @@ removeSync = module.exports.removeSync = (file, options = {}, depth = 0) ->
     return if error.code is 'ENOENT' or options.ignoreErrors
     throw error
   # Check the current file through filter options
-  ok = filter.sync file, depth, options
+  ok = filter.filterSync file, depth, options
   if stats.isFile()
     return unless ok
     # remove file

@@ -1,10 +1,9 @@
-# Extension of nodes fs utils
+# Filter Check
 # =================================================
+
 
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
@@ -12,21 +11,15 @@ chrono = require 'chrono-node'
 debug = require('debug')('fs:filter')
 util = require 'util'
 
-# Find files
+
+# External Methods
 # -------------------------------------------------
-# This method will check a given file/path against some filter options.
-#
-# __Arguments:__
-#
-# * `file`
-#   File to check against filter
-# * `depth`
-#   Search depth as integer (internal parameter).
-# * `options`
-#   Specification of files to success.
-# * `callback(success)`
-#   The callback will be called with a boolean value showing if file is accepted.
-module.exports.async = (file, depth = 0, options = {}, cb = -> ) ->
+
+# @param {String} file to check against filter conditions
+# @param {Integer} [depth=0] search depth for integer (internally used)
+# @param {Object} [options] specifications for check defining which files to copy
+# @param {function(err)} [cb] callback which is called after done with possible `Èrror`
+module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
   return cb true unless options? and Object.keys(options).length
   subpath = file.split /\//
 #  subpath.shift() if subpath.length > 1
@@ -45,26 +38,11 @@ module.exports.async = (file, depth = 0, options = {}, cb = -> ) ->
     ], (skip) ->
       cb not skip
 
-# Find files (synchronous)
-# -------------------------------------------------
-# This method will check a given file/path against some filter options.
-#
-# __Arguments:__
-#
-# * `file`
-#   File to check against filter
-# * `depth`
-#   Search depth as integer (internal parameter).
-# * `options`
-#   Specification of files to success.
-#
-# __Return:__
-#
-# * `success`
-#   The callback will be called with a boolean value showing if file is accepted.
-#
-# The options are the same as in the asynchronous method.
-module.exports.sync = (file, depth, options = {}) ->
+# @param {String} file to check against filter conditions
+# @param {Integer} [depth=0] search depth for integer (internally used)
+# @param {Object} [options] specifications for check defining which files to copy
+# @throws {Error} if anything out of order happened
+module.exports.filterSync = (file, depth = 0, options = {}) ->
   return true unless options? and Object.keys(options).length
   debug "check #{file} for " + util.inspect options
   subpath = file.split /\//
