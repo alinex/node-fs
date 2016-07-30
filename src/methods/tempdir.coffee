@@ -1,25 +1,28 @@
-# Extension of nodes fs utils
-# =================================================
+###
+Temp Directory
+==================================================
+This will create a new temporary directory for you.
+###
+
 
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
-fs = require 'fs'
 path = require 'path'
 crypto = require 'crypto'
 os = require 'os'
 # include other extended commands and helper
+mkdirs = require './mkdirs'
 
 
-# Create temporary folder
+# External Methods
 # -------------------------------------------------
-# __Arguments:__
-#
-# - `base` - path under which the directory should be created (defaults to os setting)
-# - `prefix` - prefix string to use
-# - `cb` - callback method
-tempdir = module.exports.async = (base, prefix = null, cb) ->
+
+###
+@param {String} {base=os settings} path under which the directory should be created
+@param {String} [prefix=process title] to use before numerical part
+@param {function(err, dir)} cb callback with `Error` or the path to the newly created directory
+###
+tempdir = module.exports.tempdir = (base, prefix = null, cb) ->
   # optional arguments
   if not cb? and typeof prefix is 'function'
     cb = prefix
@@ -31,27 +34,26 @@ tempdir = module.exports.async = (base, prefix = null, cb) ->
   prefix ?= path.basename process.title + '-'
   # try to create dir
   dir = path.join base, prefix + crypto.randomBytes(4).readUInt32LE(0)
-  fs.mkdir dir, (err) ->
+  mkdirs.mkdirs dir, (err) ->
     # try again if already existing
     return tempdir base, prefix, cb if err?.code is 'EEXIST'
     # stop on any other problem
     return cb err if err
     cb null, dir
 
-# Create temporary folder (Synchronous)
-# -------------------------------------------------
-# __Arguments:__
-#
-# - `base` - path under which the directory should be created (defaults to os setting)
-# - `prefix` - prefix string to use
-# - `cb` - callback method
-tempdirSync = module.exports.sync = (base, prefix = null) ->
+###
+@param {String} {base=os settings} path under which the directory should be created
+@param {String} [prefix=process title] to use before numerical part
+@return {String} the path to the newly created directory
+@throws {Error} if something went wrong
+###
+tempdirSync = module.exports.tempdirSync = (base, prefix = null) ->
   base ?= os.tmpDir()
   prefix ?= path.basename process.title + '-'
   # try to create dir
   dir = path.join base, prefix + crypto.randomBytes(4).readUInt32LE(0)
   try
-    fs.mkdirSync dir
+    mkdirs.mkdirsSync dir
     return dir
   catch error
     # try again if already existing

@@ -28,9 +28,9 @@ Additional functionalities are:
 - [copy](copy.coffee) - copy file, directory or selection
 - [move](move.coffee) - move file, directory or selection
 - [remove](remove.coffee) - remove file, directory or selection
-- [npmdir](npmdir.coffee) -
-- [tempdir](tempdir.coffee) -
-- [tempfile](tempfile.coffee) -
+- [npmdir](npmdir.coffee) - find binary in NPM path
+- [tempdir](tempdir.coffee) - create temporary directory
+- [tempfile](tempfile.coffee) - create temporary file
 - [touch](touch.coffee) -
 - [chowns](chowns.coffee) -
 - [chmods](chmods.coffee) -
