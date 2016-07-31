@@ -63,7 +63,7 @@ touch = module.exports.touch = (file, options = {}, cb = ->) ->
 ###
 @param {String} file to be changed
 @param {Object} [options] see description above
-@throws `Error` if sometzhing went wrong
+@throws {Error} if sometzhing went wrong
 ###
 touchSync = module.exports.touchSync = (file, options = {}) ->
   # optional arguments

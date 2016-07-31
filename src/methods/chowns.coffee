@@ -45,7 +45,7 @@ chowns = module.exports.chowns = (file, options, cb = ->) ->
 ###
 @param {String} file file path or directory to search
 @param {Object} options selection of files to search and user/group id
-@throws `Error` if something went wrong
+@throws {Error} if something went wrong
 ###
 chownsSync = module.exports.async = (file, options) ->
   # check file entry

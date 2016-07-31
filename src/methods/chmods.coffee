@@ -49,7 +49,7 @@ chmods = module.exports.chmods = (file, options, cb = ->) ->
 ###
 @param {String} file file path or directory to search
 @param {Object} options selection of files to search and mode
-@throws `Error` if something went wrong
+@throws {Error} if something went wrong
 ###
 chmodsSync = module.exports.chmodsSync = (file, options) ->
   # check file entry
