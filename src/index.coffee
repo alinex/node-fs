@@ -31,9 +31,9 @@ Additional functionalities are:
 - [npmdir](npmdir.coffee) - find binary in NPM path
 - [tempdir](tempdir.coffee) - create temporary directory
 - [tempfile](tempfile.coffee) - create temporary file
-- [touch](touch.coffee) -
-- [chowns](chowns.coffee) -
-- [chmods](chmods.coffee) -
+- [touch](touch.coffee) - touch file
+- [chowns](chowns.coffee) - change ownership of file, directory or selection
+- [chmods](chmods.coffee) - change access rights of file, directory or selection
 ###
 
 # Add extended functionality

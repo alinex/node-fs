@@ -1,28 +1,30 @@
-# Extension of nodes fs utils
-# =================================================
+###
+Touch File
+=================================================
+The touch methods allow the following options:
+- `reference` - file path used as reference
+- `time` - time to use
+- `mtime` - use this time (defauklts to current time)
+- `noCreate` - don't create file if not existing
+- `noAccess` - don't change access time of the file
+- `noModified` - don't change modified time of the file
+###
+
 
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
 fs = require 'fs'
-# include other extended commands and helper
 
 
-# Touch a file
-# -------------------------------------------------
-# __Arguments:__
-#
-# - `file` - path under which the directory should be created (defaults to os setting)
-# - `options`
-#   - `noCreate` - don't create file if it already exists
-#   - `time` - timw to set
-#   - `mtime` - modification timw to set
-#   - `reference` - use this file's time
-#   - `noAccess` - (boolean) set access time
-#   - `noModified` - (boolean) set modified time
-# - `cb` - callback method
-touch = module.exports.async = (file, options = {}, cb = ->) ->
+# Exported Methods
+# ------------------------------------------------
+
+###
+@param {String} file to be changed
+@param {Object} [options] see description above
+@param {function(err)} cb callback with `Error` if sometzhing went wrong
+###
+touch = module.exports.touch = (file, options = {}, cb = ->) ->
   if typeof options is 'function'
     cb = options
     options = {}
@@ -58,7 +60,12 @@ touch = module.exports.async = (file, options = {}, cb = ->) ->
         return cb err if err
         fs.utimes file, atime, mtime, cb
 
-touchSync = module.exports.sync = (file, options = {}) ->
+###
+@param {String} file to be changed
+@param {Object} [options] see description above
+@throws `Error` if sometzhing went wrong
+###
+touchSync = module.exports.touchSync = (file, options = {}) ->
   # optional arguments
   options.time ?= new Date()
   atime = mtime = options.time

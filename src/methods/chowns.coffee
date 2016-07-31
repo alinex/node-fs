@@ -1,34 +1,26 @@
-# Extension of nodes fs utils
-# =================================================
+###
+Change Ownership
+=================================================
+###
+
 
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
 debug = require('debug')('fs:chowns')
 
 
-# Chown
-# -------------------------------------------------
-# Change the ownership of path like fs.chown but recursively.
-#
-# __Arguments:__
-#
-# * `path`
-#   File or directory to be changed
-# * `options`
-#   Specification of files to find.
-#
-#   - `uid`
-#   - `gid`
-#   - `dereference` (boolean)
-#
-# * `callback(err)`
-#   The callback will be called just if an error occurred.
-chowns = module.exports.async = (file, options, cb = ->) ->
+# Exported Methods
+# ------------------------------------------------
+
+###
+@param {String} file file path or directory to search
+@param {Object} options selection of files to search and user/group id
+@param {function(err)} cb callback with error if something went wrong
+###
+chowns = module.exports.chowns = (file, options, cb = ->) ->
   # check file entry
   stat = if options.dereference? then fs.stat else fs.lstat
   stat file, (err, stats) ->
@@ -50,25 +42,11 @@ chowns = module.exports.async = (file, options, cb = ->) ->
           chowns path.join(dir, file), options, cb
         , cb
 
-# Remove path recursively (Synchronous)
-# -------------------------------------------------
-# Removes the given path and any containing files or subdirectories.
-#
-# __Arguments:__
-#
-# * `path`
-#   File or directory to be changed
-# * `options`
-#   Specification of files to find.
-#
-#   - `uid`
-#   - `gid`
-#   - `dereference` (boolean)
-#
-# __Throw:__
-#
-# * `Error`
-#   If anything out of order happened.
+###
+@param {String} file file path or directory to search
+@param {Object} options selection of files to search and user/group id
+@throws `Error` if something went wrong
+###
 chownsSync = module.exports.async = (file, options) ->
   # check file entry
   stat = if options.dereference? then fs.statSync else fs.lstatSync

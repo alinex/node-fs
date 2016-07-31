@@ -1,33 +1,30 @@
-# Extension of nodes fs utils
-# =================================================
+###
+Change Rights
+=================================================
+Change the ownership of path like fs.chmod but recursively.
+
+The options are the same as used for find with the additional mode:
+- `mode`
+###
+
 
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
 debug = require('debug')('fs:chmods')
 
 
-# Chown
-# -------------------------------------------------
-# Change the ownership of path like fs.chmod but recursively.
-#
-# __Arguments:__
-#
-# * `path`
-#   File or directory to be changed
-# * `options`
-#   Specification of files to find.
-#
-#   - `mode`
-#   - `dereference` (boolean)
-#
-# * `callback(err)`
-#   The callback will be called just if an error occurred.
-chmods = module.exports.async = (file, options, cb = ->) ->
+# Exported Methods
+# ------------------------------------------------
+
+###
+@param {String} file file path or directory to search
+@param {Object} options selection of files to search and mode
+@param {function(err)} cb callback with error if something went wrong
+###
+chmods = module.exports.chmods = (file, options, cb = ->) ->
   # check file entry
   stat = if options.dereference? then fs.stat else fs.lstat
   stat file, (err, stats) ->
@@ -49,26 +46,12 @@ chmods = module.exports.async = (file, options, cb = ->) ->
           chmods path.join(dir, file), options, cb
         , cb
 
-# Remove path recursively (Synchronous)
-# -------------------------------------------------
-# Removes the given path and any containing files or subdirectories.
-#
-# __Arguments:__
-#
-# * `path`
-#   File or directory to be changed
-# * `options`
-#   Specification of files to find.
-#
-#   - `uid`
-#   - `gid`
-#   - `dereference` (boolean)
-#
-# __Throw:__
-#
-# * `Error`
-#   If anything out of order happened.
-chmodsSync = module.exports.async = (file, options) ->
+###
+@param {String} file file path or directory to search
+@param {Object} options selection of files to search and mode
+@throws `Error` if something went wrong
+###
+chmodsSync = module.exports.chmodsSync = (file, options) ->
   # check file entry
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   try
