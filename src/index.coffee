@@ -39,7 +39,7 @@ Additional functionalities are:
 # Add extended functionality
 # -------------------------------------------------
 for name in [
-  'stats'
+  'stat'
   'mkdirs', 'find', 'copy', 'remove', 'move'
   'npmbin', 'tempdir', 'tempfile', 'touch'
   'chowns', 'chmods'

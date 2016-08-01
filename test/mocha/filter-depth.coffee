@@ -6,7 +6,7 @@ util = require 'util'
 
 describe "Filter file structure depth", ->
 
-  filter = require '../../src/filter'
+  filter = require '../../src/methods/filter'
 
   files = [
     'a', 'b', 'c', 'd', 'dir1'
@@ -18,7 +18,7 @@ describe "Filter file structure depth", ->
   check = (options, list, cb) ->
     async.filter files, (file, cb) ->
       parts = file.split /\//
-      filter.async file, (parts.length-1), options, (success) -> cb null, success
+      filter.filter file, (parts.length-1), options, (success) -> cb null, success
     , (err, result) ->
 #      console.log "check pattern", options, "with result: #{result}"
       expect(result, util.inspect options).to.deep.equal list
@@ -28,7 +28,7 @@ describe "Filter file structure depth", ->
     result = []
     for file in files
       parts = file.split /\//
-      result.push file if filter.sync file, (parts.length-1), options
+      result.push file if filter.filterSync file, (parts.length-1), options
 #    console.log "check pattern", options, "with result: #{result}"
     expect(result, util.inspect options).to.deep.equal list
 

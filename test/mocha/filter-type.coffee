@@ -8,7 +8,7 @@ fs = require 'fs'
 
 describe "Type filtering", ->
 
-  filter = require '../../src/filter'
+  filter = require '../../src/methods/filter'
 
   files = [
     'test/temp/file1'
@@ -34,7 +34,7 @@ describe "Type filtering", ->
 
   check = (options, list, cb) ->
     async.filter files, (file, cb) ->
-      filter.async file, 0, options, (success) -> cb null, success
+      filter.filter file, 0, options, (success) -> cb null, success
     , (err, result) ->
 #      console.log "check pattern", options, "with result: #{result}"
       expect(result, util.inspect options).to.deep.equal list
@@ -43,7 +43,7 @@ describe "Type filtering", ->
   checkSync = (options, list) ->
     result = []
     for file in files
-      result.push file if filter.sync file, 0, options
+      result.push file if filter.filterSync file, 0, options
 #    console.log "check pattern", options, "with result: #{result}"
     expect(result, util.inspect options).to.deep.equal list
 

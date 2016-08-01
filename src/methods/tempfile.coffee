@@ -47,7 +47,7 @@ tempfile = module.exports.tempfile = (base, prefix = null, cb) ->
 @return {String} the path to the newly created directory
 @throws {Error} if something went wrong
 ###
-tempfileSync = module.exports.sync = (base, prefix = null) ->
+tempfileSync = module.exports.tempfileSync = (base, prefix = null) ->
   base ?= os.tmpDir()
   prefix ?= path.basename process.title + '-'
   # try to create dir
