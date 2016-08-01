@@ -1,5 +1,5 @@
 ###
-Make Directory
+Make Directories
 =================================================
 The basic [`mkdir()`](https://nodejs.org/api/fs.html#fs_fs_mkdir_path_mode_callback)
 will only create one level of directory. While this extension gives additional methods
@@ -8,6 +8,17 @@ which will also create the full path if possible.
 If an `EEXIST` code will be thrown this signals that the directory is already there so
 this methods will succeed without doing anything and without `Error`. All other errors
 will be given back.
+
+Example Use
+---------------------------------------------------
+``` coffee
+fs = require 'alinex-fs'
+fs.mkdirs '/tmp/some/directory', (err, made) ->
+  return console.error err if err
+  if made
+    console.log "Directory starting from #{made} was created."
+  console.log 'Directory now exists!'
+```
 ###
 
 
@@ -16,6 +27,11 @@ will be given back.
 fs = require 'fs'
 path = require 'path'
 
+
+###
+Exported Methods
+------------------------------------------------
+###
 
 ###
 @param {String} dir directory path to create

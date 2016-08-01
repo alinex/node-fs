@@ -84,72 +84,8 @@ files they work on.
 Like you see all the extended functions use the same naming convention as the
 node core, making the use nearly natural.
 
-But you can still use the native Node.js methods, also. Some of the native
-methods are slightly changed:
-
-* `stat` and `statSync` will now use a short caching for performance reasons
-* `lstat` and `lstatSync` will now use a short caching for performance reasons
 
 
-### mkdirs
-
-This method is used to create directories recursively if they don't exist.
-That means if the parent directory didn't exist it will also be created, if
-possible.
-
-__Arguments:__
-
-* `directory`
-  Directory to create if not existing.
-* `mode` (optional)
-  Mode setting defaults to process's file mode creation mask.
-* `callback(err, made)`
-  The callback will be called just if an error occurred. It returns the first
-  directory that had to be created, if any.
-
-__Example:__
-
-``` coffee
-fs = require 'alinex-fs'
-fs.mkdirs '/tmp/some/directory', (err, made) ->
-  return console.error err if err
-  if made
-    console.log "Directory starting from #{made} was created."
-  console.log 'Directory now exists!'
-```
-
-### mkdirsSync
-
-This will do the same as `mkdirs` but in an synchronous version.
-
-__Arguments:__
-
-* `directory`
-  Directory to create if not existing.
-* `mode` (optional)
-  Mode setting defaults to process's file mode creation mask.
-
-__Return:__
-
-* `made`
-  Returns the directory that had to be created, if any.
-
-__Throw:__
-
-* `Error`
-  If anything out of order happened.
-
-__Example:__
-
-``` coffee
-fs = require 'alinex-fs'
-try
-  made = fs.mkdirsSync '/tmp/some/directory'
-  console.log "Directory starting from #{made} was created." if made
-  console.log "Directory now exists!"
-catch error
-  return console.error error.message
-```
 
 ### find
 

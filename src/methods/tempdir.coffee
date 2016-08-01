@@ -1,7 +1,26 @@
 ###
 Temp Directory
 ==================================================
-This will create a new temporary directory for you.
+This will create a new temporary directory for you. Since Node v5.10.0 you may
+also use the [`mkdtemp()`](https://nodejs.org/api/fs.html#fs_fs_mkdtemp_prefix)
+method but it has a slightly changed API.
+
+In this methods you define the temporary directory with two possible strings.
+First with the directory in which to create the new one and secondly a possible
+prefix before the numerical part.
+
+Examples
+-------------------------------------------------
+
+You may get a directory back without doing anything:
+
+``` coffee
+fs = require 'alinex-fs'
+fs.tempdir (err, dir) ->
+  console.log "Temporary directory is: " + dir
+```
+
+But don't forget to remove it if no longer needed.
 ###
 
 
@@ -18,7 +37,8 @@ mkdirs = require './mkdirs'
 # -------------------------------------------------
 
 ###
-@param {String} {base=os settings} path under which the directory should be created
+@param {String} base path under which the directory should be created (use `null`
+for os default settings)
 @param {String} [prefix=process title] to use before numerical part
 @param {function(err, dir)} cb callback with `Error` or the path to the newly created directory
 ###

@@ -1,7 +1,21 @@
 ###
-Temp file
+Temp File
 =================================================
-This will create a new temporary file for you.
+This will create a new temporary file for you. Like in [`tempdir()`](tempdir.coffee)
+you may give a specific path and prefix before the numeral file part.
+
+Examples
+-------------------------------------------------
+
+You may get a file back without doing anything:
+
+``` coffee
+fs = require 'alinex-fs'
+fs.tempfile (err, dir) ->
+  console.log "Temporary file is: " + dir
+```
+
+But don't forget to remove it if no longer needed.
 ###
 
 
@@ -17,7 +31,8 @@ os = require 'os'
 # -------------------------------------------------
 
 ###
-@param {String} {base=os settings} path under which the directory should be created
+@param {String} base path under which the directory should be created (use `null`
+to make it in the os default directory)
 @param {String} [prefix=process title] to use before numerical part
 @param {function(err, dir)} cb callback with `Error` or the path to the newly created file
 ###
