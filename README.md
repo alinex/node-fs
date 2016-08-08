@@ -4,7 +4,7 @@ Filesystem (fs): Readme
 [![Build Status](https://travis-ci.org/alinex/node-fs.svg?branch=master)](https://travis-ci.org/alinex/node-fs)
 [![Coverage Status](https://coveralls.io/repos/alinex/node-fs/badge.png?branch=master)](https://coveralls.io/r/alinex/node-fs?branch=master)
 [![Dependency Status](https://gemnasium.com/alinex/node-fs.png)](https://gemnasium.com/alinex/node-fs)
-[![GitHub](https://assets-cdn.github.com/favicon.ico)](https://github.com/alinex/node-codedoc "Code on GitHub")
+[![GitHub](https://assets-cdn.github.com/favicon.ico)](https://github.com/alinex/node-fs "Code on GitHub")
 <!-- {.right} -->
 
 Like some other packages this module adds functions to the node.js fs package.

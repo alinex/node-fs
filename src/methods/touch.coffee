@@ -22,7 +22,7 @@ fs = require 'fs'
 ###
 @param {String} file to be changed
 @param {Object} [options] see description above
-@param {function(err)} cb callback with `Error` if sometzhing went wrong
+@param {function(<Error>)} cb callback with `Error` if sometzhing went wrong
 ###
 touch = module.exports.touch = (file, options = {}, cb = ->) ->
   if typeof options is 'function'

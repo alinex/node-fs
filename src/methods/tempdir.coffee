@@ -40,7 +40,7 @@ mkdirs = require './mkdirs'
 @param {String} base path under which the directory should be created (use `null`
 for os default settings)
 @param {String} [prefix=process title] to use before numerical part
-@param {function(err, dir)} cb callback with `Error` or the path to the newly created directory
+@param {function(<Error>, <String>)} cb callback with `Error` or the path to the newly created directory
 ###
 tempdir = module.exports.tempdir = (base, prefix = null, cb) ->
   # optional arguments

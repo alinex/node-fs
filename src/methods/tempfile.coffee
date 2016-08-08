@@ -34,7 +34,7 @@ os = require 'os'
 @param {String} base path under which the directory should be created (use `null`
 to make it in the os default directory)
 @param {String} [prefix=process title] to use before numerical part
-@param {function(err, dir)} cb callback with `Error` or the path to the newly created file
+@param {function(<Error>, <String>)} cb callback with `Error` or the path to the newly created file
 ###
 tempfile = module.exports.tempfile = (base, prefix = null, cb) ->
   # optional arguments

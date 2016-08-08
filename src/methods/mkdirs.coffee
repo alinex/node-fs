@@ -37,7 +37,7 @@ Exported Methods
 @param {String} dir directory path to create
 @param {String|Integer} [mode] the permission mode for the directories (may be given
 as string like '775')
-@param {function(err, made)} cb callback method given an `Error`, the path of the
+@param {function(<Error>, <Integer>)} cb callback method given an `Error`, the path of the
 first directory which was created or `null` if nothing had to be done
 ###
 mkdirs = module.exports.mkdirs = (dir, mode, cb = -> ) ->

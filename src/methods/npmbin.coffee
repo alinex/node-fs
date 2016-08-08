@@ -18,7 +18,7 @@ debug = require('debug')('fs:npmbin')
 ###
 @param {String} bin name of the binary to search for
 @param {String} dir directory to start search from
-@param {function(err, path)} cb callback with an `Error` or the found binary's path
+@param {function(<Error>, <String>)} cb callback with an `Error` or the found binary's path
 ###
 module.exports.npmbin = (bin, dir, cb) ->
   debug "Search binary #{bin} starting at #{dir}"

@@ -37,7 +37,7 @@ filter = require './filter'
 @param {String} source path or file to be copied
 @param {String} target file or directory to copy to
 @param {Object} [options] specifications for check defining which files to copy
-@param {function(err)} [cb] callback which is called after done with possible `Èrror`
+@param {function(<Error>)} [cb] callback which is called after done with possible `Èrror`
 @internal The `depth` parameter is only used internally.
 @param {Integer} [depth=0] current depth in file tree
 ###
@@ -143,7 +143,7 @@ copySync = module.exports.copySync = (source, target, options = {}, depth = 0) -
 # @param {String} source dourcepath of concrete file to copy
 # @param {fs.Stats} stats file information object
 # @param {String} target path to store file copy to
-# @param {function(err)} cb callback after dann with possible `Error` object
+# @param {function(<Error>)} cb callback after dann with possible `Error` object
 copyFile = (source, stats, target, cb) ->
   # finalize only once
   done = (err) ->
@@ -167,7 +167,7 @@ copyFile = (source, stats, target, cb) ->
 # @param {String} source dourcepath of concrete file to copy
 # @param {fs.Stats} stats file information object
 # @param {String} target path to store file copy to
-# @throws `Error` if something went wrong
+# @throws {Error} if something went wrong
 copyFileSync = (source, stats, target) ->
   # copy file
   fs.writeFileSync target, fs.readFileSync source

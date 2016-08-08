@@ -22,7 +22,7 @@ filter = require './filter'
 ###
 @param {String} path directory or file to be deleted
 @param {Object} [options] specifications for check defining which files to remove
-@param {function(err, removed)} [cb] callback which is called after done with possible
+@param {function(<Error>, <String>)} [cb] callback which is called after done with possible
        `Èrror` or with the file/directory deleted
 @internal The `depth` parameter is only used internally.
 @param {Integer} [depth=0] current depth in file tree

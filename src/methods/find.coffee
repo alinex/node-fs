@@ -27,7 +27,7 @@ PARALLEL = 10
 ###
 @param {String} search source path to be searched in
 @param {Object} [options] specifications for check defining which files to list
-@param {function(err, list)} [cb] callback which is called after done with an `Èrror`
+@param {function(<Error>, <Array>)} [cb] callback which is called after done with an `Èrror`
 or the complete list of files found as `Àrray`
 @internal The `depth` parameter is only used internally.
 @param {Integer} [depth=0] current depth in file tree

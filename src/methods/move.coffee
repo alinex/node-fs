@@ -36,7 +36,7 @@ remove = require './remove'
 @param {String} source path or file to be copied
 @param {String} target file or directory to copy to
 @param {Object} [options] specifications for check defining which files to copy
-@param {function(err)} [cb] callback which is called after done with possible `Èrror`
+@param {function(<Error>)} [cb] callback which is called after done with possible `Èrror`
 ###
 module.exports.move = (source, target, options = {}, cb = ->) ->
   if typeof options is 'function' or not options

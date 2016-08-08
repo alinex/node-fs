@@ -47,7 +47,7 @@ memoizee = require 'memoizee'
 ###
 @name stat()
 @param {String|Buffer} path local path to check
-@param {function(err, stats)} cb callback which gets an `Error` or a `Stats` object.
+@param {function(<Error>, <fs.Stats>)} cb callback which gets an `Error` or a `Stats` object.
 ###
 module.exports.stat = memoizee fs.stat,
   async: true
@@ -67,7 +67,7 @@ module.exports.statSync = memoizee fs.statSync,
 ###
 @name lstat()
 @param {String|Buffer} path local path to check
-@param {function(err, stats)} cb callback which gets an `Error` or a `Stats` object.
+@param {function(<Error>, <fs.Stats>)} cb callback which gets an `Error` or a `Stats` object.
 ###
 module.exports.lstat = memoizee fs.lstat,
   async: true

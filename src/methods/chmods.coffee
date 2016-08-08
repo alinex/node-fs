@@ -22,7 +22,7 @@ debug = require('debug')('fs:chmods')
 ###
 @param {String} file file path or directory to search
 @param {Object} options selection of files to search and mode
-@param {function(err)} cb callback with error if something went wrong
+@param {function(<Error>)} cb callback with error if something went wrong
 ###
 chmods = module.exports.chmods = (file, options, cb = ->) ->
   # check file entry

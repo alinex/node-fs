@@ -18,7 +18,7 @@ util = require 'util'
 # @param {String} file to check against filter conditions
 # @param {Integer} [depth=0] search depth for integer (internally used)
 # @param {Object} [options] specifications for check defining which files to copy
-# @param {function(err)} [cb] callback which is called after done with possible `Èrror`
+# @param {function(<>Error>)} [cb] callback which is called after done with possible `Èrror`
 module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
   return cb true unless options? and Object.keys(options).length
   subpath = file.split /\//
