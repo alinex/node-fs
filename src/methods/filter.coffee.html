@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Usage</title>
+    <title>Filter Check</title>
     <meta name="HandheldFriendly" content="true" />
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -51,52 +51,52 @@
           </form>
           <ul class="nav sidebar-to-top">
                 <li class="level0">
-                  <a href="../README.md.html" title="Filesystem (fs): Readme (/README.md)" class="btn btn-primary">Readme</a>
+                  <a href="../../README.md.html" title="Filesystem (fs): Readme (/README.md)" class="btn btn-primary">Readme</a>
                 </li>
-                <li class="active level1">
-                  <a href="index.coffee.html" title="API Usage (/src/index.coffee)" class="btn btn-warning">API Usage <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="level2">
-                  <a href="methods/chmods.coffee.html" title="Change Rights (/src/methods/chmods.coffee)" class="btn btn-primary">Change Rights</a>
+                <li class="level1">
+                  <a href="../index.coffee.html" title="API Usage (/src/index.coffee)" class="btn btn-primary">API Usage</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/chowns.coffee.html" title="Change Ownership (/src/methods/chowns.coffee)" class="btn btn-primary">Change Ownership</a>
+                  <a href="chmods.coffee.html" title="Change Rights (/src/methods/chmods.coffee)" class="btn btn-primary">Change Rights</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/copy.coffee.html" title="Copy (/src/methods/copy.coffee)" class="btn btn-primary">Copy</a>
+                  <a href="chowns.coffee.html" title="Change Ownership (/src/methods/chowns.coffee)" class="btn btn-primary">Change Ownership</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/filter.coffee.html" title="Filter Check (/src/methods/filter.coffee)" class="btn btn-primary">Filter Check</a>
+                  <a href="copy.coffee.html" title="Copy (/src/methods/copy.coffee)" class="btn btn-primary">Copy</a>
+                </li>
+                <li class="active level2">
+                  <a href="filter.coffee.html" title="Filter Check (/src/methods/filter.coffee)" class="btn btn-warning">Filter Check <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="level2">
-                  <a href="methods/find.coffee.html" title="Find (/src/methods/find.coffee)" class="btn btn-primary">Find</a>
+                  <a href="find.coffee.html" title="Find (/src/methods/find.coffee)" class="btn btn-primary">Find</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/mkdirs.coffee.html" title="Make Directories (/src/methods/mkdirs.coffee)" class="btn btn-primary">Make Directories</a>
+                  <a href="mkdirs.coffee.html" title="Make Directories (/src/methods/mkdirs.coffee)" class="btn btn-primary">Make Directories</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/move.coffee.html" title="Move (/src/methods/move.coffee)" class="btn btn-primary">Move</a>
+                  <a href="move.coffee.html" title="Move (/src/methods/move.coffee)" class="btn btn-primary">Move</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/npmbin.coffee.html" title="Find Binary (/src/methods/npmbin.coffee)" class="btn btn-primary">Find Binary</a>
+                  <a href="npmbin.coffee.html" title="Find Binary (/src/methods/npmbin.coffee)" class="btn btn-primary">Find Binary</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/remove.coffee.html" title="Remove (/src/methods/remove.coffee)" class="btn btn-primary">Remove</a>
+                  <a href="remove.coffee.html" title="Remove (/src/methods/remove.coffee)" class="btn btn-primary">Remove</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/stat.coffee.html" title="File Stats (/src/methods/stat.coffee)" class="btn btn-primary">File Stats</a>
+                  <a href="stat.coffee.html" title="File Stats (/src/methods/stat.coffee)" class="btn btn-primary">File Stats</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/tempdir.coffee.html" title="Temp Directory (/src/methods/tempdir.coffee)" class="btn btn-primary">Temp Directory</a>
+                  <a href="tempdir.coffee.html" title="Temp Directory (/src/methods/tempdir.coffee)" class="btn btn-primary">Temp Directory</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/tempfile.coffee.html" title="Temp File (/src/methods/tempfile.coffee)" class="btn btn-primary">Temp File</a>
+                  <a href="tempfile.coffee.html" title="Temp File (/src/methods/tempfile.coffee)" class="btn btn-primary">Temp File</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/touch.coffee.html" title="Touch File (/src/methods/touch.coffee)" class="btn btn-primary">Touch File</a>
+                  <a href="touch.coffee.html" title="Touch File (/src/methods/touch.coffee)" class="btn btn-primary">Touch File</a>
                 </li>
                 <li class="level0">
-                  <a href="../Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-primary">Version changes</a>
+                  <a href="../../Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-primary">Version changes</a>
                 </li>
           </ul>
         </div>
@@ -123,133 +123,207 @@
 <gcse:searchresults-only></gcse:searchresults-only>
 
           <main><p><ul class="table-of-contents" aria-hidden="true"><header>Index</header>
-<li><a href="#extended-functionality">Extended Functionality</a></li>
-<li><a href="#async-vs-sync">Async vs Sync</a></li>
-<li><a href="#tree-search">Tree Search</a></li>
+<li>
+<ul>
+<li><a href="#filepath-matching">File/path matching</a></li>
+<li><a href="#search-depth">Search depth</a></li>
+<li><a href="#file-type">File type</a></li>
+<li><a href="#file-size">File size</a></li>
+<li><a href="#owner-and-group">Owner and Group</a></li>
+<li><a href="#time-specification">Time specification</a></li>
+<li><a href="#user-defined-function">User defined function</a></li>
+</ul>
+</li>
 </ul>
 </p>
-<h1 id="api-usage">API Usage</h1>
+<h1 id="filter-check">Filter Check</h1>
 <blockquote>
-<p>Path: <code>/src/index.coffee</code> compiled to <code>/lib/index.js</code></p>
+<p>Path: <code>/src/methods/filter.coffee</code> compiled to <code>/lib/methods/filter.js</code></p>
 </blockquote>
-<p>For the <a href="https://nodejs.org/api/fs.html">standard</a> node.js functions everything is
-the same as far as not listed below.</p>
-<h2 id="extended-functionality">Extended Functionality</h2>
-<p>All the extended functions use the same naming convention as the node core, making
-the use nearly natural. And you can still use the native Node.js methods, also.</p>
-<p>Some of the native methods are slightly changed:</p>
+<p>The filter is used to select some of the files based on specific settings.
+The filter is given as options array which may have some of the following
+specification settings.</p>
+<p>But some methods may have special additional options not mentioned here.</p>
 <ul>
-<li><a href="stat.coffee.html">stat/lstat</a> - file stat retrieval (with caching)</li>
+<li><code>include</code> - <code>Array|String</code> - to specify a inclusion pattern</li>
+<li><code>exclude</code> to specify an exclusion pattern</li>
+<li><code>dereference</code> set to true to follow symbolic links</li>
+<li><code>ignoreErrors</code> set to true to forget errors and go on</li>
+<li><code>mindepth</code> minimal depth to match</li>
+<li><code>maxdepth</code> maximal depth to match</li>
+<li><code>type</code> the inode type (file/directory/link)</li>
+<li><code>test</code> own function to use</li>
+<li><code>minsize</code> minimal filesize</li>
+<li><code>maxsize</code> maximal filesize</li>
+<li><code>user</code> owner name or id</li>
+<li><code>group</code> owner group name or id</li>
+<li><code>accessedAfter</code></li>
+<li><code>accessedBefore</code></li>
+<li><code>modifiedAfter</code></li>
+<li><code>modifiedBefore</code></li>
+<li><code>createdAfter</code></li>
+<li><code>createdBefore</code></li>
 </ul>
-<p>Additional methods:</p>
+<p>If you use multiple options all of them have to match the file to be valid.
+See the details below.</p>
+<h3 id="filepath-matching">File/path matching</h3>
+<p>This is based on glob expressions like used in unix systems. You may use these
+as the <code>include</code> or <code>exclude</code> pattern while the <code>exclude</code> pattern has the higher
+priority. All files are matched which are in the include pattern and not in the
+exclude pattern.</p>
+<p>The pattern may be a regular expression or a glob pattern string with
+the following specification:</p>
+<p>To use one of the special characters <code>*</code>, <code>?</code> or <code>[</code> you have to preceed it with an
+backslash.</p>
+<p>The patter may contain:</p>
 <ul>
-<li><a href="mkdirs.coffee.html">mkdirs</a> - recursive create depth directory with it’s parents</li>
-<li><a href="npmdir.coffee.html">npmdir</a> - find binary in NPM path</li>
-<li><a href="tempdir.coffee.html">tempdir</a> - create temporary directory</li>
-<li><a href="tempfile.coffee.html">tempfile</a> - create temporary file</li>
+<li><code>?</code> (not between brackets) matches any single character.</li>
+<li><code>*</code> (not between brackets) matches any string, including the empty string.</li>
+<li><code>**</code> (not between brackets) matches any string and also includes the path separator.</li>
 </ul>
-<p>Working on multiple files using filter rules:</p>
+<p>Character groups:</p>
 <ul>
-<li><a href="find.coffee.html">find</a> - search for files or directories</li>
-<li><a href="copy.coffee.html">copy</a> - copy file, directory or selection</li>
-<li><a href="move.coffee.html">move</a> - move file, directory or selection</li>
-<li><a href="remove.coffee.html">remove</a> - remove file, directory or selection</li>
-<li><a href="touch.coffee.html">touch</a> - touch file</li>
-<li><a href="chowns.coffee.html">chowns</a> - change ownership of file, directory or selection</li>
-<li><a href="chmods.coffee.html">chmods</a> - change access rights of file, directory or selection</li>
+<li><code>[ade]</code> or <code>[a-z]</code> Matches any one of the enclosed characters ranges can be given using a hyphen.</li>
+<li><code>[!ade]</code> or <code>[!a-z]</code> negates the search and matches any character not enclosed.</li>
+<li><code>[^ade]</code> or <code>[^a-z]</code> negates the search and matches any character not enclosed.</li>
 </ul>
-<p>Most methods use an options object which can specify how it works. The options are
-based on the (tree serach)[#tree_search] and <a href="methods/filter.coffee.html" title="File: filter.coffee">filter</a> specification.
-Some also have their own options described within the method itself.</p>
-<h2 id="async-vs-sync">Async vs Sync</h2>
-<p>All this methods may be called asynchroneous or synchroneous.</p>
-<p>Because the decision of using asynchroneous or synchroneous methods is based on
-blocking IO as far as possible you should better use this methods async and do some
-other things in parallel.</p>
-<p>Asynchroneous call:</p>
-<pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs.find <span class="hljs-string">'/tmp/some/directory'</span>, {include: <span class="hljs-string">'*.jpg'</span>}, <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span></code>
-<code>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error err.message <span class="hljs-keyword">if</span> err</code>
-<code>  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Found "</span> + list.length + <span class="hljs-string">" images."</span></code>
-<code>  <span class="hljs-comment"># do something with list</span></code></pre>
-<p>Synchroneous call:</p>
-<pre class="language coffeescript"><header>CoffeeScript Code</header><code><span class="hljs-keyword">try</span></code>
-<code>  list = fs.findSync <span class="hljs-string">'/tmp/some/directory'</span>, {include: <span class="hljs-string">'*.jpg'</span>}</code>
-<code><span class="hljs-keyword">catch</span> error</code>
-<code>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error error.message</code>
-<code><span class="hljs-built_in">console</span>.log <span class="hljs-string">"Found "</span> + list.length + <span class="hljs-string">" images."</span></code>
-<code><span class="hljs-comment"># do something with list</span></code></pre>
-<p>Differences are always the same:</p>
+<p>Brace Expansion:</p>
 <ul>
-<li>async version needs a callback as last parameter</li>
-<li>error and result will be retrieved in callback for async version</li>
-<li>the sync version may throw an error and return the result directly</li>
+<li><code>{a,b}</code> will be expanded to <code>a</code> or <code>b</code></li>
+<li><code>{a,b{c,d}}</code> stacked to match <code>a</code>, <code>bc</code> or <code>bd</code></li>
+<li><code>{1..3}</code> will be expanded to <code>1</code> or <code>2</code> or <code>3</code></li>
 </ul>
-<p>Because the preferred way is to use asynchroneous calls this is also shown in all
-the examples.</p>
-<h2 id="tree-search">Tree Search</h2>
-<p>A lot of the extended methods allow traversing the directory tree and checking the
-found entries through the <a href="methods/filter.coffee.html" title="File: filter.coffee">filter</a> options.</p>
-<p>For file parsing the following options may be specified:</p>
+<p>Extended globbing is also possible:</p>
 <ul>
-<li><code>dereference</code> - <code>Boolean</code> - don’t use the symbolic link as an entry but dereference
-it and check the target of it and go into it (default: <code>false</code>)</li>
-<li><code>ignoreErrors</code> - <code>Boolean</code> - ignore dead symlinks otherwise an <code>Error</code> is created
-(default: <code>false</code>)</li>
+<li>?(list): Matches zero or one occurrence of the given patterns.</li>
+<li>*(list): Matches zero or more occurrences of the given patterns.</li>
+<li>+(list): Matches one or more occurrences of the given patterns.</li>
+<li>@(list): Matches one of the given patterns.</li>
 </ul>
+<h3 id="search-depth">Search depth</h3>
+<p>The search depth specifies in which level of subdirectories the filter will match.
+1 means everything in the given directory, 2 one level deeper.</p>
+<ul>
+<li><code>mindepth</code> minimal depth to match</li>
+<li><code>maxdepth</code> maximal depth to match</li>
+</ul>
+<h3 id="file-type">File type</h3>
+<p>Use <code>type</code> to specify which type of file you want to use.</p>
+<p>Possible values:</p>
+<ul>
+<li><code>file</code>, <code>f</code></li>
+<li><code>directory</code>, <code>dir</code>, <code>d</code></li>
+<li><code>link</code>, <code>l</code></li>
+<li><code>fifo</code>, <code>pipe</code>, <code>p</code></li>
+<li><code>socket</code>, <code>s</code></li>
+</ul>
+<h3 id="file-size">File size</h3>
+<p>With the <code>minsize</code> and  <code>maxsize</code> options it is possible to specify the exact
+size of the matching files in bytes:</p>
+<ul>
+<li>use an integer value as number of bytes</li>
+<li>use a string like <code>1M</code> or <code>100k</code></li>
+</ul>
+<h3 id="owner-and-group">Owner and Group</h3>
+<p>You may also specify files based on the user which owns the files or the group
+of the files.</p>
+<p>Both may be specified as id (uid or gid) or using the alias name.</p>
+<h3 id="time-specification">Time specification</h3>
+<p>It is also possible to select files based on their <code>creation</code>, last <code>modified</code>
+or last <code>accessed</code> time.</p>
+<p>Specify the <code>Before</code> and <code>After</code> time appended to one of the above as:</p>
+<ul>
+<li>Unix timestamp</li>
+<li>ISO-8601 date formats</li>
+<li>some local formats (based on platform support for Date.parse())</li>
+<li>time difference from now (human readable)</li>
+</ul>
+<p>The following time definitions are an example what you may use:</p>
+<ul>
+<li><code>yesterday</code>, <code>2 days ago</code>, <code>last Monday</code> to specify a day from now</li>
+<li><code>yesterday 15:00</code>, <code>yesterday at 15:00</code> to also specify the time</li>
+<li><code>1 March</code>, <code>1st March</code> specifies a date in this year</li>
+<li><code>1 March 2014</code>, <code>1st March 2014</code>, '03/01/13<code>,</code>01.03.2014` all specifiying the 1st of march</li>
+<li><code>9:00</code>, <code>9:00 GMT+0900</code> to specify a time today or in combination with a date</li>
+<li><code>last night</code>, <code>00:00</code></li>
+</ul>
+<p>If only a day is given it will use 12:00 as the time.</p>
+<p><strong>Examle</strong></p>
+<pre><code>modifiedBefore: 'yesterday 12:00'
+</code></pre>
+<h3 id="user-defined-function">User defined function</h3>
+<p>With the <code>test</code> parameter you may add an user defined function which will be
+called to check each file. It will get the file path and options array so you
+may also add some configuration therefore in additional option values.</p>
+<p>Asynchrony call:</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs.find(<span class="hljs-string">'.'</span>, {</code>
+<code>  test: function(file, options, cb) {</code>
+<code>    cb(~file.indexOf(<span class="hljs-string">'ab'</span>));</code>
+<code>  }</code>
+<code>}, function(err, list) {</code>
+<code>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Found "</span> + list.length + <span class="hljs-string">" matches."</span>);</code>
+<code>});</code></pre>
+<p>Or use synchrony calls:</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>var list = fs.findSync(<span class="hljs-string">'test/temp'</span>, {</code>
+<code>  test: function(fil, options) {</code>
+<code>    <span class="hljs-keyword">return</span> ~file.indexOf(<span class="hljs-string">'ab'</span>);</code>
+<code>  }</code>
+<code>});</code>
+<code><span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Found "</span> + list.length + <span class="hljs-string">" matches."</span>);</code></pre>
 </main>
         </div>
         <div class="col-sm-3 col-cm-pull-9 sidebar">
           <ul class="nav nav-sidebar">
             <li class="header">
-              <a href="../README.md.html">Filesystem (fs)</a>
+              <a href="../../README.md.html">Filesystem (fs)</a>
             </li>
                 <li class="level0">
-                  <a href="../README.md.html" title="Filesystem (fs): Readme (/README.md)">Readme</a>
+                  <a href="../../README.md.html" title="Filesystem (fs): Readme (/README.md)">Readme</a>
                 </li>
-                <li class="active level1">
-                  <a href="index.coffee.html" title="API Usage (/src/index.coffee)">API Usage <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="level2">
-                  <a href="methods/chmods.coffee.html" title="Change Rights (/src/methods/chmods.coffee)">Change Rights</a>
+                <li class="level1">
+                  <a href="../index.coffee.html" title="API Usage (/src/index.coffee)">API Usage</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/chowns.coffee.html" title="Change Ownership (/src/methods/chowns.coffee)">Change Ownership</a>
+                  <a href="chmods.coffee.html" title="Change Rights (/src/methods/chmods.coffee)">Change Rights</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/copy.coffee.html" title="Copy (/src/methods/copy.coffee)">Copy</a>
+                  <a href="chowns.coffee.html" title="Change Ownership (/src/methods/chowns.coffee)">Change Ownership</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/filter.coffee.html" title="Filter Check (/src/methods/filter.coffee)">Filter Check</a>
+                  <a href="copy.coffee.html" title="Copy (/src/methods/copy.coffee)">Copy</a>
+                </li>
+                <li class="active level2">
+                  <a href="filter.coffee.html" title="Filter Check (/src/methods/filter.coffee)">Filter Check <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="level2">
-                  <a href="methods/find.coffee.html" title="Find (/src/methods/find.coffee)">Find</a>
+                  <a href="find.coffee.html" title="Find (/src/methods/find.coffee)">Find</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/mkdirs.coffee.html" title="Make Directories (/src/methods/mkdirs.coffee)">Make Directories</a>
+                  <a href="mkdirs.coffee.html" title="Make Directories (/src/methods/mkdirs.coffee)">Make Directories</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/move.coffee.html" title="Move (/src/methods/move.coffee)">Move</a>
+                  <a href="move.coffee.html" title="Move (/src/methods/move.coffee)">Move</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/npmbin.coffee.html" title="Find Binary (/src/methods/npmbin.coffee)">Find Binary</a>
+                  <a href="npmbin.coffee.html" title="Find Binary (/src/methods/npmbin.coffee)">Find Binary</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/remove.coffee.html" title="Remove (/src/methods/remove.coffee)">Remove</a>
+                  <a href="remove.coffee.html" title="Remove (/src/methods/remove.coffee)">Remove</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/stat.coffee.html" title="File Stats (/src/methods/stat.coffee)">File Stats</a>
+                  <a href="stat.coffee.html" title="File Stats (/src/methods/stat.coffee)">File Stats</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/tempdir.coffee.html" title="Temp Directory (/src/methods/tempdir.coffee)">Temp Directory</a>
+                  <a href="tempdir.coffee.html" title="Temp Directory (/src/methods/tempdir.coffee)">Temp Directory</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/tempfile.coffee.html" title="Temp File (/src/methods/tempfile.coffee)">Temp File</a>
+                  <a href="tempfile.coffee.html" title="Temp File (/src/methods/tempfile.coffee)">Temp File</a>
                 </li>
                 <li class="level2">
-                  <a href="methods/touch.coffee.html" title="Touch File (/src/methods/touch.coffee)">Touch File</a>
+                  <a href="touch.coffee.html" title="Touch File (/src/methods/touch.coffee)">Touch File</a>
                 </li>
                 <li class="level0">
-                  <a href="../Changelog.md.html" title="Version changes (/Changelog.md)">Version changes</a>
+                  <a href="../../Changelog.md.html" title="Version changes (/Changelog.md)">Version changes</a>
                 </li>
           </ul>
         </div>
