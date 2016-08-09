@@ -36,14 +36,14 @@ Install
  ![Downloads](https://nodei.co/npm-dl/alinex-fs.png?months=9&height=3)
 ](https://www.npmjs.com/package/alinex-fs)
 
+> See the {@link Changelog.md} for a list of changes in recent versions.
+
 The easiest way is to let npm add the module directly to your modules
 (from within you node modules directory):
 
 ``` sh
 npm install alinex-fs --save
 ```
-
-> See the {@link Changelog.md} for a list of changes in recent versions.
 
 
 Usage
