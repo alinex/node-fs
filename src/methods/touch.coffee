@@ -8,6 +8,32 @@ The touch methods allow the following options:
 - `noCreate` - don't create file if not existing
 - `noAccess` - don't change access time of the file
 - `noModified` - don't change modified time of the file
+
+* `options`
+  optional specific settings like:
+
+  - `noCreate` - don't create file if it already exists
+  - `time` - timw to set
+  - `mtime` - modification timw to set
+  - `reference` - use this file's time
+  - `noAccess` - (boolean) set access time
+  - `noModified` - (boolean) set modified time`
+
+__Example:__
+
+``` coffee
+fs = require 'alinex-fs'
+fs.touch "/tmp/testfile", (err) ->
+  # everything done, go on
+```
+
+``` coffee
+fs = require 'alinex-fs'
+fs.touch "/tmp/testfile",
+  noCreate: true
+, (err) ->
+  # everything done, go on
+```
 ###
 
 

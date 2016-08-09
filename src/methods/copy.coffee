@@ -6,17 +6,35 @@ It will make exact copies of the files as far as possible including times, owner
 and access modes. But if some of this rights are not possible to set it will be ignored
 without an explicit error.
 
-To select which files to copy you may specify it like in the
-[`find()`](find.coffee) method. But the following options may be used:
-
-__Additional Options:__
-
+To select which files to copy you may specify it like in the {@link find.coffee find}
+method. But the following options may be used:
 * `overwrite` -
   if set to `true` it will not fail if destination file already exists and
   overwrite it
 * `ignore` -
   if set to `true` it will not fail if destination file already exists, skip
   this and go on with the next file
+
+__Example:__
+
+``` coffee
+fs = require 'alinex-fs'
+fs.copy '/tmp/some/directory', '/new/destination', (err) ->
+  return console.error err if err
+  console.log "Directory copied!"
+```
+
+Or to copy all js files and overwrite existing:
+
+``` coffee
+fs = require 'alinex-fs'
+fs.copy '/tmp/some/directory', '/new/destination',
+  includes: '*.js'
+  overwrite: true
+, (err) ->
+  return console.error err.message if err
+  console.log "Directory copied!"
+```
 ###
 
 # Node Modules

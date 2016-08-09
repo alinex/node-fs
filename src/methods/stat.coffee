@@ -1,9 +1,8 @@
 ###
 File Stats
 =================================================
-The [default stat](https://nodejs.org/api/fs.html#fs_fs_stat_path_callback) is
-extended by cached results. The io lookup result is cached for one second, so that
-multiple calls don't check on disk each time.
+The {@link fs.stat()} call is extended by cached results. The io lookup result
+is cached for one second, so that multiple calls don't check on disk each time.
 There are `stat()` and `lstat()` methods available which differ in the handling of
 softlinks. While `stat()` will follow the softlink and analyze the file it is pointing
 to, `lstat()` will analyse the softlink inode itself.

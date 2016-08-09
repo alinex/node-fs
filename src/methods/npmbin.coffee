@@ -2,6 +2,17 @@
 Find Binary
 =================================================
 This will search a binary in the NPM modules directories.
+
+Find the defined binary in node_modules directories. It will search in the current
+and upper package directories.
+
+__Example:__
+
+``` coffee
+fs = require 'alinex-fs'
+fs.npmbin 'coffee', (err, cmd) ->
+  console.log "Coffee command found at:" + cmd
+```
 ###
 
 

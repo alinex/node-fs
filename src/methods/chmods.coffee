@@ -1,10 +1,12 @@
 ###
 Change Rights
 =================================================
-Change the ownership of path like fs.chmod but recursively.
+Change the ownership of path like {@link fs.chmod} but recursively.
 
-The options are the same as used for find with the additional mode:
-- `mode`
+The options object is the same as used for {@link find.coffee} with the additional mode:
+- `mode` - `Integer` - to be set on the matching entries
+- `dereference` - `Boolean`
+- `ignoreErrors` - `Boolean`
 ###
 
 

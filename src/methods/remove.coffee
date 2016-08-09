@@ -6,6 +6,20 @@ will also remove any containing data or only the selection of files.
 
 The option `maxdepth` is only supported in the search, but if a directory is
 matched everything within will be deleted.
+
+This method will remove the given `path` entry and if it is a directory it
+will also remove any containing data.
+
+__Example:__
+
+``` coffee
+fs = require 'alinex-fs'
+fs.remove '/tmp/some/directory', (err, removed) ->
+  return console.error err if err
+  if removed
+    console.log "Directory '"+removed+"' was removed with all it's contents."
+  console.log "Directory no longer exists!"
+```
 ###
 
 

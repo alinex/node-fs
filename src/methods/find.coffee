@@ -3,6 +3,16 @@ Find
 =================================================
 This is a powerfull method to search for files on the local filesystem. It works
 recursively with multiple checks and to get a file list as quick as possible.
+
+__Example:__
+
+``` coffee
+fs = require 'alinex-fs'
+fs.find '/tmp/some/directory', {include: '*.jpg'}, (err, list) ->
+  return console.error err if err
+  console.log "Found " + list.length + " images."
+  # do something with list
+```
 ###
 
 

@@ -1,6 +1,34 @@
-# Filter Check
-# =================================================
+###
+Filter Check
+=================================================
+The filter is used to select some of the files based on specific settings.
+The filter is given as options array which may have some of the following
+specification settings.
 
+But some methods may have special additional options not mentioned here.
+
+- `include` - `Array|String` - to specify a inclusion pattern
+- `exclude` to specify an exclusion pattern
+- `dereference` set to true to follow symbolic links
+- `ignoreErrors` set to true to forget errors and go on
+- `mindepth` minimal depth to match
+- `maxdepth` maximal depth to match
+- `type` the inode type (file/directory/link)
+- `test` own function to use
+- `minsize` minimal filesize
+- `maxsize` maximal filesize
+- `user` owner name or id
+- `group` owner group name or id
+- `accessedAfter`
+- `accessedBefore`
+- `modifiedAfter`
+- `modifiedBefore`
+- `createdAfter`
+- `createdBefore`
+
+If you use multiple options all of them have to match the file to be valid.
+See the details below.
+###
 
 # Node Modules
 # -------------------------------------------------
@@ -66,6 +94,46 @@ module.exports.filterSync = (file, depth = 0, options = {}) ->
 # failed an specific test and therefore should not be included. If test is passed
 # successfully it will return nothing.
 
+###
+#3 File/path matching
+
+This is based on glob expressions like used in unix systems. You may use these
+as the `include` or `exclude` pattern while the `exclude` pattern has the higher
+priority. All files are matched which are in the include pattern and not in the
+exclude pattern.
+
+The pattern may be a regular expression or a glob pattern string with
+the following specification:
+
+To use one of the special characters `*`, `?` or `[` you have to preceed it with an
+backslash.
+
+The patter may contain:
+
+- `?` (not between brackets) matches any single character.
+- `*` (not between brackets) matches any string, including the empty string.
+- `**` (not between brackets) matches any string and also includes the path separator.
+
+Character groups:
+
+- `[ade]` or `[a-z]` Matches any one of the enclosed characters ranges can be given using a hyphen.
+- `[!ade]` or `[!a-z]` negates the search and matches any character not enclosed.
+- `[^ade]` or `[^a-z]` negates the search and matches any character not enclosed.
+
+Brace Expansion:
+
+- `{a,b}` will be expanded to `a` or `b`
+- `{a,b{c,d}}` stacked to match `a`, `bc` or `bd`
+- `{1..3}` will be expanded to `1` or `2` or `3`
+
+Extended globbing is also possible:
+
+- ?(list): Matches zero or one occurrence of the given patterns.
+- *(list): Matches zero or more occurrences of the given patterns.
+- +(list): Matches one or more occurrences of the given patterns.
+- @(list): Matches one of the given patterns.
+###
+
 # ### Test the path
 # This is done using Minimatch or RegExp
 skipPath = (file, options, cb) ->
@@ -97,6 +165,31 @@ skipPathSync = (file, options) ->
         return 'SKIPPATH'
   return false
 
+
+###
+#3 Search depth
+
+The search depth specifies in which level of subdirectories the filter will match.
+1 means everything in the given directory, 2 one level deeper.
+
+- `mindepth` minimal depth to match
+- `maxdepth` maximal depth to match
+
+
+#3 File type
+
+Use `type` to specify which type of file you want to use.
+
+Possible values:
+
+- `file`, `f`
+- `directory`, `dir`, `d`
+- `link`, `l`
+- `fifo`, `pipe`, `p`
+- `socket`, `s`
+###
+
+
 # ### Test the file depth
 # The depth calculation has to be done in the traversing method this will only
 # check the value against the options.
@@ -108,6 +201,16 @@ skipDepthSync = (file, depth, options) ->
     (options.maxdepth? and options.maxdepth < depth)
   debug "skip #{file} because not in specified depth" if skip
   return skip
+
+###
+#3 File size
+
+With the `minsize` and  `maxsize` options it is possible to specify the exact
+size of the matching files in bytes:
+
+- use an integer value as number of bytes
+- use a string like `1M` or `100k`
+###
 
 filestat = (file, options, cb) ->
   stat = if options.dereference? then fs.stat else fs.lstat
@@ -175,6 +278,7 @@ skipTypeSync = (file, options) ->
       debug "skip #{file} because not a socket entry"
   return true
 
+
 # ### Test for filesize
 sizeHumanToInt = (text) ->
   if typeof text is 'string' and match = text.match /^(\d*\.?\d*)\s*([kKmMgGtTpP])$/
@@ -212,6 +316,15 @@ skipSizeSync = (file, options) ->
     (options.maxsize? and options.maxsize < stats.size)
   debug "skip #{file} because size mismatch" if skip
   return skip
+
+###
+#3 Owner and Group
+
+You may also specify files based on the user which owns the files or the group
+of the files.
+
+Both may be specified as id (uid or gid) or using the alias name.
+###
 
 # ### Check the owwner and group
 userToUid = (user, cb) ->
@@ -280,21 +393,35 @@ skipOwnerSync = (file, options) ->
   debug "skip #{file} because owner mismatch" if skip
   return skip
 
+###
+#3 Time specification
 
-# ### User provided test
-# Here a function can be given which will be invoked and should return true
-# if file can be used or false.
-skipFunction = (file, options, cb) ->
-  return cb() unless options.test or typeof options.test is not 'function'
-  options.test file, options, (ok) ->
-    debug "skip #{file} by user function" unless ok
-    cb not ok
+It is also possible to select files based on their `creation`, last `modified`
+or last `accessed` time.
 
-skipFunctionSync = (file, options) ->
-  return false unless options.test or typeof options.test is not 'function'
-  ok = options.test file, options
-  debug "skip #{file} by user function" unless ok
-  return not ok
+Specify the `Before` and `After` time appended to one of the above as:
+
+- Unix timestamp
+- ISO-8601 date formats
+- some local formats (based on platform support for Date.parse())
+- time difference from now (human readable)
+
+The following time definitions are an example what you may use:
+
+- `yesterday`, `2 days ago`, `last Monday` to specify a day from now
+- `yesterday 15:00`, `yesterday at 15:00` to also specify the time
+- `1 March`, `1st March` specifies a date in this year
+- `1 March 2014`, `1st March 2014`, '03/01/13`, `01.03.2014` all specifiying the 1st of march
+- `9:00`, `9:00 GMT+0900` to specify a time today or in combination with a date
+- `last night`, `00:00`
+
+If only a day is given it will use 12:00 as the time.
+
+__Examle__
+
+    modifiedBefore: 'yesterday 12:00'
+
+###
 
 # ### Check file times
 # All timestamps maybe checked with before and after to select the files.
@@ -345,3 +472,49 @@ skipTimeSync = (file, options) ->
   skip = not timeCheck stats, options
   debug "skip #{file} because out of time range" if skip
   return skip
+
+###
+#3 User defined function
+
+With the `test` parameter you may add an user defined function which will be
+called to check each file. It will get the file path and options array so you
+may also add some configuration therefore in additional option values.
+
+Asynchrony call:
+
+``` coffee
+fs.find('.', {
+  test: function(file, options, cb) {
+    cb(~file.indexOf('ab'));
+  }
+}, function(err, list) {
+  console.log("Found " + list.length + " matches.");
+});
+```
+
+Or use synchrony calls:
+
+``` coffee
+var list = fs.findSync('test/temp', {
+  test: function(fil, options) {
+    return ~file.indexOf('ab');
+  }
+});
+console.log("Found " + list.length + " matches.");
+```
+###
+
+# ### User provided test
+# Here a function can be given which will be invoked and should return true
+# if file can be used or false.
+skipFunction = (file, options, cb) ->
+  return cb() unless options.test or typeof options.test is not 'function'
+  options.test file, options, (ok) ->
+    debug "skip #{file} by user function" unless ok
+    cb not ok
+
+skipFunctionSync = (file, options) ->
+  return false unless options.test or typeof options.test is not 'function'
+  ok = options.test file, options
+  debug "skip #{file} by user function" unless ok
+  return not ok

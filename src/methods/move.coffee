@@ -14,6 +14,18 @@ __Additional Options:__
    overwrite it
 * `clean` -
   if set to `true` it will clean old files from target.
+
+__Example:__
+
+``` coffee
+fs = require 'alinex-fs'
+fs.copy '/tmp/some/directory', '/new/destination', (err) ->
+  return console.error err.message if err
+  console.log "Directory copied!"
+```
+
+You may also use options to specify which files within the source directory to
+move.
 ###
 
 

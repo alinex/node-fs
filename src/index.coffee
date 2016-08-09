@@ -4,23 +4,9 @@ API Usage
 For the [standard](https://nodejs.org/api/fs.html) node.js functions everything is
 the same as far as not listed below.
 
-As the default methods all can be used synchroneous and asynchroneous.
-###
 
-
-# Node Modules
-# -------------------------------------------------
-fs = require 'graceful-fs'
-
-
-# Clone original fs
-# -------------------------------------------------
-afs = module.exports = {}
-for name, value of fs
-  afs[name] = value
-
-
-###
+Extended Functionality
+----------------------------------------------------
 All the extended functions use the same naming convention as the node core, making
 the use nearly natural. And you can still use the native Node.js methods, also.
 
@@ -41,7 +27,73 @@ Working on multiple files using filter rules:
 - [touch](touch.coffee) - touch file
 - [chowns](chowns.coffee) - change ownership of file, directory or selection
 - [chmods](chmods.coffee) - change access rights of file, directory or selection
+
+Most methods use an options object which can specify how it works. The options are
+based on the (tree serach)[#tree_search] and {@link filter.coffee filter} specification.
+Some also have their own options described within the method itself.
+
+
+Async vs Sync
+-------------------------------------------------
+All this methods may be called asynchroneous or synchroneous.
+
+Because the decision of using asynchroneous or synchroneous methods is based on
+blocking IO as far as possible you should better use this methods async and do some
+other things in parallel.
+
+Asynchroneous call:
+
+``` coffee
+fs.find '/tmp/some/directory', {include: '*.jpg'}, (err, list) ->
+  return console.error err.message if err
+  console.log "Found " + list.length + " images."
+  # do something with list
+```
+
+Synchroneous call:
+
+``` coffee
+try
+  list = fs.findSync '/tmp/some/directory', {include: '*.jpg'}
+catch error
+  return console.error error.message
+console.log "Found " + list.length + " images."
+# do something with list
+```
+
+Differences are always the same:
+- async version needs a callback as last parameter
+- error and result will be retrieved in callback for async version
+- the sync version may throw an error and return the result directly
+
+Because the preferred way is to use asynchroneous calls this is also shown in all
+the examples.
+
+
+Tree Search
+---------------------------------------------------------
+A lot of the extended methods allow traversing the directory tree and checking the
+found entries through the {@link filter.coffee filter} options.
+
+For file parsing the following options may be specified:
+- `dereference` - `Boolean` - don't use the symbolic link as an entry but dereference
+  it and check the target of it and go into it (default: `false`)
+- `ignoreErrors` - `Boolean` - ignore dead symlinks otherwise an `Error` is created
+  (default: `false`)
 ###
+
+
+# Node Modules
+# -------------------------------------------------
+fs = require 'graceful-fs'
+
+
+# Clone original fs
+# -------------------------------------------------
+afs = module.exports = {}
+for name, value of fs
+  afs[name] = value
+
 
 # Add extended functionality
 # -------------------------------------------------
