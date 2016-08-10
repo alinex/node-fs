@@ -39,15 +39,21 @@ Exported Methods
 @param {String} dir directory path to create
 @param {String|Integer} [mode] the permission mode for the directories (may be given
 as string like '775')
-@param {function(<Error>, <Integer>)} cb callback method given an `Error`, the path of the
-first directory which was created or `null` if nothing had to be done
+@param {Integer} [maxnum] the maximum number of directories to create
+@param {function(<Error>, <Integer>)} [cb] callback method given the path of the
+first directory which was created or `null` if nothing had to be done. The errors
+may be:
+- `ENOENT` Not allowed to create as many directories: ...
+- and others
 ###
-mkdirs = module.exports.mkdirs = (dir, mode, cb = -> ) ->
+mkdirs = module.exports.mkdirs = ->
   # get parameter and default values
-  if typeof mode is 'function' or not mode
-    cb = mode
-    mode = 0o0777 & (~process.umask())
+  args = Array.prototype.slice.call arguments
+  cb = if typeof args[args.length-1] is 'function' then args.pop() else ->
+  [dir, mode, maxnum] = args
+  mode ?= 0o0777 & (~process.umask())
   mode = parseInt mode, 8 if typeof mode is 'string'
+  maxnum ?= 0
   dir = path.resolve dir
   # try to create directory
   debug "directory #{dir}?"
@@ -57,9 +63,12 @@ mkdirs = module.exports.mkdirs = (dir, mode, cb = -> ) ->
       debug "directory #{dir} created"
       return cb null, dir ? dir
     if err.code is 'ENOENT'
+      if maxnum is 1
+        err.message = err.message.replace /^.*?:/, "Not allowed to create as many directories:"
+        throw err
       debug chalk.grey "-> parent is missing"
       # parent directory missing
-      mkdirs path.dirname(dir), mode, (err, made) ->
+      mkdirs path.dirname(dir), mode, --maxnum, (err, made) ->
         return cb err, made if err
         # try again if parent was successful created
         fs.mkdir dir, mode, (err) ->
@@ -89,15 +98,18 @@ mkdirs = module.exports.mkdirs = (dir, mode, cb = -> ) ->
 @param {String} dir directory path to create
 @param {String|Integer} [mode] the permission mode for the directories (may be given
 as string like '775')
+@param {Integer} [maxnum] the maximum number of directories to create
 @return {String} the path of the first directory which was created or `null` if
 nothing had to be done
-@throws {Error} if anything out of order happened
+@throws {Error} if anything out of order happened with the messages
+- `ENOENT` Not allowed to create as many directories: ...
+- and others
 ###
-mkdirsSync = module.exports.mkdirsSync = (dir, mode) ->
+mkdirsSync = module.exports.mkdirsSync = (dir, mode, maxnum) ->
   # get parameter and default values
-  if typeof mode is 'function' or not mode
-    mode = 0o0777 & (~process.umask())
+  mode ?= 0o0777 & (~process.umask())
   mode = parseInt mode, 8 if typeof mode is 'string'
+  maxnum ?= 0
   dir = path.resolve dir
   # try to create directory
   try
@@ -106,9 +118,12 @@ mkdirsSync = module.exports.mkdirsSync = (dir, mode) ->
     return dir
   catch error
     if error.code is 'ENOENT'
+      if maxnum is 1
+        error.message = error.message.replace /^.*?:/, "Not allowed to create as many directories:"
+        throw error
       # parent directory missing
       debug chalk.grey "-> parent is missing"
-      made = mkdirsSync path.dirname(dir), mode
+      made = mkdirsSync path.dirname(dir), mode, --maxnum
       # try again if parent was successful created
       try
         fs.mkdirSync dir, mode
