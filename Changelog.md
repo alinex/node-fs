@@ -4,6 +4,30 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.7 (2016-08-10)
+-------------------------------------------------
+- Allow all tests to run.
+- Don't throw but return error in async mkdirs call.
+- Upgraded async@2.0.1, graceful-fs@4.1.5, minimatch@3.0.3, alinex-builder@2.3.5
+- Add maxnum parameter to mkdirs.
+- Fix mkdirs timing bug in parallel use.
+- Allow retries in mkdir.
+- Rename internal subfolder.
+- Small typo fix.
+- Move documentation into separate methods.
+- Updated documentation.
+- Move examples to temp... methods.
+- More explanations for file stat results.
+- Fix tests to work with new structure.
+- Fix some documentation problems.
+- Converted the last methods, too.
+- Convert npmbin(), tempdir() and tempfile()
+- Restructer move()
+- Restructure copy(), remove().
+- Move stat, mkdirs, find to new internal structure.
+- Start restructuring docu and internal code structure of fs package.
+- Upgraded async@2.0.1, graceful-fs@4.1.5, alinex-builder@2.3.4, memoizee@0.4.1.
+
 Version 2.0.6 (2016-07-20)
 -------------------------------------------------
 - optimize include check to always scheck for exclude on fullname match, too.
