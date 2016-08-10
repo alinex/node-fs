@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Make Directories</title>
+    <title>Find Binary</title>
     <meta name="HandheldFriendly" content="true" />
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -57,43 +57,43 @@
                   <a href="../index.coffee.html" title="API Usage (/src/index.coffee)" class="btn btn-primary">API Usage</a>
                 </li>
                 <li class="level2">
-                  <a href="chmods.coffee.html" title="Change Rights (/src/methods/chmods.coffee)" class="btn btn-primary">Change Rights</a>
+                  <a href="chmods.coffee.html" title="Change Mode (/src/method/chmods.coffee)" class="btn btn-primary">Change Mode</a>
                 </li>
                 <li class="level2">
-                  <a href="chowns.coffee.html" title="Change Ownership (/src/methods/chowns.coffee)" class="btn btn-primary">Change Ownership</a>
+                  <a href="chowns.coffee.html" title="Change Ownership (/src/method/chowns.coffee)" class="btn btn-primary">Change Ownership</a>
                 </li>
                 <li class="level2">
-                  <a href="copy.coffee.html" title="Copy (/src/methods/copy.coffee)" class="btn btn-primary">Copy</a>
+                  <a href="copy.coffee.html" title="Copy (/src/method/copy.coffee)" class="btn btn-primary">Copy</a>
                 </li>
                 <li class="level2">
-                  <a href="filter.coffee.html" title="Filter Check (/src/methods/filter.coffee)" class="btn btn-primary">Filter Check</a>
+                  <a href="filter.coffee.html" title="Filter Check (/src/method/filter.coffee)" class="btn btn-primary">Filter Check</a>
                 </li>
                 <li class="level2">
-                  <a href="find.coffee.html" title="Find (/src/methods/find.coffee)" class="btn btn-primary">Find</a>
+                  <a href="find.coffee.html" title="Find (/src/method/find.coffee)" class="btn btn-primary">Find</a>
+                </li>
+                <li class="level2">
+                  <a href="mkdirs.coffee.html" title="Make Directories (/src/method/mkdirs.coffee)" class="btn btn-primary">Make Directories</a>
+                </li>
+                <li class="level2">
+                  <a href="move.coffee.html" title="Move (/src/method/move.coffee)" class="btn btn-primary">Move</a>
                 </li>
                 <li class="active level2">
-                  <a href="mkdirs.coffee.html" title="Make Directories (/src/methods/mkdirs.coffee)" class="btn btn-warning">Make Directories <span class="sr-only">(current)</span></a>
+                  <a href="npmbin.coffee.html" title="Find Binary (/src/method/npmbin.coffee)" class="btn btn-warning">Find Binary <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="level2">
-                  <a href="move.coffee.html" title="Move (/src/methods/move.coffee)" class="btn btn-primary">Move</a>
+                  <a href="remove.coffee.html" title="Remove (/src/method/remove.coffee)" class="btn btn-primary">Remove</a>
                 </li>
                 <li class="level2">
-                  <a href="npmbin.coffee.html" title="Find Binary (/src/methods/npmbin.coffee)" class="btn btn-primary">Find Binary</a>
+                  <a href="stat.coffee.html" title="File Stats (/src/method/stat.coffee)" class="btn btn-primary">File Stats</a>
                 </li>
                 <li class="level2">
-                  <a href="remove.coffee.html" title="Remove (/src/methods/remove.coffee)" class="btn btn-primary">Remove</a>
+                  <a href="tempdir.coffee.html" title="Temp Directory (/src/method/tempdir.coffee)" class="btn btn-primary">Temp Directory</a>
                 </li>
                 <li class="level2">
-                  <a href="stat.coffee.html" title="File Stats (/src/methods/stat.coffee)" class="btn btn-primary">File Stats</a>
+                  <a href="tempfile.coffee.html" title="Temp File (/src/method/tempfile.coffee)" class="btn btn-primary">Temp File</a>
                 </li>
                 <li class="level2">
-                  <a href="tempdir.coffee.html" title="Temp Directory (/src/methods/tempdir.coffee)" class="btn btn-primary">Temp Directory</a>
-                </li>
-                <li class="level2">
-                  <a href="tempfile.coffee.html" title="Temp File (/src/methods/tempfile.coffee)" class="btn btn-primary">Temp File</a>
-                </li>
-                <li class="level2">
-                  <a href="touch.coffee.html" title="Touch File (/src/methods/touch.coffee)" class="btn btn-primary">Touch File</a>
+                  <a href="touch.coffee.html" title="Touch File (/src/method/touch.coffee)" class="btn btn-primary">Touch File</a>
                 </li>
                 <li class="level0">
                   <a href="../../Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-primary">Version changes</a>
@@ -123,69 +123,57 @@
 <gcse:searchresults-only></gcse:searchresults-only>
 
           <main><p><ul class="table-of-contents" aria-hidden="true"><header>Index</header>
-<li><a href="#example-use">Example Use</a></li>
-<li><a href="#exported-methods">Exported Methods</a>
+<li>
 <ul>
-<li><a href="#mkdirs">mkdirs()</a></li>
-<li><a href="#mkdirssync">mkdirsSync()</a></li>
+<li><a href="#npmbin">npmbin()</a></li>
+<li><a href="#npmbinsync">npmbinSync()</a></li>
 </ul>
 </li>
 </ul>
 </p>
-<h1 id="make-directories">Make Directories</h1>
+<h1 id="find-binary">Find Binary</h1>
 <blockquote>
-<p>Path: <code>/src/methods/mkdirs.coffee</code> compiled to <code>/lib/methods/mkdirs.js</code></p>
+<p>Path: <code>/src/method/npmbin.coffee</code> compiled to <code>/lib/method/npmbin.js</code></p>
 </blockquote>
-<p>The basic <a href="https://nodejs.org/api/fs.html#fs_fs_mkdir_path_mode_callback"><code>mkdir()</code></a>
-will only create one level of directory. While this extension gives additional methods
-which will also create the full path if possible.</p>
-<p>If an <code>EEXIST</code> code will be thrown this signals that the directory is already there so
-this methods will succeed without doing anything and without <code>Error</code>. All other errors
-will be given back.</p>
-<h2 id="example-use">Example Use</h2>
+<p>This will search a binary in the NPM modules directories.</p>
+<p>Find the defined binary in node_modules directories. It will search in the current
+and upper package directories.</p>
+<p><strong>Example:</strong></p>
 <pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></code>
-<code>fs.mkdirs <span class="hljs-string">'/tmp/some/directory'</span>, <span class="hljs-function"><span class="hljs-params">(err, made)</span> -&gt;</span></code>
-<code>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error err <span class="hljs-keyword">if</span> err</code>
-<code>  <span class="hljs-keyword">if</span> made</code>
-<code>    <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Directory starting from <span class="hljs-subst">#{made}</span> was created."</span></code>
-<code>  <span class="hljs-built_in">console</span>.log <span class="hljs-string">'Directory now exists!'</span></code></pre>
-<h2 id="exported-methods">Exported Methods</h2>
-<h3 id="mkdirs">mkdirs()</h3>
+<code>fs.npmbin <span class="hljs-string">'coffee'</span>, <span class="hljs-function"><span class="hljs-params">(err, cmd)</span> -&gt;</span></code>
+<code>  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Coffee command found at:"</span> + cmd</code></pre>
+<h3 id="npmbin">npmbin()</h3>
 <blockquote>
-<p class="api-usage"><strong>Usage:</strong> <code>mkdirs(dir, mode, cb)</code></p>
+<p class="api-usage"><strong>Usage:</strong> public <code>npmbin(bin, dir, cb)</code></p>
 </blockquote>
 <dl class="api-spec">
 <dt>Parameter</dt>
 <dd>
 <ul>
-<li><code>dir</code> - <code>String</code> - directory path to create</li>
-<li><code>mode</code> - <code>String|Integer</code> - optional the permission mode for the directories (may be given
-as string like ‘775’)</li>
-<li><code>cb</code> - <code>function(&lt;Error&gt;, &lt;Integer&gt;)</code> - callback method given an <code>Error</code>, the path of the
-first directory which was created or <code>null</code> if nothing had to be done</li>
+<li><code>bin</code> - <code>String</code> - name of the binary to search for</li>
+<li><code>dir</code> - <code>String</code> - directory to start search from</li>
+<li><code>cb</code> - <code>function(&lt;Error&gt;, &lt;String&gt;)</code> - callback with an <code>Error</code> or the found binary’s path</li>
 </ul>
 </dd>
 </dl>
-<h3 id="mkdirssync">mkdirsSync()</h3>
+<h3 id="npmbinsync">npmbinSync()</h3>
 <blockquote>
-<p class="api-usage"><strong>Usage:</strong> <code>mkdirsSync(dir, mode)</code></p>
+<p class="api-usage"><strong>Usage:</strong> public <code>npmbinSync(bin, dir)</code></p>
 </blockquote>
 <dl class="api-spec">
 <dt>Parameter</dt>
 <dd>
 <ul>
-<li><code>dir</code> - <code>String</code> - directory path to create</li>
-<li><code>mode</code> - <code>String|Integer</code> - optional the permission mode for the directories (may be given
-as string like ‘775’)</li>
+<li><code>bin</code> - <code>String</code> - name of the binary to search for</li>
+<li><code>dir</code> - <code>String</code> - directory to start search from</li>
 </ul>
 </dd>
 <dt>Return</dt>
-<dd><code>String</code> - the path of the first directory which was created or <code>null</code> if
-nothing had to be done</dd>
+<dd><code>String</code> - the found binary’s path</dd>
 <dt>Throws</dt>
 <dd>
 <ul>
-<li><code>Error</code> - if anything out of order happened</li>
+<li><code>Error</code> - if binary could not be found</li>
 </ul>
 </dd>
 </dl>
@@ -203,43 +191,43 @@ nothing had to be done</dd>
                   <a href="../index.coffee.html" title="API Usage (/src/index.coffee)">API Usage</a>
                 </li>
                 <li class="level2">
-                  <a href="chmods.coffee.html" title="Change Rights (/src/methods/chmods.coffee)">Change Rights</a>
+                  <a href="chmods.coffee.html" title="Change Mode (/src/method/chmods.coffee)">Change Mode</a>
                 </li>
                 <li class="level2">
-                  <a href="chowns.coffee.html" title="Change Ownership (/src/methods/chowns.coffee)">Change Ownership</a>
+                  <a href="chowns.coffee.html" title="Change Ownership (/src/method/chowns.coffee)">Change Ownership</a>
                 </li>
                 <li class="level2">
-                  <a href="copy.coffee.html" title="Copy (/src/methods/copy.coffee)">Copy</a>
+                  <a href="copy.coffee.html" title="Copy (/src/method/copy.coffee)">Copy</a>
                 </li>
                 <li class="level2">
-                  <a href="filter.coffee.html" title="Filter Check (/src/methods/filter.coffee)">Filter Check</a>
+                  <a href="filter.coffee.html" title="Filter Check (/src/method/filter.coffee)">Filter Check</a>
                 </li>
                 <li class="level2">
-                  <a href="find.coffee.html" title="Find (/src/methods/find.coffee)">Find</a>
+                  <a href="find.coffee.html" title="Find (/src/method/find.coffee)">Find</a>
+                </li>
+                <li class="level2">
+                  <a href="mkdirs.coffee.html" title="Make Directories (/src/method/mkdirs.coffee)">Make Directories</a>
+                </li>
+                <li class="level2">
+                  <a href="move.coffee.html" title="Move (/src/method/move.coffee)">Move</a>
                 </li>
                 <li class="active level2">
-                  <a href="mkdirs.coffee.html" title="Make Directories (/src/methods/mkdirs.coffee)">Make Directories <span class="sr-only">(current)</span></a>
+                  <a href="npmbin.coffee.html" title="Find Binary (/src/method/npmbin.coffee)">Find Binary <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="level2">
-                  <a href="move.coffee.html" title="Move (/src/methods/move.coffee)">Move</a>
+                  <a href="remove.coffee.html" title="Remove (/src/method/remove.coffee)">Remove</a>
                 </li>
                 <li class="level2">
-                  <a href="npmbin.coffee.html" title="Find Binary (/src/methods/npmbin.coffee)">Find Binary</a>
+                  <a href="stat.coffee.html" title="File Stats (/src/method/stat.coffee)">File Stats</a>
                 </li>
                 <li class="level2">
-                  <a href="remove.coffee.html" title="Remove (/src/methods/remove.coffee)">Remove</a>
+                  <a href="tempdir.coffee.html" title="Temp Directory (/src/method/tempdir.coffee)">Temp Directory</a>
                 </li>
                 <li class="level2">
-                  <a href="stat.coffee.html" title="File Stats (/src/methods/stat.coffee)">File Stats</a>
+                  <a href="tempfile.coffee.html" title="Temp File (/src/method/tempfile.coffee)">Temp File</a>
                 </li>
                 <li class="level2">
-                  <a href="tempdir.coffee.html" title="Temp Directory (/src/methods/tempdir.coffee)">Temp Directory</a>
-                </li>
-                <li class="level2">
-                  <a href="tempfile.coffee.html" title="Temp File (/src/methods/tempfile.coffee)">Temp File</a>
-                </li>
-                <li class="level2">
-                  <a href="touch.coffee.html" title="Touch File (/src/methods/touch.coffee)">Touch File</a>
+                  <a href="touch.coffee.html" title="Touch File (/src/method/touch.coffee)">Touch File</a>
                 </li>
                 <li class="level0">
                   <a href="../../Changelog.md.html" title="Version changes (/Changelog.md)">Version changes</a>

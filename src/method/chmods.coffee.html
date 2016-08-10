@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Change Rights</title>
+    <title>Change Mode</title>
     <meta name="HandheldFriendly" content="true" />
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -57,43 +57,43 @@
                   <a href="../index.coffee.html" title="API Usage (/src/index.coffee)" class="btn btn-primary">API Usage</a>
                 </li>
                 <li class="active level2">
-                  <a href="chmods.coffee.html" title="Change Rights (/src/methods/chmods.coffee)" class="btn btn-warning">Change Rights <span class="sr-only">(current)</span></a>
+                  <a href="chmods.coffee.html" title="Change Mode (/src/method/chmods.coffee)" class="btn btn-warning">Change Mode <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="level2">
-                  <a href="chowns.coffee.html" title="Change Ownership (/src/methods/chowns.coffee)" class="btn btn-primary">Change Ownership</a>
+                  <a href="chowns.coffee.html" title="Change Ownership (/src/method/chowns.coffee)" class="btn btn-primary">Change Ownership</a>
                 </li>
                 <li class="level2">
-                  <a href="copy.coffee.html" title="Copy (/src/methods/copy.coffee)" class="btn btn-primary">Copy</a>
+                  <a href="copy.coffee.html" title="Copy (/src/method/copy.coffee)" class="btn btn-primary">Copy</a>
                 </li>
                 <li class="level2">
-                  <a href="filter.coffee.html" title="Filter Check (/src/methods/filter.coffee)" class="btn btn-primary">Filter Check</a>
+                  <a href="filter.coffee.html" title="Filter Check (/src/method/filter.coffee)" class="btn btn-primary">Filter Check</a>
                 </li>
                 <li class="level2">
-                  <a href="find.coffee.html" title="Find (/src/methods/find.coffee)" class="btn btn-primary">Find</a>
+                  <a href="find.coffee.html" title="Find (/src/method/find.coffee)" class="btn btn-primary">Find</a>
                 </li>
                 <li class="level2">
-                  <a href="mkdirs.coffee.html" title="Make Directories (/src/methods/mkdirs.coffee)" class="btn btn-primary">Make Directories</a>
+                  <a href="mkdirs.coffee.html" title="Make Directories (/src/method/mkdirs.coffee)" class="btn btn-primary">Make Directories</a>
                 </li>
                 <li class="level2">
-                  <a href="move.coffee.html" title="Move (/src/methods/move.coffee)" class="btn btn-primary">Move</a>
+                  <a href="move.coffee.html" title="Move (/src/method/move.coffee)" class="btn btn-primary">Move</a>
                 </li>
                 <li class="level2">
-                  <a href="npmbin.coffee.html" title="Find Binary (/src/methods/npmbin.coffee)" class="btn btn-primary">Find Binary</a>
+                  <a href="npmbin.coffee.html" title="Find Binary (/src/method/npmbin.coffee)" class="btn btn-primary">Find Binary</a>
                 </li>
                 <li class="level2">
-                  <a href="remove.coffee.html" title="Remove (/src/methods/remove.coffee)" class="btn btn-primary">Remove</a>
+                  <a href="remove.coffee.html" title="Remove (/src/method/remove.coffee)" class="btn btn-primary">Remove</a>
                 </li>
                 <li class="level2">
-                  <a href="stat.coffee.html" title="File Stats (/src/methods/stat.coffee)" class="btn btn-primary">File Stats</a>
+                  <a href="stat.coffee.html" title="File Stats (/src/method/stat.coffee)" class="btn btn-primary">File Stats</a>
                 </li>
                 <li class="level2">
-                  <a href="tempdir.coffee.html" title="Temp Directory (/src/methods/tempdir.coffee)" class="btn btn-primary">Temp Directory</a>
+                  <a href="tempdir.coffee.html" title="Temp Directory (/src/method/tempdir.coffee)" class="btn btn-primary">Temp Directory</a>
                 </li>
                 <li class="level2">
-                  <a href="tempfile.coffee.html" title="Temp File (/src/methods/tempfile.coffee)" class="btn btn-primary">Temp File</a>
+                  <a href="tempfile.coffee.html" title="Temp File (/src/method/tempfile.coffee)" class="btn btn-primary">Temp File</a>
                 </li>
                 <li class="level2">
-                  <a href="touch.coffee.html" title="Touch File (/src/methods/touch.coffee)" class="btn btn-primary">Touch File</a>
+                  <a href="touch.coffee.html" title="Touch File (/src/method/touch.coffee)" class="btn btn-primary">Touch File</a>
                 </li>
                 <li class="level0">
                   <a href="../../Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-primary">Version changes</a>
@@ -131,17 +131,91 @@
 </li>
 </ul>
 </p>
-<h1 id="change-rights">Change Rights</h1>
+<h1 id="change-mode">Change Mode</h1>
 <blockquote>
-<p>Path: <code>/src/methods/chmods.coffee</code> compiled to <code>/lib/methods/chmods.js</code></p>
+<p>Path: <code>/src/method/chmods.coffee</code> compiled to <code>/lib/method/chmods.js</code></p>
 </blockquote>
-<p>Change the ownership of path like <a href="https://nodejs.org/dist/latest-v6.x/docs/api/fs.html#fs_fs_chmod_path_mode_callback">fs.chmod()</a> but recursively.</p>
+<p>Change the files mode bits consisting of the file permission bits plus the set-user-ID,
+set-group-ID, and sticky bits.</p>
 <p>The options object is the same as used for <a href="find.coffee.html" title="File: find.coffee">Find</a> with the additional mode:</p>
 <ul>
 <li><code>mode</code> - <code>Integer</code> - to be set on the matching entries</li>
 <li><code>dereference</code> - <code>Boolean</code></li>
 <li><code>ignoreErrors</code> - <code>Boolean</code></li>
 </ul>
+<p>The file mode is a bit mask with the following bits (octal notation):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Name</th>
+<th>BIT</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">SUID</td>
+<td>04000</td>
+<td>set process effective user ID</td>
+</tr>
+<tr>
+<td style="text-align:center">SGID</td>
+<td>02000</td>
+<td>set process effective group ID</td>
+</tr>
+<tr>
+<td style="text-align:center">SVTX</td>
+<td>01000</td>
+<td>sticky bit</td>
+</tr>
+<tr>
+<td style="text-align:center">RUSR</td>
+<td>00400</td>
+<td>read by owner</td>
+</tr>
+<tr>
+<td style="text-align:center">WUSR</td>
+<td>00200</td>
+<td>write by owner</td>
+</tr>
+<tr>
+<td style="text-align:center">XUSR</td>
+<td>00100</td>
+<td>execute/access by owner</td>
+</tr>
+<tr>
+<td style="text-align:center">RGRP</td>
+<td>00040</td>
+<td>read by group</td>
+</tr>
+<tr>
+<td style="text-align:center">WGRP</td>
+<td>00020</td>
+<td>write by group</td>
+</tr>
+<tr>
+<td style="text-align:center">XGRP</td>
+<td>00010</td>
+<td>execute/access by group</td>
+</tr>
+<tr>
+<td style="text-align:center">ROTH</td>
+<td>00004</td>
+<td>read by others</td>
+</tr>
+<tr>
+<td style="text-align:center">WOTH</td>
+<td>00002</td>
+<td>write by others</td>
+</tr>
+<tr>
+<td style="text-align:center">XOTH</td>
+<td>00001</td>
+<td>execute/access by others</td>
+</tr>
+</tbody>
+</table>
+<p>To change the file mode you have to be privileged to do so.</p>
 <h3 id="chmods">chmods()</h3>
 <blockquote>
 <p class="api-usage"><strong>Usage:</strong> <code>chmods(file, options, cb)</code></p>
@@ -189,43 +263,43 @@
                   <a href="../index.coffee.html" title="API Usage (/src/index.coffee)">API Usage</a>
                 </li>
                 <li class="active level2">
-                  <a href="chmods.coffee.html" title="Change Rights (/src/methods/chmods.coffee)">Change Rights <span class="sr-only">(current)</span></a>
+                  <a href="chmods.coffee.html" title="Change Mode (/src/method/chmods.coffee)">Change Mode <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="level2">
-                  <a href="chowns.coffee.html" title="Change Ownership (/src/methods/chowns.coffee)">Change Ownership</a>
+                  <a href="chowns.coffee.html" title="Change Ownership (/src/method/chowns.coffee)">Change Ownership</a>
                 </li>
                 <li class="level2">
-                  <a href="copy.coffee.html" title="Copy (/src/methods/copy.coffee)">Copy</a>
+                  <a href="copy.coffee.html" title="Copy (/src/method/copy.coffee)">Copy</a>
                 </li>
                 <li class="level2">
-                  <a href="filter.coffee.html" title="Filter Check (/src/methods/filter.coffee)">Filter Check</a>
+                  <a href="filter.coffee.html" title="Filter Check (/src/method/filter.coffee)">Filter Check</a>
                 </li>
                 <li class="level2">
-                  <a href="find.coffee.html" title="Find (/src/methods/find.coffee)">Find</a>
+                  <a href="find.coffee.html" title="Find (/src/method/find.coffee)">Find</a>
                 </li>
                 <li class="level2">
-                  <a href="mkdirs.coffee.html" title="Make Directories (/src/methods/mkdirs.coffee)">Make Directories</a>
+                  <a href="mkdirs.coffee.html" title="Make Directories (/src/method/mkdirs.coffee)">Make Directories</a>
                 </li>
                 <li class="level2">
-                  <a href="move.coffee.html" title="Move (/src/methods/move.coffee)">Move</a>
+                  <a href="move.coffee.html" title="Move (/src/method/move.coffee)">Move</a>
                 </li>
                 <li class="level2">
-                  <a href="npmbin.coffee.html" title="Find Binary (/src/methods/npmbin.coffee)">Find Binary</a>
+                  <a href="npmbin.coffee.html" title="Find Binary (/src/method/npmbin.coffee)">Find Binary</a>
                 </li>
                 <li class="level2">
-                  <a href="remove.coffee.html" title="Remove (/src/methods/remove.coffee)">Remove</a>
+                  <a href="remove.coffee.html" title="Remove (/src/method/remove.coffee)">Remove</a>
                 </li>
                 <li class="level2">
-                  <a href="stat.coffee.html" title="File Stats (/src/methods/stat.coffee)">File Stats</a>
+                  <a href="stat.coffee.html" title="File Stats (/src/method/stat.coffee)">File Stats</a>
                 </li>
                 <li class="level2">
-                  <a href="tempdir.coffee.html" title="Temp Directory (/src/methods/tempdir.coffee)">Temp Directory</a>
+                  <a href="tempdir.coffee.html" title="Temp Directory (/src/method/tempdir.coffee)">Temp Directory</a>
                 </li>
                 <li class="level2">
-                  <a href="tempfile.coffee.html" title="Temp File (/src/methods/tempfile.coffee)">Temp File</a>
+                  <a href="tempfile.coffee.html" title="Temp File (/src/method/tempfile.coffee)">Temp File</a>
                 </li>
                 <li class="level2">
-                  <a href="touch.coffee.html" title="Touch File (/src/methods/touch.coffee)">Touch File</a>
+                  <a href="touch.coffee.html" title="Touch File (/src/method/touch.coffee)">Touch File</a>
                 </li>
                 <li class="level0">
                   <a href="../../Changelog.md.html" title="Version changes (/Changelog.md)">Version changes</a>

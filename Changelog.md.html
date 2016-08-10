@@ -57,43 +57,43 @@
                   <a href="src/index.coffee.html" title="API Usage (/src/index.coffee)" class="btn btn-primary">API Usage</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/chmods.coffee.html" title="Change Rights (/src/methods/chmods.coffee)" class="btn btn-primary">Change Rights</a>
+                  <a href="src/method/chmods.coffee.html" title="Change Mode (/src/method/chmods.coffee)" class="btn btn-primary">Change Mode</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/chowns.coffee.html" title="Change Ownership (/src/methods/chowns.coffee)" class="btn btn-primary">Change Ownership</a>
+                  <a href="src/method/chowns.coffee.html" title="Change Ownership (/src/method/chowns.coffee)" class="btn btn-primary">Change Ownership</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/copy.coffee.html" title="Copy (/src/methods/copy.coffee)" class="btn btn-primary">Copy</a>
+                  <a href="src/method/copy.coffee.html" title="Copy (/src/method/copy.coffee)" class="btn btn-primary">Copy</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/filter.coffee.html" title="Filter Check (/src/methods/filter.coffee)" class="btn btn-primary">Filter Check</a>
+                  <a href="src/method/filter.coffee.html" title="Filter Check (/src/method/filter.coffee)" class="btn btn-primary">Filter Check</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/find.coffee.html" title="Find (/src/methods/find.coffee)" class="btn btn-primary">Find</a>
+                  <a href="src/method/find.coffee.html" title="Find (/src/method/find.coffee)" class="btn btn-primary">Find</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/mkdirs.coffee.html" title="Make Directories (/src/methods/mkdirs.coffee)" class="btn btn-primary">Make Directories</a>
+                  <a href="src/method/mkdirs.coffee.html" title="Make Directories (/src/method/mkdirs.coffee)" class="btn btn-primary">Make Directories</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/move.coffee.html" title="Move (/src/methods/move.coffee)" class="btn btn-primary">Move</a>
+                  <a href="src/method/move.coffee.html" title="Move (/src/method/move.coffee)" class="btn btn-primary">Move</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/npmbin.coffee.html" title="Find Binary (/src/methods/npmbin.coffee)" class="btn btn-primary">Find Binary</a>
+                  <a href="src/method/npmbin.coffee.html" title="Find Binary (/src/method/npmbin.coffee)" class="btn btn-primary">Find Binary</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/remove.coffee.html" title="Remove (/src/methods/remove.coffee)" class="btn btn-primary">Remove</a>
+                  <a href="src/method/remove.coffee.html" title="Remove (/src/method/remove.coffee)" class="btn btn-primary">Remove</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/stat.coffee.html" title="File Stats (/src/methods/stat.coffee)" class="btn btn-primary">File Stats</a>
+                  <a href="src/method/stat.coffee.html" title="File Stats (/src/method/stat.coffee)" class="btn btn-primary">File Stats</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/tempdir.coffee.html" title="Temp Directory (/src/methods/tempdir.coffee)" class="btn btn-primary">Temp Directory</a>
+                  <a href="src/method/tempdir.coffee.html" title="Temp Directory (/src/method/tempdir.coffee)" class="btn btn-primary">Temp Directory</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/tempfile.coffee.html" title="Temp File (/src/methods/tempfile.coffee)" class="btn btn-primary">Temp File</a>
+                  <a href="src/method/tempfile.coffee.html" title="Temp File (/src/method/tempfile.coffee)" class="btn btn-primary">Temp File</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/touch.coffee.html" title="Touch File (/src/methods/touch.coffee)" class="btn btn-primary">Touch File</a>
+                  <a href="src/method/touch.coffee.html" title="Touch File (/src/method/touch.coffee)" class="btn btn-primary">Touch File</a>
                 </li>
                 <li class="active level0">
                   <a href="Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-warning">Version changes <span class="sr-only">(current)</span></a>
@@ -123,6 +123,7 @@
 <gcse:searchresults-only></gcse:searchresults-only>
 
           <main><p><ul class="table-of-contents" aria-hidden="true"><header>Index</header>
+<li><a href="#version-207-2016-08-10">Version 2.0.7 (2016-08-10)</a></li>
 <li><a href="#version-206-2016-07-20">Version 2.0.6 (2016-07-20)</a></li>
 <li><a href="#version-205-2016-07-20">Version 2.0.5 (2016-07-20)</a></li>
 <li><a href="#version-204-2016-07-20">Version 2.0.4 (2016-07-20)</a></li>
@@ -151,6 +152,30 @@
 <h1 id="version-changes">Version changes</h1>
 <p>The following list gives a short overview about what is changed between
 individual versions:</p>
+<h2 id="version-207-2016-08-10">Version 2.0.7 (2016-08-10)</h2>
+<ul>
+<li>Allow all tests to run.</li>
+<li>Don’t throw but return error in async mkdirs call.</li>
+<li>Upgraded async@2.0.1, graceful-fs@4.1.5, minimatch@3.0.3, alinex-builder@2.3.5</li>
+<li>Add maxnum parameter to mkdirs.</li>
+<li>Fix mkdirs timing bug in parallel use.</li>
+<li>Allow retries in mkdir.</li>
+<li>Rename internal subfolder.</li>
+<li>Small typo fix.</li>
+<li>Move documentation into separate methods.</li>
+<li>Updated documentation.</li>
+<li>Move examples to temp… methods.</li>
+<li>More explanations for file stat results.</li>
+<li>Fix tests to work with new structure.</li>
+<li>Fix some documentation problems.</li>
+<li>Converted the last methods, too.</li>
+<li>Convert npmbin(), tempdir() and tempfile()</li>
+<li>Restructer move()</li>
+<li>Restructure copy(), remove().</li>
+<li>Move stat, mkdirs, find to new internal structure.</li>
+<li>Start restructuring docu and internal code structure of fs package.</li>
+<li>Upgraded async@2.0.1, graceful-fs@4.1.5, alinex-builder@2.3.4, memoizee@0.4.1.</li>
+</ul>
 <h2 id="version-206-2016-07-20">Version 2.0.6 (2016-07-20)</h2>
 <ul>
 <li>optimize include check to always scheck for exclude on fullname match, too.</li>
@@ -370,43 +395,43 @@ individual versions:</p>
                   <a href="src/index.coffee.html" title="API Usage (/src/index.coffee)">API Usage</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/chmods.coffee.html" title="Change Rights (/src/methods/chmods.coffee)">Change Rights</a>
+                  <a href="src/method/chmods.coffee.html" title="Change Mode (/src/method/chmods.coffee)">Change Mode</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/chowns.coffee.html" title="Change Ownership (/src/methods/chowns.coffee)">Change Ownership</a>
+                  <a href="src/method/chowns.coffee.html" title="Change Ownership (/src/method/chowns.coffee)">Change Ownership</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/copy.coffee.html" title="Copy (/src/methods/copy.coffee)">Copy</a>
+                  <a href="src/method/copy.coffee.html" title="Copy (/src/method/copy.coffee)">Copy</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/filter.coffee.html" title="Filter Check (/src/methods/filter.coffee)">Filter Check</a>
+                  <a href="src/method/filter.coffee.html" title="Filter Check (/src/method/filter.coffee)">Filter Check</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/find.coffee.html" title="Find (/src/methods/find.coffee)">Find</a>
+                  <a href="src/method/find.coffee.html" title="Find (/src/method/find.coffee)">Find</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/mkdirs.coffee.html" title="Make Directories (/src/methods/mkdirs.coffee)">Make Directories</a>
+                  <a href="src/method/mkdirs.coffee.html" title="Make Directories (/src/method/mkdirs.coffee)">Make Directories</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/move.coffee.html" title="Move (/src/methods/move.coffee)">Move</a>
+                  <a href="src/method/move.coffee.html" title="Move (/src/method/move.coffee)">Move</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/npmbin.coffee.html" title="Find Binary (/src/methods/npmbin.coffee)">Find Binary</a>
+                  <a href="src/method/npmbin.coffee.html" title="Find Binary (/src/method/npmbin.coffee)">Find Binary</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/remove.coffee.html" title="Remove (/src/methods/remove.coffee)">Remove</a>
+                  <a href="src/method/remove.coffee.html" title="Remove (/src/method/remove.coffee)">Remove</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/stat.coffee.html" title="File Stats (/src/methods/stat.coffee)">File Stats</a>
+                  <a href="src/method/stat.coffee.html" title="File Stats (/src/method/stat.coffee)">File Stats</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/tempdir.coffee.html" title="Temp Directory (/src/methods/tempdir.coffee)">Temp Directory</a>
+                  <a href="src/method/tempdir.coffee.html" title="Temp Directory (/src/method/tempdir.coffee)">Temp Directory</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/tempfile.coffee.html" title="Temp File (/src/methods/tempfile.coffee)">Temp File</a>
+                  <a href="src/method/tempfile.coffee.html" title="Temp File (/src/method/tempfile.coffee)">Temp File</a>
                 </li>
                 <li class="level2">
-                  <a href="src/methods/touch.coffee.html" title="Touch File (/src/methods/touch.coffee)">Touch File</a>
+                  <a href="src/method/touch.coffee.html" title="Touch File (/src/method/touch.coffee)">Touch File</a>
                 </li>
                 <li class="active level0">
                   <a href="Changelog.md.html" title="Version changes (/Changelog.md)">Version changes <span class="sr-only">(current)</span></a>

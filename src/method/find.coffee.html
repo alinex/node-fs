@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Touch File</title>
+    <title>Find</title>
     <meta name="HandheldFriendly" content="true" />
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -57,43 +57,43 @@
                   <a href="../index.coffee.html" title="API Usage (/src/index.coffee)" class="btn btn-primary">API Usage</a>
                 </li>
                 <li class="level2">
-                  <a href="chmods.coffee.html" title="Change Rights (/src/methods/chmods.coffee)" class="btn btn-primary">Change Rights</a>
+                  <a href="chmods.coffee.html" title="Change Mode (/src/method/chmods.coffee)" class="btn btn-primary">Change Mode</a>
                 </li>
                 <li class="level2">
-                  <a href="chowns.coffee.html" title="Change Ownership (/src/methods/chowns.coffee)" class="btn btn-primary">Change Ownership</a>
+                  <a href="chowns.coffee.html" title="Change Ownership (/src/method/chowns.coffee)" class="btn btn-primary">Change Ownership</a>
                 </li>
                 <li class="level2">
-                  <a href="copy.coffee.html" title="Copy (/src/methods/copy.coffee)" class="btn btn-primary">Copy</a>
+                  <a href="copy.coffee.html" title="Copy (/src/method/copy.coffee)" class="btn btn-primary">Copy</a>
                 </li>
                 <li class="level2">
-                  <a href="filter.coffee.html" title="Filter Check (/src/methods/filter.coffee)" class="btn btn-primary">Filter Check</a>
-                </li>
-                <li class="level2">
-                  <a href="find.coffee.html" title="Find (/src/methods/find.coffee)" class="btn btn-primary">Find</a>
-                </li>
-                <li class="level2">
-                  <a href="mkdirs.coffee.html" title="Make Directories (/src/methods/mkdirs.coffee)" class="btn btn-primary">Make Directories</a>
-                </li>
-                <li class="level2">
-                  <a href="move.coffee.html" title="Move (/src/methods/move.coffee)" class="btn btn-primary">Move</a>
-                </li>
-                <li class="level2">
-                  <a href="npmbin.coffee.html" title="Find Binary (/src/methods/npmbin.coffee)" class="btn btn-primary">Find Binary</a>
-                </li>
-                <li class="level2">
-                  <a href="remove.coffee.html" title="Remove (/src/methods/remove.coffee)" class="btn btn-primary">Remove</a>
-                </li>
-                <li class="level2">
-                  <a href="stat.coffee.html" title="File Stats (/src/methods/stat.coffee)" class="btn btn-primary">File Stats</a>
-                </li>
-                <li class="level2">
-                  <a href="tempdir.coffee.html" title="Temp Directory (/src/methods/tempdir.coffee)" class="btn btn-primary">Temp Directory</a>
-                </li>
-                <li class="level2">
-                  <a href="tempfile.coffee.html" title="Temp File (/src/methods/tempfile.coffee)" class="btn btn-primary">Temp File</a>
+                  <a href="filter.coffee.html" title="Filter Check (/src/method/filter.coffee)" class="btn btn-primary">Filter Check</a>
                 </li>
                 <li class="active level2">
-                  <a href="touch.coffee.html" title="Touch File (/src/methods/touch.coffee)" class="btn btn-warning">Touch File <span class="sr-only">(current)</span></a>
+                  <a href="find.coffee.html" title="Find (/src/method/find.coffee)" class="btn btn-warning">Find <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="level2">
+                  <a href="mkdirs.coffee.html" title="Make Directories (/src/method/mkdirs.coffee)" class="btn btn-primary">Make Directories</a>
+                </li>
+                <li class="level2">
+                  <a href="move.coffee.html" title="Move (/src/method/move.coffee)" class="btn btn-primary">Move</a>
+                </li>
+                <li class="level2">
+                  <a href="npmbin.coffee.html" title="Find Binary (/src/method/npmbin.coffee)" class="btn btn-primary">Find Binary</a>
+                </li>
+                <li class="level2">
+                  <a href="remove.coffee.html" title="Remove (/src/method/remove.coffee)" class="btn btn-primary">Remove</a>
+                </li>
+                <li class="level2">
+                  <a href="stat.coffee.html" title="File Stats (/src/method/stat.coffee)" class="btn btn-primary">File Stats</a>
+                </li>
+                <li class="level2">
+                  <a href="tempdir.coffee.html" title="Temp Directory (/src/method/tempdir.coffee)" class="btn btn-primary">Temp Directory</a>
+                </li>
+                <li class="level2">
+                  <a href="tempfile.coffee.html" title="Temp File (/src/method/tempfile.coffee)" class="btn btn-primary">Temp File</a>
+                </li>
+                <li class="level2">
+                  <a href="touch.coffee.html" title="Touch File (/src/method/touch.coffee)" class="btn btn-primary">Touch File</a>
                 </li>
                 <li class="level0">
                   <a href="../../Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-primary">Version changes</a>
@@ -125,78 +125,57 @@
           <main><p><ul class="table-of-contents" aria-hidden="true"><header>Index</header>
 <li>
 <ul>
-<li><a href="#touch">touch()</a></li>
-<li><a href="#touchsync">touchSync()</a></li>
+<li><a href="#find-2">find()</a></li>
+<li><a href="#findsync">findSync()</a></li>
 </ul>
 </li>
 </ul>
 </p>
-<h1 id="touch-file">Touch File</h1>
+<h1 id="find">Find</h1>
 <blockquote>
-<p>Path: <code>/src/methods/touch.coffee</code> compiled to <code>/lib/methods/touch.js</code></p>
+<p>Path: <code>/src/method/find.coffee</code> compiled to <code>/lib/method/find.js</code></p>
 </blockquote>
-<p>The touch methods allow the following options:</p>
-<ul>
-<li><code>reference</code> - file path used as reference</li>
-<li><code>time</code> - time to use</li>
-<li><code>mtime</code> - use this time (defauklts to current time)</li>
-<li><code>noCreate</code> - don’t create file if not existing</li>
-<li><code>noAccess</code> - don’t change access time of the file</li>
-<li><code>noModified</code> - don’t change modified time of the file</li>
-</ul>
-<ul>
-<li>
-<p><code>options</code>
-optional specific settings like:</p>
-<ul>
-<li><code>noCreate</code> - don’t create file if it already exists</li>
-<li><code>time</code> - timw to set</li>
-<li><code>mtime</code> - modification timw to set</li>
-<li><code>reference</code> - use this file’s time</li>
-<li><code>noAccess</code> - (boolean) set access time</li>
-<li><code>noModified</code> - (boolean) set modified time`</li>
-</ul>
-</li>
-</ul>
+<p>This is a powerfull method to search for files on the local filesystem. It works
+recursively with multiple checks and to get a file list as quick as possible.</p>
 <p><strong>Example:</strong></p>
 <pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></code>
-<code>fs.touch <span class="hljs-string">"/tmp/testfile"</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span></code>
-<code>  <span class="hljs-comment"># everything done, go on</span></code></pre>
-<pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></code>
-<code>fs.touch <span class="hljs-string">"/tmp/testfile"</span>,</code>
-<code>  noCreate: <span class="hljs-literal">true</span></code>
-<code>, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span></code>
-<code>  <span class="hljs-comment"># everything done, go on</span></code></pre>
-<h3 id="touch">touch()</h3>
+<code>fs.find <span class="hljs-string">'/tmp/some/directory'</span>, {include: <span class="hljs-string">'*.jpg'</span>}, <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span></code>
+<code>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error err <span class="hljs-keyword">if</span> err</code>
+<code>  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Found "</span> + list.length + <span class="hljs-string">" images."</span></code>
+<code>  <span class="hljs-comment"># do something with list</span></code></pre>
+<h3 id="find-2">find()</h3>
 <blockquote>
-<p class="api-usage"><strong>Usage:</strong> <code>touch(file, options, cb)</code></p>
+<p class="api-usage"><strong>Usage:</strong> <code>find(search, options, cb)</code></p>
 </blockquote>
 <dl class="api-spec">
 <dt>Parameter</dt>
 <dd>
 <ul>
-<li><code>file</code> - <code>String</code> - to be changed</li>
-<li><code>options</code> - <code>Object</code> - optional see description above</li>
-<li><code>cb</code> - <code>function(&lt;Error&gt;)</code> - callback with <code>Error</code> if sometzhing went wrong</li>
+<li><code>search</code> - <code>String</code> - source path to be searched in</li>
+<li><code>options</code> - <code>Object</code> - optional specifications for check defining which files to list</li>
+<li><code>cb</code> - <code>function(&lt;Error&gt;, &lt;Array&gt;)</code> - optional callback which is called after done with an <code>Èrror</code>
+or the complete list of files found as <code>Àrray</code></li>
 </ul>
 </dd>
 </dl>
-<h3 id="touchsync">touchSync()</h3>
+<h3 id="findsync">findSync()</h3>
 <blockquote>
-<p class="api-usage"><strong>Usage:</strong> <code>touchSync(file, options)</code></p>
+<p class="api-usage"><strong>Usage:</strong> <code>findSync(search, options)</code></p>
 </blockquote>
 <dl class="api-spec">
 <dt>Parameter</dt>
 <dd>
 <ul>
-<li><code>file</code> - <code>String</code> - to be changed</li>
-<li><code>options</code> - <code>Object</code> - optional see description above</li>
+<li><code>search</code> - <code>String</code> - source path to be searched in</li>
+<li><code>options</code> - <code>Object</code> - optional specifications for check defining which files to list</li>
 </ul>
 </dd>
+<dt>Return</dt>
+<dd><code>Array</code> - complete list of files found</dd>
 <dt>Throws</dt>
 <dd>
 <ul>
-<li><code>Error</code> - if sometzhing went wrong</li>
+<li><code>Error</code> - if anything out of order happened</li>
 </ul>
 </dd>
 </dl>
@@ -214,43 +193,43 @@ optional specific settings like:</p>
                   <a href="../index.coffee.html" title="API Usage (/src/index.coffee)">API Usage</a>
                 </li>
                 <li class="level2">
-                  <a href="chmods.coffee.html" title="Change Rights (/src/methods/chmods.coffee)">Change Rights</a>
+                  <a href="chmods.coffee.html" title="Change Mode (/src/method/chmods.coffee)">Change Mode</a>
                 </li>
                 <li class="level2">
-                  <a href="chowns.coffee.html" title="Change Ownership (/src/methods/chowns.coffee)">Change Ownership</a>
+                  <a href="chowns.coffee.html" title="Change Ownership (/src/method/chowns.coffee)">Change Ownership</a>
                 </li>
                 <li class="level2">
-                  <a href="copy.coffee.html" title="Copy (/src/methods/copy.coffee)">Copy</a>
+                  <a href="copy.coffee.html" title="Copy (/src/method/copy.coffee)">Copy</a>
                 </li>
                 <li class="level2">
-                  <a href="filter.coffee.html" title="Filter Check (/src/methods/filter.coffee)">Filter Check</a>
-                </li>
-                <li class="level2">
-                  <a href="find.coffee.html" title="Find (/src/methods/find.coffee)">Find</a>
-                </li>
-                <li class="level2">
-                  <a href="mkdirs.coffee.html" title="Make Directories (/src/methods/mkdirs.coffee)">Make Directories</a>
-                </li>
-                <li class="level2">
-                  <a href="move.coffee.html" title="Move (/src/methods/move.coffee)">Move</a>
-                </li>
-                <li class="level2">
-                  <a href="npmbin.coffee.html" title="Find Binary (/src/methods/npmbin.coffee)">Find Binary</a>
-                </li>
-                <li class="level2">
-                  <a href="remove.coffee.html" title="Remove (/src/methods/remove.coffee)">Remove</a>
-                </li>
-                <li class="level2">
-                  <a href="stat.coffee.html" title="File Stats (/src/methods/stat.coffee)">File Stats</a>
-                </li>
-                <li class="level2">
-                  <a href="tempdir.coffee.html" title="Temp Directory (/src/methods/tempdir.coffee)">Temp Directory</a>
-                </li>
-                <li class="level2">
-                  <a href="tempfile.coffee.html" title="Temp File (/src/methods/tempfile.coffee)">Temp File</a>
+                  <a href="filter.coffee.html" title="Filter Check (/src/method/filter.coffee)">Filter Check</a>
                 </li>
                 <li class="active level2">
-                  <a href="touch.coffee.html" title="Touch File (/src/methods/touch.coffee)">Touch File <span class="sr-only">(current)</span></a>
+                  <a href="find.coffee.html" title="Find (/src/method/find.coffee)">Find <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="level2">
+                  <a href="mkdirs.coffee.html" title="Make Directories (/src/method/mkdirs.coffee)">Make Directories</a>
+                </li>
+                <li class="level2">
+                  <a href="move.coffee.html" title="Move (/src/method/move.coffee)">Move</a>
+                </li>
+                <li class="level2">
+                  <a href="npmbin.coffee.html" title="Find Binary (/src/method/npmbin.coffee)">Find Binary</a>
+                </li>
+                <li class="level2">
+                  <a href="remove.coffee.html" title="Remove (/src/method/remove.coffee)">Remove</a>
+                </li>
+                <li class="level2">
+                  <a href="stat.coffee.html" title="File Stats (/src/method/stat.coffee)">File Stats</a>
+                </li>
+                <li class="level2">
+                  <a href="tempdir.coffee.html" title="Temp Directory (/src/method/tempdir.coffee)">Temp Directory</a>
+                </li>
+                <li class="level2">
+                  <a href="tempfile.coffee.html" title="Temp File (/src/method/tempfile.coffee)">Temp File</a>
+                </li>
+                <li class="level2">
+                  <a href="touch.coffee.html" title="Touch File (/src/method/touch.coffee)">Touch File</a>
                 </li>
                 <li class="level0">
                   <a href="../../Changelog.md.html" title="Version changes (/Changelog.md)">Version changes</a>
