@@ -80,6 +80,17 @@ For file parsing the following options may be specified:
   it and check the target of it and go into it (default: `false`)
 - `ignoreErrors` - `Boolean` - ignore dead symlinks otherwise an `Error` is created
   (default: `false`)
+
+
+Debugging
+---------------------------------------------------------
+This module uses the {@link debug} module so you may anytime call your app with
+the environment setting `DEBUG=fs:*` but keep in mind that this will output a
+lot of information. So better use the concrete setting in each module. Most have one
+defined with their name:
+
+    DEBUG=fs:*      -> complete fs package
+    DEBUG=fs:copy   -> only copy method
 ###
 
 
@@ -103,6 +114,6 @@ for name in [
   'npmbin', 'tempdir', 'tempfile', 'touch'
   'chowns', 'chmods'
 ]
-  command = require './methods/' + name
+  command = require './method/' + name
   for name, value of command
     afs[name] = value
