@@ -8,7 +8,7 @@ fs = require 'fs'
 
 describe "Filter on file size", ->
 
-  filter = require '../../src/methods/filter'
+  filter = require '../../src/method/filter'
 
   files = [
     'test/temp/file1'

@@ -8,7 +8,7 @@ fs = require 'fs'
 
 describe "Type filtering", ->
 
-  filter = require '../../src/methods/filter'
+  filter = require '../../src/method/filter'
 
   files = [
     'test/temp/file1'

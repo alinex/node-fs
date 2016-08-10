@@ -24,14 +24,10 @@ fs.mkdirs '/tmp/some/directory', (err, made) ->
 
 # Node Modules
 # -------------------------------------------------
+debug = require('debug') 'fs:mkdirs'
+chalk = require 'chalk'
 fs = require 'fs'
 path = require 'path'
-async = require 'async'
-
-
-# Setup
-# -------------------------------------------------
-RETRY = 3
 
 
 ###
@@ -54,21 +50,33 @@ mkdirs = module.exports.mkdirs = (dir, mode, cb = -> ) ->
   mode = parseInt mode, 8 if typeof mode is 'string'
   dir = path.resolve dir
   # try to create directory
-  async.retry RETRY,
-    (cb) -> fs.mkdir dir, mode, cb
-  , (err) ->
+  debug "directory #{dir}?"
+  fs.mkdir dir, mode, (err) ->
     # return on success
-    return cb null, dir ? dir unless err
+    unless err
+      debug "directory #{dir} created"
+      return cb null, dir ? dir
     if err.code is 'ENOENT'
+      debug chalk.grey "-> parent is missing"
       # parent directory missing
       mkdirs path.dirname(dir), mode, (err, made) ->
         return cb err, made if err
         # try again if parent was successful created
         fs.mkdir dir, mode, (err) ->
-          cb err, made
+          # return on success
+          unless err
+            debug "directory #{dir} created"
+            return cb null, made
+          if err.code is 'EEXIST'
+            # directory already exists
+            debug chalk.grey "-> directory #{dir} is there, now"
+            cb null, made
+          else
+            cb err, made
     else if err.code is 'EEXIST'
       # directory already exists
-      return cb()
+      debug chalk.grey "-> directory #{dir} was already there"
+      cb()
     else
       # other error let's fail the action
       cb err
@@ -93,23 +101,49 @@ mkdirsSync = module.exports.mkdirsSync = (dir, mode) ->
   dir = path.resolve dir
   # try to create directory
   try
-    # make retries
-    for i in[1..RETRY]
-      try
-        fs.mkdirSync dir, mode
-      catch error
-        throw error if i is RETRY
+    fs.mkdirSync dir, mode
+    debug "directory #{dir} created"
     return dir
   catch error
     if error.code is 'ENOENT'
       # parent directory missing
+      debug chalk.grey "-> parent is missing"
       made = mkdirsSync path.dirname(dir), mode
       # try again if parent was successful created
-      fs.mkdirSync dir, mode
-      return made
+      try
+        fs.mkdirSync dir, mode
+        debug "directory #{dir} created"
+        return made
+      catch error
+        if error.code is 'EEXIST'
+          debug chalk.grey "-> directory #{dir} is there, now"
+          return made
+        throw error
     else if error.code is 'EEXIST'
       # directory already exists
+      debug chalk.grey "directory #{dir} was already there"
       return null
     else
       # other error let's fail the action
       throw error
+
+
+###
+Debugging
+------------------------------------------------
+Debugging is possible using environment setting:
+
+    DEBUG=fs:mkdirs    -> shows each level of cloning
+
+    fs:mkdirs directory /home/alex/github/node-fs/test/temp/with/multiple/dirs? +0ms
+    fs:mkdirs -> parent is missing +1ms
+    fs:mkdirs directory /home/alex/github/node-fs/test/temp/with/multiple? +1ms
+    fs:mkdirs -> parent is missing +0ms
+    fs:mkdirs directory /home/alex/github/node-fs/test/temp/with? +0ms
+    fs:mkdirs -> parent is missing +0ms
+    fs:mkdirs directory /home/alex/github/node-fs/test/temp? +0ms
+    fs:mkdirs directory /home/alex/github/node-fs/test/temp created +0ms
+    fs:mkdirs directory /home/alex/github/node-fs/test/temp/with created +29ms
+    fs:mkdirs directory /home/alex/github/node-fs/test/temp/with/multiple created +0ms
+    fs:mkdirs directory /home/alex/github/node-fs/test/temp/with/multiple/dirs created +0ms
+###

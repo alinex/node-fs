@@ -40,7 +40,7 @@ describe "Recursive mkdirs", ->
         expect(fs.existsSync('test/temp'), 'postcheck').to.be.true
         cb()
 
-    it "should create multiple directories", (cb) ->
+    it.only "should create multiple directories", (cb) ->
       expect(fs.existsSync('test/temp'), 'precheck').to.be.false
       fs.mkdirs 'test/temp/with/multiple/dirs', (err, made) ->
         expect(err, 'error').to.be.null

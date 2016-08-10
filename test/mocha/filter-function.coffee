@@ -6,7 +6,7 @@ util = require 'util'
 
 describe "Own filter function", ->
 
-  filter = require '../../src/methods/filter'
+  filter = require '../../src/method/filter'
 
   files = [
     'a', 'b', 'c', 'd'
