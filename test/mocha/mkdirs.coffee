@@ -51,7 +51,7 @@ describe "Recursive mkdirs", ->
         expect(fs.existsSync('test/temp/with/multiple/dirs'), 'postcheck').to.be.true
         cb()
 
-    it "should fail because too much directories to create", (cb) ->
+    it.only "should fail because too much directories to create", (cb) ->
       fs.mkdirs 'test/temp/too/much/with/multiple/dirs', null, 2, (err, made) ->
         expect(err, 'error').to.not.be.null
         expect(made, 'made dir').to.not.exist

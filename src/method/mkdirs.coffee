@@ -68,7 +68,7 @@ mkdirs = module.exports.mkdirs = ->
     if err.code is 'ENOENT'
       if maxnum is 1
         err.message = err.message.replace /^.*?:/, "Not allowed to create as many directories:"
-        throw err
+        return cb err
       debug chalk.grey "-> parent is missing"
       # parent directory missing
       mkdirs path.dirname(dir), mode, --maxnum, (err, made) ->
