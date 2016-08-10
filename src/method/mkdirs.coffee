@@ -1,9 +1,12 @@
 ###
 Make Directories
 =================================================
-The basic [`mkdir()`](https://nodejs.org/api/fs.html#fs_fs_mkdir_path_mode_callback)
-will only create one level of directory. While this extension gives additional methods
-which will also create the full path if possible.
+The basic {@link fs.mkdir} will only create one directory. While this extension
+gives additional methods (in plural) which will also create the full path if possible.
+
+With the `maxnum` parameter you can control the maximum number of directories to create.
+So if more are neccessary it will given an `Error` and won't create something for
+this task.
 
 If an `EEXIST` code will be thrown internally this signals that the directory is already
 there so this methods will succeed without doing anything and without `Error`. All

@@ -2,11 +2,12 @@
 Filter Check
 =================================================
 The filter is used to select some of the files based on specific settings.
-The filter is given as options array which may have some of the following
-specification settings.
+You can't call the filter directly but it is used from most methods for file selection.
 
-But some methods may have special additional options not mentioned here.
+The filter definition is given as options array which may have some of the following
+specification settings. But some methods may have special additional options not mentioned here.
 
+The filter can have the following options:
 - `include` - `Array|String` - to specify a inclusion pattern
 - `exclude` to specify an exclusion pattern
 - `dereference` set to true to follow symbolic links
