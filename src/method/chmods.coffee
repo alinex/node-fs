@@ -1,12 +1,32 @@
 ###
-Change Rights
+Change Mode
 =================================================
-Change the ownership of path like {@link fs.chmod} but recursively.
+Change the files mode bits consisting of the file permission bits plus the set-user-ID,
+set-group-ID, and sticky bits.
 
 The options object is the same as used for {@link find.coffee} with the additional mode:
 - `mode` - `Integer` - to be set on the matching entries
 - `dereference` - `Boolean`
 - `ignoreErrors` - `Boolean`
+
+The file mode is a bit mask with the following bits (octal notation):
+
+| Name |  BIT  | Description                    |
+|:----:| ----- | ------------------------------ |
+| SUID | 04000 | set process effective user ID  |
+| SGID | 02000 | set process effective group ID |
+| SVTX | 01000 | sticky bit                     |
+| RUSR | 00400 | read by owner                  |
+| WUSR | 00200 | write by owner                 |
+| XUSR | 00100 | execute/access by owner        |
+| RGRP | 00040 | read by group                  |
+| WGRP | 00020 | write by group                 |
+| XGRP | 00010 | execute/access by group        |
+| ROTH | 00004 | read by others                 |
+| WOTH | 00002 | write by others                |
+| XOTH | 00001 | execute/access by others       |
+
+To change the file mode you have to be privileged to do so.
 ###
 
 

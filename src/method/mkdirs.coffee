@@ -5,9 +5,9 @@ The basic [`mkdir()`](https://nodejs.org/api/fs.html#fs_fs_mkdir_path_mode_callb
 will only create one level of directory. While this extension gives additional methods
 which will also create the full path if possible.
 
-If an `EEXIST` code will be thrown this signals that the directory is already there so
-this methods will succeed without doing anything and without `Error`. All other errors
-will be given back.
+If an `EEXIST` code will be thrown internally this signals that the directory is already
+there so this methods will succeed without doing anything and without `Error`. All
+other errors will be given back.
 
 Example Use
 ---------------------------------------------------
@@ -26,6 +26,12 @@ fs.mkdirs '/tmp/some/directory', (err, made) ->
 # -------------------------------------------------
 fs = require 'fs'
 path = require 'path'
+async = require 'async'
+
+
+# Setup
+# -------------------------------------------------
+RETRY = 3
 
 
 ###
@@ -48,7 +54,9 @@ mkdirs = module.exports.mkdirs = (dir, mode, cb = -> ) ->
   mode = parseInt mode, 8 if typeof mode is 'string'
   dir = path.resolve dir
   # try to create directory
-  fs.mkdir dir, mode, (err) ->
+  async.retry RETRY,
+    (cb) -> fs.mkdir dir, mode, cb
+  , (err) ->
     # return on success
     return cb null, dir ? dir unless err
     if err.code is 'ENOENT'
@@ -85,7 +93,12 @@ mkdirsSync = module.exports.mkdirsSync = (dir, mode) ->
   dir = path.resolve dir
   # try to create directory
   try
-    fs.mkdirSync dir, mode
+    # make retries
+    for i in[1..RETRY]
+      try
+        fs.mkdirSync dir, mode
+      catch error
+        throw error if i is RETRY
     return dir
   catch error
     if error.code is 'ENOENT'

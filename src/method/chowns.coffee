@@ -4,8 +4,8 @@ Change Ownership
 Recursive change file ownership like {@link fs.chown}.
 
 The options object is the same as used for {@link find.coffee} with the additional mode:
-- `uid`
-- `gid`
+- `uid` - `Integer` - user id to set
+- `gid` - `Integer` - group id to set
 - `dereference` - `Boolean`
 - `ignoreErrors` - `Boolean`
 ###
