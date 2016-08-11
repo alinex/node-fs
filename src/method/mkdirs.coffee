@@ -1,7 +1,7 @@
 ###
 Make Directories
 =================================================
-The basic {@link fs.mkdir} will only create one directory. While this extension
+The basic {@link fs.mkdir()} will only create one directory. While this extension
 gives additional methods (in plural) which will also create the full path if possible.
 
 With the `maxnum` parameter you can control the maximum number of directories to create.
@@ -151,7 +151,9 @@ Debugging
 ------------------------------------------------
 Debugging is possible using environment setting:
 
-    DEBUG=fs:mkdirs    -> shows each level of cloning
+```
+DEBUG=fs:mkdirs
+```
 
     fs:mkdirs directory /home/alex/github/node-fs/test/temp/with/multiple/dirs? +0ms
     fs:mkdirs -> parent is missing +1ms

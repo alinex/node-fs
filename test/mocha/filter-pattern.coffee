@@ -4,7 +4,7 @@ expect = chai.expect
 async = require 'async'
 util = require 'util'
 
-describe "Pattern matching filter", ->
+describe.only "Pattern matching filter", ->
 
   filter = require '../../src/method/filter'
 

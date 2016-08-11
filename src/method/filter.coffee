@@ -44,10 +44,13 @@ util = require 'util'
 # External Methods
 # -------------------------------------------------
 
+# Check if the given file is ok or should be filtered out.
+#
 # @param {String} file to check against filter conditions
 # @param {Integer} [depth=0] search depth for integer (internally used)
 # @param {Object} [options] specifications for check defining which files to copy
-# @param {function(<>Error>)} [cb] callback which is called after done with possible `Èrror`
+# @param {function(<Boolean>)} [cb] callback if decided with `true` if ok and
+# `false` if element should not be used
 module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
   return cb true unless options? and Object.keys(options).length
   subpath = file.split /\//
@@ -67,10 +70,13 @@ module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
     ], (skip) ->
       cb not skip
 
+# Check if the given file is ok or should be filtered out.
+#
 # @param {String} file to check against filter conditions
 # @param {Integer} [depth=0] search depth for integer (internally used)
 # @param {Object} [options] specifications for check defining which files to copy
-# @throws {Error} if anything out of order happened
+# @return {Boolean} flag if decided with `true` if ok and
+# `false` if element should not be used
 module.exports.filterSync = (file, depth = 0, options = {}) ->
   return true unless options? and Object.keys(options).length
   debug "check #{file} for " + util.inspect options
@@ -96,15 +102,25 @@ module.exports.filterSync = (file, depth = 0, options = {}) ->
 # successfully it will return nothing.
 
 ###
-#3 File/path matching
+#3 File/Path Matching
 
 This is based on glob expressions like used in unix systems. You may use these
 as the `include` or `exclude` pattern while the `exclude` pattern has the higher
 priority. All files are matched which are in the include pattern and not in the
 exclude pattern.
 
-The pattern may be a regular expression or a glob pattern string with
-the following specification:
+Both patterns may also be given as `Array` to match multiple. If multiple are given
+they are combined logically using OR meaning that at least one include have to match
+and no exclude should match.
+
+__Regular expressions__
+
+The pattern may be a regular expression given as String. See {@link RegExp()}
+for the format description.
+
+__Pattern Matching__
+
+Alternatively you may use glob pattern string with the following specification:
 
 To use one of the special characters `*`, `?` or `[` you have to preceed it with an
 backslash.
@@ -133,37 +149,49 @@ Extended globbing is also possible:
 - *(list): Matches zero or more occurrences of the given patterns.
 - +(list): Matches one or more occurrences of the given patterns.
 - @(list): Matches one of the given patterns.
+
+See more information about pattern matching in {@link minimatch}.
 ###
 
-# ### Test the path
-# This is done using Minimatch or RegExp
+# This is done using Minimatch or RegExp.
+#
+# @see {@link skipPathSync()} for description
 skipPath = (file, options, cb) ->
   cb skipPathSync file, options
 
+# This is done using Minimatch or RegExp.
+#
+# @param {String} file path to be checked
+# @param {Object} options defined settings
+# @return {Boolean} flag to skip this file
 skipPathSync = (file, options) ->
   return false unless options.include or options.exclude
   if options.include
-    if options.include instanceof RegExp
-      unless file.match options.include
-        debug "skip #{file} because path not included (regexp)"
-        return true
-    else if options.include isnt path.basename file
-      minimatch = require 'minimatch'
-      unless minimatch file, options.include, {matchBase: true}
-        debug "skip #{file} because path not included (glob)"
-        return true
+    list = if Array.isArray options.include then options.include else [options.include]
+    for include in list
+      if include instanceof RegExp
+        unless file.match include
+          debug "skip #{file} because path not included (regexp)"
+          return true
+      else if include isnt path.basename file
+        minimatch = require 'minimatch'
+        unless minimatch file, include, {matchBase: true}
+          debug "skip #{file} because path not included (glob)"
+          return true
   if options.exclude
-    if options.exclude instanceof RegExp
-      if file.match options.exclude
-        debug "skip #{file} because path excluded (regexp)"
-        return 'SKIPPATH'
-    else if options.exclude is path.basename file
-      return true
-    else
-      minimatch = require 'minimatch'
-      if minimatch file, options.exclude, {matchBase: true}
-        debug "skip #{file} because path excluded (glob)"
-        return 'SKIPPATH'
+    list = if Array.isArray options.exclude then options.exclude else [options.exclude]
+    for exclude in list
+      if exclude instanceof RegExp
+        if file.match exclude
+          debug "skip #{file} because path excluded (regexp)"
+          return 'SKIPPATH'
+      else if exclude is path.basename file
+        return true
+      else
+        minimatch = require 'minimatch'
+        if minimatch file, exclude, {matchBase: true}
+          debug "skip #{file} because path excluded (glob)"
+          return 'SKIPPATH'
   return false
 
 
