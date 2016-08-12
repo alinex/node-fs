@@ -55,7 +55,8 @@ filter = require './filter'
 @param {String} source path or file to be copied
 @param {String} target file or directory to copy to
 @param {Object} [options] specifications for check defining which files to copy
-@param {function(<Error>)} [cb] callback which is called after done with possible `Èrror`
+@param {function(<Error>)} [cb] callback which is called after done with possible `Èrror`:
+- Target file already exists
 @internal The `depth` parameter is only used internally.
 @param {Integer} [depth=0] current depth in file tree
 ###
@@ -115,6 +116,7 @@ copy = module.exports.copy = (source, target, options, cb, depth = 0) ->
 @param {String} target file or directory to copy to
 @param {Object} [options] specifications for check defining which files to copy
 @throws {Error} if anything out of order happened
+- Target file already exists
 @internal The `depth` parameter is only used internally.
 @param {Integer} [depth=0] current depth in file tree
 ###
