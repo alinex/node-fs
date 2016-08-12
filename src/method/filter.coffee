@@ -8,24 +8,28 @@ The filter definition is given as options array which may have some of the follo
 specification settings. But some methods may have special additional options not mentioned here.
 
 The filter can have the following options:
-- `include` - `Array|String` - to specify a inclusion pattern
-- `exclude` to specify an exclusion pattern
-- `dereference` set to true to follow symbolic links
-- `ignoreErrors` set to true to forget errors and go on
-- `mindepth` minimal depth to match
-- `maxdepth` maximal depth to match
-- `type` the inode type (file/directory/link)
-- `test` own function to use
-- `minsize` minimal filesize
-- `maxsize` maximal filesize
-- `user` owner name or id
-- `group` owner group name or id
-- `accessedAfter`
-- `accessedBefore`
-- `modifiedAfter`
-- `modifiedBefore`
-- `createdAfter`
-- `createdBefore`
+- `include` - `Array<String|RegExp>|String|RegExp` to specify a inclusion pattern
+- `exclude` - `Array<String|RegExp>|String|RegExp` to specify an exclusion pattern
+- `mindepth` - `Integer` minimal depth to match
+- `maxdepth` - `Integer` maximal depth to match
+- `dereference` - `Boolean` set to true to follow symbolic links
+- `type` - `String` the inode type it should be one of:
+  - `file`, `f`
+  - `directory`, `dir`, `d`
+  - `link`, `l`
+  - `fifo`, `pipe`, `p`
+  - `socket`, `s`
+- `minsize` - `Integer|String` minimal filesize
+- `maxsize` - `Integer|String` maximal filesize
+- `user` - `Integer|String` owner name or id
+- `group` - `Integer|String` owner group name or id
+- `accessedAfter` - `Integer|String` last access time should be after that value
+- `accessedBefore` - `Integer|String` last access time should be before that value
+- `modifiedAfter` - `Integer|String` last modified time should be after that value
+- `modifiedBefore` - `Integer|String` last modified time should be before that value
+- `createdAfter` - `Integer|String` creation time should be after that value
+- `createdBefore` - `Integer|String` creation time should be before that value
+- `test` - `Function` own function to use
 
 If you use multiple options all of them have to match the file to be valid.
 See the details below.
@@ -34,12 +38,14 @@ See the details below.
 
 # Node Modules
 # -------------------------------------------------
+debug = require('debug')('fs:filter')
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
 chrono = require 'chrono-node'
-debug = require('debug')('fs:filter')
 util = require 'util'
+# internal helpers
+helper = require './helper'
 
 
 # External Methods
@@ -49,9 +55,12 @@ util = require 'util'
 #
 # @param {String} file to check against filter conditions
 # @param {Integer} [depth=0] search depth for integer (internally used)
-# @param {Object} [options] specifications for check defining which files to copy
-# @param {function(<Boolean>)} [cb] callback if decided with `true` if ok and
-# `false` if element should not be used
+# @param {Object} [options] specifications for check defining which files to use
+# like defined above
+# @param {function(<Boolean>)} [cb] callback if decided with
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# - `undefined` to also stop going into subdirectories
 module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
   return cb true unless options? and Object.keys(options).length
   subpath = file.split /\//
@@ -74,9 +83,12 @@ module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
 #
 # @param {String} file to check against filter conditions
 # @param {Integer} [depth=0] search depth for integer (internally used)
-# @param {Object} [options] specifications for check defining which files to copy
-# @return {Boolean} flag if decided with `true` if ok and
-# `false` if element should not be used
+# @param {Object} [options] specifications for check defining which files to use
+# like defined above
+# @return {Boolean} flag if decided with
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# - `undefined` to also stop going into subdirectories
 module.exports.filterSync = (file, depth = 0, options = {}) ->
   return true unless options? and Object.keys(options).length
   debug "check #{file} for " + util.inspect options
@@ -154,15 +166,29 @@ See more information about pattern matching in {@link minimatch}.
 
 # This is done using Minimatch or RegExp.
 #
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `include` - `Array<String|RegExp>|String|RegExp` to specify a inclusion pattern
+# - `exclude` - `Array<String|RegExp>|String|RegExp` to specify an exclusion pattern
+# @param {function(<Boolean>|<String>)} cb callback with
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# - `SKIPPATH` to also stop going into subdirectories
 # @see {@link skipPathSync()} for description
 skipPath = (file, options, cb) ->
   cb skipPathSync file, options
 
 # This is done using Minimatch or RegExp.
 #
-# @param {String} file path to be checked
-# @param {Object} options defined settings
-# @return {Boolean} flag to skip this file
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `include` - `Array<String|RegExp>|String|RegExp` to specify a inclusion pattern
+# - `exclude` - `Array<String|RegExp>|String|RegExp` to specify an exclusion pattern
+# @return {Boolean|String} result may be
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# - `SKIPPATH` to also stop going into subdirectories
+# @see {@link skipPath()} for description
 skipPathSync = (file, options) ->
   return false unless options.include or options.exclude
   if options.include
@@ -203,11 +229,78 @@ skipPathSync = (file, options) ->
 
 The search depth specifies in which level of subdirectories the filter will match.
 1 means everything in the given directory, 2 one level deeper.
+- `mindepth` - `Integer` minimal depth to match
+- `maxdepth` - `Integer` maximal depth to match
+###
 
-- `mindepth` minimal depth to match
-- `maxdepth` maximal depth to match
+# The depth calculation has to be done in the traversing method this will only
+# check the value against the options.
+#
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `mindepth` - `Integer` minimal depth to match
+# - `maxdepth` - `Integer` maximal depth to match
+# @param {function(<Boolean>|<String>)} cb callback with
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# - `SKIPPATH` to also stop going into subdirectories
+# @see {@link skipDepthSync()} for description
+skipDepth = (file, depth, options, cb) ->
+  cb skipDepthSync file, depth, options
 
+# The depth calculation has to be done in the traversing method this will only
+# check the value against the options.
+#
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `mindepth` - `Integer` minimal depth to match
+# - `maxdepth` - `Integer` maximal depth to match
+# @return {Boolean|String} with possible value
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# - `SKIPPATH` to also stop going into subdirectories
+# @see {@link skipDepth()} for description
+skipDepthSync = (file, depth, options) ->
+  if options.maxdepth? and options.maxdepth < depth
+    debug "skip #{file} because deeper than specified depth"
+    return 'SKIPPATH'
+  if options.mindepth? and options.mindepth > depth
+    debug "skip #{file} because not in specified depth"
+    return true
+  return false
 
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `dereference` - `Boolean` set to true to follow symbolic links
+# @üaram {function(<Error>, <fs.Stats>)} cb the callback with `Èrror` or the
+# {@link fs.Stats} information
+# @see used in {@link skipType()}
+# @description If dereferencing failed it will automazically anaöyse the link itself.
+filestat = (file, options, cb) ->
+  stat = if options.dereference? then fs.stat else fs.lstat
+  stat file, (err, stats) ->
+    if err and options.dereference?
+      debug "error resolving #{file} link"
+      return filestat file, {}, cb
+    cb err, stats
+
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `dereference` - `Boolean` set to true to follow symbolic links
+# @return {fs.Stats} {@link fs.Stats} information
+# @throw {Error} if a problem occured
+# @see used in {@link skipTypeSync()}
+# @description If dereferencing failed it will automazically anaöyse the link itself.
+filestatSync = (file, options) ->
+  stat = if options.dereference? then fs.statSync else fs.lstatSync
+  try
+    return stat file
+  catch error
+    debug "error resolving #{file} link #{error.message}"
+    return filestatSync file, {} if options.dereference?
+    throw error
+
+###
 #3 File type
 
 Use `type` to specify which type of file you want to use.
@@ -219,48 +312,25 @@ Possible values:
 - `link`, `l`
 - `fifo`, `pipe`, `p`
 - `socket`, `s`
+
+Also you may set `dereference` to `true` to follow symbolic links and analyze their
+target.
 ###
 
-
-# ### Test the file depth
-# The depth calculation has to be done in the traversing method this will only
-# check the value against the options.
-skipDepth = (file, depth, options, cb) ->
-  cb skipDepthSync file, depth, options
-
-skipDepthSync = (file, depth, options) ->
-  skip = (options.mindepth? and options.mindepth > depth) or
-    (options.maxdepth? and options.maxdepth < depth)
-  debug "skip #{file} because not in specified depth" if skip
-  return skip
-
-###
-#3 File size
-
-With the `minsize` and  `maxsize` options it is possible to specify the exact
-size of the matching files in bytes:
-
-- use an integer value as number of bytes
-- use a string like `1M` or `100k`
-###
-
-filestat = (file, options, cb) ->
-  stat = if options.dereference? then fs.stat else fs.lstat
-  stat file, (err, stats) ->
-    if err and options.dereference?
-      debug "error resolving #{file} link"
-      return filestat file, {}, cb
-    cb err, stats
-
-filestatSync = (file, options) ->
-  stat = if options.dereference? then fs.statSync else fs.lstatSync
-  try
-    return stat file
-  catch error
-    debug "error resolving #{file} link #{error.message}"
-    return filestatSync file, {}
-
-# ### Test the file type
+# Check the type of the inode.
+#
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `type` - `String` the inode type it should be one of:
+#   - `file`, `f`
+#   - `directory`, `dir`, `d`
+#   - `link`, `l`
+#   - `fifo`, `pipe`, `p`
+#   - `socket`, `s`
+# @param {function(<Boolean>)} cb callback with
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# @see {@link skipTypeSync()} for description
 skipType = (file, options, cb) ->
   return cb() unless options.type
   filestat file, options, (err, stats) ->
@@ -285,6 +355,20 @@ skipType = (file, options, cb) ->
         debug "skip #{file} because not a socket entry"
     return cb true
 
+# Check the type of the inode.
+#
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `type` - `String` the inode type it should be one of:
+#   - `file`, `f`
+#   - `directory`, `dir`, `d`
+#   - `link`, `l`
+#   - `fifo`, `pipe`, `p`
+#   - `socket`, `s`
+# @return {Boolean} with
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# @see {@link skipType()} for description
 skipTypeSync = (file, options) ->
   return false unless options.type
   try
@@ -310,8 +394,10 @@ skipTypeSync = (file, options) ->
       debug "skip #{file} because not a socket entry"
   return true
 
-
-# ### Test for filesize
+# Transform human size format to binary value.
+#
+# @param {String} text human format of file size
+# @return {Integer} number of bytes
 sizeHumanToInt = (text) ->
   if typeof text is 'string' and match = text.match /^(\d*\.?\d*)\s*([kKmMgGtTpP])$/
     return switch match[2]
@@ -322,6 +408,26 @@ sizeHumanToInt = (text) ->
       when 'P', 'P' then match[1] * Math.pow 1024, 5
   text
 
+###
+#3 File size
+
+With the `minsize` and  `maxsize` options it is possible to specify the exact
+size of the matching files in bytes:
+
+- use an `Integer` value as number of bytes
+- use a `String` like `1M` or `100k`
+###
+
+# Check the type of the inode.
+#
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `minsize` - `Integer|String` minimal filesize
+# - `maxsize` - `Integer|String` maximal filesize
+# @param {function(<Boolean>)} cb callback with
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# @see {@link skipSizeSync()} for description
 skipSize = (file, options, cb) ->
   return cb() unless options.minsize or options.maxsize
   options.minsize = sizeHumanToInt options.minsize if options.minsize
@@ -335,6 +441,16 @@ skipSize = (file, options, cb) ->
     debug "skip #{file} because size mismatch" if skip
     cb skip
 
+# Check the type of the inode.
+#
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `minsize` - `Integer|String` minimal filesize
+# - `maxsize` - `Integer|String` maximal filesize
+# @return {Boolean} one of
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# @see {@link skipSize()} for description
 skipSizeSync = (file, options) ->
   return false unless options.minsize or options.maxsize
   options.minsize = sizeHumanToInt options.minsize if options.minsize
@@ -356,52 +472,23 @@ You may also specify files based on the user which owns the files or the group
 of the files.
 
 Both may be specified as id (uid or gid) or using the alias name.
+- `user` - `Integer|String` owner name or id
+- `group` - `Integer|String` owner group name or id
 ###
 
-# ### Check the owwner and group
-userToUid = (user, cb) ->
-  return cb null, user unless user and not isNaN user
-  fs.readFile '/etc/passwd', {encoding: 'utf-8'}, (err, data) ->
-    return cb err if err
-    for line in data.split /\n/
-      cols = line.split /:/
-      return cb null, cols[2] if cols[0] is user
-    fs.stat '/Users/'+user, (err, stats) ->
-      return cb user if err
-      cb null, stats.uid
-
-userToUidSync = (user) ->
-  return user unless user and not isNaN user
-  data = fs.readFileSync '/etc/passwd', {encoding: 'utf-8'}
-  for line in data.split /\n/
-    cols = line.split /:/
-    return cols[2] if cols[0] is user
-  try
-    stats = fs.statSync '/Users/'+user
-  return stats.uid
-
-groupToGid = (group, cb) ->
-  return cb null, group unless group and not isNaN group
-  fs.readFile '/etc/group', {encoding: 'utf-8'}, (err, data) ->
-    return cb err if err
-    for line in data.split /\n/
-      cols = line.split /:/
-      return cb null, cols[2] if cols[0] is group
-    cb()
-
-groupToGidSync = (group) ->
-  return group unless group and not isNaN group
-  data = fs.readFileSync '/etc/group', {encoding: 'utf-8'}
-  for line in data.split /\n/
-    cols = line.split /:/
-    return cols[2] if cols[0] is group
-  return group
-
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `user` - `Integer|String` owner name or id
+# - `group` - `Integer|String` owner group name or id
+# @param {function(<Boolean>)} cb callback with
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# @see {@link skipOwnerSync()} for description
 skipOwner = (file, options, cb) ->
   return cb() unless options.user or options.group
-  userToUid options.user, (err, uid) ->
+  helper.userToUid options.user, (err, uid) ->
     return cb err if err
-    groupToGid options.group, (err, gid) ->
+    helper.groupToGid options.group, (err, gid) ->
       return cb err if err
       filestat file, options, (err, stats) ->
         if err
@@ -411,19 +498,48 @@ skipOwner = (file, options, cb) ->
         debug "skip #{file} because owner mismatch" if skip
         cb skip
 
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `user` - `Integer|String` owner name or id
+# - `group` - `Integer|String` owner group name or id
+# @return {Boolean} one of
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# @see {@link skipOwner()} for description
 skipOwnerSync = (file, options) ->
   return false unless options.user or options.group
-  uid = userToUidSync options.user
-  gid = groupToGidSync options.group
+  uid = helper.userToUidSync options.user
+  gid = helper.groupToGidSync options.group
   try
     stats = filestatSync file, options
   catch err
     debug "skip because error #{err} in stat for #{file}"
     return
-#  console.log file, uid, gid, stats.uid, stats.gid
   skip = (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
   debug "skip #{file} because owner mismatch" if skip
   return skip
+
+# Check the different file times.
+#
+# @param {fs.Stats} stats
+# @param {Object} options
+# @return {Boolean} one of
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# @throw {Error} Given value ... in option ... is invalid.
+timeCheck = (stats, options) ->
+  for type in ['accessed', 'modified', 'created']
+    for dir in ['After', 'Before']
+      continue unless options[type+dir]
+      # try to read as specific date
+      ref = options[type+dir]
+      ref = chrono.parseDate(ref)?.getTime()/1000 if typeof ref is 'string'
+      unless ref
+        throw new Error "Given value '#{options[type+dir]}' in option #{type+dir} is invalid."
+      value = stats[type.charAt(0) + 'time'].getTime()/1000
+      return false if dir is 'Before' and value >= ref
+      return false if dir is 'After' and value <= ref
+  return true
 
 ###
 #3 Time specification
@@ -455,25 +571,18 @@ __Examle__
 
 ###
 
-# ### Check file times
-# All timestamps maybe checked with before and after to select the files.
-#
-# This may be enhanced later using date.js for human readable date specifications.
-timeCheck = (stats, options) ->
-  for type in ['accessed', 'modified', 'created']
-    for dir in ['After', 'Before']
-      continue unless options[type+dir]
-      # try to read as specific date
-      ref = options[type+dir]
-      ref = chrono.parseDate(ref)?.getTime()/1000 if typeof ref is 'string'
-      unless ref
-        throw new Error "Given value '#{options[type+dir]}' in option #{type+dir} is invalid."
-      value = stats[type.charAt(0) + 'time'].getTime()/1000
-#      console.log type, dir, options[type+dir], value, ref
-      return false if dir is 'Before' and value >= ref
-      return false if dir is 'After' and value <= ref
-  return true
-
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `accessedAfter` - `Integer|String` last access time should be after that value
+# - `accessedBefore` - `Integer|String` last access time should be before that value
+# - `modifiedAfter` - `Integer|String` last modified time should be after that value
+# - `modifiedBefore` - `Integer|String` last modified time should be before that value
+# - `createdAfter` - `Integer|String` creation time should be after that value
+# - `createdBefore` - `Integer|String` creation time should be before that value
+# @param {function(<Boolean>)} cb callback with
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# @see {@link skipOwnerSync()} for description
 skipTime = (file, options, cb) ->
   used = false
   for type in ['accessed', 'modified', 'created']
@@ -484,12 +593,22 @@ skipTime = (file, options, cb) ->
     if err
       debug "skip because error #{err} in stat for #{file}"
       return cb()
-#    console.log file, stats
     skip = not timeCheck stats, options
-#    console.log file, skip
     debug "skip #{file} because out of time range" if skip
     cb skip
 
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `accessedAfter` - `Integer|String` last access time should be after that value
+# - `accessedBefore` - `Integer|String` last access time should be before that value
+# - `modifiedAfter` - `Integer|String` last modified time should be after that value
+# - `modifiedBefore` - `Integer|String` last modified time should be before that value
+# - `createdAfter` - `Integer|String` creation time should be after that value
+# - `createdBefore` - `Integer|String` creation time should be before that value
+# @return {Boolean} one of
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# @see {@link skipTime()} for description
 skipTimeSync = (file, options) ->
   used = false
   for type in ['accessed', 'modified', 'created']
@@ -536,15 +655,29 @@ console.log("Found " + list.length + " matches.");
 ```
 ###
 
-# ### User provided test
 # Here a function can be given which will be invoked and should return true
 # if file can be used or false.
+#
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `test` - `Function` with same interface as this one
+# @param {function(<Boolean>)} cb callback with
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# @see {@link skipFunctionSync()} for description
 skipFunction = (file, options, cb) ->
   return cb() unless options.test or typeof options.test is not 'function'
   options.test file, options, (ok) ->
     debug "skip #{file} by user function" unless ok
     cb not ok
 
+# @param {String} file with full path
+# @param {Object} options specification of check
+# - `test` - `Function` with same interface as this one
+# @return {Boolean} one of
+# - `true` if ok and can be used
+# - `false` if element should not be used
+# @see {@link skipFunction()} for description
 skipFunctionSync = (file, options) ->
   return false unless options.test or typeof options.test is not 'function'
   ok = options.test file, options
