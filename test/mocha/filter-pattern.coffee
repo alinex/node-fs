@@ -110,6 +110,16 @@ describe.only "Pattern matching filter", ->
         (cb) -> check {include: /^a/, exclude: /c$/}, ['/a', '/abd', '/abe'], cb
       ], cb
 
+    it "should match multiple", (cb) ->
+      async.series [
+        (cb) -> check {include: ['ab*', 'cb*']}, ['/abc', '/abd', '/abe', '/cb'], cb
+      ], cb
+
+    it "should exclude multiple", (cb) ->
+      async.series [
+        (cb) -> check {exclude: ['a*', 'b*']}, ['/c', '/d', '/ca', '/cb', '/dd', '/de', '/bdir/cfile', '/z*', '/z?', '/z[', '/z]', '/z-', '/z1z', '/z2z'], cb
+      ], cb
+
   describe "synchronous", ->
 
     it "should match start using asterix", ->

@@ -1,5 +1,5 @@
 ###
-Copy
+Copy Files
 =================================================
 This will copy a single file, complete directory or selection from directory.
 It will make exact copies of the files as far as possible including times, ownership

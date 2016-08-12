@@ -1,5 +1,5 @@
 ###
-Move
+Move Files
 =================================================
 This will move a single file, complete directory or selection from directory. This
 is the same as copy the files and remove them afterwards.

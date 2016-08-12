@@ -1,5 +1,5 @@
 ###
-Touch File
+Touch Files
 =================================================
 The touch methods allow the following options:
 - `reference` - file path used as reference

@@ -1,5 +1,5 @@
 ###
-Filter Check
+Filter Rules
 =================================================
 The filter is used to select some of the files based on specific settings.
 You can't call the filter directly but it is used from most methods for file selection.
@@ -31,6 +31,7 @@ If you use multiple options all of them have to match the file to be valid.
 See the details below.
 ###
 
+
 # Node Modules
 # -------------------------------------------------
 fs = require 'fs'
@@ -54,7 +55,6 @@ util = require 'util'
 module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
   return cb true unless options? and Object.keys(options).length
   subpath = file.split /\//
-#  subpath.shift() if subpath.length > 1
   subpath = subpath[subpath.length-depth..].join '/'
   skipPath (subpath ? file), options, (skip) ->
     if skip
@@ -81,7 +81,6 @@ module.exports.filterSync = (file, depth = 0, options = {}) ->
   return true unless options? and Object.keys(options).length
   debug "check #{file} for " + util.inspect options
   subpath = file.split /\//
-#  subpath.shift() if subpath.length > 1
   subpath = subpath[subpath.length-depth..].join '/'
   if res = skipPathSync (subpath ? file), options
     return undefined if res is 'SKIPPATH'
@@ -168,16 +167,20 @@ skipPathSync = (file, options) ->
   return false unless options.include or options.exclude
   if options.include
     list = if Array.isArray options.include then options.include else [options.include]
+    ok = false
     for include in list
       if include instanceof RegExp
-        unless file.match include
-          debug "skip #{file} because path not included (regexp)"
-          return true
+        if file.match include
+          ok = true
+          break
       else if include isnt path.basename file
         minimatch = require 'minimatch'
-        unless minimatch file, include, {matchBase: true}
-          debug "skip #{file} because path not included (glob)"
-          return true
+        if minimatch file, include, {matchBase: true}
+          ok = true
+          break
+    unless ok
+      debug "skip #{file} because path not included"
+      return true
   if options.exclude
     list = if Array.isArray options.exclude then options.exclude else [options.exclude]
     for exclude in list

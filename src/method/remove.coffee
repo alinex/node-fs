@@ -1,5 +1,5 @@
 ###
-Remove
+Remove Files
 =================================================
 This method will remove the given `path` entry and if it is a directory it
 will also remove any containing data or only the selection of files.

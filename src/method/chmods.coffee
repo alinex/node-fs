@@ -12,7 +12,7 @@ The options object is the same as used for {@link find.coffee} with the addition
 The file mode is a bit mask with the following bits (octal notation):
 
 | Name |  BIT  | Description                    |
-|:----:| ----- | ------------------------------ |
+|:----:|:-----:| ------------------------------ |
 | SUID | 04000 | set process effective user ID  |
 | SGID | 02000 | set process effective group ID |
 | SVTX | 01000 | sticky bit                     |
