@@ -50,6 +50,12 @@ helper = require './helper'
 
 # External Methods
 # -------------------------------------------------
+# ::: warning
+# The meaning of the return values from the {@link find()} and {@link findSync()}
+# methods are the opposite of the `skip...()` methods. Because `skip...()` will
+# return `true` if this should not be used and `filter...()` will return `true`
+# if the file should be kept and not filtered out.
+# :::
 
 # Check if the given file is ok or should be filtered out.
 #
@@ -171,8 +177,8 @@ See more information about pattern matching in {@link minimatch}.
 # - `include` - `Array<String|RegExp>|String|RegExp` to specify a inclusion pattern
 # - `exclude` - `Array<String|RegExp>|String|RegExp` to specify an exclusion pattern
 # @param {function(<Boolean>|<String>)} cb callback with
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # - `SKIPPATH` to also stop going into subdirectories
 # @see {@link skipPathSync()} for description
 skipPath = (file, options, cb) ->
@@ -185,8 +191,8 @@ skipPath = (file, options, cb) ->
 # - `include` - `Array<String|RegExp>|String|RegExp` to specify a inclusion pattern
 # - `exclude` - `Array<String|RegExp>|String|RegExp` to specify an exclusion pattern
 # @return {Boolean|String} result may be
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # - `SKIPPATH` to also stop going into subdirectories
 # @see {@link skipPath()} for description
 skipPathSync = (file, options) ->
@@ -241,8 +247,8 @@ The search depth specifies in which level of subdirectories the filter will matc
 # - `mindepth` - `Integer` minimal depth to match
 # - `maxdepth` - `Integer` maximal depth to match
 # @param {function(<Boolean>|<String>)} cb callback with
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # - `SKIPPATH` to also stop going into subdirectories
 # @see {@link skipDepthSync()} for description
 skipDepth = (file, depth, options, cb) ->
@@ -256,8 +262,8 @@ skipDepth = (file, depth, options, cb) ->
 # - `mindepth` - `Integer` minimal depth to match
 # - `maxdepth` - `Integer` maximal depth to match
 # @return {Boolean|String} with possible value
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # - `SKIPPATH` to also stop going into subdirectories
 # @see {@link skipDepth()} for description
 skipDepthSync = (file, depth, options) ->
@@ -328,8 +334,8 @@ target.
 #   - `fifo`, `pipe`, `p`
 #   - `socket`, `s`
 # @param {function(<Boolean>)} cb callback with
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # @see {@link skipTypeSync()} for description
 skipType = (file, options, cb) ->
   return cb() unless options.type
@@ -366,8 +372,8 @@ skipType = (file, options, cb) ->
 #   - `fifo`, `pipe`, `p`
 #   - `socket`, `s`
 # @return {Boolean} with
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # @see {@link skipType()} for description
 skipTypeSync = (file, options) ->
   return false unless options.type
@@ -425,8 +431,8 @@ size of the matching files in bytes:
 # - `minsize` - `Integer|String` minimal filesize
 # - `maxsize` - `Integer|String` maximal filesize
 # @param {function(<Boolean>)} cb callback with
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # @see {@link skipSizeSync()} for description
 skipSize = (file, options, cb) ->
   return cb() unless options.minsize or options.maxsize
@@ -448,8 +454,8 @@ skipSize = (file, options, cb) ->
 # - `minsize` - `Integer|String` minimal filesize
 # - `maxsize` - `Integer|String` maximal filesize
 # @return {Boolean} one of
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # @see {@link skipSize()} for description
 skipSizeSync = (file, options) ->
   return false unless options.minsize or options.maxsize
@@ -481,8 +487,8 @@ Both may be specified as id (uid or gid) or using the alias name.
 # - `user` - `Integer|String` owner name or id
 # - `group` - `Integer|String` owner group name or id
 # @param {function(<Boolean>)} cb callback with
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # @see {@link skipOwnerSync()} for description
 skipOwner = (file, options, cb) ->
   return cb() unless options.user or options.group
@@ -503,8 +509,8 @@ skipOwner = (file, options, cb) ->
 # - `user` - `Integer|String` owner name or id
 # - `group` - `Integer|String` owner group name or id
 # @return {Boolean} one of
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # @see {@link skipOwner()} for description
 skipOwnerSync = (file, options) ->
   return false unless options.user or options.group
@@ -524,8 +530,8 @@ skipOwnerSync = (file, options) ->
 # @param {fs.Stats} stats
 # @param {Object} options
 # @return {Boolean} one of
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # @throw {Error} Given value ... in option ... is invalid.
 timeCheck = (stats, options) ->
   for type in ['accessed', 'modified', 'created']
@@ -580,8 +586,8 @@ __Examle__
 # - `createdAfter` - `Integer|String` creation time should be after that value
 # - `createdBefore` - `Integer|String` creation time should be before that value
 # @param {function(<Boolean>)} cb callback with
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # @see {@link skipOwnerSync()} for description
 skipTime = (file, options, cb) ->
   used = false
@@ -606,8 +612,8 @@ skipTime = (file, options, cb) ->
 # - `createdAfter` - `Integer|String` creation time should be after that value
 # - `createdBefore` - `Integer|String` creation time should be before that value
 # @return {Boolean} one of
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # @see {@link skipTime()} for description
 skipTimeSync = (file, options) ->
   used = false
@@ -662,8 +668,8 @@ console.log("Found " + list.length + " matches.");
 # @param {Object} options specification of check
 # - `test` - `Function` with same interface as this one
 # @param {function(<Boolean>)} cb callback with
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # @see {@link skipFunctionSync()} for description
 skipFunction = (file, options, cb) ->
   return cb() unless options.test or typeof options.test is not 'function'
@@ -675,8 +681,8 @@ skipFunction = (file, options, cb) ->
 # @param {Object} options specification of check
 # - `test` - `Function` with same interface as this one
 # @return {Boolean} one of
-# - `true` if ok and can be used
-# - `false` if element should not be used
+# - `true` if element should not be used
+# - `false` if ok and can be used
 # @see {@link skipFunction()} for description
 skipFunctionSync = (file, options) ->
   return false unless options.test or typeof options.test is not 'function'

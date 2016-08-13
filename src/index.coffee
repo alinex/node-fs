@@ -41,6 +41,10 @@ Because the decision of using asynchroneous or synchroneous methods is based on
 blocking IO as far as possible you should better use this methods async and do some
 other things in parallel.
 
+Only if your could is synchroneous anyway and you can't do other things while the
+IO works the use of the corresponding `...Sync()` methods are easier to add. It will
+also be more readable in major to guys not so involved in async programming.
+
 Asynchroneous call:
 
 ``` coffee
