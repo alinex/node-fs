@@ -168,6 +168,18 @@ Extended globbing is also possible:
 - @(list): Matches one of the given patterns.
 
 See more information about pattern matching in {@link minimatch}.
+
+__Example__
+
+``` coffee
+fs = require 'alinex-fs'
+fs.find '/tmp/some/directory',
+  include: 'a*'
+  exclude: '*c'
+, (err, list) ->
+  # list may include 'a', 'abd', 'abe'
+  # but not 'abc'
+```
 ###
 
 # This is done using Minimatch or RegExp.
@@ -237,6 +249,18 @@ The search depth specifies in which level of subdirectories the filter will matc
 1 means everything in the given directory, 2 one level deeper.
 - `mindepth` - `Integer` minimal depth to match
 - `maxdepth` - `Integer` maximal depth to match
+
+__Example__
+
+``` coffee
+fs = require 'alinex-fs'
+fs.find '/tmp/some/directory',
+  mindepth: 1
+  maxdepth: 1
+, (err, list) ->
+  # only the first sublevele:
+  # list may include 'dir1/abc', 'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'
+```
 ###
 
 # The depth calculation has to be done in the traversing method this will only
@@ -321,6 +345,16 @@ Possible values:
 
 Also you may set `dereference` to `true` to follow symbolic links and analyze their
 target.
+
+__Example__
+
+``` coffee
+fs = require 'alinex-fs'
+fs.find '/tmp/some/directory',
+  type: 'f'
+, (err, list) ->
+  # list may include 'test/temp/file1', 'test/temp/file2', 'test/temp/dir1/file11'
+```
 ###
 
 # Check the type of the inode.
@@ -422,6 +456,16 @@ size of the matching files in bytes:
 
 - use an `Integer` value as number of bytes
 - use a `String` like `1M` or `100k`
+
+__Example__
+
+``` coffee
+fs = require 'alinex-fs'
+fs.find '/tmp/some/directory',
+  maxsize: 1024 * 1024
+, (err, list) ->
+  # list contains only files larger than 1MB
+```
 ###
 
 # Check the type of the inode.
@@ -480,6 +524,16 @@ of the files.
 Both may be specified as id (uid or gid) or using the alias name.
 - `user` - `Integer|String` owner name or id
 - `group` - `Integer|String` owner group name or id
+
+__Example__
+
+``` coffee
+fs = require 'alinex-fs'
+fs.find '/tmp/some/directory',
+  user: process.uid
+, (err, list) ->
+  # list contains only files belonging to the current user
+```
 ###
 
 # @param {String} file with full path
@@ -495,9 +549,9 @@ skipOwner = (file, options, cb) ->
   helper.userToUid options.user, (err, uid) ->
     return cb err if err
     helper.groupToGid options.group, (err, gid) ->
-      return cb err if err
       filestat file, options, (err, stats) ->
         if err
+          return cb err if err
           debug "skip because error #{err} in stat for #{file}"
           return cb()
         skip = (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
@@ -571,10 +625,15 @@ The following time definitions are an example what you may use:
 
 If only a day is given it will use 12:00 as the time.
 
-__Examle__
+__Example__
 
-    modifiedBefore: 'yesterday 12:00'
-
+``` coffee
+fs = require 'alinex-fs'
+fs.find '/tmp/some/directory',
+  modifiedBefore: 'yesterday 12:00'
+, (err, list) ->
+  # list contains only files older than yesterday 12 o'clock
+```
 ###
 
 # @param {String} file with full path
