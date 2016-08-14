@@ -4,6 +4,8 @@ Filter Rules
 The filter is used to select some of the files based on specific settings.
 You can't call the filter directly but it is used from most methods for file selection.
 
+#4 Options
+
 The filter definition is given as options array which may have some of the following
 specification settings. But some methods may have special additional options not mentioned here.
 
@@ -33,6 +35,11 @@ The filter can have the following options:
 
 If you use multiple options all of them have to match the file to be valid.
 See the details below.
+
+#4 Multiple Option Sets
+
+Multiple sets of the above rules can also be given as list of option arrays. If so
+all files are allowed, which match any of the given option sets.
 ###
 
 
@@ -61,55 +68,65 @@ system = require './system'
 #
 # @param {String} file to check against filter conditions
 # @param {Integer} [depth=0] search depth for integer (internally used)
-# @param {Object} [options] specifications for check defining which files to use
-# like defined above
+# @param {Array<Object>|Object} [options] specifications for check defining which
+# files to use like defined above
 # @param {function(<Boolean>)} [cb] callback if decided with
 # - `true` if ok and can be used
 # - `false` if element should not be used
 # - `undefined` to also stop going into subdirectories
 module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
-  return cb true unless options? and Object.keys(options).length
+  return cb true unless options?
+  list = if Array.isArray options then options else [options]
   subpath = file.split /\//
   subpath = subpath[subpath.length-depth..].join '/'
-  skipPath (subpath ? file), options, (skip) ->
-    if skip
-      return cb() if skip is 'SKIPPATH'
-      return cb false
-    async.parallel [
-      (cb) -> skipDepth file, depth, options, cb
-      (cb) -> skipType file, options, cb
-      (cb) -> skipSize file, options, cb
-      (cb) -> skipTime file, options, cb
-      (cb) -> skipOwner file, options, cb
-      (cb) -> skipFunction file, options, cb
-    ], (skip) ->
-      cb not skip
+  async.map list, (options, cb) ->
+    return cb true unless Object.keys(options).length
+    skipPath (subpath ? file), options, (skip) ->
+      if skip
+        return cb skip if skip is 'SKIPPATH'
+        return cb false
+      async.parallel [
+        (cb) -> skipDepth file, depth, options, cb
+        (cb) -> skipType file, options, cb
+        (cb) -> skipSize file, options, cb
+        (cb) -> skipTime file, options, cb
+        (cb) -> skipOwner file, options, cb
+        (cb) -> skipFunction file, options, cb
+      ], (skip) ->
+        cb not skip
+  , (err) ->
+    return cb() if err is 'SKIPPATH'
+    cb if err then true else false
 
 # Check if the given file is ok or should be filtered out.
 #
 # @param {String} file to check against filter conditions
 # @param {Integer} [depth=0] search depth for integer (internally used)
-# @param {Object} [options] specifications for check defining which files to use
-# like defined above
+# @param {Array<Object>|Object} [options] specifications for check defining which
+# files to use like defined above
 # @return {Boolean} flag if decided with
 # - `true` if ok and can be used
 # - `false` if element should not be used
 # - `undefined` to also stop going into subdirectories
-module.exports.filterSync = (file, depth = 0, options = {}) ->
-  return true unless options? and Object.keys(options).length
-  debug "check #{file} for " + util.inspect options
+module.exports.filterSync = (file, depth = 0, options) ->
+  return true unless options?
+  list = if Array.isArray options then options else [options]
   subpath = file.split /\//
   subpath = subpath[subpath.length-depth..].join '/'
-  if res = skipPathSync (subpath ? file), options
-    return undefined if res is 'SKIPPATH'
-    return false
-  return false if skipTypeSync file, options
-  return false if skipDepthSync file, depth, options
-  return false if skipSizeSync file, options
-  return false if skipTimeSync file, options
-  return false if skipOwnerSync file, options
-  return false if skipFunctionSync file, options
-  true
+  for options in list
+    return true unless Object.keys(options).length
+    debug "check #{file} for " + util.inspect options
+    if res = skipPathSync (subpath ? file), options
+      return undefined if res is 'SKIPPATH'
+      continue
+    continue if skipTypeSync file, options
+    continue if skipDepthSync file, depth, options
+    continue if skipSizeSync file, options
+    continue if skipTimeSync file, options
+    continue if skipOwnerSync file, options
+    continue if skipFunctionSync file, options
+    return true
+  false
 
 
 # Skip Methods
@@ -696,7 +713,7 @@ With the `test` parameter you may add an user defined function which will be
 called to check each file. It will get the file path and options array so you
 may also add some configuration therefore in additional option values.
 
-Asynchrony call:
+Asynchroneous call:
 
 ``` coffee
 fs.find('.', {
@@ -708,7 +725,7 @@ fs.find('.', {
 });
 ```
 
-Or use synchrony calls:
+Or use synchroneous calls:
 
 ``` coffee
 var list = fs.findSync('test/temp', {
