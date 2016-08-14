@@ -239,6 +239,9 @@ skipPathSync = (file, options) ->
         if minimatch file, include, {matchBase: true}
           ok = true
           break
+      else
+        ok = true
+        break
     unless ok
       debug "skip #{file} because path not included"
       return true

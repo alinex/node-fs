@@ -71,8 +71,8 @@ find = module.exports.find = (source, options, cb , depth = 0 ) ->
       depth++
       fs.readdir source, (err, files) ->
         return cb err if err
-        # sqrt(num) as first and fewer: (10, 3, 3, 3)
-        parallel = Math.floor if depth
+        # sqrt(num) as first and fewer: (10, 4, 4, 4)
+        parallel = Math.ceil if depth
           Math.sqrt Math.sqrt options.parallel ? 100
         else
           Math.sqrt options.parallel ? 100
