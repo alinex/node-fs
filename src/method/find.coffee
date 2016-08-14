@@ -5,7 +5,7 @@ This is a powerfull method to search for files on the local filesystem. It works
 recursively with multiple checks and to get a file list as quick as possible.
 
 In addition to the {@link filter.coffee} the follwoing options may be set here:
-- `dereference` - dereference symbolic links and go into them
+- `dereference` - `Boolean` dereference symbolic links and go into them
 - `ìgnoreErrors` - `Boolean` go on and ignore IO errors
 - `parallel` - `Integer` number of estimated maximum parallel calls in asynchronous run
   (default to 100)

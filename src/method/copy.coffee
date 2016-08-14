@@ -8,12 +8,14 @@ without an explicit error.
 
 To select which files to copy you may specify it like in the {@link find.coffee find}
 method. But the following options may be used:
-* `overwrite` -
-  if set to `true` it will not fail if destination file already exists and
-  overwrite it
-* `ignore` -
-  if set to `true` it will not fail if destination file already exists, skip
-  this and go on with the next file
+- `overwrite` - `Boolean` if set to `true` it will not fail if destination file
+  already exists and overwrite it
+- `ignore` - `Boolean` it will not fail if destination file already exists
+  but skip this and go on with the next file
+- `dereference` - `Boolean` dereference symbolic links and go into them
+- `ìgnoreErrors` - `Boolean` go on and ignore IO errors
+- `parallel` - `Integer` number of estimated maximum parallel calls in asynchronous run
+  (default to 100)
 
 __Example:__
 
@@ -37,6 +39,7 @@ fs.copy '/tmp/some/directory', '/new/destination',
 ```
 ###
 
+
 # Node Modules
 # -------------------------------------------------
 fs = require 'fs'
@@ -54,8 +57,8 @@ filter = require '../helper/filter'
 ###
 @param {String} source path or file to be copied
 @param {String} target file or directory to copy to
-@param {Object} [options] specifications for check defining which files to copy
-@param {function(<Error>)} [cb] callback which is called after done with possible `Èrror`:
+@param {Array<Object>|Object} [options] specifications for check defining which files to copy
+@param {function(Error)} [cb] callback which is called after done with possible `Èrror`:
 - Target file already exists
 @internal The `depth` parameter is only used internally.
 @param {Integer} [depth=0] current depth in file tree
@@ -107,14 +110,19 @@ copy = module.exports.copy = (source, target, options, cb, depth = 0) ->
           # make directory
           mkdirs.mkdirs target, stats.mode, (err) ->
             return cb err if err
-            async.each files, (file, cb) ->
+            # sqrt(num) as first and fewer: (10, 4, 4, 4)
+            parallel = Math.ceil if depth
+              Math.sqrt Math.sqrt options.parallel ? 100
+            else
+              Math.sqrt options.parallel ? 100
+            async.eachLimit files, parallel, (file, cb) ->
               copy path.join(source, file), path.join(target, file), options, cb, depth
             , cb
 
 ###
 @param {String} source path or file to be copied
 @param {String} target file or directory to copy to
-@param {Object} [options] specifications for check defining which files to copy
+@param {Array<Object>|Object} [options] specifications for check defining which files to copy
 @throws {Error} if anything out of order happened
 - Target file already exists
 @internal The `depth` parameter is only used internally.
