@@ -4,6 +4,16 @@ Find Files
 This is a powerfull method to search for files on the local filesystem. It works
 recursively with multiple checks and to get a file list as quick as possible.
 
+In addition to the {@link filter.coffee} the follwoing options may be set here:
+- `dereference` - dereference symbolic links and go into them
+- `ìgnoreErrors` - `Boolean` go on and ignore IO errors
+- `parallel` - `Integer` number of estimated maximum parallel calls in asynchronous run
+  (default to 100)
+
+To not completely exhaust the system or the allowed open files per process use the
+parallel limit but because this runs recursively the square root of the given value
+is used for the first and less for each other level of depth.
+
 __Example:__
 
 ``` coffee
@@ -24,11 +34,6 @@ path = require 'path'
 async = require 'async'
 # helper modules
 filter = require '../helper/filter'
-
-
-# Setup
-# ------------------------------------------------
-PARALLEL = 10
 
 
 # Exported Methods
@@ -66,8 +71,13 @@ find = module.exports.find = (source, options, cb , depth = 0 ) ->
       depth++
       fs.readdir source, (err, files) ->
         return cb err if err
+        # sqrt(num) as first and fewer: (10, 3, 3, 3)
+        parallel = Math.floor if depth
+          Math.sqrt Math.sqrt options.parallel ? 100
+        else
+          Math.sqrt options.parallel ? 100
         # collect files from each subentry
-        async.mapLimit files.sort(), PARALLEL, (file, cb) ->
+        async.mapLimit files.sort(), parallel, (file, cb) ->
           find path.join(source, file), options, cb, depth
         , (err, results) ->
           return cb err if err

@@ -4,7 +4,7 @@ expect = chai.expect
 async = require 'async'
 util = require 'util'
 
-describe.only "Pattern matching filter", ->
+describe "Pattern matching filter", ->
 
   filter = require '../../src/helper/filter'
 
@@ -120,7 +120,7 @@ describe.only "Pattern matching filter", ->
         (cb) -> check {exclude: ['a*', 'b*']}, ['/c', '/d', '/ca', '/cb', '/dd', '/de', '/bdir/cfile', '/z*', '/z?', '/z[', '/z]', '/z-', '/z1z', '/z2z'], cb
       ], cb
 
-    it.only "should match multiple (using different sets)", (cb) ->
+    it "should match multiple (using different sets)", (cb) ->
       async.series [
         (cb) -> check [
           {include: 'ab*'}

@@ -713,7 +713,7 @@ With the `test` parameter you may add an user defined function which will be
 called to check each file. It will get the file path and options array so you
 may also add some configuration therefore in additional option values.
 
-Asynchroneous call:
+Asynchronous call:
 
 ``` coffee
 fs.find('.', {
@@ -725,7 +725,7 @@ fs.find('.', {
 });
 ```
 
-Or use synchroneous calls:
+Or use synchronous calls:
 
 ``` coffee
 var list = fs.findSync('test/temp', {
