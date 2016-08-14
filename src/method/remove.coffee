@@ -30,7 +30,7 @@ path = require 'path'
 async = require 'async'
 fs = require 'fs'
 # internal helper methods
-filter = require './filter'
+filter = require '../helper/filter'
 
 
 ###

@@ -45,7 +45,7 @@ async = require 'async'
 debug = require('debug')('fs:copy')
 # include other extended commands and helper
 mkdirs = require './mkdirs'
-filter = require './filter'
+filter = require '../helper/filter'
 
 
 # Exported Methods

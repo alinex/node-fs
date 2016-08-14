@@ -6,7 +6,7 @@ util = require 'util'
 
 describe.only "Pattern matching filter", ->
 
-  filter = require '../../src/method/filter'
+  filter = require '../../src/helper/filter'
 
   # Tests based on
   # -------------------------------------------------------

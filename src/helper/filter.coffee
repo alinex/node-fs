@@ -45,7 +45,7 @@ async = require 'async'
 chrono = require 'chrono-node'
 util = require 'util'
 # internal helpers
-helper = require './helper'
+system = require './system'
 
 
 # External Methods
@@ -546,9 +546,9 @@ fs.find '/tmp/some/directory',
 # @see {@link skipOwnerSync()} for description
 skipOwner = (file, options, cb) ->
   return cb() unless options.user or options.group
-  helper.userToUid options.user, (err, uid) ->
+  system.userToUid options.user, (err, uid) ->
     return cb err if err
-    helper.groupToGid options.group, (err, gid) ->
+    system.groupToGid options.group, (err, gid) ->
       filestat file, options, (err, stats) ->
         if err
           return cb err if err
@@ -568,8 +568,8 @@ skipOwner = (file, options, cb) ->
 # @see {@link skipOwner()} for description
 skipOwnerSync = (file, options) ->
   return false unless options.user or options.group
-  uid = helper.userToUidSync options.user
-  gid = helper.groupToGidSync options.group
+  uid = system.userToUidSync options.user
+  gid = system.groupToGidSync options.group
   try
     stats = filestatSync file, options
   catch err

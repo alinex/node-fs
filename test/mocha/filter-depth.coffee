@@ -6,7 +6,7 @@ util = require 'util'
 
 describe "Filter file structure depth", ->
 
-  filter = require '../../src/method/filter'
+  filter = require '../../src/helper/filter'
 
   files = [
     'a', 'b', 'c', 'd', 'dir1'

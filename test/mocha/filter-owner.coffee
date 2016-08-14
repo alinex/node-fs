@@ -8,7 +8,7 @@ fs = require 'fs'
 
 describe "Filter by owner", ->
 
-  filter = require '../../src/method/filter'
+  filter = require '../../src/helper/filter'
 
   files = [
     'test/temp/file1'

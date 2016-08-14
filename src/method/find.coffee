@@ -23,7 +23,7 @@ fs = require 'fs'
 path = require 'path'
 async = require 'async'
 # helper modules
-filter = require './filter'
+filter = require '../helper/filter'
 
 
 # Setup
