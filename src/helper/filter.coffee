@@ -51,8 +51,7 @@ path = require 'path'
 async = require 'async'
 chrono = require 'chrono-node'
 util = require 'util'
-# internal helpers
-system = require './system'
+posix = require 'posix'
 
 
 # External Methods
@@ -566,17 +565,26 @@ fs.find '/tmp/some/directory',
 # @see {@link skipOwnerSync()} for description
 skipOwner = (file, options, cb) ->
   return cb() unless options.user or options.group
-  system.userToUid options.user, (err, uid) ->
-    return cb err if err
-    system.groupToGid options.group, (err, gid) ->
-      filestat file, options, (err, stats) ->
-        if err
-          return cb err if err
-          debug "skip because error #{err} in stat for #{file}"
-          return cb()
-        skip = (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
-        debug "skip #{file} because owner mismatch" if skip
-        cb skip
+  # user/group string to id
+  if options.user and not isNaN options.user
+    try
+      uid = posix.getpwnam(options.user).uid
+    catch error
+      return cb error
+  if options.group and not isNaN options.group
+    try
+      gid = posix.getgrnam(options.group).gid
+    catch error
+      return cb error
+  # run check
+  filestat file, options, (err, stats) ->
+    if err
+      return cb err if err
+      debug "skip because error #{err} in stat for #{file}"
+      return cb()
+    skip = (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
+    debug "skip #{file} because owner mismatch" if skip
+    cb skip
 
 # @param {String} file with full path
 # @param {Object} options specification of check
@@ -588,13 +596,17 @@ skipOwner = (file, options, cb) ->
 # @see {@link skipOwner()} for description
 skipOwnerSync = (file, options) ->
   return false unless options.user or options.group
-  uid = system.userToUidSync options.user
-  gid = system.groupToGidSync options.group
+  # user/group string to id
+  if options.user and not isNaN options.user
+    uid = posix.getpwnam(options.user).uid
+  if options.group and not isNaN options.group
+    gid = posix.getgrnam(options.group).gid
+  # run check
   try
     stats = filestatSync file, options
   catch err
     debug "skip because error #{err} in stat for #{file}"
-    return
+    throw err
   skip = (uid and uid is not stats.uid) or (gid and gid is not stats.gid)
   debug "skip #{file} because owner mismatch" if skip
   return skip
