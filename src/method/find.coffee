@@ -7,8 +7,8 @@ recursively with multiple checks and to get a file list as quick as possible.
 In addition to the {@link filter.coffee} the follwoing options may be set here:
 - `dereference` - `Boolean` dereference symbolic links and go into them
 - `ìgnoreErrors` - `Boolean` go on and ignore IO errors
-- `parallel` - `Integer` number of estimated maximum parallel calls in asynchronous run
-  (default to 100)
+- `parallel` - `Integer` number of maximum parallel calls in asynchronous run
+  (defaults to half of open files limit per process on the system)
 
 To not completely exhaust the system or the allowed open files per process use the
 parallel limit but because this runs recursively the square root of the given value
@@ -32,8 +32,16 @@ debug = require('debug')('fs:find')
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
+posix = require 'posix'
 # helper modules
 filter = require '../helper/filter'
+
+
+# Setup
+# ------------------------------------------------
+# Maximum parallel processes is half of the soft limit for open files if not given
+# in the options.
+PARALLEL = Math.floor posix.getrlimit('nofile').soft / 2
 
 
 # Exported Methods
@@ -47,7 +55,7 @@ or the complete list of files found as `Àrray`
 @internal The `depth` parameter is only used internally.
 @param {Integer} [depth=0] current depth in file tree
 ###
-find = module.exports.find = (source, options, cb , depth = 0 ) ->
+module.exports.find = (source, options, cb , depth = 0 ) ->
   unless cb?
     cb = ->
   if typeof options is 'function' or not options
@@ -55,35 +63,46 @@ find = module.exports.find = (source, options, cb , depth = 0 ) ->
     options = {}
   list = []
   debug "check #{source}"
-  # Check the current file through filter options
-  filter.filter source, depth, options, (ok) ->
-    return cb null, list if ok is undefined
-    list.push source if ok
-    # check source entry
-    stat = if options.dereference? then fs.stat else fs.lstat
-    stat source, (err, stats) ->
-      if err
-        return cb null, [] if options?.ignoreErrors
-        return cb err
-      return cb null, list unless stats.isDirectory()
-      # source is directory
-      debug "going deeper into #{source} directory"
-      depth++
-      fs.readdir source, (err, files) ->
-        return cb err if err
-        # sqrt(num) as first and fewer: (10, 4, 4, 4)
-        parallel = Math.ceil if depth
-          Math.sqrt Math.sqrt options.parallel ? 100
-        else
-          Math.sqrt options.parallel ? 100
-        # collect files from each subentry
-        async.mapLimit files.sort(), parallel, (file, cb) ->
-          find path.join(source, file), options, cb, depth
-        , (err, results) ->
+  # create a queue
+  queue = async.queue (task, cb) ->
+    console.log "->", task
+    filter.filter task.source, task.depth, options, (ok) ->
+      console.log "<-", task, ok
+      return cb() if ok is undefined
+      # check source entry
+      stat = if options.dereference? then fs.stat else fs.lstat
+      stat task.source, (err, stats) ->
+        if err
+          return cb if options?.ignoreErrors then null else err
+        list.push task.source if ok
+        return cb null, list unless stats.isDirectory()
+        # source is directory
+        debug "going deeper into #{task.source} directory"
+        task.depth++
+        fs.readdir task.source, (err, files) ->
           return cb err if err
-          for result in results
-            list = list.concat result
-          cb null, list
+          # collect files from each subentry
+          for file in files
+            queue.push
+              source: "#{task.source}/#{file}"
+              depth: task.depth
+          cb()
+  , options.parallel ? PARALLEL
+  # add current file
+  console.log "push initial"
+  queue.push
+    source: source
+    depth: depth
+  # drain queue
+  queue.drain = ->
+    console.log 'all done', list
+    list.sort()
+    cb null, list
+  # some error occured, stop there
+  queue.error = (err) ->
+    queue.kill()
+    cb err
+    cb = ->
 
 ###
 @param {String} search source path to be searched in

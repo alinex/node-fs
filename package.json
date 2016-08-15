@@ -41,7 +41,8 @@
     "debug": ">=0.8.0 <3.0.0",
     "graceful-fs": "^4.1.5",
     "memoizee": "^0.4.1",
-    "minimatch": "^3.0.3"
+    "minimatch": "^3.0.3",
+    "posix": "^4.0.2"
   },
   "devDependencies": {
     "alinex-builder": "^2.3.5",
