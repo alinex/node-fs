@@ -10,16 +10,16 @@ Extended Functionality
 All the extended functions use the same naming convention as the node core, making
 the use nearly natural. And you can still use the native Node.js methods, also.
 
-Some of the native methods are slightly changed:
+Some of the **native methods** are slightly changed:
 - [stat/lstat](stat.coffee) - file stat retrieval (with caching)
 
-Additional methods:
+**Additional methods**:
 - [mkdirs](mkdirs.coffee) - recursive create depth directory with it's parents
 - [npmdir](npmdir.coffee) - find binary in NPM path
 - [tempdir](tempdir.coffee) - create temporary directory
 - [tempfile](tempfile.coffee) - create temporary file
 
-Working on multiple files using filter rules:
+Working on **multiple files** using filter rules:
 - [find](find.coffee) - search for files or directories
 - [copy](copy.coffee) - copy file, directory or selection
 - [move](move.coffee) - move file, directory or selection
@@ -29,7 +29,7 @@ Working on multiple files using filter rules:
 - [chmods](chmods.coffee) - change access rights of file, directory or selection
 
 Most methods use an options object which can specify how it works. The options are
-based on the (tree serach)[#tree_search] and {@link filter.coffee filter} specification.
+based on the tree serach and {@link filter.coffee filter specification}.
 Some also have their own options described within the method itself.
 
 
@@ -80,10 +80,16 @@ A lot of the extended methods allow traversing the directory tree and checking t
 found entries through the {@link filter.coffee filter} options.
 
 For file parsing the following options may be specified:
-- `dereference` - `Boolean` - don't use the symbolic link as an entry but dereference
+- {@link filter.coffee}
+- `dereference` - `Boolean` don't use the symbolic link as an entry but dereference
   it and check the target of it and go into it (default: `false`)
-- `ignoreErrors` - `Boolean` - ignore dead symlinks otherwise an `Error` is created
+- `ignoreErrors` - `Boolean` ignore dead symlinks otherwise an `Error` is created
   (default: `false`)
+- `parallel` - `Integer` number of maximum parallel calls in asynchronous run
+  (defaults to half of open files limit per process on the system)
+
+For all other look into the method description.
+
 
 
 Debugging

@@ -130,3 +130,16 @@ findSync = module.exports.findSync = (source, options = {}, depth = 0) ->
   for file in files.sort()
     list = list.concat findSync path.join(source, file), options, depth
   return list
+
+
+###
+Debugging
+---------------------------------------------------------
+This module uses the {@link debug} module so you may anytime call your app with
+the environment setting `DEBUG=fs:find` for the output of this method only.
+
+    fs:find check test/temp +0ms
+    fs:find going deeper into test/temp directory +4ms
+    fs:find going deeper into test/temp/dir1 directory +1ms
+    fs:find going deeper into test/temp/dir2 directory +0ms
+###

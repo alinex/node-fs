@@ -49,7 +49,7 @@ describe "Find", ->
         expect(list, 'result list').to.deep.equal['test/temp/dir3']
         cb()
 
-    it "list multiple files", (cb) ->
+    it.only "list multiple files", (cb) ->
       fs.find 'test/temp', (err, list) ->
         expect(err, 'error').to.not.exist
         expect(list, 'result list').to.deep.equal [
