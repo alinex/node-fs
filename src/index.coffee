@@ -80,7 +80,7 @@ A lot of the extended methods allow traversing the directory tree and checking t
 found entries through the {@link filter.coffee filter} options.
 
 For file parsing the following options may be specified:
-- {@link filter.coffee}
+- `filter` - `Array<Object>|Object` {@link filter.coffee}
 - `dereference` - `Boolean` don't use the symbolic link as an entry but dereference
   it and check the target of it and go into it (default: `false`)
 - `ignoreErrors` - `Boolean` ignore dead symlinks otherwise an `Error` is created

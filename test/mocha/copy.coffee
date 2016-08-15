@@ -20,7 +20,7 @@ describe "Recursive copy", ->
       return cb() unless exists
       exec 'rm -r test/temp', cb
 
-  describe.only "asynchronous", ->
+  describe "asynchronous", ->
 
     it "should fail if source don't exist", (cb) ->
       fs.copy 'test/temp/dir999', 'test/temp/dir10', (err) ->
@@ -72,7 +72,8 @@ describe "Recursive copy", ->
 
     it "should copy dir with filter", (cb) ->
       fs.copy 'test/temp/dir1', 'test/temp/dir4',
-        include: '*1'
+        filter:
+          include: '*1'
       , (err) ->
         expect(err, 'error').to.not.exist
         expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
@@ -81,15 +82,17 @@ describe "Recursive copy", ->
 
     it "should copy deep dir", (cb) ->
       fs.copy 'test/temp/dir1', 'test/temp/dir4',
-        mindepth: 1
-        maxdepth: 1
+        filter:
+          mindepth: 1
+          maxdepth: 1
       , (err) ->
         expect(err, 'error').to.not.exist
         expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
         expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.deep.equal ['file11']
         fs.copy 'test/temp/dir1', 'test/temp/dir5',
-          mindepth: 0
-          maxdepth: 0
+          filter:
+            mindepth: 0
+            maxdepth: 0
         , (err) ->
           expect(err, 'error').to.not.exist
           expect(fs.existsSync('test/temp/dir5'), 'new dir').to.be.true
@@ -169,19 +172,22 @@ describe "Recursive copy", ->
 
     it "should copy dir with filter", ->
       fs.copySync 'test/temp/dir1', 'test/temp/dir4',
-        include: '*1'
+        filter:
+          include: '*1'
       expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
       expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.deep.equal ['file11']
 
     it "should copy deep dir", ->
       fs.copySync 'test/temp/dir1', 'test/temp/dir4',
-        mindepth: 1
-        maxdepth: 1
+        filter:
+          mindepth: 1
+          maxdepth: 1
       expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
       expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.deep.equal ['file11']
       fs.copySync 'test/temp/dir1', 'test/temp/dir5',
-        mindepth: 0
-        maxdepth: 0
+        filter:
+          mindepth: 0
+          maxdepth: 0
       expect(fs.existsSync('test/temp/dir5'), 'new dir').to.be.true
       expect(fs.readdirSync('test/temp/dir5'), 'new dir').to.deep.equal []
 

@@ -4,7 +4,8 @@ Find Files
 This is a powerfull method to search for files on the local filesystem. It works
 recursively with multiple checks and to get a file list as quick as possible.
 
-In addition to the {@link filter.coffee} the follwoing options may be set here:
+To define which files to select you may use the following options::
+- `filter` - `Array<Object>|Object` {@link filter.coffee}
 - `dereference` - `Boolean` dereference symbolic links and go into them
 - `ìgnoreErrors` - `Boolean` go on and ignore IO errors
 - `parallel` - `Integer` number of maximum parallel calls in asynchronous run
@@ -18,7 +19,10 @@ __Example:__
 
 ``` coffee
 fs = require 'alinex-fs'
-fs.find '/tmp/some/directory', {include: '*.jpg'}, (err, list) ->
+fs.find '/tmp/some/directory',
+  filter:
+    include: '*.jpg'
+, (err, list) ->
   return console.error err if err
   console.log "Found " + list.length + " images."
   # do something with list

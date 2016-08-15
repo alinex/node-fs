@@ -49,7 +49,7 @@ describe "Find", ->
         expect(list, 'result list').to.deep.equal['test/temp/dir3']
         cb()
 
-    it.only "list multiple files", (cb) ->
+    it "list multiple files", (cb) ->
       fs.find 'test/temp', (err, list) ->
         expect(err, 'error').to.not.exist
         expect(list, 'result list').to.deep.equal [
@@ -65,7 +65,8 @@ describe "Find", ->
 
     it "list only files", (cb) ->
       fs.find 'test/temp',
-        type: 'f'
+        filter:
+          type: 'f'
       , (err, list) ->
         expect(err, 'error').to.not.exist
         expect(list, 'result list').to.deep.equal [
@@ -77,7 +78,8 @@ describe "Find", ->
 
     it "matching concrete file", (cb) ->
       fs.find 'test',
-        include: 'file2'
+        filter:
+          include: 'file2'
       , (err, list) ->
         expect(err, 'error').to.not.exist
         expect(list, 'result list').to.deep.equal [
@@ -87,7 +89,8 @@ describe "Find", ->
 
     it "matching files only", (cb) ->
       fs.find 'test/temp',
-        include: '*1'
+        filter:
+          include: '*1'
       , (err, list) ->
         expect(err, 'error').to.not.exist
         expect(list, 'result list').to.deep.equal [
@@ -99,8 +102,9 @@ describe "Find", ->
 
     it "matching specific levels", (cb) ->
       fs.find 'test/temp',
-        mindepth: 1
-        maxdepth: 1
+        filter:
+          mindepth: 1
+          maxdepth: 1
       , (err, list) ->
         expect(err, 'error').to.not.exist
         expect(list, 'result list').to.deep.equal [
@@ -190,7 +194,8 @@ describe "Find", ->
 
     it "matching files only", ->
       list = fs.findSync 'test/temp',
-        include: '*1'
+        filter:
+          include: '*1'
       expect(list, 'result list').to.deep.equal [
         'test/temp/dir1'
         'test/temp/dir1/file11'
@@ -199,8 +204,9 @@ describe "Find", ->
 
     it "matching specific levels", ->
       list = fs.findSync 'test/temp',
-        mindepth: 1
-        maxdepth: 1
+        filter:
+          mindepth: 1
+          maxdepth: 1
       expect(list, 'result list').to.deep.equal [
         'test/temp/dir1'
         'test/temp/dir2'

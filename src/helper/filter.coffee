@@ -9,7 +9,8 @@ You can't call the filter directly but it is used from most methods for file sel
 The filter definition is given as options array which may have some of the following
 specification settings. But some methods may have special additional options not mentioned here.
 
-The filter can have the following options:
+The filter is given as `filter` element in the options object and be specified as subobject
+or list of objects with these settings:
 - `include` - `Array<String|RegExp>|String|RegExp` to specify a inclusion pattern
 - `exclude` - `Array<String|RegExp>|String|RegExp` to specify an exclusion pattern
 - `mindepth` - `Integer` minimal depth to match
@@ -56,11 +57,13 @@ posix = require 'posix'
 
 # External Methods
 # -------------------------------------------------
-# ::: warning
+# ::: warning Changed Parameters
 # The meaning of the return values from the {@link find()} and {@link findSync()}
 # methods are the opposite of the `skip...()` methods. Because `skip...()` will
 # return `true` if this should not be used and `filter...()` will return `true`
 # if the file should be kept and not filtered out.
+#
+# Also the options of the skip method are
 # :::
 
 # Check if the given file is ok or should be filtered out.
@@ -74,8 +77,8 @@ posix = require 'posix'
 # - `false` if element should not be used
 # - `undefined` to also stop going into subdirectories
 module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
-  return cb true unless options?
-  list = if Array.isArray options then options else [options]
+  return cb true unless options?.filter?
+  list = if Array.isArray options.filter then options.filter else [options.filter]
   subpath = file.split /\//
   subpath = subpath[subpath.length-depth..].join '/'
   async.map list, (options, cb) ->
@@ -108,8 +111,8 @@ module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
 # - `false` if element should not be used
 # - `undefined` to also stop going into subdirectories
 module.exports.filterSync = (file, depth = 0, options) ->
-  return true unless options?
-  list = if Array.isArray options then options else [options]
+  return true unless options?.filter?
+  list = if Array.isArray options.filter then options.filter else [options.filter]
   subpath = file.split /\//
   subpath = subpath[subpath.length-depth..].join '/'
   for options in list
