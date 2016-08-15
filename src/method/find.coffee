@@ -65,37 +65,34 @@ module.exports.find = (source, options, cb , depth = 0 ) ->
   debug "check #{source}"
   # create a queue
   queue = async.queue (task, cb) ->
-    console.log "->", task
-    filter.filter task.source, task.depth, options, (ok) ->
-      console.log "<-", task, ok
-      return cb() if ok is undefined
-      # check source entry
-      stat = if options.dereference? then fs.stat else fs.lstat
-      stat task.source, (err, stats) ->
-        if err
-          return cb if options?.ignoreErrors then null else err
-        list.push task.source if ok
-        return cb null, list unless stats.isDirectory()
-        # source is directory
-        debug "going deeper into #{task.source} directory"
-        task.depth++
-        fs.readdir task.source, (err, files) ->
-          return cb err if err
-          # collect files from each subentry
-          for file in files
-            queue.push
-              source: "#{task.source}/#{file}"
-              depth: task.depth
-          cb()
+    async.setImmediate ->
+      filter.filter task.source, task.depth, options, (ok) ->
+        return cb() if ok is undefined
+        # check source entry
+        stat = if options.dereference? then fs.stat else fs.lstat
+        stat task.source, (err, stats) ->
+          if err
+            return cb if options?.ignoreErrors then null else err
+          list.push task.source if ok
+          return cb null, list unless stats.isDirectory()
+          # source is directory
+          debug "going deeper into #{task.source} directory"
+          task.depth++
+          fs.readdir task.source, (err, files) ->
+            return cb err if err
+            # collect files from each subentry
+            for file in files
+              queue.push
+                source: "#{task.source}/#{file}"
+                depth: task.depth
+            cb()
   , options.parallel ? PARALLEL
   # add current file
-  console.log "push initial"
   queue.push
     source: source
     depth: depth
   # drain queue
   queue.drain = ->
-    console.log 'all done', list
     list.sort()
     cb null, list
   # some error occured, stop there
