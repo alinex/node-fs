@@ -12,10 +12,12 @@ method. But the following options may be used:
   already exists and overwrite it
 - `ignore` - `Boolean` it will not fail if destination file already exists
   but skip this and go on with the next file
+- `noempty` - `Boolean` set to `true to don't create empty directories while no
+  files to copy into`
 - `dereference` - `Boolean` dereference symbolic links and go into them
 - `ìgnoreErrors` - `Boolean` go on and ignore IO errors
-- `parallel` - `Integer` number of estimated maximum parallel calls in asynchronous run
-  (default to 100)
+- `parallel` - `Integer` number of maximum parallel calls in asynchronous run
+  (defaults to half of open files limit per process on the system)
 
 __Example:__
 
@@ -42,13 +44,21 @@ fs.copy '/tmp/some/directory', '/new/destination',
 
 # Node Modules
 # -------------------------------------------------
+debug = require('debug')('fs:copy')
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
-debug = require('debug')('fs:copy')
+posix = require 'posix'
 # include other extended commands and helper
 mkdirs = require './mkdirs'
 filter = require '../helper/filter'
+
+
+# Setup
+# ------------------------------------------------
+# Maximum parallel processes is half of the soft limit for open files if not given
+# in the options.
+PARALLEL = Math.floor posix.getrlimit('nofile').soft / 2
 
 
 # Exported Methods
@@ -57,67 +67,88 @@ filter = require '../helper/filter'
 ###
 @param {String} source path or file to be copied
 @param {String} target file or directory to copy to
-@param {Array<Object>|Object} [options] specifications for check defining which files to copy
-@param {function(Error)} [cb] callback which is called after done with possible `Èrror`:
+@param {Array<Object>|Object} [options] specifications for check defining which files
+to copy
+@param {function(Error, Array<String>)} [cb] callback with list of newly created
+files and directly created directories or possible `Èrror`:
 - Target file already exists
 @internal The `depth` parameter is only used internally.
 @param {Integer} [depth=0] current depth in file tree
 ###
-copy = module.exports.copy = (source, target, options, cb, depth = 0) ->
+module.exports.copy = (source, target, options, cb, depth = 0) ->
   unless cb?
     cb = ->
   if typeof options is 'function' or not options
     cb = options ? ->
     options = {}
-  # check file entry
-  stat = if options.dereference? then fs.stat else fs.lstat
-  stat source, (err, stats) ->
-    if err
-      return cb() if options.ignoreErrors
-      return cb err
-    # Check the current file through filter options
-    filter.filter source, depth, options, (ok) ->
-      if stats.isFile()
-        return cb() unless ok
-        # create directory if necessary
-        mkdirs.mkdirs path.dirname(target), (err) ->
-          return cb err if err
-          # copy the file
-          fs.exists target, (exists) ->
-            if exists and not (options.overwrite or options.ignore)
-              return cb new Error "Target file already exists."
-            if not exists or options.overwrite
-              debug "copying file #{source} to #{target}"
-              return copyFile source, stats, target, cb
-            cb()
-      else if stats.isSymbolicLink()
-        return cb() unless ok
-        # create directory if necessary
-        mkdirs.mkdirs path.dirname(target), (err) ->
-          return cb err if err
-          debug "copying link #{source} to #{target}"
-          fs.readlink source, (err, resolvedPath) ->
-            return cb err if err
-            # make the symlink
-            fs.symlink resolvedPath, target, cb
-      else
-        # source is directory
-        depth++
-        fs.readdir source, (err, files) ->
-          return cb err if err
-          # copy all files in directory
-          debug "copying directory #{source} to #{target}"
-          # make directory
-          mkdirs.mkdirs target, stats.mode, (err) ->
-            return cb err if err
-            # sqrt(num) as first and fewer: (10, 4, 4, 4)
-            parallel = Math.ceil if depth
-              Math.sqrt Math.sqrt options.parallel ? 100
-            else
-              Math.sqrt options.parallel ? 100
-            async.eachLimit files, parallel, (file, cb) ->
-              copy path.join(source, file), path.join(target, file), options, cb, depth
-            , cb
+  list = []
+  # create a queue
+  queue = async.queue (task, cb) ->
+    debug "check #{task.source}"
+    async.setImmediate ->
+      filter.filter task.source, task.depth, options, (ok) ->
+        return cb() if ok is undefined
+        # check source entry
+        stat = if options.dereference? then fs.stat else fs.lstat
+        stat task.source, (err, stats) ->
+          if err
+            return cb if options?.ignoreErrors then null else err
+          target = target + task.source[source.length..]
+          if stats.isFile()
+            return cb() unless ok
+            # create directory if necessary
+            mkdirs.mkdirs path.dirname(target), (err) ->
+              return cb err if err
+              # copy the file
+              fs.exists target, (exists) ->
+                if exists and not (options.overwrite or options.ignore)
+                  return cb new Error "Target file already exists."
+                if not exists or options.overwrite
+                  debug "copying file #{task.source} to #{target}"
+                  list.push target
+                  return copyFile task.source, stats, target, cb
+                cb()
+          else if stats.isSymbolicLink()
+            return cb() unless ok
+            # create directory if necessary
+            mkdirs.mkdirs path.dirname(target), (err) ->
+              return cb err if err
+              debug "copying link #{task.source} to #{target}"
+              fs.readlink task.source, (err, resolvedPath) ->
+                return cb err if err
+                # make the symlink
+                list.push target
+                fs.symlink resolvedPath, target, cb
+          else
+            # source is directory
+            debug "going deeper into #{task.source} directory"
+            task.depth++
+            fs.readdir task.source, (err, files) ->
+              return cb err if err
+              # collect files from each subentry
+              for file in files
+                queue.push
+                  source: "#{task.source}/#{file}"
+                  depth: task.depth
+            return cb() if options.noempty
+            # create directory if necessary
+            list.push target
+            mkdirs.mkdirs target, cb
+  , options.parallel ? PARALLEL
+  # add current file
+  queue.push
+    source: source
+    depth: depth
+  # drain queue
+  queue.drain = ->
+    list.sort()
+    cb null, list
+  # some error occured, stop there
+  queue.error = (err) ->
+    queue.kill()
+    cb err
+    cb = ->
+
 
 ###
 @param {String} source path or file to be copied
@@ -125,6 +156,7 @@ copy = module.exports.copy = (source, target, options, cb, depth = 0) ->
 @param {Array<Object>|Object} [options] specifications for check defining which files to copy
 @throws {Error} if anything out of order happened
 - Target file already exists
+@return {Array<String>} list of newly created files and directly created directories
 @internal The `depth` parameter is only used internally.
 @param {Integer} [depth=0] current depth in file tree
 ###
@@ -135,6 +167,7 @@ copySync = module.exports.copySync = (source, target, options = {}, depth = 0) -
   catch error
     return if options.ignoreErrors
     throw error
+  list = []
   ok = filter.filterSync source, depth, options
   if stats.isFile()
     return unless ok
@@ -146,6 +179,7 @@ copySync = module.exports.copySync = (source, target, options = {}, depth = 0) -
       throw new Error "Target file already exists."
     if not exists or options.overwrite
       debug "copying file #{source} to #{target}"
+      list.push target
       return copyFileSync source, stats, target
   else if stats.isSymbolicLink()
     return unless ok
@@ -159,7 +193,9 @@ copySync = module.exports.copySync = (source, target, options = {}, depth = 0) -
     # source is directory
     depth++
     # copy directory
-    mkdirs.mkdirsSync target, stats.mode if ok
+    if ok and not options.noempty
+      list.push target
+      mkdirs.mkdirsSync target, stats.mode
     # copy all files in directory
     debug "copying directory #{source} to #{target}"
     for file in fs.readdirSync source
@@ -203,3 +239,23 @@ copyFileSync = (source, stats, target) ->
   fs.utimesSync target, stats.atime, stats.mtime
   fs.chownSync target, stats.uid, stats.gid
   fs.chmodSync target, stats.mode
+
+
+###
+Debugging
+---------------------------------------------------------
+This module uses the {@link debug} module so you may anytime call your app with
+the environment setting `DEBUG=fs:copy` for the output of this method only.
+
+Because there are `mkdirs` subcalls here you see the output of `DEBUG=fs:*` while
+copying a small directory:
+
+    fs:copy check test/temp/dir3 +32ms
+    fs:copy going deeper into test/temp/dir3 directory +1ms
+    fs:mkdirs directory /home/alex/github/node-fs/test/temp/dir4? +0ms
+    fs:copy check test/temp/dir3/file11 +0ms
+    fs:mkdirs directory /home/alex/github/node-fs/test/temp/dir4 created +0ms
+    fs:mkdirs directory /home/alex/github/node-fs/test/temp/dir4? +0ms
+    fs:mkdirs -> directory /home/alex/github/node-fs/test/temp/dir4 was already there +0ms
+    fs:copy copying file test/temp/dir3/file11 to test/temp/dir4/file11 +0ms
+###

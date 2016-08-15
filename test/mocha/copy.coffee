@@ -20,7 +20,7 @@ describe "Recursive copy", ->
       return cb() unless exists
       exec 'rm -r test/temp', cb
 
-  describe "asynchronous", ->
+  describe.only "asynchronous", ->
 
     it "should fail if source don't exist", (cb) ->
       fs.copy 'test/temp/dir999', 'test/temp/dir10', (err) ->

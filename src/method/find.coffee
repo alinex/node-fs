@@ -62,9 +62,9 @@ module.exports.find = (source, options, cb , depth = 0 ) ->
     cb = options ? ->
     options = {}
   list = []
-  debug "check #{source}"
   # create a queue
   queue = async.queue (task, cb) ->
+    debug "check #{task.source}"
     async.setImmediate ->
       filter.filter task.source, task.depth, options, (ok) ->
         return cb() if ok is undefined
@@ -139,7 +139,13 @@ This module uses the {@link debug} module so you may anytime call your app with
 the environment setting `DEBUG=fs:find` for the output of this method only.
 
     fs:find check test/temp +0ms
-    fs:find going deeper into test/temp directory +4ms
-    fs:find going deeper into test/temp/dir1 directory +1ms
+    fs:find going deeper into test/temp directory +3ms
+    fs:find check test/temp/dir1 +1ms
+    fs:find check test/temp/dir2 +0ms
+    fs:find check test/temp/dir3 +0ms
+    fs:find check test/temp/file1 +0ms
+    fs:find check test/temp/file2 +0ms
+    fs:find going deeper into test/temp/dir1 directory +0ms
     fs:find going deeper into test/temp/dir2 directory +0ms
+    fs:find check test/temp/dir1/file11 +1ms
 ###
