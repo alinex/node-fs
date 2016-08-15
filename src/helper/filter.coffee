@@ -193,8 +193,9 @@ __Example__
 ``` coffee
 fs = require 'alinex-fs'
 fs.find '/tmp/some/directory',
-  include: 'a*'
-  exclude: '*c'
+  filter:
+    include: 'a*'
+    exclude: '*c'
 , (err, list) ->
   # list may include 'a', 'abd', 'abe'
   # but not 'abc'
@@ -277,8 +278,9 @@ __Example__
 ``` coffee
 fs = require 'alinex-fs'
 fs.find '/tmp/some/directory',
-  mindepth: 1
-  maxdepth: 1
+  filter:
+    mindepth: 1
+    maxdepth: 1
 , (err, list) ->
   # only the first sublevele:
   # list may include 'dir1/abc', 'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'
@@ -373,7 +375,8 @@ __Example__
 ``` coffee
 fs = require 'alinex-fs'
 fs.find '/tmp/some/directory',
-  type: 'f'
+  filter:
+    type: 'f'
 , (err, list) ->
   # list may include 'test/temp/file1', 'test/temp/file2', 'test/temp/dir1/file11'
 ```
@@ -484,7 +487,8 @@ __Example__
 ``` coffee
 fs = require 'alinex-fs'
 fs.find '/tmp/some/directory',
-  maxsize: 1024 * 1024
+  filter:
+    maxsize: 1024 * 1024
 , (err, list) ->
   # list contains only files larger than 1MB
 ```
@@ -552,7 +556,8 @@ __Example__
 ``` coffee
 fs = require 'alinex-fs'
 fs.find '/tmp/some/directory',
-  user: process.uid
+  filter:
+    user: process.uid
 , (err, list) ->
   # list contains only files belonging to the current user
 ```
@@ -665,7 +670,8 @@ __Example__
 ``` coffee
 fs = require 'alinex-fs'
 fs.find '/tmp/some/directory',
-  modifiedBefore: 'yesterday 12:00'
+  filter:
+    modifiedBefore: 'yesterday 12:00'
 , (err, list) ->
   # list contains only files older than yesterday 12 o'clock
 ```
@@ -734,24 +740,24 @@ may also add some configuration therefore in additional option values.
 Asynchronous call:
 
 ``` coffee
-fs.find('.', {
-  test: function(file, options, cb) {
-    cb(~file.indexOf('ab'));
-  }
-}, function(err, list) {
-  console.log("Found " + list.length + " matches.");
-});
+fs = require 'alinex-fs'
+fs.find '.',
+  filter:
+    test: (file, options, cb) ->
+      cb ~file.indexOf 'ab'
+, (err, list) ->
+  console.log "Found #{list.length} matches."
 ```
 
 Or use synchronous calls:
 
 ``` coffee
-var list = fs.findSync('test/temp', {
-  test: function(fil, options) {
-    return ~file.indexOf('ab');
-  }
-});
-console.log("Found " + list.length + " matches.");
+fs = require 'alinex-fs'
+list = fs.findSync 'test/temp',
+  filter:
+    test: (file, options) ->
+      return ~file.indexOf 'ab'
+console.log "Found #{list.length} matches."
 ```
 ###
 
