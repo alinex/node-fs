@@ -45,7 +45,7 @@
     "posix": "^4.0.2"
   },
   "devDependencies": {
-    "alinex-builder": "^2.3.5",
+    "alinex-builder": "^2.3.6",
     "chai": "^3.5.0",
     "moment": "^2.14.1"
   },
