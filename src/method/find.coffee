@@ -54,12 +54,10 @@ PARALLEL = Math.floor posix.getrlimit('nofile').soft / 2
 ###
 @param {String} search source path to be searched in
 @param {Object} [options] specifications for check defining which files to list
-@param {function(<Error>, <Array>)} [cb] callback which is called after done with an `Èrror`
+@param {function(Error, Array)} [cb] callback which is called after done with an `Èrror`
 or the complete list of files found as `Àrray`
-@internal The `depth` parameter is only used internally.
-@param {Integer} [depth=0] current depth in file tree
 ###
-module.exports.find = (source, options, cb , depth = 0 ) ->
+module.exports.find = (source, options, cb) ->
   unless cb?
     cb = ->
   if typeof options is 'function' or not options
@@ -94,7 +92,7 @@ module.exports.find = (source, options, cb , depth = 0 ) ->
   # add current file
   queue.push
     source: source
-    depth: depth
+    depth: 0
   # drain queue
   queue.drain = ->
     list.sort()

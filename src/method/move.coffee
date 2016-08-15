@@ -4,16 +4,20 @@ Move Files
 This will move a single file, complete directory or selection from directory. This
 is the same as copy the files and remove them afterwards.
 
-To select which files to copy you may specify it like in the
-[`find()`](find.coffee) method. But the following options may be used:
+To select which files to copy and how to work you can use the following options:
+- `filter` - `Array<Object>|Object` {@link filter.coffee}
+- `clean` - `Boolean` if set to `true` it will clean old files from target.
+- `overwrite` - `Boolean` if set to `true` it will not fail if destination file
+  already exists and overwrite it
+- `ignore` - `Boolean` it will not fail if destination file already exists
+  but skip this and go on with the next file
+- `noempty` - `Boolean` set to `true to don't create empty directories while no
+  files to copy into`
+- `dereference` - `Boolean` dereference symbolic links and go into them
+- `ìgnoreErrors` - `Boolean` go on and ignore IO errors
+- `parallel` - `Integer` number of maximum parallel calls in asynchronous run
+  (defaults to half of open files limit per process on the system)
 
-__Additional Options:__
-
-* `overwrite` -
-  if set to `true` it will not fail if destination file already exists and
-   overwrite it
-* `clean` -
-  if set to `true` it will clean old files from target.
 
 __Example:__
 
@@ -39,6 +43,13 @@ debug = require('debug')('fs:move')
 mkdirs = require './mkdirs'
 copy = require './copy'
 remove = require './remove'
+
+
+# Setup
+# ------------------------------------------------
+# Maximum parallel processes is half of the soft limit for open files if not given
+# in the options.
+PARALLEL = Math.floor posix.getrlimit('nofile').soft / 2
 
 
 # Exported Methods
@@ -68,11 +79,11 @@ module.exports.move = (source, target, options = {}, cb = ->) ->
     (cb) ->
       return cb() if options
       fs.rename source, target, (err) ->
-        return cb() unless err
+        return cb null, target unless err
         copyRemove source, target, options, cb
     # direct copy/remove
     (cb) ->
-      return cb() unless options
+      return cb null, target unless options
       copyRemove source, target, options, cb
   ], cb
 
@@ -93,8 +104,9 @@ module.exports.moveSync = (source, target, options = {}) ->
   unless options
     try
       fs.renameSync source, target
+      return target
     catch error
-      return unless error
+      throw error unless options.ignoreErrors
       return copyRemoveSync source, target, options
   # direct copy/remove
   copyRemoveSync source, target, options
@@ -109,10 +121,13 @@ module.exports.moveSync = (source, target, options = {}) ->
 # @param {function(err)} [cb] callback which is called after done with possible `Èrror`
 copyRemove = (source, target, options, cb) ->
   # copy to target
-  copy.copy source, target, options, (err) ->
+  copy.copy source, target, options, (err, list) ->
     return cb err if err
     # finally remove source
-    remove.remove source, options, cb
+    list.reverse()
+    async.eachLimit list, (file, cb) ->
+      remove.remove file, options, cb
+    , cb
 
 # @param {String} source path or file to be copied
 # @param {String} target file or directory to copy to

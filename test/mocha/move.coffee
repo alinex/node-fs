@@ -76,7 +76,8 @@ describe "Move", ->
 
     it "should move dir with filter", (cb) ->
       fs.move 'test/temp/dir1', 'test/temp/dir4',
-        include: '*le11'
+        filter:
+          include: '*le11'
       , (err) ->
         expect(err, 'error').to.not.exist
         expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
@@ -152,7 +153,8 @@ describe "Move", ->
 
     it "should move dir with filter", ->
       fs.moveSync 'test/temp/dir1', 'test/temp/dir4',
-        include: '*le11'
+        filter:
+          include: '*le11'
       expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
       expect(fs.existsSync('test/temp/dir1'), 'old dir').to.be.true
       expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.deep.equal ['file11']

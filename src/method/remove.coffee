@@ -8,7 +8,14 @@ The option `maxdepth` is only supported in the search, but if a directory is
 matched everything within will be deleted.
 
 This method will remove the given `path` entry and if it is a directory it
-will also remove any containing data.
+will also remove any containing data. If some filter given you can also delete#
+selectively.
+
+To select which files to remove the following options may be used:
+- `filter` - `Array<Object>|Object` {@link filter.coffee}
+- `dereference` - `Boolean` dereference symbolic links and go into them
+- `parallel` - `Integer` number of maximum parallel calls in asynchronous run
+  (defaults to half of open files limit per process on the system)
 
 __Example:__
 
@@ -29,14 +36,25 @@ debug = require('debug')('fs:remove')
 path = require 'path'
 async = require 'async'
 fs = require 'fs'
+posix = require 'posix'
 # internal helper methods
 filter = require '../helper/filter'
 
 
+# Setup
+# ------------------------------------------------
+# Maximum parallel processes is half of the soft limit for open files if not given
+# in the options.
+PARALLEL = Math.floor posix.getrlimit('nofile').soft / 2
+
+
+# Exported Methods
+# ------------------------------------------------
+
 ###
 @param {String} path directory or file to be deleted
 @param {Object} [options] specifications for check defining which files to remove
-@param {function(<Error>, <String>)} [cb] callback which is called after done with possible
+@param {function(Error, String)} [cb] callback which is called after done with possible
        `Èrror` or with the file/directory deleted
 @internal The `depth` parameter is only used internally.
 @param {Integer} [depth=0] current depth in file tree

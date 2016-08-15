@@ -68,15 +68,13 @@ PARALLEL = Math.floor posix.getrlimit('nofile').soft / 2
 ###
 @param {String} source path or file to be copied
 @param {String} target file or directory to copy to
-@param {Array<Object>|Object} [options] specifications for check defining which files
+@param {Object} [options] specifications for check defining which files
 to copy
 @param {function(Error, Array<String>)} [cb] callback with list of newly created
 files and directly created directories or possible `Èrror`:
 - Target file already exists
-@internal The `depth` parameter is only used internally.
-@param {Integer} [depth=0] current depth in file tree
 ###
-module.exports.copy = (source, target, options, cb, depth = 0) ->
+module.exports.copy = (source, target, options, cb) ->
   unless cb?
     cb = ->
   if typeof options is 'function' or not options
@@ -139,7 +137,7 @@ module.exports.copy = (source, target, options, cb, depth = 0) ->
   # add current file
   queue.push
     source: source
-    depth: depth
+    depth: 0
   # drain queue
   queue.drain = ->
     list.sort()
@@ -150,11 +148,10 @@ module.exports.copy = (source, target, options, cb, depth = 0) ->
     cb err
     cb = ->
 
-
 ###
 @param {String} source path or file to be copied
 @param {String} target file or directory to copy to
-@param {Array<Object>|Object} [options] specifications for check defining which files to copy
+@param {Object} [options] specifications for check defining which files to copy
 @throws {Error} if anything out of order happened
 - Target file already exists
 @return {Array<String>} list of newly created files and directly created directories
