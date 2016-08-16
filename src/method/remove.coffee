@@ -55,7 +55,7 @@ PARALLEL = Math.floor posix.getrlimit('nofile').soft / 2
 ###
 @param {String} source directory or file to be deleted
 @param {Object} [options] specifications for check defining which files to remove
-@param {function(Error, Array)} [cb] callback which is called after done with possible
+@param {function(Error, Array<String>)} [cb] callback which is called after done with possible
        `Èrror` or with the files/directories been deleted
 ###
 module.exports.remove = (source, options, cb) ->
@@ -112,36 +112,34 @@ module.exports.remove = (source, options, cb) ->
 ###
 @param {String} path directory or file to be deleted
 @param {Object} [options] specifications for check defining which files to remove
-@return {String} the file or directory deleted
+@return {Array<String>} the files or directories been deleted
 @throws {Error} if domething went wrong
 @internal The `depth` parameter is only used internally.
 @param {Integer} [depth=0] current depth in file tree
 ###
 removeSync = module.exports.removeSync = (file, options = {}, depth = 0) ->
-  # get parameter and default values
-  file = path.resolve file
   # check file entry
   stat = if options.dereference? then fs.statSync else fs.lstatSync
+  list = []
   try
     stats = stat file
   catch error
     # return if already removed
-    return if error.code is 'ENOENT' or options.ignoreErrors
+    return list if error.code is 'ENOENT' or options.ignoreErrors
     throw error
   # Check the current file through filter options
   ok = filter.filterSync file, depth, options
+  list.push file if ok
   if stats.isFile()
-    return unless ok
+    return list unless ok
     # remove file
     debug "removing file #{file}"
     fs.unlinkSync file
-    return file
   else if stats.isSymbolicLink()
-    return unless ok
+    return list unless ok
     # remove symbolic link
     debug "removing link #{file}"
     fs.unlinkSync file
-    return file
   else if stats.isDirectory()
     # file is directory
     dir = file
@@ -152,15 +150,16 @@ removeSync = module.exports.removeSync = (file, options = {}, depth = 0) ->
     files = fs.readdirSync file
     # copy all files in directory
     for file in files
-      removeSync path.join(dir, file), options, depth
+      list = list.concat removeSync path.join(dir, file), options, depth
     return unless ok
     # remove directory itself
     try fs.rmdirSync dir
     # remove file, if dir is a symbolic link
     try fs.unlinkSync dir
-    return dir
   else
     throw new Error "Entry '#{file}' is no directory, file or symbolic link."
+  list.sort()
+  return list
 
 
 # Helper Methods

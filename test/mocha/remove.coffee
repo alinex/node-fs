@@ -20,7 +20,7 @@ describe "Remove", ->
       return cb() unless exists
       exec 'rm -r test/temp', cb
 
-  describe.only "asynchronous", ->
+  describe "asynchronous", ->
 
     it "should do nothing if file does not exist", (cb) ->
       fs.remove 'test/temp/file-do-not-exist', (err, removed) ->
@@ -98,7 +98,7 @@ describe "Remove", ->
 
     it "should do nothing if file not exist", ->
       removed = fs.removeSync 'test/temp/file-do-not-exist'
-      expect(removed, 'removed path').to.not.exist
+      expect(removed?.length, 'removed path').to.equal 0
 
     it "should remove a simple file", ->
       expect(fs.existsSync('test/temp/file1'), 'precheck').to.be.true
@@ -109,13 +109,13 @@ describe "Remove", ->
     it "should remove an empty directory", ->
       expect(fs.existsSync('test/temp/dir2'), 'precheck').to.be.true
       removed = fs.removeSync 'test/temp/dir2'
-      expect(removed, 'removed path').to.contain "/node-fs/test/temp/dir2"
+      expect(removed, 'removed path').to.contain "test/temp/dir2"
       expect(fs.existsSync('test/temp/dir2'), 'postcheck').to.be.false
 
     it "should remove an non empty directory", ->
       expect(fs.existsSync('test/temp/dir1'), 'precheck').to.be.true
       removed = fs.removeSync 'test/temp/dir1'
-      expect(removed, 'removed path').to.contain "/node-fs/test/temp/dir1"
+      expect(removed, 'removed path').to.contain "test/temp/dir1"
       expect(fs.existsSync('test/temp/dir1'), 'postcheck').to.be.false
 
     it "should fail to remove system file", ->
@@ -129,14 +129,16 @@ describe "Remove", ->
     it "should remove only pattern matches", ->
       expect(fs.existsSync('test/temp/dir1'), 'precheck').to.be.true
       fs.removeSync 'test/temp/dir1',
-        include: '*11'
+        filter:
+          include: '*11'
       expect(fs.existsSync('test/temp/dir1'), 'unmatched dir').to.be.true
       expect(fs.existsSync('test/temp/dir1/file11'), 'removed file').to.be.false
 
     it "should remove only specific level", ->
       expect(fs.existsSync('test/temp/dir1'), 'precheck').to.be.true
       fs.removeSync 'test/temp/dir1',
-        mindepth: '1'
+        filter:
+          mindepth: '1'
       expect(fs.existsSync('test/temp/dir1'), 'dir').to.be.true
       expect(fs.existsSync('test/temp/dir1/file11'), 'removed file').to.be.false
 

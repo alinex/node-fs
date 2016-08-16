@@ -160,15 +160,16 @@ module.exports.copy = (source, target, options, cb) ->
 ###
 copySync = module.exports.copySync = (source, target, options = {}, depth = 0) ->
   stat = if options.dereference? then fs.statSync else fs.lstatSync
+  list = []
   try
     stats = stat source
   catch error
-    return if options.ignoreErrors
+    return list if options.ignoreErrors
     throw error
-  list = []
   ok = filter.filterSync source, depth, options
+  list.push target if ok
   if stats.isFile()
-    return unless ok
+    return list unless ok
     # create directory if neccessary
     mkdirs.mkdirsSync path.dirname(target)
     # copy the file
@@ -177,27 +178,28 @@ copySync = module.exports.copySync = (source, target, options = {}, depth = 0) -
       throw new Error "Target file already exists."
     if not exists or options.overwrite
       debug "copying file #{source} to #{target}"
-      list.push target
-      return copyFileSync source, stats, target
+      copyFileSync source, stats, target
   else if stats.isSymbolicLink()
-    return unless ok
+    return list unless ok
     # create directory if neccessary
     mkdirs.mkdirsSync path.dirname(target)
     resolvedPath = fs.readlinkSync source
     # make the symlink
     debug "copying link #{source} to #{target}"
+    list.push target
     fs.symlinkSync resolvedPath, target
   else
     # source is directory
     depth++
     # copy directory
     if ok and not options.noempty
-      list.push target
       mkdirs.mkdirsSync target, stats.mode
     # copy all files in directory
     debug "copying directory #{source} to #{target}"
     for file in fs.readdirSync source
-      copySync path.join(source, file), path.join(target, file), options, depth
+      list = list.concat copySync path.join(source, file), path.join(target, file), options, depth
+  list.sort()
+  list
 
 
 # Helper Methods
