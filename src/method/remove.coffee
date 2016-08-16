@@ -14,6 +14,7 @@ selectively.
 To select which files to remove the following options may be used:
 - `filter` - `Array<Object>|Object` {@link filter.coffee}
 - `dereference` - `Boolean` dereference symbolic links and go into them
+- `ìgnoreErrors` - `Boolean` go on and ignore IO errors
 - `parallel` - `Integer` number of maximum parallel calls in asynchronous run
   (defaults to half of open files limit per process on the system)
 
@@ -39,6 +40,7 @@ fs = require 'fs'
 posix = require 'posix'
 # internal helper methods
 filter = require '../helper/filter'
+find = require './find'
 
 
 # Setup
@@ -59,66 +61,28 @@ PARALLEL = Math.floor posix.getrlimit('nofile').soft / 2
 @internal The `depth` parameter is only used internally.
 @param {Integer} [depth=0] current depth in file tree
 ###
-remove = module.exports.remove = (file, options, cb, depth = 0) ->
+module.exports.remove = (path, options, cb, depth = 0) ->
   unless cb?
     cb = ->
   if typeof options is 'function' or not options
     cb = options ? ->
     options = {}
-  list = []
   # get list through filter
-
-  # remove all entries in list
-
-  # resturn list as result
-
-
-  stat = if options.dereference? then fs.stat else fs.lstat
-  stat file, (err, stats) ->
-    # return if already removed
+  find.find path, options, (err, list) ->
     if err
       return cb() if err.code is 'ENOENT' or options.ignoreErrors
       return cb err
-    # Check the current file through filter options
-    filter.filter file, depth, options, (ok) ->
-      if stats.isFile()
-        return cb() unless ok
-        # remove file
-        debug "removing file #{file}"
-        fs.unlink file, (err) ->
-          return cb err if err and err.code isnt 'ENOENT'
-          cb null, file
-      else if stats.isSymbolicLink()
-        return cb() unless ok
-        # remove symbolic link
-        debug "removing link #{file}"
-        fs.unlink file, (err) ->
-          return cb err if err and err.code isnt 'ENOENT'
-          cb null, file
-      else if stats.isDirectory()
-        # file is directory
-        dir = file
-        depth++
-        # if this dir should be removed, use no filtering for the containing parts
-        debug "removing directory #{dir}"
-        options = {} if ok
-        fs.readdir file, (err, files) ->
-          return cb err if err
-          # remove all files in directory
-          async.each files, (file, cb) ->
-            remove path.join(dir, file), options, cb, depth
-          , (err) ->
-            return cb err if err
-            return cb() unless ok
-            # remove directory itself
-            fs.rmdir dir, (err) ->
-              return cb err if err and err.code isnt 'ENOTDIR'
-              # remove file, if dir is a symbolic link
-              fs.unlink dir, (err) ->
-                return cb err if err and err.code isnt 'ENOENT'
-                cb null, dir
-      else
-        cb new Error "Entry '#{file}' is no directory, file or symbolic link."
+    # remove all entries in list
+    list.reverse()
+    async.eachSeries list, (file, cb) ->
+      return cb err if err
+      removeFile file, options, (err) ->
+        return cb() if err and (err.code is 'ENOENT' or options.ignoreErrors)
+        cb err
+    , (err) ->
+      return cb err if err
+      # resturn list as result
+      cb null, list
 
 
 ###
@@ -173,3 +137,57 @@ removeSync = module.exports.removeSync = (file, options = {}, depth = 0) ->
     return dir
   else
     throw new Error "Entry '#{file}' is no directory, file or symbolic link."
+
+
+# Helper Methods
+# -------------------------------------------------------
+
+# @param {String} source dourcepath of concrete file to copy
+# @param {Object} [options] specifications for check defining which files to remove
+# @param {function(Error)} cb callback after dann with possible `Error` object
+# @throw {Error} Entry 'xxxxxx' is no directory, file or symbolic link.
+removeFile = (source, options, cb) ->
+  stat = if options.dereference? then fs.stat else fs.lstat
+  stat source, (err, stats) ->
+    return cb() if err and (err.code is 'ENOENT' or options.ignoreErrors)
+    if stats.isFile()
+      # remove file
+      debug "removing #{source} (file)"
+      fs.unlink source, cb
+    else if stats.isSymbolicLink()
+      # remove symbolic link
+      debug "removing #{source} (link)"
+      fs.unlink source, cb
+    else if stats.isDirectory()
+      # remove directory
+      debug "removing #{source} (directory)"
+      fs.readdir source, (err, files) ->
+        return cb err if err
+        async.eachLimit files, (options.parallel ? PARALLEL), (file, cb) ->
+          removeFile file, options, cb
+        , (err) ->
+          return cb err if err
+          # remove directory itself
+          fs.rmdir source, (err) ->
+            if err?.code is 'ENOTDIR'
+              return fs.unlink source, cb
+            cb err
+    else
+      cb new Error "Entry '#{source}' is no directory, file or symbolic link."
+
+
+###
+Debugging
+---------------------------------------------------------
+This module uses the {@link debug} module so you may anytime call your app with
+the environment setting `DEBUG=fs:remove` for the output of this method only.
+
+Because there are `mkdirs` subcalls here you see the output of `DEBUG=fs:*` while
+removeing a small directory:
+
+    fs:find check test/temp/dir3 +24ms
+    fs:find going deeper into test/temp/dir3 directory +0ms
+    fs:find check test/temp/dir3/file11 +0ms
+    fs:remove removing test/temp/dir3/file11 (file) +1ms
+    fs:remove removing test/temp/dir3 (directory) +0ms
+###

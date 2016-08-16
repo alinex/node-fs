@@ -199,13 +199,14 @@ copySync = module.exports.copySync = (source, target, options = {}, depth = 0) -
     for file in fs.readdirSync source
       copySync path.join(source, file), path.join(target, file), options, depth
 
+
 # Helper Methods
 # -------------------------------------------------------
 
 # @param {String} source dourcepath of concrete file to copy
 # @param {fs.Stats} stats file information object
 # @param {String} target path to store file copy to
-# @param {function(<Error>)} cb callback after dann with possible `Error` object
+# @param {function(Error)} cb callback after dann with possible `Error` object
 copyFile = (source, stats, target, cb) ->
   # finalize only once
   done = (err) ->
