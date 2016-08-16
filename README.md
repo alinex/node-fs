@@ -16,10 +16,10 @@ This package combines features found in a lot of other packages together without
 including too much. Most methods are very customizable using options.
 
 - drop in replacement for node's fs module
+- powerful find method
 - recursive file handling functions
 - complete asynchronous and synchronous
-- powerful find method
-- additional features
+- additional methods
 
 > It is one of the modules of the [Alinex Namespace](https://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](https://alinex.github.io/develop).
