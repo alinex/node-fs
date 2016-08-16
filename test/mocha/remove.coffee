@@ -25,7 +25,7 @@ describe "Remove", ->
     it "should do nothing if file does not exist", (cb) ->
       fs.remove 'test/temp/file-do-not-exist', (err, removed) ->
         expect(err, 'error').to.not.exist
-        expect(removed, 'removed path').to.not.exist
+        expect(removed?.length, 'removed path').to.be.equal 0
         cb()
 
     it "should remove a simple file", (cb) ->

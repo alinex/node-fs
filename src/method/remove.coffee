@@ -40,7 +40,6 @@ fs = require 'fs'
 posix = require 'posix'
 # internal helper methods
 filter = require '../helper/filter'
-find = require './find'
 
 
 # Setup
@@ -54,36 +53,61 @@ PARALLEL = Math.floor posix.getrlimit('nofile').soft / 2
 # ------------------------------------------------
 
 ###
-@param {String} path directory or file to be deleted
+@param {String} source directory or file to be deleted
 @param {Object} [options] specifications for check defining which files to remove
-@param {function(Error, String)} [cb] callback which is called after done with possible
-       `Èrror` or with the file/directory deleted
-@internal The `depth` parameter is only used internally.
-@param {Integer} [depth=0] current depth in file tree
+@param {function(Error, Array)} [cb] callback which is called after done with possible
+       `Èrror` or with the files/directories been deleted
 ###
-module.exports.remove = (path, options, cb, depth = 0) ->
+module.exports.remove = (source, options, cb) ->
   unless cb?
     cb = ->
   if typeof options is 'function' or not options
     cb = options ? ->
     options = {}
-  # get list through filter
-  find.find path, options, (err, list) ->
-    if err
-      return cb() if err.code is 'ENOENT' or options.ignoreErrors
-      return cb err
-    # remove all entries in list
-    list.reverse()
-    async.eachSeries list, (file, cb) ->
-      return cb err if err
-      removeFile file, options, (err) ->
-        return cb() if err and (err.code is 'ENOENT' or options.ignoreErrors)
-        cb err
-    , (err) ->
-      return cb err if err
-      # resturn list as result
-      cb null, list
-
+  list = []
+  # create a queue
+  queue = async.queue (task, cb) ->
+    debug "check #{task.source}"
+    async.setImmediate ->
+      filter.filter task.source, task.depth, options, (ok) ->
+        return cb() if ok is undefined
+        # check source entry
+        stat = if options.dereference? then fs.stat else fs.lstat
+        stat task.source, (err, stats) ->
+          return cb() if err and (err.code is 'ENOENT' or options.ignoreErrors)
+          if err
+            return cb if options?.ignoreErrors then null else err
+          if ok
+            removeFile task.source, options, (err) ->
+              return cb() if err and (err.code is 'ENOENT' or options.ignoreErrors)
+              cb err
+            return list.push task.source
+          return cb null, list unless stats.isDirectory()
+          # source is directory
+          debug "going deeper into #{task.source} directory"
+          task.depth++
+          fs.readdir task.source, (err, files) ->
+            return cb err if err
+            # collect files from each subentry
+            for file in files
+              queue.push
+                source: "#{task.source}/#{file}"
+                depth: task.depth
+            cb()
+  , options.parallel ? PARALLEL
+  # add current file
+  queue.push
+    source: source
+    depth: 0
+  # drain queue
+  queue.drain = ->
+    list.sort()
+    cb null, list
+  # some error occured, stop there
+  queue.error = (err) ->
+    queue.kill()
+    cb err
+    cb = ->
 
 ###
 @param {String} path directory or file to be deleted
@@ -164,7 +188,7 @@ removeFile = (source, options, cb) ->
       fs.readdir source, (err, files) ->
         return cb err if err
         async.eachLimit files, (options.parallel ? PARALLEL), (file, cb) ->
-          removeFile file, options, cb
+          removeFile "#{source}/#{file}", options, cb
         , (err) ->
           return cb err if err
           # remove directory itself
@@ -185,9 +209,9 @@ the environment setting `DEBUG=fs:remove` for the output of this method only.
 Because there are `mkdirs` subcalls here you see the output of `DEBUG=fs:*` while
 removeing a small directory:
 
-    fs:find check test/temp/dir3 +24ms
-    fs:find going deeper into test/temp/dir3 directory +0ms
-    fs:find check test/temp/dir3/file11 +0ms
-    fs:remove removing test/temp/dir3/file11 (file) +1ms
-    fs:remove removing test/temp/dir3 (directory) +0ms
+    fs:remove check test/temp/dir1 +29ms
+    fs:filter skip test/temp/dir1 because not in specified depth +1ms
+    fs:remove going deeper into test/temp/dir1 directory +0ms
+    fs:remove check test/temp/dir1/file11 +0ms
+    fs:remove removing test/temp/dir1/file11 (file) +0ms
 ###
