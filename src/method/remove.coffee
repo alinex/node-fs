@@ -65,7 +65,14 @@ remove = module.exports.remove = (file, options, cb, depth = 0) ->
   if typeof options is 'function' or not options
     cb = options ? ->
     options = {}
-  # check file entry
+  list = []
+  # get list through filter
+
+  # remove all entries in list
+
+  # resturn list as result
+
+
   stat = if options.dereference? then fs.stat else fs.lstat
   stat file, (err, stats) ->
     # return if already removed

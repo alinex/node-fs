@@ -11,22 +11,22 @@ All the extended functions use the same naming convention as the node core, maki
 the use nearly natural. And you can still use the native Node.js methods, also.
 
 Some of the **native methods** are slightly changed:
-- [stat/lstat](stat.coffee) - file stat retrieval (with caching)
+- {@link stat.coffee} - file stat retrieval (with caching)
 
 **Additional methods**:
-- [mkdirs](mkdirs.coffee) - recursive create depth directory with it's parents
-- [npmdir](npmdir.coffee) - find binary in NPM path
-- [tempdir](tempdir.coffee) - create temporary directory
-- [tempfile](tempfile.coffee) - create temporary file
+- {@link mkdirs.coffee} - recursive create depth directory with it's parents
+- {@link npmbin.coffee} - find binary in NPM path
+- {@link tempdir.coffee} - create temporary directory
+- {@link tempfile.coffee} - create temporary file
 
 Working on **multiple files** using filter rules:
-- [find](find.coffee) - search for files or directories
-- [copy](copy.coffee) - copy file, directory or selection
-- [move](move.coffee) - move file, directory or selection
-- [remove](remove.coffee) - remove file, directory or selection
-- [touch](touch.coffee) - touch file
-- [chowns](chowns.coffee) - change ownership of file, directory or selection
-- [chmods](chmods.coffee) - change access rights of file, directory or selection
+- {@link find.coffee} - search for files or directories
+- {@link copy.coffee} - copy file, directory or selection
+- {@link move.coffee} - move file, directory or selection
+- {@link remove.coffee} - remove file, directory or selection
+- {@link touch.coffee} - touch file
+- {@link chowns.coffee} - change ownership of file, directory or selection
+- {@link chmods.coffee} - change access rights of file, directory or selection
 
 Most methods use an options object which can specify how it works. The options are
 based on the tree serach and {@link filter.coffee filter specification}.

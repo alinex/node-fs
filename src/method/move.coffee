@@ -35,10 +35,11 @@ move.
 
 # Node Modules
 # -------------------------------------------------
+debug = require('debug')('fs:move')
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
-debug = require('debug')('fs:move')
+posix = require 'posix'
 # include other extended commands and helper
 mkdirs = require './mkdirs'
 copy = require './copy'

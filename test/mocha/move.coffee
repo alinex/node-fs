@@ -3,7 +3,7 @@ expect = chai.expect
 ### eslint-env node, mocha ###
 {exec} = require 'child_process'
 
-describe "Move", ->
+describe.skip "Move", ->
 
   fs = require '../../src/index'
 
