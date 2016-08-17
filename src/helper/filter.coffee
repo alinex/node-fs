@@ -85,6 +85,7 @@ module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
     return cb true unless Object.keys(options).length
     skipPath (subpath ? file), options, (skip) ->
       if skip
+        debug "#{file} #{if not skip then 'OK' else 'SKIP'}"
         return cb skip if skip is 'SKIPPATH'
         return cb false
       async.parallel [
@@ -95,6 +96,7 @@ module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
         (cb) -> skipOwner file, options, cb
         (cb) -> skipFunction file, options, cb
       ], (skip) ->
+        debug "#{file} #{if not skip then 'OK' else 'SKIP'}"
         cb not skip
   , (err) ->
     return cb() if err is 'SKIPPATH'
@@ -119,7 +121,9 @@ module.exports.filterSync = (file, depth = 0, options) ->
     return true unless Object.keys(options).length
     debug "check #{file} for " + util.inspect options
     if res = skipPathSync (subpath ? file), options
-      return undefined if res is 'SKIPPATH'
+      if res is 'SKIPPATH'
+        debug "#{file} SKIP"
+        return undefined
       continue
     continue if skipTypeSync file, options
     continue if skipDepthSync file, depth, options
@@ -127,7 +131,9 @@ module.exports.filterSync = (file, depth = 0, options) ->
     continue if skipTimeSync file, options
     continue if skipOwnerSync file, options
     continue if skipFunctionSync file, options
+    debug "#{file} SKIP"
     return true
+  debug "#{file} OK"
   false
 
 

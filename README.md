@@ -1,11 +1,36 @@
 Filesystem (fs): Readme
 =================================================
 
-[![Build Status](https://travis-ci.org/alinex/node-fs.svg?branch=master)](https://travis-ci.org/alinex/node-fs)
-[![Coverage Status](https://coveralls.io/repos/alinex/node-fs/badge.png?branch=master)](https://coveralls.io/r/alinex/node-fs?branch=master)
-[![Dependency Status](https://gemnasium.com/alinex/node-fs.png)](https://gemnasium.com/alinex/node-fs)
-[![GitHub](https://assets-cdn.github.com/favicon.ico)](https://github.com/alinex/node-fs "Code on GitHub")
-<!-- {.right} -->
+[![GitHub watchers](
+  https://img.shields.io/github/watchers/alinex/node-fs.svg?style=social&label=Watch&maxAge=2592000)](
+  https://github.com/alinex/node-fs/subscription)<!-- {.hidden-small} -->
+[![GitHub stars](
+  https://img.shields.io/github/stars/alinex/node-fs.svg?style=social&label=Star&maxAge=2592000)](
+  https://github.com/alinex/node-fs)
+[![GitHub forks](
+  https://img.shields.io/github/forks/alinex/node-fs.svg?style=social&label=Fork&maxAge=2592000)](
+  https://github.com/alinex/node-fs)<!-- {.hidden-small} -->
+<!-- {p:.right} -->
+
+[![npm package](
+  https://img.shields.io/npm/v/alinex-fs.svg?maxAge=2592000&label=latest%20version)](
+  https://www.npmjs.com/package/alinex-fs)
+[![latest version](
+  https://img.shields.io/npm/l/alinex-fs.svg?maxAge=2592000)](
+  #license)<!-- {.hidden-small} -->
+[![Travis status](
+  https://img.shields.io/travis/alinex/node-fs.svg?maxAge=2592000&label=develop)](
+  https://travis-ci.org/alinex/node-fs)
+[![Coveralls status](
+  https://img.shields.io/coveralls/alinex/node-fs.svg?maxAge=2592000)](
+  https://coveralls.io/r/alinex/node-fs?branch=master)
+[![Gemnasium status](
+  https://img.shields.io/gemnasium/alinex/node-fs.svg?maxAge=2592000)](
+  https://gemnasium.com/alinex/node-fs)
+[![GitHub issues](
+  https://img.shields.io/github/issues/alinex/node-fs.svg?maxAge=2592000)](
+  https://github.com/alinex/node-fs/issues)<!-- {.hidden-small} -->
+
 
 Like some other packages this module adds functions to the node.js fs package.
 It's designed as a drop-in replacement. It uses also {@link graceful-fs}

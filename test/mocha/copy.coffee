@@ -18,7 +18,7 @@ describe "Recursive copy", ->
   afterEach (cb) ->
     fs.exists 'test/temp', (exists) ->
       return cb() unless exists
-      exec 'rm -r test/temp', cb
+      exec 'rm -r test/temp', -> cb()
 
   describe "asynchronous", ->
 

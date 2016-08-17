@@ -3,7 +3,7 @@ expect = chai.expect
 ### eslint-env node, mocha ###
 {exec} = require 'child_process'
 
-describe.skip "Move", ->
+describe "Move", ->
 
   fs = require '../../src/index'
 
@@ -20,7 +20,7 @@ describe.skip "Move", ->
       return cb() unless exists
       exec 'rm -r test/temp', cb
 
-  describe "asynchronous", ->
+  describe.only "asynchronous", ->
 
     it "should fail if source don't exist", (cb) ->
       fs.move 'test/temp/dir999', 'test/temp/dir10', (err) ->
@@ -81,7 +81,7 @@ describe.skip "Move", ->
       , (err) ->
         expect(err, 'error').to.not.exist
         expect(fs.existsSync('test/temp/dir4'), 'new dir').to.be.true
-        expect(fs.existsSync('test/temp/dir1'), 'old dir').to.be.true
+        expect(fs.existsSync('test/temp/dir1'), 'old dir').to.be.false
         expect(fs.readdirSync('test/temp/dir4'), 'new dir').to.deep.equal ['file11']
         cb()
 
