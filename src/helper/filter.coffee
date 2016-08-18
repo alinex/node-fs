@@ -86,7 +86,6 @@ module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
     return cb true unless Object.keys(options).length
     skipPath (subpath ? file), options, (skip) ->
       if skip
-        debug "#{file} #{if not skip then 'OK' else 'SKIP'}"
         return cb skip if skip is 'SKIPPATH'
         return cb false
       async.parallel [
@@ -97,10 +96,12 @@ module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
         (cb) -> skipOwner file, options, cb
         (cb) -> skipFunction file, options, cb
       ], (skip) ->
-        debug "#{file} #{if not skip then 'OK' else 'SKIP'}"
         cb not skip
   , (err) ->
-    return cb() if err is 'SKIPPATH'
+    if err is 'SKIPPATH'
+      debug "#{file} SKIPPATH"
+      return cb()
+    debug "#{file} #{if err then 'OK' else 'SKIP'}"
     cb if err then true else false
 
 # Check if the given file is ok or should be filtered out.
@@ -237,6 +238,7 @@ skipPath = (file, options, cb) ->
 # @see {@link skipPath()} for description
 skipPathSync = (file, options) ->
   return false unless options.include or options.exclude
+  skip = false
   if options.include
     list = if Array.isArray options.include then options.include else [options.include]
     ok = false
@@ -255,7 +257,7 @@ skipPathSync = (file, options) ->
         break
     unless ok
       debug "skip #{file} because path not included"
-      return true
+      skip = true
   if options.exclude
     list = if Array.isArray options.exclude then options.exclude else [options.exclude]
     for exclude in list
@@ -270,7 +272,7 @@ skipPathSync = (file, options) ->
         if minimatch file, exclude, {matchBase: true}
           debug "skip #{file} because path excluded (glob)"
           return 'SKIPPATH'
-  return false
+  return skip
 
 
 ###

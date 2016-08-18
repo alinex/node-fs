@@ -127,6 +127,7 @@ module.exports.copy = (source, target, options, cb) ->
                   depth: task.depth
               return cb() if options.noempty
               # create directory if necessary
+              console.log '-------'
               return cb() unless ok
               fs.exists target, (exists) ->
                 if exists and not (options.overwrite or options.ignore)
@@ -160,7 +161,7 @@ module.exports.copy = (source, target, options, cb) ->
 @param {Integer} [depth=0] current depth in file tree
 ###
 copySync = module.exports.copySync = (source, target, options = {}, depth = 0) ->
-  debug "check #{source}"
+#  debug "check #{source}"
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   list = []
   try
