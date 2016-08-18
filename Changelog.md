@@ -4,6 +4,39 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 3.0.0 (2016-08-18)
+-------------------------------------------------
+Breaking change of options array.
+
+- Fix copy to throw error if already existing.
+- Made chown and chmod capable of find and allow user/group names.
+- Reworked asynchroneous move.
+- Updated Readme.
+- Finished restructuring of remover() methods.
+- Optimize remove() performance by working in one run.
+- Finished async remove.
+- Fix documentation links.
+- Start reworking remove and move methods.
+- Fix examples to new filter rule format.
+- Put filter options into subgrop named 'filter'.
+- Update alinex-builder@2.3.6
+- Update docs for copy method.
+- Optimize documentation of find() method.
+- Use posix instead of own user/group reader.
+- Update docs.
+- Optimize find to work with async queue correctly respecting the given parallel limit.
+- Add support for parallel limit in copy method.
+- Fix matching of concrete file.
+- Support parallel setting through options.
+- Allow multiple filter rule sets to be given.
+- Move helper methods into own folder.
+- Add examples for filter use.
+- Fix documentation.
+- Rework documentation of filter rules.
+- Add error to documentation.
+- Fix for multi include/exclude.
+- Allow multiple exclude/include patterns to be checked.
+
 Version 2.0.7 (2016-08-10)
 -------------------------------------------------
 - Allow all tests to run.
