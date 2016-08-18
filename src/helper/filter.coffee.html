@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Temp File</title>
+    <title>Filter Rules</title>
     <meta name="HandheldFriendly" content="true" />
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -56,44 +56,44 @@
                 <li class="level1">
                   <a href="../index.coffee.html" title="API Usage (/src/index.coffee)" class="btn btn-primary">API Usage</a>
                 </li>
-                <li class="level2">
-                  <a href="../helper/filter.coffee.html" title="Filter Rules (/src/helper/filter.coffee)" class="btn btn-primary">Filter Rules</a>
-                </li>
-                <li class="level2">
-                  <a href="chmods.coffee.html" title="Change Mode (/src/method/chmods.coffee)" class="btn btn-primary">Change Mode</a>
-                </li>
-                <li class="level2">
-                  <a href="chowns.coffee.html" title="Change Ownership (/src/method/chowns.coffee)" class="btn btn-primary">Change Ownership</a>
-                </li>
-                <li class="level2">
-                  <a href="copy.coffee.html" title="Copy Files (/src/method/copy.coffee)" class="btn btn-primary">Copy Files</a>
-                </li>
-                <li class="level2">
-                  <a href="find.coffee.html" title="Find Files (/src/method/find.coffee)" class="btn btn-primary">Find Files</a>
-                </li>
-                <li class="level2">
-                  <a href="mkdirs.coffee.html" title="Make Directories (/src/method/mkdirs.coffee)" class="btn btn-primary">Make Directories</a>
-                </li>
-                <li class="level2">
-                  <a href="move.coffee.html" title="Move Files (/src/method/move.coffee)" class="btn btn-primary">Move Files</a>
-                </li>
-                <li class="level2">
-                  <a href="npmbin.coffee.html" title="Find Binary (/src/method/npmbin.coffee)" class="btn btn-primary">Find Binary</a>
-                </li>
-                <li class="level2">
-                  <a href="remove.coffee.html" title="Remove Files (/src/method/remove.coffee)" class="btn btn-primary">Remove Files</a>
-                </li>
-                <li class="level2">
-                  <a href="stat.coffee.html" title="File Stats (/src/method/stat.coffee)" class="btn btn-primary">File Stats</a>
-                </li>
-                <li class="level2">
-                  <a href="tempdir.coffee.html" title="Temp Directory (/src/method/tempdir.coffee)" class="btn btn-primary">Temp Directory</a>
-                </li>
                 <li class="active level2">
-                  <a href="tempfile.coffee.html" title="Temp File (/src/method/tempfile.coffee)" class="btn btn-warning">Temp File <span class="sr-only">(current)</span></a>
+                  <a href="filter.coffee.html" title="Filter Rules (/src/helper/filter.coffee)" class="btn btn-warning">Filter Rules <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="level2">
-                  <a href="touch.coffee.html" title="Touch Files (/src/method/touch.coffee)" class="btn btn-primary">Touch Files</a>
+                  <a href="../method/chmods.coffee.html" title="Change Mode (/src/method/chmods.coffee)" class="btn btn-primary">Change Mode</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/chowns.coffee.html" title="Change Ownership (/src/method/chowns.coffee)" class="btn btn-primary">Change Ownership</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/copy.coffee.html" title="Copy Files (/src/method/copy.coffee)" class="btn btn-primary">Copy Files</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/find.coffee.html" title="Find Files (/src/method/find.coffee)" class="btn btn-primary">Find Files</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/mkdirs.coffee.html" title="Make Directories (/src/method/mkdirs.coffee)" class="btn btn-primary">Make Directories</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/move.coffee.html" title="Move Files (/src/method/move.coffee)" class="btn btn-primary">Move Files</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/npmbin.coffee.html" title="Find Binary (/src/method/npmbin.coffee)" class="btn btn-primary">Find Binary</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/remove.coffee.html" title="Remove Files (/src/method/remove.coffee)" class="btn btn-primary">Remove Files</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/stat.coffee.html" title="File Stats (/src/method/stat.coffee)" class="btn btn-primary">File Stats</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/tempdir.coffee.html" title="Temp Directory (/src/method/tempdir.coffee)" class="btn btn-primary">Temp Directory</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/tempfile.coffee.html" title="Temp File (/src/method/tempfile.coffee)" class="btn btn-primary">Temp File</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/touch.coffee.html" title="Touch Files (/src/method/touch.coffee)" class="btn btn-primary">Touch Files</a>
                 </li>
                 <li class="level0">
                   <a href="../../Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-primary">Version changes</a>
@@ -123,62 +123,228 @@
 <gcse:searchresults-only></gcse:searchresults-only>
 
           <main><p><ul class="table-of-contents" aria-hidden="true"><header>Index</header>
-<li><a href="#examples">Examples</a>
+<li>
 <ul>
-<li><a href="#tempfile">tempfile()</a></li>
-<li><a href="#tempfilesync">tempfileSync()</a></li>
+<li>
+<ul>
+<li><a href="#options">Options</a></li>
+<li><a href="#multiple-option-sets">Multiple Option Sets</a></li>
+</ul>
+</li>
+<li><a href="#filepath-matching">File/Path Matching</a></li>
+<li><a href="#search-depth">Search depth</a></li>
+<li><a href="#file-type">File type</a></li>
+<li><a href="#file-size">File size</a></li>
+<li><a href="#owner-and-group">Owner and Group</a></li>
+<li><a href="#time-specification">Time specification</a></li>
+<li><a href="#user-defined-function">User defined function</a></li>
 </ul>
 </li>
 </ul>
 </p>
-<h1 id="temp-file">Temp File</h1>
+<h1 id="filter-rules">Filter Rules</h1>
 <blockquote>
-<p>Path: <code>/src/method/tempfile.coffee</code> compiled to <code>/lib/method/tempfile.js</code></p>
+<p>Path: <code>/src/helper/filter.coffee</code> compiled to <code>/lib/helper/filter.js</code></p>
 </blockquote>
-<p>This will create a new temporary file for you. Like in <a href="tempdir.coffee.html"><code>tempdir()</code></a>
-you may give a specific path and prefix before the numeral file part.</p>
-<h2 id="examples">Examples</h2>
-<p>You may get a file back without doing anything:</p>
+<p>The filter is used to select some of the files based on specific settings.
+You can’t call the filter directly but it is used from most methods for file selection.</p>
+<h4 id="options">Options</h4>
+<p>The filter definition is given as options array which may have some of the following
+specification settings. But some methods may have special additional options not mentioned here.</p>
+<p>The filter is given as <code>filter</code> element in the options object and be specified as subobject
+or list of objects with these settings:</p>
+<ul>
+<li><code>include</code> - <code>Array&lt;String|RegExp&gt;|String|RegExp</code> to specify a inclusion pattern</li>
+<li><code>exclude</code> - <code>Array&lt;String|RegExp&gt;|String|RegExp</code> to specify an exclusion pattern</li>
+<li><code>mindepth</code> - <code>Integer</code> minimal depth to match</li>
+<li><code>maxdepth</code> - <code>Integer</code> maximal depth to match</li>
+<li><code>dereference</code> - <code>Boolean</code> set to true to follow symbolic links</li>
+<li><code>type</code> - <code>String</code> the inode type it should be one of:
+<ul>
+<li><code>file</code>, <code>f</code></li>
+<li><code>directory</code>, <code>dir</code>, <code>d</code></li>
+<li><code>link</code>, <code>l</code></li>
+<li><code>fifo</code>, <code>pipe</code>, <code>p</code></li>
+<li><code>socket</code>, <code>s</code></li>
+</ul>
+</li>
+<li><code>minsize</code> - <code>Integer|String</code> minimal filesize</li>
+<li><code>maxsize</code> - <code>Integer|String</code> maximal filesize</li>
+<li><code>user</code> - <code>Integer|String</code> owner name or id</li>
+<li><code>group</code> - <code>Integer|String</code> owner group name or id</li>
+<li><code>accessedAfter</code> - <code>Integer|String</code> last access time should be after that value</li>
+<li><code>accessedBefore</code> - <code>Integer|String</code> last access time should be before that value</li>
+<li><code>modifiedAfter</code> - <code>Integer|String</code> last modified time should be after that value</li>
+<li><code>modifiedBefore</code> - <code>Integer|String</code> last modified time should be before that value</li>
+<li><code>createdAfter</code> - <code>Integer|String</code> creation time should be after that value</li>
+<li><code>createdBefore</code> - <code>Integer|String</code> creation time should be before that value</li>
+<li><code>test</code> - <code>Function</code> own function to use</li>
+</ul>
+<p>If you use multiple options all of them have to match the file to be valid.
+See the details below.</p>
+<h4 id="multiple-option-sets">Multiple Option Sets</h4>
+<p>Multiple sets of the above rules can also be given as list of option arrays. If so
+all files are allowed, which match any of the given option sets.</p>
+<h3 id="filepath-matching">File/Path Matching</h3>
+<p>This is based on glob expressions like used in unix systems. You may use these
+as the <code>include</code> or <code>exclude</code> pattern while the <code>exclude</code> pattern has the higher
+priority. All files are matched which are in the include pattern and not in the
+exclude pattern.</p>
+<p>Both patterns may also be given as <code>Array</code> to match multiple. If multiple are given
+they are combined logically using OR meaning that at least one include have to match
+and no exclude should match.</p>
+<p><strong>Regular expressions</strong></p>
+<p>The pattern may be a regular expression given as String. See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a>
+for the format description.</p>
+<p><strong>Pattern Matching</strong></p>
+<p>Alternatively you may use glob pattern string with the following specification:</p>
+<p>To use one of the special characters <code>*</code>, <code>?</code> or <code>[</code> you have to preceed it with an
+backslash.</p>
+<p>The patter may contain:</p>
+<ul>
+<li><code>?</code> (not between brackets) matches any single character.</li>
+<li><code>*</code> (not between brackets) matches any string, including the empty string.</li>
+<li><code>**</code> (not between brackets) matches any string and also includes the path separator.</li>
+</ul>
+<p>Character groups:</p>
+<ul>
+<li><code>[ade]</code> or <code>[a-z]</code> Matches any one of the enclosed characters ranges can be given using a hyphen.</li>
+<li><code>[!ade]</code> or <code>[!a-z]</code> negates the search and matches any character not enclosed.</li>
+<li><code>[^ade]</code> or <code>[^a-z]</code> negates the search and matches any character not enclosed.</li>
+</ul>
+<p>Brace Expansion:</p>
+<ul>
+<li><code>{a,b}</code> will be expanded to <code>a</code> or <code>b</code></li>
+<li><code>{a,b{c,d}}</code> stacked to match <code>a</code>, <code>bc</code> or <code>bd</code></li>
+<li><code>{1..3}</code> will be expanded to <code>1</code> or <code>2</code> or <code>3</code></li>
+</ul>
+<p>Extended globbing is also possible:</p>
+<ul>
+<li>?(list): Matches zero or one occurrence of the given patterns.</li>
+<li>*(list): Matches zero or more occurrences of the given patterns.</li>
+<li>+(list): Matches one or more occurrences of the given patterns.</li>
+<li>@(list): Matches one of the given patterns.</li>
+</ul>
+<p>See more information about pattern matching in <a href="https://www.npmjs.com/package/minimatch">minimatch</a>.</p>
+<p><strong>Example</strong></p>
 <pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></code>
-<code>fs.tempfile (err, dir) -&gt;</code>
-<code>  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Temporary file is: "</span> + dir</code></pre>
-<p>But don’t forget to remove it if no longer needed.</p>
-<h3 id="tempfile">tempfile()</h3>
-<blockquote>
-<p class="api-usage"><strong>Usage:</strong> <code>tempfile(base, [prefix=process, cb)</code></p>
-</blockquote>
-<dl class="api-spec">
-<dt>Parameter</dt>
-<dd>
+<code>fs.find <span class="hljs-string">'/tmp/some/directory'</span>,</code>
+<code>  filter:</code>
+<code>    include: <span class="hljs-string">'a*'</span></code>
+<code>    exclude: <span class="hljs-string">'*c'</span></code>
+<code>, <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span></code>
+<code>  <span class="hljs-comment"># list may include 'a', 'abd', 'abe'</span></code>
+<code>  <span class="hljs-comment"># but not 'abc'</span></code></pre>
+<h3 id="search-depth">Search depth</h3>
+<p>The search depth specifies in which level of subdirectories the filter will match.
+1 means everything in the given directory, 2 one level deeper.</p>
 <ul>
-<li><code>base</code> - <code>String</code> path under which the directory should be created (use <code>null</code>
-to make it in the os default directory)</li>
-<li><code>[prefix=process</code> - <code>String</code> title] to use before numerical part</li>
-<li><code>cb</code> - <code>function(&lt;Error&gt;, &lt;String&gt;)</code> callback with <code>Error</code> or the path to the newly created file</li>
+<li><code>mindepth</code> - <code>Integer</code> minimal depth to match</li>
+<li><code>maxdepth</code> - <code>Integer</code> maximal depth to match</li>
 </ul>
-</dd>
-</dl>
-<h3 id="tempfilesync">tempfileSync()</h3>
-<blockquote>
-<p class="api-usage"><strong>Usage:</strong> <code>tempfileSync({base=os, [prefix=process)</code></p>
-</blockquote>
-<dl class="api-spec">
-<dt>Parameter</dt>
-<dd>
+<p><strong>Example</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></code>
+<code>fs.find <span class="hljs-string">'/tmp/some/directory'</span>,</code>
+<code>  filter:</code>
+<code>    mindepth: <span class="hljs-number">1</span></code>
+<code>    maxdepth: <span class="hljs-number">1</span></code>
+<code>, <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span></code>
+<code>  <span class="hljs-comment"># only the first sublevele:</span></code>
+<code>  <span class="hljs-comment"># list may include 'dir1/abc', 'dir1/abd', 'dir1/abe', 'dir1/bb', 'dir1/bcd', 'dir1/dir2'</span></code></pre>
+<h3 id="file-type">File type</h3>
+<p>Use <code>type</code> to specify which type of file you want to use.</p>
+<p>Possible values:</p>
 <ul>
-<li><code>{base=os</code> - <code>String</code> settings} path under which the directory should be created</li>
-<li><code>[prefix=process</code> - <code>String</code> title] to use before numerical part</li>
+<li><code>file</code>, <code>f</code></li>
+<li><code>directory</code>, <code>dir</code>, <code>d</code></li>
+<li><code>link</code>, <code>l</code></li>
+<li><code>fifo</code>, <code>pipe</code>, <code>p</code></li>
+<li><code>socket</code>, <code>s</code></li>
 </ul>
-</dd>
-<dt>Return</dt>
-<dd><code>String</code> the path to the newly created directory</dd>
-<dt>Throws</dt>
-<dd>
+<p>Also you may set <code>dereference</code> to <code>true</code> to follow symbolic links and analyze their
+target.</p>
+<p><strong>Example</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></code>
+<code>fs.find <span class="hljs-string">'/tmp/some/directory'</span>,</code>
+<code>  filter:</code>
+<code>    type: <span class="hljs-string">'f'</span></code>
+<code>, <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span></code>
+<code>  <span class="hljs-comment"># list may include 'test/temp/file1', 'test/temp/file2', 'test/temp/dir1/file11'</span></code></pre>
+<h3 id="file-size">File size</h3>
+<p>With the <code>minsize</code> and  <code>maxsize</code> options it is possible to specify the exact
+size of the matching files in bytes:</p>
 <ul>
-<li><code>Error</code> if something went wrong</li>
+<li>use an <code>Integer</code> value as number of bytes</li>
+<li>use a <code>String</code> like <code>1M</code> or <code>100k</code></li>
 </ul>
-</dd>
-</dl>
+<p><strong>Example</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></code>
+<code>fs.find <span class="hljs-string">'/tmp/some/directory'</span>,</code>
+<code>  filter:</code>
+<code>    maxsize: <span class="hljs-number">1024</span> * <span class="hljs-number">1024</span></code>
+<code>, <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span></code>
+<code>  <span class="hljs-comment"># list contains only files larger than 1MB</span></code></pre>
+<h3 id="owner-and-group">Owner and Group</h3>
+<p>You may also specify files based on the user which owns the files or the group
+of the files.</p>
+<p>Both may be specified as id (uid or gid) or using the alias name.</p>
+<ul>
+<li><code>user</code> - <code>Integer|String</code> owner name or id</li>
+<li><code>group</code> - <code>Integer|String</code> owner group name or id</li>
+</ul>
+<p><strong>Example</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></code>
+<code>fs.find <span class="hljs-string">'/tmp/some/directory'</span>,</code>
+<code>  filter:</code>
+<code>    user: process.uid</code>
+<code>, <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span></code>
+<code>  <span class="hljs-comment"># list contains only files belonging to the current user</span></code></pre>
+<h3 id="time-specification">Time specification</h3>
+<p>It is also possible to select files based on their <code>creation</code>, last <code>modified</code>
+or last <code>accessed</code> time.</p>
+<p>Specify the <code>Before</code> and <code>After</code> time appended to one of the above as:</p>
+<ul>
+<li>Unix timestamp</li>
+<li>ISO-8601 date formats</li>
+<li>some local formats (based on platform support for Date.parse())</li>
+<li>time difference from now (human readable)</li>
+</ul>
+<p>The following time definitions are an example what you may use:</p>
+<ul>
+<li><code>yesterday</code>, <code>2 days ago</code>, <code>last Monday</code> to specify a day from now</li>
+<li><code>yesterday 15:00</code>, <code>yesterday at 15:00</code> to also specify the time</li>
+<li><code>1 March</code>, <code>1st March</code> specifies a date in this year</li>
+<li><code>1 March 2014</code>, <code>1st March 2014</code>, '03/01/13<code>,</code>01.03.2014` all specifiying the 1st of march</li>
+<li><code>9:00</code>, <code>9:00 GMT+0900</code> to specify a time today or in combination with a date</li>
+<li><code>last night</code>, <code>00:00</code></li>
+</ul>
+<p>If only a day is given it will use 12:00 as the time.</p>
+<p><strong>Example</strong></p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></code>
+<code>fs.find <span class="hljs-string">'/tmp/some/directory'</span>,</code>
+<code>  filter:</code>
+<code>    modifiedBefore: <span class="hljs-string">'yesterday 12:00'</span></code>
+<code>, <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span></code>
+<code>  <span class="hljs-comment"># list contains only files older than yesterday 12 o'clock</span></code></pre>
+<h3 id="user-defined-function">User defined function</h3>
+<p>With the <code>test</code> parameter you may add an user defined function which will be
+called to check each file. It will get the file path and options array so you
+may also add some configuration therefore in additional option values.</p>
+<p>Asynchronous call:</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></code>
+<code>fs.find <span class="hljs-string">'.'</span>,</code>
+<code>  filter:</code>
+<code>    test: <span class="hljs-function"><span class="hljs-params">(file, options, cb)</span> -&gt;</span></code>
+<code>      cb ~file.indexOf <span class="hljs-string">'ab'</span></code>
+<code>, <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span></code>
+<code>  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Found <span class="hljs-subst">#{list.length}</span> matches."</span></code></pre>
+<p>Or use synchronous calls:</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></code>
+<code>list = fs.findSync <span class="hljs-string">'test/temp'</span>,</code>
+<code>  filter:</code>
+<code>    test: <span class="hljs-function"><span class="hljs-params">(file, options)</span> -&gt;</span></code>
+<code>      <span class="hljs-keyword">return</span> ~file.indexOf <span class="hljs-string">'ab'</span></code>
+<code><span class="hljs-built_in">console</span>.log <span class="hljs-string">"Found <span class="hljs-subst">#{list.length}</span> matches."</span></code></pre>
 </main>
         </div>
         <div class="col-sm-3 col-cm-pull-9 sidebar">
@@ -192,44 +358,44 @@ to make it in the os default directory)</li>
                 <li class="level1">
                   <a href="../index.coffee.html" title="API Usage (/src/index.coffee)">API Usage</a>
                 </li>
-                <li class="level2">
-                  <a href="../helper/filter.coffee.html" title="Filter Rules (/src/helper/filter.coffee)">Filter Rules</a>
-                </li>
-                <li class="level2">
-                  <a href="chmods.coffee.html" title="Change Mode (/src/method/chmods.coffee)">Change Mode</a>
-                </li>
-                <li class="level2">
-                  <a href="chowns.coffee.html" title="Change Ownership (/src/method/chowns.coffee)">Change Ownership</a>
-                </li>
-                <li class="level2">
-                  <a href="copy.coffee.html" title="Copy Files (/src/method/copy.coffee)">Copy Files</a>
-                </li>
-                <li class="level2">
-                  <a href="find.coffee.html" title="Find Files (/src/method/find.coffee)">Find Files</a>
-                </li>
-                <li class="level2">
-                  <a href="mkdirs.coffee.html" title="Make Directories (/src/method/mkdirs.coffee)">Make Directories</a>
-                </li>
-                <li class="level2">
-                  <a href="move.coffee.html" title="Move Files (/src/method/move.coffee)">Move Files</a>
-                </li>
-                <li class="level2">
-                  <a href="npmbin.coffee.html" title="Find Binary (/src/method/npmbin.coffee)">Find Binary</a>
-                </li>
-                <li class="level2">
-                  <a href="remove.coffee.html" title="Remove Files (/src/method/remove.coffee)">Remove Files</a>
-                </li>
-                <li class="level2">
-                  <a href="stat.coffee.html" title="File Stats (/src/method/stat.coffee)">File Stats</a>
-                </li>
-                <li class="level2">
-                  <a href="tempdir.coffee.html" title="Temp Directory (/src/method/tempdir.coffee)">Temp Directory</a>
-                </li>
                 <li class="active level2">
-                  <a href="tempfile.coffee.html" title="Temp File (/src/method/tempfile.coffee)">Temp File <span class="sr-only">(current)</span></a>
+                  <a href="filter.coffee.html" title="Filter Rules (/src/helper/filter.coffee)">Filter Rules <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="level2">
-                  <a href="touch.coffee.html" title="Touch Files (/src/method/touch.coffee)">Touch Files</a>
+                  <a href="../method/chmods.coffee.html" title="Change Mode (/src/method/chmods.coffee)">Change Mode</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/chowns.coffee.html" title="Change Ownership (/src/method/chowns.coffee)">Change Ownership</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/copy.coffee.html" title="Copy Files (/src/method/copy.coffee)">Copy Files</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/find.coffee.html" title="Find Files (/src/method/find.coffee)">Find Files</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/mkdirs.coffee.html" title="Make Directories (/src/method/mkdirs.coffee)">Make Directories</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/move.coffee.html" title="Move Files (/src/method/move.coffee)">Move Files</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/npmbin.coffee.html" title="Find Binary (/src/method/npmbin.coffee)">Find Binary</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/remove.coffee.html" title="Remove Files (/src/method/remove.coffee)">Remove Files</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/stat.coffee.html" title="File Stats (/src/method/stat.coffee)">File Stats</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/tempdir.coffee.html" title="Temp Directory (/src/method/tempdir.coffee)">Temp Directory</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/tempfile.coffee.html" title="Temp File (/src/method/tempfile.coffee)">Temp File</a>
+                </li>
+                <li class="level2">
+                  <a href="../method/touch.coffee.html" title="Touch Files (/src/method/touch.coffee)">Touch Files</a>
                 </li>
                 <li class="level0">
                   <a href="../../Changelog.md.html" title="Version changes (/Changelog.md)">Version changes</a>
