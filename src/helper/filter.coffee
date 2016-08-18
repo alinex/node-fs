@@ -238,7 +238,20 @@ skipPath = (file, options, cb) ->
 # @see {@link skipPath()} for description
 skipPathSync = (file, options) ->
   return false unless options.include or options.exclude
-  skip = false
+  if options.exclude
+    list = if Array.isArray options.exclude then options.exclude else [options.exclude]
+    for exclude in list
+      if exclude instanceof RegExp
+        if file.match exclude
+          debug "skip #{file} because path excluded (regexp)"
+          return 'SKIPPATH'
+      else if exclude is path.basename file
+        return true
+      else
+        minimatch = require 'minimatch'
+        if minimatch file, exclude, {matchBase: true}
+          debug "skip #{file} because path excluded (glob)"
+          return 'SKIPPATH'
   if options.include
     list = if Array.isArray options.include then options.include else [options.include]
     ok = false
@@ -257,22 +270,8 @@ skipPathSync = (file, options) ->
         break
     unless ok
       debug "skip #{file} because path not included"
-      skip = true
-  if options.exclude
-    list = if Array.isArray options.exclude then options.exclude else [options.exclude]
-    for exclude in list
-      if exclude instanceof RegExp
-        if file.match exclude
-          debug "skip #{file} because path excluded (regexp)"
-          return 'SKIPPATH'
-      else if exclude is path.basename file
-        return true
-      else
-        minimatch = require 'minimatch'
-        if minimatch file, exclude, {matchBase: true}
-          debug "skip #{file} because path excluded (glob)"
-          return 'SKIPPATH'
-  return skip
+      return true
+  return false
 
 
 ###
