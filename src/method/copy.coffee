@@ -126,15 +126,6 @@ module.exports.copy = (source, target, options, cb) ->
                   source: "#{task.source}/#{file}"
                   depth: task.depth
               return cb() if options.noempty
-              # create directory if necessary
-              console.log '-------'
-              return cb() unless ok
-              fs.exists target, (exists) ->
-                if exists and not (options.overwrite or options.ignore)
-                  return cb new Error "Target file already exists: #{target}"
-                return cb() unless not exists or options.overwrite
-                list.push target
-                mkdirs.mkdirs target, cb
   , parallel(options)
   # add current file
   queue.push
