@@ -56,7 +56,7 @@ describe "Recursive copy", ->
         cb()
 
     it "should fail on copy dir into file", (cb) ->
-      fs.copy 'test/temp/dir1', 'test/temp/file1', (err, list) ->
+      fs.copy 'test/temp/dir1', 'test/temp/file1', (err) ->
         expect(err, 'error').to.exist
         cb()
 
