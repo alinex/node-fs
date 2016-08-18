@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 3.0.1 (2016-08-18)
+-------------------------------------------------
+- Fix empty dir in copy() handling.
+- Removed unneccessary directory creation.
+- Faster skip path also if skip through includes.
+
 Version 3.0.0 (2016-08-18)
 -------------------------------------------------
 Breaking change of options array.
