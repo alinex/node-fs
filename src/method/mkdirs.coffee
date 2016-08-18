@@ -58,6 +58,7 @@ mkdirs = module.exports.mkdirs = ->
   mode = parseInt mode, 8 if typeof mode is 'string'
   maxnum ?= 0
   dir = path.resolve dir
+#  console.log (new Error dir).stack
   # try to create directory
   debug "directory #{dir}?"
   fs.mkdir dir, mode, (err) ->

@@ -68,6 +68,7 @@ files and directly created directories or possible `Èrror`:
 - Target file already exists: xxxxx
 ###
 module.exports.copy = (source, target, options, cb) ->
+  debug "start copy: #{source} -> #{target}"
   unless cb?
     cb = ->
   if typeof options is 'function' or not options
@@ -77,7 +78,7 @@ module.exports.copy = (source, target, options, cb) ->
   # create a queue
   queue = async.queue (task, cb) ->
     debug "check #{task.source}"
-    async.setImmediate ->
+    async.nextTick ->
       filter.filter task.source, task.depth, options, (ok) ->
         return cb() if ok is undefined
         # check source entry
@@ -85,35 +86,35 @@ module.exports.copy = (source, target, options, cb) ->
         stat task.source, (err, stats) ->
           if err
             return cb if options?.ignoreErrors then null else err
-          target = target + task.source[source.length..]
+          task.target = target + task.source[source.length..]
           if stats.isFile()
             return cb() unless ok
             # create directory if necessary
-            mkdirs.mkdirs path.dirname(target), (err) ->
+            mkdirs.mkdirs path.dirname(task.target), (err) ->
               return cb err if err
               # copy the file
-              fs.exists target, (exists) ->
+              fs.exists task.target, (exists) ->
                 if exists and not (options.overwrite or options.ignore)
-                  return cb new Error "Target file already exists: #{target}"
+                  return cb new Error "Target file already exists: #{task.target}"
                 return cb() unless not exists or options.overwrite
-                debug "copying file #{task.source} to #{target}"
-                list.push target
-                copyFile task.source, stats, target, cb
+                debug "copying file #{task.source} to #{task.target}"
+                list.push task.target
+                copyFile task.source, stats, task.target, cb
           else if stats.isSymbolicLink()
             return cb() unless ok
             # create directory if necessary
-            mkdirs.mkdirs path.dirname(target), (err) ->
+            mkdirs.mkdirs path.dirname(task.target), (err) ->
               return cb err if err
-              fs.exists target, (exists) ->
+              fs.exists task.target, (exists) ->
                 if exists and not (options.overwrite or options.ignore)
-                  return cb new Error "Target file already exists: #{target}"
+                  return cb new Error "Target file already exists: #{task.target}"
                 return cb() unless not exists or options.overwrite
-                debug "copying link #{task.source} to #{target}"
+                debug "copying link #{task.source} to #{task.target}"
                 fs.readlink task.source, (err, resolvedPath) ->
                   return cb err if err
                   # make the symlink
-                  list.push target
-                  fs.symlink resolvedPath, target, cb
+                  list.push task.target
+                  fs.symlink resolvedPath, task.target, cb
           else
             # source is directory
             debug "going deeper into #{task.source} directory"
@@ -128,12 +129,12 @@ module.exports.copy = (source, target, options, cb) ->
               return cb() if options.noempty
               # create directory if necessary
               return cb() unless ok
-              fs.exists target, (exists) ->
+              fs.exists task.target, (exists) ->
                 if exists and not (options.overwrite or options.ignore)
-                  return cb new Error "Target file already exists: #{target}"
+                  return cb new Error "Target file already exists: #{task.target}"
                 return cb() unless not exists or options.overwrite
-                list.push target
-                mkdirs.mkdirs target, cb
+                list.push task.target
+                mkdirs.mkdirs task.target, cb
   , parallel(options)
   # add current file
   queue.push
@@ -160,6 +161,7 @@ module.exports.copy = (source, target, options, cb) ->
 @param {Integer} [depth=0] current depth in file tree
 ###
 copySync = module.exports.copySync = (source, target, options = {}, depth = 0) ->
+  debug "start copy: #{source} -> #{target}"
 #  debug "check #{source}"
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   list = []

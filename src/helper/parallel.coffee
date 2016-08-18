@@ -22,4 +22,4 @@ PARALLEL = Math.floor posix.getrlimit('nofile').soft / 2
 
 # @param {Object} options to check for predefined `parallel` setting
 # @return {Integer} number of may allowed parallel runs
-module.exports = (options) -> options.parallel ? PARALLEL
+module.exports = (options) -> PARALLEL #options.parallel ? PARALLEL
