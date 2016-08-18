@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 3.0.2 (2016-08-18)
+-------------------------------------------------
+- Fix copy target calculation.
+
 Version 3.0.1 (2016-08-18)
 -------------------------------------------------
 - Fix empty dir in copy() handling.
