@@ -36,16 +36,9 @@ debug = require('debug')('fs:find')
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
-posix = require 'posix'
 # helper modules
 filter = require '../helper/filter'
-
-
-# Setup
-# ------------------------------------------------
-# Maximum parallel processes is half of the soft limit for open files if not given
-# in the options.
-PARALLEL = Math.floor posix.getrlimit('nofile').soft / 2
+parallel = require '../helper/parallel'
 
 
 # Exported Methods
@@ -88,7 +81,7 @@ module.exports.find = (source, options, cb) ->
                 source: "#{task.source}/#{file}"
                 depth: task.depth
             cb()
-  , options.parallel ? PARALLEL
+  , parallel(options)
   # add current file
   queue.push
     source: source
@@ -141,13 +134,24 @@ This module uses the {@link debug} module so you may anytime call your app with
 the environment setting `DEBUG=fs:find` for the output of this method only.
 
     fs:find check test/temp +0ms
-    fs:find going deeper into test/temp directory +3ms
+    fs:filter skip test/temp because path not included +5ms
+    fs:filter test/temp SKIP +1ms
+    fs:find going deeper into test/temp directory +40ms
     fs:find check test/temp/dir1 +1ms
     fs:find check test/temp/dir2 +0ms
     fs:find check test/temp/dir3 +0ms
     fs:find check test/temp/file1 +0ms
     fs:find check test/temp/file2 +0ms
+    fs:filter test/temp/dir1 OK +1ms
+    fs:filter skip dir2 because path not included +0ms
+    fs:filter test/temp/dir2 SKIP +0ms
+    fs:filter skip dir3 because path not included +0ms
+    fs:filter test/temp/dir3 SKIP +0ms
+    fs:filter test/temp/file1 OK +0ms
+    fs:filter skip file2 because path not included +0ms
+    fs:filter test/temp/file2 SKIP +0ms
     fs:find going deeper into test/temp/dir1 directory +0ms
     fs:find going deeper into test/temp/dir2 directory +0ms
     fs:find check test/temp/dir1/file11 +1ms
+    fs:filter test/temp/dir1/file11 OK +0ms
 ###

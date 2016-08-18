@@ -49,17 +49,10 @@ debug = require('debug')('fs:copy')
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
-posix = require 'posix'
 # include other extended commands and helper
 mkdirs = require './mkdirs'
 filter = require '../helper/filter'
-
-
-# Setup
-# ------------------------------------------------
-# Maximum parallel processes is half of the soft limit for open files if not given
-# in the options.
-PARALLEL = Math.floor posix.getrlimit('nofile').soft / 2
+parallel = require '../helper/parallel'
 
 
 # Exported Methods
@@ -133,7 +126,7 @@ module.exports.copy = (source, target, options, cb) ->
             # create directory if necessary
             list.push target
             mkdirs.mkdirs target, cb
-  , options.parallel ? PARALLEL
+  , parallel(options)
   # add current file
   queue.push
     source: source
@@ -159,6 +152,7 @@ module.exports.copy = (source, target, options, cb) ->
 @param {Integer} [depth=0] current depth in file tree
 ###
 copySync = module.exports.copySync = (source, target, options = {}, depth = 0) ->
+  debug "check #{source}"
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   list = []
   try

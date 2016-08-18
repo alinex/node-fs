@@ -6,8 +6,8 @@ set-group-ID, and sticky bits.
 
 The options object is the same as used for {@link find.coffee} with the additional mode:
 - `mode` - `Integer` - to be set on the matching entries
-- `dereference` - `Boolean`
-- `ignoreErrors` - `Boolean`
+- `dereference` - `Boolean` dereference symbolic links and go into them
+- `ìgnoreErrors` - `Boolean` go on and ignore IO errors
 
 The file mode is a bit mask with the following bits (octal notation):
 
@@ -32,62 +32,44 @@ To change the file mode you have to be privileged to do so.
 
 # Node Modules
 # -------------------------------------------------
-fs = require 'fs'
-path = require 'path'
-async = require 'async'
 debug = require('debug')('fs:chmods')
+fs = require 'fs'
+async = require 'async'
+# include other extended commands and helper
+find = require './find'
+parallel = require '../helper/parallel'
 
 
 # Exported Methods
 # ------------------------------------------------
 
 ###
-@param {String} file file path or directory to search
-@param {Object} options selection of files to search and mode
-@param {function(<Error>)} cb callback with error if something went wrong
+@param {String} source file path or directory to search
+@param {Object} options selection of files to search and change mode
+@param {function(Error)} cb callback with error if something went wrong
+- No file to change mode for found!
 ###
-chmods = module.exports.chmods = (file, options, cb = ->) ->
-  # check file entry
-  stat = if options.dereference? then fs.stat else fs.lstat
-  stat file, (err, stats) ->
-    # return if not existing
-    if err
-      return cb() if err.code is 'ENOENT' or options.ignoreErrors
-      return cb err
-    # change inode ownership
-    fs.chmod file, options.mode, (err) ->
-      return cb err if err
-      return cb() unless stats.isDirectory()
-      # do the same for contents of directory
-      dir = file
-      debug "chmod directory contents of #{dir}"
-      fs.readdir file, (err, files) ->
-        return cb err if err
-        # remove all files in directory
-        async.each files, (file, cb) ->
-          chmods path.join(dir, file), options, cb
-        , cb
+module.exports.chmods = (source, options, cb = ->) ->
+  find.find source, options, (err, list) ->
+    return cb err if err
+    unless list.length or options.ignoreErrors
+      return cb new Error "No file to change mode for found!"
+    async.eachLimit list, parallel(options), (file, cb) ->
+      debug "chmod of #{file}"
+      fs.chmod file, options.mode, cb
+    , (err) ->
+      cb err, list
 
 ###
-@param {String} file file path or directory to search
+@param {String} source file path or directory to search
 @param {Object} options selection of files to search and mode
 @throws {Error} if something went wrong
+- No file to change mode for found!
 ###
-chmodsSync = module.exports.chmodsSync = (file, options) ->
-  # check file entry
-  stat = if options.dereference? then fs.statSync else fs.lstatSync
-  try
-    stats = stat file
-  catch error
-    # return if already removed
-    return if error.code is 'ENOENT' or options.ignoreErrors
-    throw error
-  # change inode ownership
-  fs.chmodSync file, options.mode
-  return unless stats.isDirectory()
-  # do the same for contents of directory
-  dir = file
-  debug "chmod directory contents of #{dir}"
-  # remove all files in directory
-  for file in fs.readdirSync dir
-    chmodsSync path.join(dir, file), options
+module.exports.chmodsSync = (source, options) ->
+  list = find.findSync source, options
+  unless list.length or options.ignoreErrors
+    return new Error "No file to change mode for found!"
+  for file in list
+    fs.chmodSync file, options.mode
+  return list

@@ -39,19 +39,12 @@ debug = require('debug')('fs:move')
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
-posix = require 'posix'
 # include other extended commands and helper
 mkdirs = require './mkdirs'
 filter = require '../helper/filter'
 copy = require './copy'
 remove = require './remove'
-
-
-# Setup
-# ------------------------------------------------
-# Maximum parallel processes is half of the soft limit for open files if not given
-# in the options.
-PARALLEL = Math.floor posix.getrlimit('nofile').soft / 2
+parallel = require '../helper/parallel'
 
 
 # Exported Methods
@@ -71,7 +64,7 @@ module.exports.move = (source, target, options = {}, cb = ->) ->
   list = []
   # clean target completely
   clean target,
-    parallel: options.parallel ? PARALLEL
+    parallel: parallel(options)
     clean: options.clean
     ignoreErrors: options.ignoreErrors
     dereference: options.dereference
@@ -102,18 +95,21 @@ module.exports.move = (source, target, options = {}, cb = ->) ->
                   fs.rename source, target, (err) ->
                     unless err
                       debug "renamed #{source} -> #{target}"
+                      list.push target
                       return cb()
                     # else copy and remove
                     copyRemove task.source, target,
-                      parallel: options.parallel ? PARALLEL
+                      overwrite: options.overwrite
+                      ignore: options.ignore
                       ignoreErrors: options.ignoreErrors
                       dereference: options.dereference
+                      parallel: parallel(options)
                     , (err) ->
                       unless err
                         debug "copied/removed #{source} -> #{target}"
                         list.push target
                       cb err
-    , (options.parallel ? PARALLEL) / 2
+    , Math.sqrt parallel(options)
     # add current file
     queue.push
       source: source
@@ -133,31 +129,56 @@ module.exports.move = (source, target, options = {}, cb = ->) ->
 @param {String} target file or directory to copy to
 @param {Object} [options] specifications for check defining which files to copy
 @throws {Error} if anything out of order happened
+@internal The `depth` parameter is only used internally.
+@param {Integer} [depth=0] current depth in file tree
 ###
-module.exports.moveSync = (source, target, options = {}) ->
-  debug "move filepath #{source} to #{target}."
+moveSync = module.exports.moveSync = (source, target, options = {}, depth = 0) ->
+  debug "check #{source}"
+  stat = if options.dereference? then fs.statSync else fs.lstatSync
   list = []
+  try
+    stats = stat source
+  catch error
+    return list if options.ignoreErrors
+    throw error
   # remove old target first
   if options.clean
     remove.removeSync target,
       ignoreErrors: options.ignoreErrors
       dereference: options.dereference
-  #
+  # check what to do
   ok = filter.filterSync source, depth, options
-
-  # create parent directories
-  mkdirs.mkdirsSync path.dirname target
-
-  # try to rename file
-  unless options
+  if stats.isDirectory() and not ok
+    # source is directory and not moved -> check entries
+    depth++
+    # copy directory
+    mkdirs.mkdirsSync target, stats.mode
+    # copy all files in directory
+    debug "moving directory #{source} to #{target}"
+    for file in fs.readdirSync source
+      list = list.concat moveSync path.join(source, file), path.join(target, file), options, depth
+      list.sort()
+      return list
+  else
+    return list unless ok
     try
+      exists = fs.existsSync target
+      if exists and not options.overwrite
+        throw new Error "target file #{target} already exists"
       fs.renameSync source, target
-      return target
+      debug "renamed #{source} -> #{target}"
+      list.push target
+      return list
     catch error
       throw error unless options.ignoreErrors
-      return copyRemoveSync source, target, options
-  # direct copy/remove
-  copyRemoveSync source, target, options
+      copyRemoveSync source, target,
+        overwrite: options.overwrite
+        ignore: options.ignore
+        ignoreErrors: options.ignoreErrors
+        dereference: options.dereference
+      debug "copied/removed #{source} -> #{target}"
+      list.push target
+      return list
 
 
 # Helper methods

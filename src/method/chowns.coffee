@@ -4,71 +4,82 @@ Change Ownership
 Recursive change file ownership like {@link fs.chown}.
 
 The options object is the same as used for {@link find.coffee} with the additional mode:
-- `uid` - `Integer` - user id to set
-- `gid` - `Integer` - group id to set
-- `dereference` - `Boolean`
-- `ignoreErrors` - `Boolean`
+- `user` - `String|Integer` - user name or id to set
+- `group` - `String|Integer` - group name or id to set
+- `dereference` - `Boolean` dereference symbolic links and go into them
+- `ìgnoreErrors` - `Boolean` go on and ignore IO errors
 ###
 
 
 # Node Modules
 # -------------------------------------------------
-fs = require 'fs'
-path = require 'path'
-async = require 'async'
 debug = require('debug')('fs:chowns')
+fs = require 'fs'
+async = require 'async'
+posix = require 'posix'
+# include other extended commands and helper
+find = require './find'
+parallel = require '../helper/parallel'
 
 
 # Exported Methods
 # ------------------------------------------------
 
 ###
-@param {String} file file path or directory to search
+@param {String} source file path or directory to search
 @param {Object} options selection of files to search and user/group id
-@param {function(<Error>)} cb callback with error if something went wrong
+@param {function(Error)} cb callback with error if something went wrong
+- No file to change owner for found!
 ###
-chowns = module.exports.chowns = (file, options, cb = ->) ->
-  # check file entry
-  stat = if options.dereference? then fs.stat else fs.lstat
-  stat file, (err, stats) ->
-    # return if not existing
-    if err
-      return cb() if err.code is 'ENOENT' or options.ignoreErrors
-      return cb err
-    # change inode ownership
-    fs.chown file, options.uid, options.gid, (err) ->
-      return cb err if err
-      return cb() unless stats.isDirectory()
-      # do the same for contents of directory
-      dir = file
-      debug "chown directory contents of #{dir}"
-      fs.readdir file, (err, files) ->
-        return cb err if err
-        # remove all files in directory
-        async.each files, (file, cb) ->
-          chowns path.join(dir, file), options, cb
-        , cb
+module.exports.chmods = (source, options, cb = ->) ->
+  find.find source, options, (err, list) ->
+    return cb err if err
+    unless list.length or options.ignoreErrors
+      return cb new Error "No file to change owner for found!"
+    try
+      uid = getUid options
+      gid = getGid options
+    catch error
+      return cb error unless options.ignoreErrors
+    async.eachLimit list, parallel(options), (file, cb) ->
+      debug "chown of #{file}"
+      fs.chown file, uid, gid, cb
+    , (err) ->
+      cb err, list
 
 ###
-@param {String} file file path or directory to search
+@param {String} source file path or directory to search
 @param {Object} options selection of files to search and user/group id
 @throws {Error} if something went wrong
+- No file to change owner for found!
 ###
-chownsSync = module.exports.async = (file, options) ->
-  # check file entry
-  stat = if options.dereference? then fs.statSync else fs.lstatSync
+module.exports.chmodsSync = (source, options) ->
+  list = find.findSync source, options
+  unless list.length or options.ignoreErrors
+    return new Error "No file to change owner for found!"
   try
-    stats = stat file
+    uid = getUid options
+    gid = getGid options
   catch error
-    # return if already removed
-    return if error.code is 'ENOENT' or options.ignoreErrors
-    throw error
-  # change inode ownership
-  fs.chownSync file, options.uid, options.gid
-  return unless stats.isDirectory()
-  # do the same for contents of directory
-  dir = file
-  debug "chown directory contents of #{dir}"
-  # remove all files in directory
-  for file in fs.readdirSync dir
-    chownsSync path.join(dir, file), options
+    throw error unless options.ignoreErrors
+  for file in list
+    fs.chownSync file, uid, gid
+  return list
+
+
+# Helper Methods
+# ------------------------------------------------
+
+# @param {Object} options selection with user/group to set
+# @return {Integer} user id or `undefined` if not set
+getUid = (options) ->
+  if options.user and not isNaN options.user
+    return posix.getpwnam(options.user).uid
+  return options.user
+
+# @param {Object} options selection with user/group to set
+# @return {Integer} group id or `undefined` if not set
+getGid = (options) ->
+  if options.group and not isNaN options.group
+    return posix.getgrnam(options.group).gid
+  return options.group

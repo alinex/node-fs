@@ -20,7 +20,7 @@ describe "Move", ->
       return cb() unless exists
       exec 'rm -r test/temp', cb
 
-  describe.only "asynchronous", ->
+  describe "asynchronous", ->
 
     it "should fail if source don't exist", (cb) ->
       fs.move 'test/temp/dir999', 'test/temp/dir10', (err) ->

@@ -81,6 +81,7 @@ module.exports.filter = (file, depth = 0, options = {}, cb = -> ) ->
   list = if Array.isArray options.filter then options.filter else [options.filter]
   subpath = file.split /\//
   subpath = subpath[subpath.length-depth..].join '/'
+  subpath = null unless subpath.length
   async.map list, (options, cb) ->
     return cb true unless Object.keys(options).length
     skipPath (subpath ? file), options, (skip) ->
@@ -117,6 +118,7 @@ module.exports.filterSync = (file, depth = 0, options) ->
   list = if Array.isArray options.filter then options.filter else [options.filter]
   subpath = file.split /\//
   subpath = subpath[subpath.length-depth..].join '/'
+  subpath = null unless subpath.length
   for options in list
     return true unless Object.keys(options).length
     debug "check #{file} for " + util.inspect options
@@ -131,9 +133,9 @@ module.exports.filterSync = (file, depth = 0, options) ->
     continue if skipTimeSync file, options
     continue if skipOwnerSync file, options
     continue if skipFunctionSync file, options
-    debug "#{file} SKIP"
+    debug "#{file} OK"
     return true
-  debug "#{file} OK"
+  debug "#{file} SKIP"
   false
 
 
