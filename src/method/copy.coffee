@@ -65,7 +65,7 @@ parallel = require '../helper/parallel'
 to copy
 @param {function(Error, Array<String>)} [cb] callback with list of newly created
 files and directly created directories or possible `Èrror`:
-- Target file already exists
+- Target file already exists: xxxxx
 ###
 module.exports.copy = (source, target, options, cb) ->
   unless cb?
@@ -94,23 +94,26 @@ module.exports.copy = (source, target, options, cb) ->
               # copy the file
               fs.exists target, (exists) ->
                 if exists and not (options.overwrite or options.ignore)
-                  return cb new Error "Target file already exists."
-                if not exists or options.overwrite
-                  debug "copying file #{task.source} to #{target}"
-                  list.push target
-                  return copyFile task.source, stats, target, cb
-                cb()
+                  return cb new Error "Target file already exists: #{target}"
+                return cb() unless not exists or options.overwrite
+                debug "copying file #{task.source} to #{target}"
+                list.push target
+                copyFile task.source, stats, target, cb
           else if stats.isSymbolicLink()
             return cb() unless ok
             # create directory if necessary
             mkdirs.mkdirs path.dirname(target), (err) ->
               return cb err if err
-              debug "copying link #{task.source} to #{target}"
-              fs.readlink task.source, (err, resolvedPath) ->
-                return cb err if err
-                # make the symlink
-                list.push target
-                fs.symlink resolvedPath, target, cb
+              fs.exists target, (exists) ->
+                if exists and not (options.overwrite or options.ignore)
+                  return cb new Error "Target file already exists: #{target}"
+                return cb() unless not exists or options.overwrite
+                debug "copying link #{task.source} to #{target}"
+                fs.readlink task.source, (err, resolvedPath) ->
+                  return cb err if err
+                  # make the symlink
+                  list.push target
+                  fs.symlink resolvedPath, target, cb
           else
             # source is directory
             debug "going deeper into #{task.source} directory"
@@ -122,10 +125,15 @@ module.exports.copy = (source, target, options, cb) ->
                 queue.push
                   source: "#{task.source}/#{file}"
                   depth: task.depth
-            return cb() if options.noempty
-            # create directory if necessary
-            list.push target
-            mkdirs.mkdirs target, cb
+              return cb() if options.noempty
+              # create directory if necessary
+              return cb() unless ok
+              fs.exists target, (exists) ->
+                if exists and not (options.overwrite or options.ignore)
+                  return cb new Error "Target file already exists: #{target}"
+                return cb() unless not exists or options.overwrite
+                list.push target
+                mkdirs.mkdirs target, cb
   , parallel(options)
   # add current file
   queue.push
@@ -146,7 +154,7 @@ module.exports.copy = (source, target, options, cb) ->
 @param {String} target file or directory to copy to
 @param {Object} [options] specifications for check defining which files to copy
 @throws {Error} if anything out of order happened
-- Target file already exists
+- Target file already exists: xxxxxxxxxxxxxxxxx
 @return {Array<String>} list of newly created files and directly created directories
 @internal The `depth` parameter is only used internally.
 @param {Integer} [depth=0] current depth in file tree
@@ -169,7 +177,7 @@ copySync = module.exports.copySync = (source, target, options = {}, depth = 0) -
     # copy the file
     exists = fs.existsSync target
     if exists and not (options.overwrite or options.ignore)
-      throw new Error "Target file already exists."
+      throw new Error "Target file already exists: #{target}"
     if not exists or options.overwrite
       debug "copying file #{source} to #{target}"
       copyFileSync source, stats, target
