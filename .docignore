@@ -1,0 +1,17 @@
+.git
+.project
+.settings
+.DS_Store
+*.sublime-*
+/report/
+/data/
+/doc/
+/lib/
+/log/
+/node_modules/
+/var/lib/
+/var/local/
+/test/
+/coffeelint.json
+/.travis.yml
+/.*

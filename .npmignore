@@ -10,7 +10,8 @@
 /test
 /var/local
 /var/lib
-.travis.yml
-.npmignore
-.gitignore
+/.travis.yml
+/.npmignore
+/.gitignore
+/.docignore
 coffeelint.json
