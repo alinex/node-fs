@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 3.0.3 (2016-09-29)
+-------------------------------------------------
+- Update graceful-fs@4.1.9, alinex-builder@2.3.8, posix@4.1.1, moment@2.15.1
+- Optimize debug calls.
+- Updated ignore files.
+- Update travis.
+- Update travis.
+- Better filter performance if checking exclude before include.
+
 Version 3.0.2 (2016-08-18)
 -------------------------------------------------
 - Fix copy target calculation.
