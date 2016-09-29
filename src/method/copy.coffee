@@ -68,7 +68,7 @@ files and directly created directories or possible `Èrror`:
 - Target file already exists: xxxxx
 ###
 module.exports.copy = (source, target, options, cb) ->
-  debug "start copy: #{source} -> #{target}"
+  debug "start copy: #{source} -> #{target}" if debug.enabled
   unless cb?
     cb = ->
   if typeof options is 'function' or not options
@@ -77,7 +77,7 @@ module.exports.copy = (source, target, options, cb) ->
   list = []
   # create a queue
   queue = async.queue (task, cb) ->
-    debug "check #{task.source}"
+    debug "check #{task.source}" if debug.enabled
     async.nextTick ->
       filter.filter task.source, task.depth, options, (ok) ->
         return cb() if ok is undefined
@@ -97,7 +97,7 @@ module.exports.copy = (source, target, options, cb) ->
                 if exists and not (options.overwrite or options.ignore)
                   return cb new Error "Target file already exists: #{task.target}"
                 return cb() unless not exists or options.overwrite
-                debug "copying file #{task.source} to #{task.target}"
+                debug "copying file #{task.source} to #{task.target}" if debug.enabled
                 list.push task.target
                 copyFile task.source, stats, task.target, cb
           else if stats.isSymbolicLink()
@@ -109,7 +109,7 @@ module.exports.copy = (source, target, options, cb) ->
                 if exists and not (options.overwrite or options.ignore)
                   return cb new Error "Target file already exists: #{task.target}"
                 return cb() unless not exists or options.overwrite
-                debug "copying link #{task.source} to #{task.target}"
+                debug "copying link #{task.source} to #{task.target}" if debug.enabled
                 fs.readlink task.source, (err, resolvedPath) ->
                   return cb err if err
                   # make the symlink
@@ -117,7 +117,7 @@ module.exports.copy = (source, target, options, cb) ->
                   fs.symlink resolvedPath, task.target, cb
           else
             # source is directory
-            debug "going deeper into #{task.source} directory"
+            debug "going deeper into #{task.source} directory" if debug.enabled
             task.depth++
             fs.readdir task.source, (err, files) ->
               return cb err if err
@@ -161,7 +161,7 @@ module.exports.copy = (source, target, options, cb) ->
 @param {Integer} [depth=0] current depth in file tree
 ###
 copySync = module.exports.copySync = (source, target, options = {}, depth = 0) ->
-  debug "start copy: #{source} -> #{target}"
+  debug "start copy: #{source} -> #{target}" if debug.enabled
 #  debug "check #{source}"
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   list = []
@@ -181,7 +181,7 @@ copySync = module.exports.copySync = (source, target, options = {}, depth = 0) -
     if exists and not (options.overwrite or options.ignore)
       throw new Error "Target file already exists: #{target}"
     if not exists or options.overwrite
-      debug "copying file #{source} to #{target}"
+      debug "copying file #{source} to #{target}" if debug.enabled
       copyFileSync source, stats, target
   else if stats.isSymbolicLink()
     return list unless ok
@@ -189,7 +189,7 @@ copySync = module.exports.copySync = (source, target, options = {}, depth = 0) -
     mkdirs.mkdirsSync path.dirname(target)
     resolvedPath = fs.readlinkSync source
     # make the symlink
-    debug "copying link #{source} to #{target}"
+    debug "copying link #{source} to #{target}" if debug.enabled
     list.push target
     fs.symlinkSync resolvedPath, target
   else
@@ -199,7 +199,7 @@ copySync = module.exports.copySync = (source, target, options = {}, depth = 0) -
     if ok and not options.noempty
       mkdirs.mkdirsSync target, stats.mode
     # copy all files in directory
-    debug "copying directory #{source} to #{target}"
+    debug "copying directory #{source} to #{target}" if debug.enabled
     for file in fs.readdirSync source
       list = list.concat copySync path.join(source, file), path.join(target, file), options, depth
   list.sort()

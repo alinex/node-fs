@@ -67,7 +67,7 @@ module.exports.remove = (source, options, cb) ->
   list = []
   # create a queue
   queue = async.queue (task, cb) ->
-    debug "check #{task.source}"
+    debug "check #{task.source}" if debug.enabled
     async.setImmediate ->
       filter.filter task.source, task.depth, options, (ok) ->
         return cb() if ok is undefined
@@ -133,19 +133,19 @@ removeSync = module.exports.removeSync = (file, options = {}, depth = 0) ->
   if stats.isFile()
     return list unless ok
     # remove file
-    debug "removing file #{file}"
+    debug "removing file #{file}" if debug.enabled
     fs.unlinkSync file
   else if stats.isSymbolicLink()
     return list unless ok
     # remove symbolic link
-    debug "removing link #{file}"
+    debug "removing link #{file}" if debug.enabled
     fs.unlinkSync file
   else if stats.isDirectory()
     # file is directory
     dir = file
     depth++
     # if this dir should be removed, use no filtering for the containing parts
-    debug "removing directory #{file}"
+    debug "removing directory #{file}" if debug.enabled
     options = {} if ok
     files = fs.readdirSync file
     # copy all files in directory
@@ -175,15 +175,15 @@ removeFile = (source, options, cb) ->
     return cb() if err and (err.code is 'ENOENT' or options.ignoreErrors)
     if stats.isFile()
       # remove file
-      debug "removing #{source} (file)"
+      debug "removing #{source} (file)" if debug.enabled
       fs.unlink source, cb
     else if stats.isSymbolicLink()
       # remove symbolic link
-      debug "removing #{source} (link)"
+      debug "removing #{source} (link)" if debug.enabled
       fs.unlink source, cb
     else if stats.isDirectory()
       # remove directory
-      debug "removing #{source} (directory)"
+      debug "removing #{source} (directory)" if debug.enabled
       fs.readdir source, (err, files) ->
         return cb err if err
         async.eachLimit files, (options.parallel ? PARALLEL), (file, cb) ->

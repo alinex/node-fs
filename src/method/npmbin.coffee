@@ -32,7 +32,7 @@ debug = require('debug')('fs:npmbin')
 @param {function(<Error>, <String>)} cb callback with an `Error` or the found binary's path
 ###
 module.exports.npmbin = (bin, dir, cb) ->
-  debug "Search binary #{bin} starting at #{dir}"
+  debug "Search binary #{bin} starting at #{dir}" if debug.enabled
   npmbin bin, dir, cb
 
 ###
@@ -42,7 +42,7 @@ module.exports.npmbin = (bin, dir, cb) ->
 @throws {Error} if binary could not be found
 ###
 module.exports.npmbinSync = (bin, dir) ->
-  debug "Search binary #{bin} starting at #{dir}"
+  debug "Search binary #{bin} starting at #{dir}" if debug.enabled
   return npmbinSync bin, dir
 
 
@@ -60,7 +60,7 @@ npmbin = (bin, dir, cb) ->
   # search for file
   fs.exists file, (exists) ->
     if exists
-      debug "-> found at #{file}"
+      debug "-> found at #{file}" if debug.enabled
       return cb null, file
     # find in parent
     parent = path.join dir, '..', '..'
@@ -81,7 +81,7 @@ npmbinSync = (bin, dir) ->
   file = path.join dir, 'node_modules', '.bin', bin
   # search for file
   if fs.existsSync file
-    debug "-> found at #{file}"
+    debug "-> found at #{file}" if debug.enabled
     return file
   # find in parent
   parent = path.join dir, '..', '..'

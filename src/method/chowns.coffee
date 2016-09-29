@@ -42,7 +42,7 @@ module.exports.chmods = (source, options, cb = ->) ->
     catch error
       return cb error unless options.ignoreErrors
     async.eachLimit list, parallel(options), (file, cb) ->
-      debug "chown of #{file}"
+      debug "chown of #{file}" if debug.enabled
       fs.chown file, uid, gid, cb
     , (err) ->
       cb err, list

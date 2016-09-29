@@ -55,7 +55,7 @@ module.exports.chmods = (source, options, cb = ->) ->
     unless list.length or options.ignoreErrors
       return cb new Error "No file to change mode for found!"
     async.eachLimit list, parallel(options), (file, cb) ->
-      debug "chmod of #{file}"
+      debug "chmod of #{file}" if debug.enabled
       fs.chmod file, options.mode, cb
     , (err) ->
       cb err, list

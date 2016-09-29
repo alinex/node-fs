@@ -60,7 +60,7 @@ module.exports.move = (source, target, options = {}, cb = ->) ->
   if typeof options is 'function' or not options
     cb = options ? ->
     options = {}
-  debug "move filepath #{source} to #{target}."
+  debug "move filepath #{source} to #{target}." if debug.enabled
   list = []
   # clean target completely
   clean target,
@@ -72,7 +72,7 @@ module.exports.move = (source, target, options = {}, cb = ->) ->
     return cb err if err and not options.ignoreErrors
     # create a queue
     queue = async.queue (task, cb) ->
-      debug "check #{task.source}"
+      debug "check #{task.source}" if debug.enabled
       async.setImmediate ->
         filter.filter task.source, task.depth, options, (ok) ->
           return cb() if ok is undefined
@@ -94,7 +94,7 @@ module.exports.move = (source, target, options = {}, cb = ->) ->
                   # try to rename
                   fs.rename source, target, (err) ->
                     unless err
-                      debug "renamed #{source} -> #{target}"
+                      debug "renamed #{source} -> #{target}" if debug.enabled
                       list.push target
                       return cb()
                     # else copy and remove
@@ -106,7 +106,7 @@ module.exports.move = (source, target, options = {}, cb = ->) ->
                       parallel: parallel(options)
                     , (err) ->
                       unless err
-                        debug "copied/removed #{source} -> #{target}"
+                        debug "copied/removed #{source} -> #{target}" if debug.enabled
                         list.push target
                       cb err
     , Math.sqrt parallel(options)
@@ -133,7 +133,7 @@ module.exports.move = (source, target, options = {}, cb = ->) ->
 @param {Integer} [depth=0] current depth in file tree
 ###
 moveSync = module.exports.moveSync = (source, target, options = {}, depth = 0) ->
-  debug "check #{source}"
+  debug "check #{source}" if debug.enabled
   stat = if options.dereference? then fs.statSync else fs.lstatSync
   list = []
   try
@@ -154,7 +154,7 @@ moveSync = module.exports.moveSync = (source, target, options = {}, depth = 0) -
     # copy directory
     mkdirs.mkdirsSync target, stats.mode
     # copy all files in directory
-    debug "moving directory #{source} to #{target}"
+    debug "moving directory #{source} to #{target}" if debug.enabled
     for file in fs.readdirSync source
       list = list.concat moveSync path.join(source, file), path.join(target, file), options, depth
       list.sort()
@@ -166,7 +166,7 @@ moveSync = module.exports.moveSync = (source, target, options = {}, depth = 0) -
       if exists and not options.overwrite
         throw new Error "target file #{target} already exists"
       fs.renameSync source, target
-      debug "renamed #{source} -> #{target}"
+      debug "renamed #{source} -> #{target}" if debug.enabled
       list.push target
       return list
     catch error
@@ -176,7 +176,7 @@ moveSync = module.exports.moveSync = (source, target, options = {}, depth = 0) -
         ignore: options.ignore
         ignoreErrors: options.ignoreErrors
         dereference: options.dereference
-      debug "copied/removed #{source} -> #{target}"
+      debug "copied/removed #{source} -> #{target}" if debug.enabled
       list.push target
       return list
 

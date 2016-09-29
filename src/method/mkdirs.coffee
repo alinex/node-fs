@@ -60,17 +60,17 @@ mkdirs = module.exports.mkdirs = ->
   dir = path.resolve dir
 #  console.log (new Error dir).stack
   # try to create directory
-  debug "directory #{dir}?"
+  debug "directory #{dir}?" if debug.enabled
   fs.mkdir dir, mode, (err) ->
     # return on success
     unless err
-      debug "directory #{dir} created"
+      debug "directory #{dir} created" if debug.enabled
       return cb null, dir ? dir
     if err.code is 'ENOENT'
       if maxnum is 1
         err.message = err.message.replace /^.*?:/, "Not allowed to create as many directories:"
         return cb err
-      debug chalk.grey "-> parent is missing"
+      debug chalk.grey "-> parent is missing" if debug.enabled
       # parent directory missing
       mkdirs path.dirname(dir), mode, --maxnum, (err, made) ->
         return cb err, made if err
@@ -78,11 +78,11 @@ mkdirs = module.exports.mkdirs = ->
         fs.mkdir dir, mode, (err) ->
           # return on success
           unless err
-            debug "directory #{dir} created"
+            debug "directory #{dir} created" if debug.enabled
             return cb null, made
           if err.code is 'EEXIST'
             # directory already exists
-            debug chalk.grey "-> directory #{dir} is there, now"
+            debug chalk.grey "-> directory #{dir} is there, now" if debug.enabled
             cb null, made
           else
             cb err, made
@@ -118,7 +118,7 @@ mkdirsSync = module.exports.mkdirsSync = (dir, mode, maxnum) ->
   # try to create directory
   try
     fs.mkdirSync dir, mode
-    debug "directory #{dir} created"
+    debug "directory #{dir} created" if debug.enabled
     return dir
   catch error
     if error.code is 'ENOENT'
@@ -126,21 +126,21 @@ mkdirsSync = module.exports.mkdirsSync = (dir, mode, maxnum) ->
         error.message = error.message.replace /^.*?:/, "Not allowed to create as many directories:"
         throw error
       # parent directory missing
-      debug chalk.grey "-> parent is missing"
+      debug chalk.grey "-> parent is missing" if debug.enabled
       made = mkdirsSync path.dirname(dir), mode, --maxnum
       # try again if parent was successful created
       try
         fs.mkdirSync dir, mode
-        debug "directory #{dir} created"
+        debug "directory #{dir} created" if debug.enabled
         return made
       catch error
         if error.code is 'EEXIST'
-          debug chalk.grey "-> directory #{dir} is there, now"
+          debug chalk.grey "-> directory #{dir} is there, now" if debug.enabled
           return made
         throw error
     else if error.code is 'EEXIST'
       # directory already exists
-      debug chalk.grey "directory #{dir} was already there"
+      debug chalk.grey "directory #{dir} was already there" if debug.enabled
       return null
     else
       # other error let's fail the action

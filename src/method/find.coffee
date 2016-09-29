@@ -59,7 +59,7 @@ module.exports.find = (source, options, cb) ->
   list = []
   # create a queue
   queue = async.queue (task, cb) ->
-    debug "check #{task.source}"
+    debug "check #{task.source}" if debug.enabled
     async.setImmediate ->
       filter.filter task.source, task.depth, options, (ok) ->
         return cb() if ok is undefined
@@ -71,7 +71,7 @@ module.exports.find = (source, options, cb) ->
           list.push task.source if ok
           return cb null, list unless stats.isDirectory()
           # source is directory
-          debug "going deeper into #{task.source} directory"
+          debug "going deeper into #{task.source} directory" if debug.enabled
           task.depth++
           fs.readdir task.source, (err, files) ->
             return cb err if err
