@@ -48,7 +48,10 @@ also be more readable in major to guys not so involved in async programming.
 Asynchroneous call:
 
 ``` coffee
-fs.find '/tmp/some/directory', {include: '*.jpg'}, (err, list) ->
+fs.find '/tmp/some/directory',
+  filter:
+    include: '*.jpg'
+, (err, list) ->
   return console.error err.message if err
   console.log "Found " + list.length + " images."
   # do something with list
@@ -58,7 +61,9 @@ Synchroneous call:
 
 ``` coffee
 try
-  list = fs.findSync '/tmp/some/directory', {include: '*.jpg'}
+  list = fs.findSync '/tmp/some/directory',
+    filter:
+      include: '*.jpg'
 catch error
   return console.error error.message
 console.log "Found " + list.length + " images."
