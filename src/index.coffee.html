@@ -171,13 +171,18 @@ other things in parallel.</p>
 IO works the use of the corresponding <code>...Sync()</code> methods are easier to add. It will
 also be more readable in major to guys not so involved in async programming.</p>
 <p>Asynchroneous call:</p>
-<pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs.find <span class="hljs-string">'/tmp/some/directory'</span>, {include: <span class="hljs-string">'*.jpg'</span>}, <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span></code>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>fs.find <span class="hljs-string">'/tmp/some/directory'</span>,</code>
+<code>  filter:</code>
+<code>    include: <span class="hljs-string">'*.jpg'</span></code>
+<code>, <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span></code>
 <code>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error err.message <span class="hljs-keyword">if</span> err</code>
 <code>  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Found "</span> + list.length + <span class="hljs-string">" images."</span></code>
 <code>  <span class="hljs-comment"># do something with list</span></code></pre>
 <p>Synchroneous call:</p>
 <pre class="language coffeescript"><header>CoffeeScript Code</header><code><span class="hljs-keyword">try</span></code>
-<code>  list = fs.findSync <span class="hljs-string">'/tmp/some/directory'</span>, {include: <span class="hljs-string">'*.jpg'</span>}</code>
+<code>  list = fs.findSync <span class="hljs-string">'/tmp/some/directory'</span>,</code>
+<code>    filter:</code>
+<code>      include: <span class="hljs-string">'*.jpg'</span></code>
 <code><span class="hljs-keyword">catch</span> error</code>
 <code>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.error error.message</code>
 <code><span class="hljs-built_in">console</span>.log <span class="hljs-string">"Found "</span> + list.length + <span class="hljs-string">" images."</span></code>
