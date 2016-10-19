@@ -3,13 +3,15 @@ Filesystem (fs): Readme
 
 [![GitHub watchers](
   https://img.shields.io/github/watchers/alinex/node-fs.svg?style=social&label=Watch&maxAge=2592000)](
-  https://github.com/alinex/node-fs/subscription)<!-- {.hidden-small} -->
+  https://github.com/alinex/node-fs/subscription)
+<!-- {.hidden-small} -->
 [![GitHub stars](
   https://img.shields.io/github/stars/alinex/node-fs.svg?style=social&label=Star&maxAge=2592000)](
   https://github.com/alinex/node-fs)
 [![GitHub forks](
   https://img.shields.io/github/forks/alinex/node-fs.svg?style=social&label=Fork&maxAge=2592000)](
-  https://github.com/alinex/node-fs)<!-- {.hidden-small} -->
+  https://github.com/alinex/node-fs)
+<!-- {.hidden-small} -->
 <!-- {p:.right} -->
 
 [![npm package](
@@ -17,7 +19,8 @@ Filesystem (fs): Readme
   https://www.npmjs.com/package/alinex-fs)
 [![latest version](
   https://img.shields.io/npm/l/alinex-fs.svg?maxAge=2592000)](
-  #license)<!-- {.hidden-small} -->
+  #license)
+<!-- {.hidden-small} -->
 [![Travis status](
   https://img.shields.io/travis/alinex/node-fs.svg?maxAge=2592000&label=develop)](
   https://travis-ci.org/alinex/node-fs)
@@ -29,7 +32,8 @@ Filesystem (fs): Readme
   https://gemnasium.com/alinex/node-fs)
 [![GitHub issues](
   https://img.shields.io/github/issues/alinex/node-fs.svg?maxAge=2592000)](
-  https://github.com/alinex/node-fs/issues)<!-- {.hidden-small} -->
+  https://github.com/alinex/node-fs/issues)
+<!-- {.hidden-small} -->
 
 
 Like some other packages this module adds functions to the node.js fs package.
